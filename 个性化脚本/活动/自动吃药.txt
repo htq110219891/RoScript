@@ -16,65 +16,95 @@
 	本脚本为 EAthena 服务端用工具脚本，适合自立服使用。
 	玩家可设置低于一定HP/SP自动吃药。可设置吃药种类。
 	药数量为0时，停止吃药。让玩家更专注于使用技能。
+	附带GM后台，可设置允许玩家吃哪些药。随时查看、添加、删除、修改。
 【更新日志】
     2016-04-13    1.0.0    创建脚本
 【错误回报】论坛反馈
-【相关变量】AutoUseItem_reHpItem、AutoUseItem_reSpItem、AutoUseItem_reHpVal、AutoUseItem_reSpVal
+【相关人物变量】AutoUseItem_reHpItem、AutoUseItem_reSpItem、AutoUseItem_reHpVal、AutoUseItem_reSpVal
 \************************************************************/
 prontera,0,0,0	script	CheckHPSP	-1,{
-OnCheckUp:
-	if(@AutoUseItemOn==1){
-		if(readparam(5)*100/readparam(6)<50){
-			if (countitem(501)>0){
-				delitem 501,1;
-				consumeitem(501);
-				
-				specialeffect2 204;
-				addtimer 100,"CheckHPSP::OnCheckUp";
-				end;
-			}else{
-				dispbottom "红色药水数量不足。停止吃药";
-				set @AutoUseItemOn,0;
-				end;
+	OnCheckUp:
+		if(@AutoUseItemOn==1){
+			if(readparam(5)*100/readparam(6)<AutoUseItem_reHpVal){
+				if (countitem(AutoUseItem_reHpItem)>0){
+					if(readparam(5)>0){
+						delitem AutoUseItem_reHpItem,1;
+						consumeitem(AutoUseItem_reHpItem);
+						specialeffect2 204;
+						addtimer 100,"CheckHPSP::OnCheckUp";
+						end;
+					}else{
+						if(AutoUseItem_DieUse==0){
+							set @AutoUseItemOn,0;
+							dispbottom "死亡后停止自动吃药。";
+						}
+					}
+				}else{
+					dispbottom "["+getitemname(AutoUseItem_reHpItem)+"]数量不足。停止吃药";
+					set @AutoUseItemOn,0;
+					end;
+				}
 			}
+			if(readparam(7)*100/readparam(8)<AutoUseItem_reSpVal){
+				if (countitem(AutoUseItem_reSpItem)>0){
+						delitem AutoUseItem_reSpItem,1;
+						consumeitem(AutoUseItem_reSpItem);
+						specialeffect2 208;
+						addtimer 100,"CheckHPSP::OnCheckUp";
+						end;
+				}else{
+					dispbottom "["+getitemname(AutoUseItem_reSpItem)+"]数量不足。停止吃药";
+					set @AutoUseItemOn,0;
+					end;
+				}
+			}
+			addtimer 100,"CheckHPSP::OnCheckUp";
 		}
-		addtimer 100,"CheckHPSP::OnCheckUp";
-	}
 	end;
-OnInit:
-	if($AutoUseItem_HpList[0]==0){
-		//初始化
-		setarray $AutoUseItem_HpList[0],501;
-		setarray $AutoUseItem_SpList[0],501;
-	}
-	end;
+
 }
 
 function	script	AutoUseItem	{
+	if($AutoUseItem_HpList[0]==null){
+		set AutoUseItem_DieUse,0;
+		set AutoUseItem_reHpVal,50;
+		set AutoUseItem_reSpVal,50;
+		set AutoUseItem_reHpItem,501;
+		set AutoUseItem_reSpItem,505;
+		setarray $AutoUseItem_HpList[0],501;
+		setarray $AutoUseItem_SpList[0],505;
+	}
 	mes "[补血助手]";
 	mes "---------------------";
-	mes "HP低于"+getitemname(AutoUseItem_reHpVal)+"%使用";
-	mes "SP低于"+getitemname(AutoUseItem_reSpVal)+"%使用";
+	mes "HP低于"+AutoUseItem_reHpVal+"%使用";
+	mes "SP低于"+AutoUseItem_reSpVal+"%使用";
 	mes "HP药品："+getitemname(AutoUseItem_reHpItem);
 	mes "SP药品："+getitemname(AutoUseItem_reSpItem);
 	mes "---------------------";
+	next;
 	switch(select(@AutoUseItemOn==0?"开启":"关闭","设置",getgmlevel()>90?"后台设置":"")) {
 	case 1:
 		if(@AutoUseItemOn==0){
 			set @AutoUseItemOn,1;
 			doevent "CheckHPSP::OnCheckUp";
 			dispbottom "开启成功";
+			close;
 		}else{
 			set @AutoUseItemOn,0;
 			dispbottom "关闭成功";
+			close;
 		}
 	break;
 	case 2:
 		mes "请选择设置内容";
-		switch(select("HP百分比","SP百分比","HP药品","SP药品")) {
+		switch(select("HP百分比","SP百分比","HP药品","SP药品","死亡后是否停止自动吃药")) {
 			case 1:
 				mes "请输入HP百分比";
 				input @num;
+				if (@num>100||@num<0) { 
+					mes "输入的数值不在允许范围内。";
+					close; 
+				}
 				set AutoUseItem_reHpVal,@num;
 				mes "设置成功";
 				close;
@@ -82,38 +112,220 @@ function	script	AutoUseItem	{
 			case 2:
 				mes "请输入SP百分比";
 				input @num;
+				if (@num>100||@num<0) { 
+					mes "输入的数值不在允许范围内。";
+					close; 
+				}
 				set AutoUseItem_reSpVal,@num;
 				mes "设置成功";
 				close;
 			break;
 			case 3:
 				set @x$,"";
-				for (@i=0;@i<getarraysize($AutoUseItem_HpList)/;@i++){	 
-					set @x$,@x$+getitemname($npc_quest_info$[@i])+":";
+				for (@i=0;@i<getarraysize($AutoUseItem_HpList);@i++){	 
+					set @x$,@x$+getitemname($AutoUseItem_HpList[@i])+":";
 				}
 				mes "请选择HP药品";
 				set @op,select(@x$);
 				switch(@op) {
 					default:
-						set AutoUseItem_reHpItem,$AutoUseItem_HpList[@op];
+						set AutoUseItem_reHpItem,$AutoUseItem_HpList[@op-1];
+						mes "设置成功";
+						close;
 					break;
 				}
 			break;
 			case 4:
+				set @x$,"";
+				for (@i=0;@i<getarraysize($AutoUseItem_SpList);@i++){	 
+					set @x$,@x$+getitemname($AutoUseItem_SpList[@i])+":";
+				}
+				mes "请选择SP药品";
+				set @op,select(@x$);
+				switch(@op) {
+					default:
+						set AutoUseItem_reSpItem,$AutoUseItem_SpList[@op-1];
+						mes "设置成功";
+						close;
+					break;
+				}
+			break;
+			case 5:
+				if(AutoUseItem_DieUse==0){
+					mes "当前选择：死亡复活后停止自动吃药";
+				}else{
+					mes "当前选择：死亡复活后不停止自动吃药";
+				}
+				mes "请选择";
+				switch(select("停止","不停止")) {
+					case 1:
+						set AutoUseItem_DieUse,0;
+						mes "设置成功";
+					break;
+					case 2:
+						set AutoUseItem_DieUse,1;
+						mes "设置成功";
+					break;
+				}
 				
 			break;
 		}
 	break;
 	case 3:
 		mes "请选择设置内容";
-		switch(select("HP药物","SP药物")) {
+		switch(select("HP药物","SP药物","HPSP药物清空")) {
 			case 1:
 				for(set @i,0;@i<getarraysize($AutoUseItem_HpList);@i++){
-					mes "["+getitemname($npc_quest_info$[@i]+"]";
+					mes (@i+1)+":["+getitemname($AutoUseItem_HpList[@i])+"]";
 				}
 				switch(select("添加","修改","删除")) {
-					
+					case 1:
+						mes "请输入要添加的HP药物ID";
+						input @num;
+						if (getitemname(@num)=="null") { 
+							mes "您输入的物品ID错误。"; 
+							close; 
+						}
+						mes "添加HP药物["+getitemname(@num)+"]";
+						mes "是否确定？";
+						switch(select("确定","取消")) {
+							case 1:
+								setarray $AutoUseItem_HpList[getarraysize($AutoUseItem_HpList)],@num;
+								mes "添加成功";
+								close;
+							break;
+							case 2:
+							close;
+							break;
+						}
+					break;
+					case 2:
+						mes "请输入要修改的HP药物序号";
+						input @num;
+						if(@num>getarraysize($AutoUseItem_HpList)||@num<1){
+							mes "输入的HP药物序号错误。";
+							close; 
+						}
+						mes "请输入修改后的ID";
+						input @num2;
+						if (getitemname(@num)=="null") { 
+							mes "您输入的物品ID错误。"; 
+							close; 
+						}
+						mes "["+getitemname($AutoUseItem_HpList[@num-1])+"]改为["+getitemname(@num2)+"]";
+						mes "是否确定？";
+						switch(select("确定","取消")) {
+							case 1:
+								setarray $AutoUseItem_HpList[@num-1],@num2;
+								mes "修改成功";
+								close;
+							break;
+							case 2:
+							close;
+							break;
+						}
+					break;
+					case 3:
+						mes "请输入要删除的HP药物序号";
+						input @num;
+						if(@num>getarraysize($AutoUseItem_HpList)||@num<1){
+							mes "输入的HP药物序号错误。";
+							close; 
+						}
+						mes "删除["+getitemname($AutoUseItem_HpList[@num-1])+"]";
+						mes "是否确定？";
+						switch(select("确定","取消")) {
+							case 1:
+								deletearray $AutoUseItem_HpList[(@num-1)],1;
+								mes "修改成功";
+								close;
+							break;
+							case 2:
+							close;
+							break;
+						}
+						
+					break;
 				}
+			break;
+			case 2:
+				for(set @i,0;@i<getarraysize($AutoUseItem_SpList);@i++){
+					mes (@i+1)+":["+getitemname($AutoUseItem_SpList[@i])+"]";
+				}
+				switch(select("添加","修改","删除")) {
+					case 1:
+						mes "请输入要添加的SP药物ID";
+						input @num;
+						if (getitemname(@num)=="null") { 
+							mes "您输入的物品ID错误。"; 
+							close; 
+						}
+						mes "添加SP药物["+getitemname(@num)+"]";
+						mes "是否确定？";
+						switch(select("确定","取消")) {
+							case 1:
+								setarray $AutoUseItem_SpList[getarraysize($AutoUseItem_SpList)],@num;
+								mes "添加成功";
+								close;
+							break;
+							case 2:
+							close;
+							break;
+						}
+					break;
+					case 2:
+						mes "请输入要修改的SP药物序号";
+						input @num;
+						if(@num>getarraysize($AutoUseItem_SpList)||@num<1){
+							mes "输入的SP药物序号错误。";
+							close; 
+						}
+						mes "请输入修改后的ID";
+						input @num2;
+						if (getitemname(@num)=="null") { 
+							mes "您输入的物品ID错误。"; 
+							close; 
+						}
+						mes "["+getitemname($AutoUseItem_SpList[@num-1])+"]改为["+getitemname(@num2)+"]";
+						mes "是否确定？";
+						switch(select("确定","取消")) {
+							case 1:
+								setarray $AutoUseItem_SpList[@num-1],@num2;
+								mes "修改成功";
+								close;
+							break;
+							case 2:
+							close;
+							break;
+						}
+					break;
+					case 3:
+						mes "请输入要删除的SP药物序号";
+						input @num;
+						if(@num>getarraysize($AutoUseItem_SpList)||@num<1){
+							mes "输入的HP药物序号错误。";
+							close; 
+						}
+						mes "删除["+getitemname($AutoUseItem_SpList[@num-1])+"]";
+						mes "是否确定？";
+						switch(select("确定","取消")) {
+							case 1:
+								deletearray $AutoUseItem_SpList[(@num-1)],1;
+								mes "修改成功";
+								close;
+							break;
+							case 2:
+							close;
+							break;
+						}
+						
+					break;
+				}
+			break;
+			case 3:
+				setarray $AutoUseItem_HpList[0],501;
+				setarray $AutoUseItem_SpList[0],505;
+				close;
 			break;
 			
 		}
