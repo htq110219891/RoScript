@@ -1,0 +1,241 @@
+/************************************************************\
+					EAthena Script
+**************************************************************
+【名    称】符文系统
+【类    型】附加属性
+【版    本】1.0
+【版权所有】泠然
+【服 务 端】99MAXEA v8.10.0
+【制作人员】
+    策划：泠然
+    编程：泠然
+    文饰：泠然
+    制作：泠然
+    测试：泠然
+【简要说明】
+    本脚本为 EAthena 服务端用符文系统。构思来源于OK论坛
+【更新日志】
+    2015-08-12    1.0.0    创建脚本
+【错误回报】
+\************************************************************/
+-	script	FWBonus	-1,{
+OnPCStatCalcEvent:
+	for(set @i,1;@i<6;@i++){
+		switch(getd("player_runes"+@i)){
+	//通用
+		case 50101:
+			bonus2 bHPDrainRate,100,10;				//吸血符文：10%几率吸收10%伤害到HP
+		break;
+		case 50102:
+			bonus2 bAddSkillBlow,5,1;				//击退符文：使用狂击击退1格
+		break;
+		case 50109:
+			if(getskilllv(1)){bonus2 bExpAddClass,Class_All,10;bonus2 bAddGetZenyNum,100,100;}	//基本技能符文：增加10%经验获得和1-100Z
+		break;
+	//剑士
+		case 50100:
+			bonus2 bSkillAtk,5,25;  				//狂击符文：增加狂击伤害25%
+		break;
+		case 50103: 
+			bonus2 bSkillHeal2,28,5*getskilllv(4);	//快速回复符文：增加技能等级*5% 的治愈术效果
+		break;
+		case 50104: 
+			bonus bAtk,5*getskilllv(2)/10;			//单手剑熟练度符文：增加 0.5*技能等级 的ATK
+		break;
+		case 50105: 
+			bonus bAtk,5*getskilllv(3)/10;			//双手剑熟练度符文：增加 0.5*技能等级 的ATK
+		break;
+		case 50106:
+			//autobonus3 "{bonus bStr,100;}", 10000, 10000, 7, "{ specialeffect2 225 ; }" ;
+			//autobonus3 "{bonus bStr,100;}", 10000, 100000, "SM_MAGNUM", "{ specialeffect2 519 ; }" ; 
+			//autobonus "{ bonus bAllStats,10; }",10000,10000,BF_WEAPON|BF_MISC,"{ specialeffect2 EF_FIRESPLASHHIT; }";
+			//autobonus3 "{ bonus bInt,100; }",1000,3000,"AL_HEAL","{ bonus bInt,100;specialeffect2 EF_HEAL3; }";
+			//dispbottom "怒爆";
+			bonus4 bAutoSpellOnSkill,7,29,10,1000; 		//怒爆符文：使用后触发加速术
+		break;
+		case 50107:
+			if(getskilllv(6)){bonus bDef,-1*getskilllv(6);	bonus bMdef,-1*getskilllv(6);bonus bAtk,15*getskilllv(6)/10;} 		//挑衅符文：DEF-技能等级,MDEF-技能等级,ATK+1.5*技能等级
+		break;
+		case 50108:
+			if(getskilllv(8)){bonus bVit,2;bonus bFlee2,1*getskilllv(8);}						//霸体符文：Vit+2，完全回避+技能等级
+		break;
+	//法师
+		case 50110:
+			if(getskilllv(9)){bonus bSPGainValue,8*getskilllv(9);}		//禅心符文：杀死魔物回复技能等级*8SP
+		break;
+		case 50111:
+			if(getskilllv(10)){bonus bIntravision,n;}	//火守符文：看到隐身单位
+		break;
+		case 50112:
+			//心灵爆破符文
+		break;
+		case 50113:
+			//暗之障壁符文
+		break;
+		case 50114:
+			//圣灵召唤符文
+		break;
+		case 50115:
+			//冰箭术符文
+		break;
+		case 50116:
+			//冰冻术符文
+		break;
+		case 50117:
+			//石化术符文
+		break;
+		case 50118:
+			//火球术符文
+		break;
+		case 50119:
+			//火之障壁符文
+		break;
+		case 50120:
+			//火箭术符文
+		break;
+		case 50121:
+			//雷击术符文
+		break;
+		case 50122:
+			//雷暴术符文
+		break;
+		default:
+		break;
+		}
+	}
+	end;
+}
+
+function	script	runes_system	{
+	//set player_runes1,0;set player_runes2,0;set player_runes3,0;set player_runes4,0;set player_runes5,0;
+	
+	mes "[符文系统]";
+	mes "尊敬的[^FF0000"+strcharinfo(0)+"^000000] 阁下";
+	mes "请问您想进行哪项操作？";
+	next;
+	switch(select("查看符文","卸除符文","开启符文孔","说明")) {
+		case 1:
+			mes "[符文信息]";
+			for (set @i,1;@i<6;@i++){
+				if(player_runes_place>=@i-1){
+					mes getd("player_runes"+@i)!=0?"符文孔"+@i+"：^0000FF"+getitemname(getd("player_runes"+@i))+"^000000":"符文孔"+@i+"：^9932CC未镶嵌^000000";
+				}else{
+					mes "符文孔"+@i+"：^FF0000未开启^000000";
+				}
+			}
+			close;
+		break;
+		case 2:
+			mes "[卸除符文]";
+			mes "^FF0000注意：卸除符文有一定几率失败^000000";
+			mes "失败后符文消失";
+			set @menu$,"";
+			for(set @i,1;@i<6;@i++){
+				set @menu$,@menu$+":";
+				if(player_runes_place>=@i-1){
+					if(getd("player_runes"+@i)!=0){
+						set @menu$,@menu$+"符文孔"+@i+"：^0000FF"+getitemname(getd("player_runes"+@i))+"^000000";
+					}
+				}
+			}
+			set @op,select(@menu$);
+			switch(@op) {
+				default:
+					set @rand,rand(100);
+					if (@rand<20){
+						set getd("player_runes"+(@op-1)),0;
+						getitem 50097,rand(1,4);
+						mes "卸除失败";
+						close;
+					}else{
+						mes "卸除成功";
+						getitem getd("player_runes"+(@op-1)),1;
+						set getd("player_runes"+(@op-1)),0;
+						close;
+					}
+				break;
+			}
+		break;
+		case 3:
+			mes "[开启符文孔]";
+			mes "开启需要消耗符文孔开启石";
+			mes "您目前已经开启"+(player_runes_place+1)+"个符文孔";
+			if(player_runes_place>3){
+				mes "符文孔已经全部开启";
+				close;
+			}else{
+				mes "开启下一个需要消耗2个符文孔开启石";
+				next;
+				switch(select("确定")){
+					case 1:
+						if(countitem(50098)<2){
+							mes "符文孔开启石数量不足";
+							close;
+						}
+						mes "开启成功";
+						delitem 50098,2;
+						set player_runes_place,player_runes_place+1;
+						close;
+					break;
+				}
+			}
+		break;
+		case 4:
+			mes "[符文说明]";
+			mes "1.卸除符文有一定几率失败，失败后符文消失";
+			mes "2.初始开启一个符文孔，使用符文孔开启石可开启更多符文孔";
+			mes "3.符文获得方式：副本活动，游戏活动，抢答活动";
+			mes "4.技能符文只有学会对应技能才会生效";
+			close;
+		break;
+	}
+}
+
+function	script	runes_add	{
+	mes "[符文系统]";
+	mes "尊敬的[^FF0000"+strcharinfo(0)+"^000000] 阁下";
+	mes "请问您想进行哪项操作？";
+	next;
+	switch(select("镶嵌符文")) {
+		case 1:
+			set @op,select(player_runes1!=0?"符文孔1："+getitemname(player_runes1):"符文孔1：",
+			player_runes2!=0?"符文孔2："+getitemname(player_runes2):"符文孔2：",
+			player_runes3!=0?"符文孔3："+getitemname(player_runes3):"符文孔3：",
+			player_runes4!=0?"符文孔4："+getitemname(player_runes4):"符文孔4：",
+			player_runes5!=0?"符文孔5："+getitemname(player_runes5):"符文孔5：");
+			switch(@op) {
+				default:
+					if(getd("player_runes"+@op)==0){
+						if (countitem(getarg(0))<1){
+							dispbottom "缺少符文物品，镶嵌失败";
+							close;
+						}
+						dispbottom "镶嵌成功";
+						specialeffect2 408;
+						set getd("player_runes"+@op),getarg(0);
+						delitem getarg(0),1;
+						close;
+					}else{
+						mes "[镶嵌符文]";
+						mes "符文孔"+@op+"中已经有符文 ^0000FF"+getitemname(getd("player_runes"+@op))+"^000000，请先卸除符文";
+						close;
+						/*switch(select("替换")) {
+							if (countitem(getarg(0))<1){
+								dispbottom "缺少符文物品，镶嵌失败";
+								close;
+							}
+							specialeffect2 408;
+							dispbottom "镶嵌成功";
+							getitem getd("player_runes"+@op),1;
+							set getd("player_runes"+@op),getarg(0);
+							delitem getarg(0),1;
+							close;
+						}*/
+					}
+				break;
+			}
+		break;
+	}
+}
+
+

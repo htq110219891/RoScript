@@ -1,0 +1,4 @@
+prontera,143,102,0	warp	new_bee1	2,2,1@new_1-2,99,74
+1@new_1-2,99,69,0	warp	new_bee2	2,2,prontera,147,102
+1@new_1-2,73,106,0	warp	new_bee3	2,2,1@new_1-3,96,25
+1@new_1-3,96,20,0	warp	new_bee4	2,2,1@new_1-2,77,106

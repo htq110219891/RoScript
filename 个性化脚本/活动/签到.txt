@@ -1,0 +1,131 @@
+/************************************************************\
+					EAthena Script
+**************************************************************
+【名    称】抢答活动
+【类    型】趣味问答
+【版    本】1.0
+【版权所有】泠然
+【服 务 端】99MAXEA v8.10.0
+【制作人员】
+    策划：泠然
+    编程：泠然
+    文饰：泠然
+    制作：泠然
+    测试：泠然
+【简要说明】
+    本脚本为 EAthena 服务端用娱乐脚本。
+	50级以上每日可签到1次。签到随机奖励物品。GM后台可在线编辑奖励的随机物品范围，不能超过64种。
+【更新日志】
+    2015-08-01    1.0.0    创建脚本
+【错误回报】
+\************************************************************/
+prontera,138,125,5	script	每日奖励	862,{
+	mes "[每日奖励]";
+	mes "你好,我有什么可以帮助你的吗?";
+	next;
+	switch (select("我要签到",getgmlevel()>90?"后台设置":"")) {
+		case 1:
+			mes "[每日奖励]";
+			if(BaseLevel<50){
+				mes "对不起,50级以上才可以进行签到!";
+				close;
+			}
+			if(qiandao == gettime(5)){
+				mes "对不起,你今天已经签到过了哦!";
+				close;
+			}
+			set @get_id,rand(getarraysize($npc_qdjiangli)/2);
+			mes "领取成功";
+			set qiandao,gettime(5);
+			getitem $npc_qdjiangli[@get_id*2],$npc_qdjiangli[@get_id*2+1];
+			mes "恭喜你,签到成功!";
+			close;
+		break;
+		case 2:
+			mes "[后台设置]";
+			mes "请选择修改内容";
+			switch (select("添加道具","删除道具","查看清单")) {
+				case 1:
+					mes "请输入要添加的道具ID";
+					input @num;
+					if (getitemname(@num)=="null") { 
+						mes "您输入的物品ID错误。"; 
+						close; 
+					}
+					next;
+					mes "添加物品["+getitemname(@num)+"]";
+					mes "请输入物品数量";
+					input @num2;
+					if (@num2>1000||@num2<1) { 
+						mes "[GM后台]";
+						mes "输入的数值不在允许范围内。";
+						close; 
+						}
+					next;
+					mes "添加道具["+getitemname(@num)+"]"+@num2+"个";
+					mes "是否确定？";
+					switch(select("确定")) {
+						case 1:
+							setarray $npc_qdjiangli[getarraysize($npc_qdjiangli)],@num;
+							setarray $npc_qdjiangli[getarraysize($npc_qdjiangli)],@num2;
+							mes "添加成功";
+							close;
+						break;
+					}
+				break;
+				case 2:
+					switch (select("通过ID删除","通过选项删除")) {
+						case 1:
+							mes "请输入要删除的道具ID";
+							input @num;
+							for(set @i,0;@i<getarraysize($npc_qdjiangli);set @i,@i+2){
+								if(@num==$npc_qdjiangli[@i]){
+									mes "删除道具"+getitemname($npc_qdjiangli[@i]);
+									mes "是否确认";
+									switch(select("确定")) {
+										case 1:
+											deletearray $npc_qdjiangli[@i],2;
+											close;
+										break;
+									}
+								end;
+								}
+							}
+							mes "输入ID错误";
+							close;
+						break;
+						case 2:
+							set @x$,"";
+							for(set @i,0;@i<getarraysize($npc_qdjiangli);set @i,@i+2){
+								set @x$,@x$+getitemname($npc_qdjiangli[@i])+":";
+							}
+							set @op,select(@x$);
+							switch(@op) {
+								default:
+									deletearray $npc_qdjiangli[(@op-1)*2],2;
+									mes "删除成功";
+									close;
+								break;
+							}
+						break;
+					}
+				break;
+				case 3:
+					mes "道具列表";
+					for (set @i,0;@i<getarraysize($npc_qdjiangli);set @i,@i+2){
+						mes getitemname($npc_qdjiangli[@i])+" "+$npc_qdjiangli[@i+1]+"个";
+					}
+					close;
+				break;
+			}
+			close;
+		break;
+		
+	}
+OnInit:
+	if($npc_register_init==0){
+		set $npc_register_init,1;
+		setarray $npc_qdjiangli[0],12263,1,14532,1,14533,1,12264,1,12214,3,12202,5,12203,5,12204,5,12205,5,12206,5,12207,5,12233,10;
+		end;
+	}
+}

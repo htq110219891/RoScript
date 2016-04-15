@@ -1,0 +1,184 @@
+/************************************************************\
+					EAthena Script
+**************************************************************
+【名    称】探索活动
+【类    型】活动
+【版    本】1.0
+【版权所有】泠然
+【服 务 端】99MAXEA v8.10.0
+【制作人员】
+    策划：泠然
+    编程：泠然
+    文饰：泠然
+    制作：泠然
+    测试：泠然
+【简要说明】
+    本脚本为 EAthena 服务端用娱乐脚本。
+	在一个单独的封闭式地图中，可探索到副本、经验、金钱、装备、道具、怪物、商人等。
+	探索次数：每天可探索一次类似道场，可组队可单人。 可通过道具恢复次数。
+	探索等级：每次探索可获得探索经验，探索等级越高，获得的东西越好。
+	探索奖励：怪物掉落的装备道具、金钱、副本的机会、特殊商人出售的特殊道具。 例如打折P点商店。
+	探索方式，和NPC对话，开始探索，然后地图公告探索进度，探索内容等。
+	奖励道具：商城道具、商城点数、补偿点数、变身卡等
+【更新日志】
+    2015-08-14    1.0.0    创建脚本
+【错误回报】
+\************************************************************/
+prontera,129,125,4	script	探索	435,{
+	
+	mes "[探索活动]";
+	switch(select("创建副本","进入副本","销毁副本")) {
+		case 1:
+			set @temporary_id,instance_create("ts");
+			if (@instance_id==-2){
+				mes "没有队伍";
+				close;
+			}
+			if (@instance_id==-3){
+				mes "已经存在";
+				close;
+			}
+			if (@instance_id==-4){
+				mes "副本数量超过上限";
+				close;
+			}
+			mes "创建成功";
+			close;
+		break;
+		case 2:
+			instance_enter("ts");
+			set npc_ts_buy_time,0;
+			close;
+		break;
+		case 3:
+			instance_destroy;
+			close;
+		break;
+	}
+	
+	
+	
+}
+
+1@g_vs2,50,49,4	script	探索活动	435,{
+	mes "[探索活动]";
+	mes "你好，请问有什么可以帮您？";
+	switch(select("开始探索",getgmlevel()>90?"重置次数":"")) {
+		case 1:
+			close2;
+			announce "开始探索......",bc_blue|bc_map;
+			sleep2 1000;
+			goto Onstartdis;
+		break;
+		case 2:
+			set npc_ts_buy_time,0;
+		break;
+	}
+	end;
+	//探索事件
+	Onstartdis:
+		set .rand,rand(1,4);
+			switch(.rand){
+				case 1:
+					announce "遇到一群野狼...",bc_blue|bc_map;
+					monster	instance_mapname("1@g_vs2"),49,56,"--ja--",1002,10,"vs1_mob::OnEVENT1";
+				break;
+				case 2:
+					announce "遇到一群野猪...",bc_blue|bc_map;
+					monster	instance_mapname("1@g_vs2"),49,56,"--ja--",1004,10,"vs1_mob::OnEVENT1";
+				break;
+				case 3:
+					announce "遇到一个神秘商人...1分钟后消失",bc_blue|bc_map;
+					doevent instance_npcname("神秘商人#1")+"::OnEnable";
+					doevent instance_npcname("神秘商人#1")+"::OnShop1";
+				break;
+				case 4:
+					announce "遇到一个神秘商人...1分钟后消失",bc_blue|bc_map;
+					doevent instance_npcname("神秘商人#1")+"::OnEnable";
+					doevent instance_npcname("神秘商人#1")+"::OnShop2";
+				break;
+			}
+		end;
+	
+}
+
+1@g_vs2,50,47,0	script	vs1_mob	-1,{
+	//结束监控
+	
+	OnEVENT1:
+		if (mobcount(instance_mapname("1@g_vs2"),"vs1_mob::OnEVENT1")>0){
+			end;
+		}
+		announce "继续探索......",bc_blue|bc_map;
+		sleep2 1000;
+		doevent instance_npcname("探索活动")+"::Onstartdis";
+		end;
+	OnInstanceInit:
+		//set .npc_id,$temporary_id;
+		//set .npc_name$,instance_npcname("神秘商人#1",.npc_id);
+		//set .map_name$,instance_mapname("1@g_vs2",.npc_id);
+		end;
+}
+1@g_vs2,37,56,4	shop	神秘商店#1	139,512:-1
+
+1@g_vs2,53,49,4	script	神秘商人#1	435,{
+	dispbottom "注意：每个玩家只能购买一次道具，数量不能超过"+getd("$@buy_count_max"+instance_id())+"个",0x00FA9A;
+	npcshopitem instance_npcname("神秘商店#1"),0,0;
+	for(set @i,0;@i<getarraysize(getd("$@sm_shop_sell_id"+instance_id()));set @i,@i+2){
+		npcshopadditem instance_npcname("神秘商店#1"),getd("$@sm_shop_sell_id"+instance_id()+"["+@i+"]"),getd("$@sm_shop_sell_id"+instance_id()+"["+(@i+1)+"]");
+	}
+	callshop instance_npcname("神秘商店#1"),1;
+	npcshopattach instance_npcname("神秘商店#1");
+	end;
+	
+OnBuyItem:
+	if(npc_ts_buy_time>getd("$@npc_ts_buy_time"+instance_id())){
+		mes "[神秘商人]";
+		mes "对不起，您已经在我这里购买过商品";
+		end;
+	}
+	for (set @i,0;@i<getarraysize(getd("$@sm_shop_sell_id"+instance_id()));set @i,@i+2){
+		if(@bought_nameid==getd("$@sm_shop_sell_id"+instance_id()+"["+@i+"]")){
+			if (@bought_quantity>getd("$@buy_count_max"+instance_id())){
+				set @bought_quantity,getd("$@buy_count_max"+instance_id());
+				dispbottom "您购买的数量大于"+getd("$@buy_count_max"+instance_id())+"个，按照"+getd("$@buy_count_max"+instance_id())+"个计算",0x00FA9A;
+			}
+			if(zeny<@bought_quantity*getd("$@sm_shop_sell_id"+instance_id()+"["+(@i+1)+"]")){
+				dispbottom "对不起，您的zeny不足",0xFF0000;
+				end;
+			}else{
+				set zeny,zeny-@bought_quantity*getd("$@sm_shop_sell_id"+instance_id()+"["+(@i+1)+"]");
+				getitem @bought_nameid,@bought_quantity;
+				set npc_ts_buy_time,getd("$@npc_ts_buy_time"+instance_id());
+				end;
+			}
+		}
+	}
+OnShop1:
+	set getd("$@npc_ts_buy_time"+instance_id()),getd("$@npc_ts_buy_time"+instance_id())+1;
+	setarray getd("$@sm_shop_sell_id"+instance_id()+"[0]"),12263,10,12264,10;
+	set getd("$@buy_count_max"+instance_id()),5;
+	sleep2 10000;
+	hideonnpc instance_npcname(strnpcinfo(0));
+	doevent instance_npcname("vs1_mob")+"::OnEVENT1";
+	end;
+	
+OnShop2:
+	set getd("$@npc_ts_buy_time"+instance_id()),getd("$@npc_ts_buy_time"+instance_id())+1;
+	setarray getd("$@sm_shop_sell_id"+instance_id()+"[0]"),513,10,514,10;
+	set getd("$@buy_count_max"+instance_id()),5;
+	sleep2 10000;
+	hideonnpc instance_npcname(strnpcinfo(0));
+	doevent instance_npcname("vs1_mob")+"::OnEVENT1";
+	end;
+
+
+OnInstanceInit:
+	//初始化
+	hideonnpc instance_npcname(strnpcinfo(0));
+	end;
+	
+OnEnable:
+	hideoffnpc instance_npcname(strnpcinfo(0));
+	end;
+}

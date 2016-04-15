@@ -1,0 +1,30 @@
+prontera.gat,155,119,5	script	组队区	837,{
+end;
+OnInit:
+	waitingroom "组队区",0;
+}
+prontera.gat,143,105,5	script	转职大厅	111,{
+end;
+OnInit:
+	waitingroom "转职大厅",0;
+}
+1@new_1-2,88,106,5	script	新手训练场	111,{
+end;
+OnInit:
+	waitingroom "<--新手训练场",0;
+}
+prontera.gat,146,125,5	script	活动区	111,{
+end;
+OnInit:
+	waitingroom "<--活动区",0;
+}
+/*prontera.gat,164,125,5	script	制作区	111,{
+end;
+OnInit:
+	waitingroom "制作区-->",0;
+}*/
+prontera,164,125,5	script	摆摊牌	111,{
+end;
+OnInit:
+waitingroom "摆摊区-->",0;
+}

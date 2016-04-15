@@ -1,0 +1,460 @@
+//===================================
+// =尼德霍格的巢穴((Nydhorg's Nes)
+// =By BlackJack
+// =2010.1.20
+// =测试 SeAr_1.2.93
+// =BUG汇报联系QQ：263639348
+// =此脚本请勿擦去版权，请勿用于商业用途。
+// ==============日志=================
+// = 2010.1.20 
+// = 11:00 am 开始编写脚本 (BlackJack)
+// = 12:00 pm 副本设置
+// = 12:30 pm 完成副本怪物刷新
+// = 17:25 pm 完成NCP对话部分
+// = 20:00 pm 修改副本怪物刷新
+// = 22:00 pm 完成1F的内容
+// = 2010.1.21 
+// = 13:20 pm 开始编写2F内容 (BlackJack)
+// = 23:50 pm 完成整个脚本
+// ==============注明=================
+// = 状态效果截取5511的集体天赐脚本内容，并进行修改。
+// = 此脚本并没添加前置内容,只是写了副本部分。
+//===================================
+
+//============== 设置 ==================
+-	script	Memorial_Config	-1,{
+OnInit:
+	
+	set $@Mr_level,99;		//需要等级
+
+	set $@Mr_team_players,8; 	//队伍最大人数
+
+	set $@Mr_Time_All,14400;	//挑战时间
+
+	set $@Mr_Time_In,120;		//进场时间
+
+	set $@Mr_Time_Cooldown,43200;	//冷却时间
+
+	set $@Mr_Item,3135;		//冷却物品
+
+	set $@Mr_GM,50;			//GM最低等级
+
+	setarray $@Mr_Monster1[0],2015,2016,2020,2021,2019; //1F刷怪
+
+	setarray $@Mr_Monster2[0],2015,2023,2020,2021,2019; //2F刷怪
+
+	end;
+}
+
+//============== 登记 ==================
+nyd_dun02,100,201,0	script	神秘之门	111,{
+	if(Mr_Lasttime + $@Mr_Time_Cooldown > gettimetick(2) && Mr_Lasttime < gettimetick(2) && getgmlevel() < $@Mr_GM ){
+		set .@lastTime,ET_Lasttime + $ET_Cooldown - gettimetick(2);
+		set .@hoursTime,.@lastTime / 60 / 60;
+		set .@minutesTime,.@lastTime / 60 % 60;
+		set .@secondsTime,.@lastTime % 60;
+		mes "[利亚得]";
+		mes "根据进入规则，你现在无法进入守护圣地";
+		mes "你现在还有, "+.@hoursTime+"小时 "+.@minutesTime+"分钟 "+.@secondsTime+"秒才能进入";
+		close;
+	}
+
+		if(BaseLevel<$@Mr_level){
+		mes "[利亚得]";
+		mes "你的等级还没到"+$@Mr_level+".";
+		close;
+		}
+
+
+		if(!isequipped(2782)){
+		mes "[XYAN]";
+		mes "YANGANGUAN;AOEAAFCMAGA,QANGAINAGHAAG.";
+		close;
+		}
+
+		if(BaseLevel<$@Mr_level){
+		mes "[利亚得]";
+		mes "你的等级还没到"+$@Mr_level+".";
+		close;
+		}
+
+		getpartymember(getcharid(1)); 
+		if(!getcharid(1) || $@partymembercount < $@Mr_team_players){
+		mes "[利亚得]";
+		mes "请加入一个超过"+$@Mr_team_players+"人的队伍再来挑战吧.";
+		close;
+		}
+
+		mes "[利亚得]";
+		mes "你在一支不错的队伍里啊，请问你要做什么呢";
+		next;
+		if (getcharid(0) != getpartyleader(getcharid(1),2)) {
+			mes "[利亚得]";
+			mes "我不能为你做任何事情, 人类... 只有组队的队长才能登记.";
+			close;
+		}
+		mes "[利亚得]";
+		mes "忠诚的守护著的侍从们啊....找我有什么事?";
+		next;
+		switch (select("请批准进入:我要进去:我要离开")) {
+	case 1:
+		if(instance_id(1)){
+			if(has_instance("1@nyd") == ""){
+				mes "[利亚得]";
+				mes "你的队伍已经申请了另一个副本，请先完成，或者放弃?";
+				close;
+			}
+			mes "[利亚得]";
+			mes "你的队伍已经申请过了尼德霍格的巢穴挑战"; 
+			mes "请在主界面选择 ^0000FF进入尼德霍格的巢穴选项^000000 来开始你的挑战吧。"; 
+			close;
+		}
+		if(Mr_Lasttime + $@Mr_Time_Cooldown > gettimetick(2)&& getgmlevel() < $@Mr_GM) {
+			mes "[利亚得]";
+			mes "你的冷却时间尚未结束";
+			close;	
+		}
+		mes "[利亚得]";
+		mes "^0000FF尼德霍格的巢穴(^000000 - 正在准备中";
+		mes "当尼德霍格的巢穴(准备完成后，请选择进入守护圣地开始你的挑战吧";
+		close2;
+		set .@instance_Mr_id,instance_create("尼德霍格的巢穴",getcharid(1)); 
+		if(.@instance_Mr_id < 0){
+			mes "[利亚得]";
+			mes "创建副本失败"; 
+			mes "副本系统已经达到系统上限"; 
+			mes "请通知GM或者管理员"; 
+			close;
+		}
+		instance_attachmap("1@nyd",.@instance_Mr_id);
+		instance_attachmap("2@nyd",.@instance_Mr_id);
+		instance_set_timeout $@Mr_Time_All,$@Mr_Time_In,.@instance_Mr_id;
+		instance_init .@instance_Mr_id;
+		instance_attach .@instance_Mr_id;
+		set 'Mr_Lasttime,gettimetick(2) + $@Mr_Time_All;
+		end;
+	case 2:
+		if(!instance_id(1) || has_instance("1@nyd") == ""){ 
+			mes "[利亚得]";
+			mes "尼德霍格的巢穴副本不存在.";
+			mes "请确定你的队伍已经申请过尼德霍格的巢穴挑战，并且你们的挑战副本并没有因为长时间没有人参加而取消";
+			close;
+		}
+		instance_attach instance_id(1);
+		if(Mr_Lasttime + $@Mr_Time_Cooldown < gettimetick(2))
+			set Mr_Lasttime,'Mr_Lasttime;
+		mapannounce "nyd_dun02",getpartyname(getcharid(1))+"队伍的"+strcharinfo(0)+" 进入了守护之地。",bc_map | bc_blue;
+		warpparty has_instance("1@nyd"),33,44,getcharid(1);
+		doevent instance_npcname("Mr_monster",instance_id(1))+"::Onmonster10";
+		set 'over,0;
+		end; 
+	case 3:
+		close;
+		end;
+		}
+}
+//============== 登记/传送 ==================
+1@nyd,196,329,0	script	Mrwarp_1	45,1,1,{warp has_instance("2@nyd"),199,10;	end; }
+2@nyd,199,178,0	script	Mrwarp_2	111,3,3,{
+	mes "华丽的石槽地下，有未知的气息向身体流来.";
+	next;
+	switch (select("探个究竟.:还是等下.")) {
+	case 1:
+		doevent instance_npcname("Mr_Boss",instance_id(1))+"::OnBoss";
+		warpparty has_instance("2@nyd"),199,275,getcharid(1);
+		end;
+	case 2:
+		close;
+		end;
+	}
+}
+		
+//============== 刷怪 ==================
+1@nyd,0,0,0	script	Mr_monster	-1,{
+
+	
+
+Onmonster10:
+	disablenpc  instance_npcname("Mrwarp_1", instance_id());
+	disablenpc  instance_npcname("利亚得", instance_id());
+
+// 尼德霍格的巢穴1F
+		monster "1@nyd",0,0,"--ja--",2015,40,instance_npcname("Mr_monster")+"::OnKillMob";
+		monster "1@nyd",0,0,"--ja--",2016,15,instance_npcname("Mr_monster")+"::OnKillMob";
+		monster "1@nyd",0,0,"--ja--",2020,15,instance_npcname("Mr_monster")+"::OnKillMob";
+		monster "1@nyd",0,0,"--ja--",2021,15,instance_npcname("Mr_monster")+"::OnKillMob";
+		monster "1@nyd",0,0,"--ja--",2019,40,instance_npcname("Mr_monster")+"::OnKillMob";
+
+// 尼德霍格的巢穴2F
+		monster "2@nyd",0,0,"--ja--",2015,40,instance_npcname("Mr_monster")+"::OnKillMob2";
+		monster "2@nyd",0,0,"--ja--",2023,15,instance_npcname("Mr_monster")+"::OnKillMob2";
+		monster "2@nyd",0,0,"--ja--",2020,15,instance_npcname("Mr_monster")+"::OnKillMob2";
+		monster "2@nyd",0,0,"--ja--",2021,15,instance_npcname("Mr_monster")+"::OnKillMob2";
+		monster "2@nyd",0,0,"--ja--",2019,40,instance_npcname("Mr_monster")+"::OnKillMob2";
+
+			end;
+
+OnKillMob:
+		monster "1@nyd",0,0,"--ja--",$@Mr_Monster1[rand(getarraysize($@Mr_Monster1))],1,instance_npcname("Mr_monster")+"::OnKillMob";
+		end;
+OnKillMob2:
+		monster "2@nyd",0,0,"--ja--",$@Mr_Monster2[rand(getarraysize($@Mr_Monster2))],1,instance_npcname("Mr_monster")+"::OnKillMob2";
+		end;
+}
+1@nyd,0,0,0	script	Mr_monster2	-1,{
+	
+Onmonster102:
+	set 'Mr_mob,25;
+	instance_announce 0,"尼德霍的格卫兵:守住守护者的圣所.把入侵者赶出去.",bc_map,0x00ff00;
+	areamonster  "1@nyd",219,273,205,283,"尼德霍格的卫兵",2015,5,instance_npcname("Mr_monster2")+"::OnKillMob3";
+	areamonster  "1@nyd",219,273,205,283,"尼德霍格的卫兵",2016,5,instance_npcname("Mr_monster2")+"::OnKillMob3";
+	areamonster  "1@nyd",219,273,205,283,"尼德霍格的卫兵",2020,5,instance_npcname("Mr_monster2")+"::OnKillMob3";
+	areamonster  "1@nyd",219,273,205,283,"尼德霍格的卫兵",2021,5,instance_npcname("Mr_monster2")+"::OnKillMob3";
+	areamonster  "1@nyd",219,273,205,283,"尼德霍格的卫兵",2019,5,instance_npcname("Mr_monster2")+"::OnKillMob3";
+	end;
+OnKillMob3:
+	set 'Mr_mob,'Mr_mob-1;
+	if('Mr_mob){
+	instance_announce 0,"尼德霍格的卫兵"+'Mr_mob,bc_map,0x00ff00;
+	} else{
+	instance_announce 0,"尼德霍格的卫兵全部打倒了",bc_map,0x00ff00;
+	enablenpc  instance_npcname("Mrwarp_1", instance_id());
+	}
+	end;
+}
+2@nyd,0,0,0	script	Mr_Boss	-1,{
+OnBoss:
+		monster "2@nyd",199,328,"--ja--",2022,1,instance_npcname("Mr_Boss")+"::OnKillBoss";
+		sleep2 5000;
+		instance_announce 0,"尼德霍格的影子:把你们这些家伙和世界之树一起，全部吃掉.",bc_map,0x00ff00;
+		addtimer 180000,instance_npcname("Mr_Boss",instance_id(1))+"::Onwar12";
+		end;
+OnKillBoss:
+		deltimer instance_npcname("Mr_Boss",instance_id(1))+"::Onwar12";
+	sleep2 5000;
+		enablenpc  instance_npcname("利亚得", instance_id());
+		instance_announce 0,"利亚得:做的很好.所有人都到中央魔法阵去,准备应对巢穴的崩溃.",bc_map,0x00ff00;
+		end;
+
+Onwar12:
+	set 'warp,rand(1,4);
+	if('warp==1){
+	set 'Mr_mob2,15;
+	warpparty has_instance("2@nyd"),118,374,getcharid(1);
+	setwall has_instance("2@nyd"),141,371,15,4,0,"Mr_serwall_9";
+	setwall has_instance("2@nyd"),124,354,15,6,0,"Mr_serwall_10";
+	setwall has_instance("2@nyd"),140,359,5,4,0,"Mr_serwall_11";
+	setwall has_instance("2@nyd"),136,354,5,6,0,"Mr_serwall_12";
+	areamonster  "2@nyd",114,379,113,364,"尼德霍格的卫兵",2015,3,instance_npcname("Mr_Boss2")+"::OnKillMob4";
+	areamonster  "2@nyd",114,379,113,364,"尼德霍格的卫兵",2016,3,instance_npcname("Mr_Boss2")+"::OnKillMob4";
+	areamonster  "2@nyd",114,379,113,364,"尼德霍格的卫兵",2020,3,instance_npcname("Mr_Boss2")+"::OnKillMob4";
+	areamonster  "2@nyd",114,379,113,364,"尼德霍格的卫兵",2021,3,instance_npcname("Mr_Boss2")+"::OnKillMob4";
+	areamonster  "2@nyd",114,379,113,364,"尼德霍格的卫兵",2019,3,instance_npcname("Mr_Boss2")+"::OnKillMob4";
+	 callfunc "Allplayer",Eff_Curse,30000,10,0,0,16;
+	end;
+	}
+	if('warp==2){
+	set 'Mr_mob3,15;
+	warpparty has_instance("2@nyd"),122,271,getcharid(1);
+	setwall has_instance("2@nyd"),124,294,15,6,0,"Mr_serwall_13";
+	setwall has_instance("2@nyd"),141,276,15,0,0,"Mr_serwall_14";
+	setwall has_instance("2@nyd"),136,293,6,6,0,"Mr_serwall_15";
+	setwall has_instance("2@nyd"),141,288,5,0,0,"Mr_serwall_16";
+	areamonster  "2@nyd",113,288,135,269,"尼德霍格的卫兵",2015,3,instance_npcname("Mr_Boss2")+"::OnKillMob5";
+	areamonster  "2@nyd",113,288,135,269,"尼德霍格的卫兵",2016,3,instance_npcname("Mr_Boss2")+"::OnKillMob5";
+	areamonster  "2@nyd",113,288,135,269,"尼德霍格的卫兵",2020,3,instance_npcname("Mr_Boss2")+"::OnKillMob5";
+	areamonster  "2@nyd",113,288,135,269,"尼德霍格的卫兵",2021,3,instance_npcname("Mr_Boss2")+"::OnKillMob5";
+	areamonster  "2@nyd",113,288,135,269,"尼德霍格的卫兵",2019,3,instance_npcname("Mr_Boss2")+"::OnKillMob5";
+	 callfunc "Allplayer",Eff_Silence,30000,10,0,0,16;
+	end;
+	}
+	if('warp==3){
+	set 'Mr_mob4,15;
+	warpparty has_instance("2@nyd"),276,377,getcharid(1);
+	setwall has_instance("2@nyd"),260,375,15,4,0,"Mr_serwall_1";
+	setwall has_instance("2@nyd"),277,354,15,2,0,"Mr_serwall_2";
+	setwall has_instance("2@nyd"),260,359,5,4,0,"Mr_serwall_3";
+	setwall has_instance("2@nyd"),265,354,6,2,0,"Mr_serwall_4";
+	areamonster  "2@nyd",270,382,284,365,"尼德霍格的卫兵",2015,3,instance_npcname("Mr_Boss2")+"::OnKillMob6";
+	areamonster  "2@nyd",270,382,284,365,"尼德霍格的卫兵",2016,3,instance_npcname("Mr_Boss2")+"::OnKillMob6";
+	areamonster  "2@nyd",270,382,284,365,"尼德霍格的卫兵",2020,3,instance_npcname("Mr_Boss2")+"::OnKillMob6";
+	areamonster  "2@nyd",270,382,284,365,"尼德霍格的卫兵",2021,3,instance_npcname("Mr_Boss2")+"::OnKillMob6";
+	areamonster  "2@nyd",270,382,284,365,"尼德霍格的卫兵",2019,3,instance_npcname("Mr_Boss2")+"::OnKillMob6";
+	 callfunc "Allplayer",Eff_Stone,30000,10,0,0,16;
+	end;
+	}
+	if('warp==4){
+	set 'Mr_mob5,15;
+	warpparty has_instance("2@nyd"),280,275,getcharid(1);
+	setwall has_instance("2@nyd"),275,293,15,2,0,"Mr_serwall_5";
+	setwall has_instance("2@nyd"),259,277,15,0,0,"Mr_serwall_6";
+	setwall has_instance("2@nyd"),263,293,6,2,0,"Mr_serwall_7";
+	setwall has_instance("2@nyd"),258,288,5,0,0,"Mr_serwall_8";
+	areamonster  "2@nyd",267,282,286,260,"尼德霍格的卫兵",2015,3,instance_npcname("Mr_Boss2")+"::OnKillMob7";
+	areamonster  "2@nyd",267,282,286,260,"尼德霍格的卫兵",2016,3,instance_npcname("Mr_Boss2")+"::OnKillMob7";
+	areamonster  "2@nyd",267,282,286,260,"尼德霍格的卫兵",2020,3,instance_npcname("Mr_Boss2")+"::OnKillMob7";
+	areamonster  "2@nyd",267,282,286,260,"尼德霍格的卫兵",2021,3,instance_npcname("Mr_Boss2")+"::OnKillMob7";
+	areamonster  "2@nyd",267,282,286,260,"尼德霍格的卫兵",2019,3,instance_npcname("Mr_Boss2")+"::OnKillMob7";
+	 callfunc "Allplayer",Eff_Sleep,30000,10,0,0,16;
+	end;
+	}
+	
+}
+
+2@nyd,0,0,0	script	Mr_Boss2	-1,{
+OnKillMob4:
+	deltimer instance_npcname("Mr_Boss",instance_id(1))+"::Onwar12";
+	set 'Mr_mob2,'Mr_mob2-1;
+	if('Mr_mob2){
+	instance_announce 0,"尼德霍格的卫兵"+'Mr_mob2,bc_map,0x00ff00;
+	} else{
+	delwall "Mr_serwall_9";
+	delwall "Mr_serwall_10";
+	delwall "Mr_serwall_11";
+	delwall "Mr_serwall_12";
+	instance_announce 0,"尼德霍格的影子:挺能干的嘛.....这次让我来做你的对手.",bc_map,0x00ff00;
+	addtimer 180000,instance_npcname("Mr_Boss",instance_id(1))+"::Onwar12";
+	end;
+	}
+OnKillMob5:
+	deltimer instance_npcname("Mr_Boss",instance_id(1))+"::Onwar12";
+	set 'Mr_mob3,'Mr_mob3-1;
+	if('Mr_mob3){
+	instance_announce 0,"尼德霍格的卫兵"+'Mr_mob3,bc_map,0x00ff00;
+	} else{
+	delwall "Mr_serwall_13";
+	delwall "Mr_serwall_14";
+	delwall "Mr_serwall_15";
+	delwall "Mr_serwall_16";
+	instance_announce 0,"尼德霍格的影子:挺能干的嘛.....这次让我来做你的对手.",bc_map,0x00ff00;
+	addtimer 180000,instance_npcname("Mr_Boss",instance_id(1))+"::Onwar12";
+	end;
+	}
+OnKillMob6:
+	deltimer instance_npcname("Mr_Boss",instance_id(1))+"::Onwar12";
+	set 'Mr_mob4,'Mr_mob4-1;
+	if('Mr_mob4){
+	instance_announce 0,"尼德霍格的卫兵"+'Mr_mob4,bc_map,0x00ff00;
+	} else{
+	delwall "Mr_serwall_1";
+	delwall "Mr_serwall_2";
+	delwall "Mr_serwall_3";
+	delwall "Mr_serwall_4";
+	instance_announce 0,"尼德霍格的影子:挺能干的嘛.....这次让我来做你的对手.",bc_map,0x00ff00;
+	addtimer 180000,instance_npcname("Mr_Boss",instance_id(1))+"::Onwar12";
+	end;
+	}
+OnKillMob7:
+	deltimer instance_npcname("Mr_Boss",instance_id(1))+"::Onwar12";
+	set 'Mr_mob5,'Mr_mob5-1;
+	if('Mr_mob5){
+	instance_announce 0,"尼德霍格的卫兵"+'Mr_mob5,bc_map,0x00ff00;
+	} else{
+	delwall "Mr_serwall_5";
+	delwall "Mr_serwall_6";
+	delwall "Mr_serwall_7";
+	delwall "Mr_serwall_8";
+	instance_announce 0,"尼德霍格的影子:挺能干的嘛.....这次让我来做你的对手.",bc_map,0x00ff00;
+	addtimer 180000,instance_npcname("Mr_Boss",instance_id(1))+"::Onwar12";
+	end;
+	}
+}
+
+//============== 利亚得 ==================
+1@nyd,212,277,5	script	被杀害的利亚得	437,{
+	if('over==1){
+	mes "[利亚得]";
+	mes "世界之树的生死，靠你的守护者的侍从们.";
+	close;
+	}
+	mes "[利亚得]";
+	mes "现在全部结束了.....守护著的侍从们.....赶快从这里离开.";
+	next;
+	switch (select("你是谁?:那是什么意思?")) {
+	case 1:
+	mes "[利亚得]";
+	mes "我是守护这片世界之树的守护著.";
+	close;
+	end;
+	case 2:
+	mes "[利亚得]";
+	mes "尼德豪格影子他爆走了,他要想要毁灭这个世界之树.";
+	next;
+	mes "[利亚得]";
+	mes "你们愿意接下这片责任吗?即使拼上自己的性命.";
+	next;
+	switch (select("交给我们吧.:我们做不了了.")) {
+	case 1:
+	doevent instance_npcname("Mr_monster2",instance_id(1))+"::Onmonster102";
+	set 'over,1;
+	close;
+	end;
+	case 2:
+	mes "[利亚得]";
+	mes "那你们还是赶快离开吧!";
+	close;
+	end;
+		}
+	}
+}
+2@nyd,203,324,5	script	利亚得	437,{
+	mes "[利亚得]";
+	mes "现在......让我把你们送出被诅咒的巢穴吧.";
+	next;
+	switch (select("请把我送出去.:我还想再转转.")) {
+	case 1:
+		instance_warpall "nyd_dun02",99,199;
+		instance_destroy(instance_id(1));
+		end;
+	case 2:
+		close;
+		end;
+	}
+}
+//============== 状态 ==================
+function	script	Allplayer	{
+	if(!getarg(4) || (getcharid(0) == getpartyleader(getcharid(1),2))) {
+		getmapxy .@mapl$, .@xl, .@yl, 0;
+		set .@partyID,getcharid(1);
+		getpartymember getcharid(1),2;
+		set .@partymembercount,$@partymembercount;
+		copyarray .@partymemberaid[0],$@partymemberaid[0],.@partymembercount;
+		for(set .@i, 0; .@i < .@partymembercount; set .@i, .@i + 1) {
+			if(attachrid(.@partymemberaid[.@i]) == 0) continue;
+			if((!getmapxy(.@mapm$, .@xm, .@ym, 0, strcharinfo(0)) && (.@mapm$ == .@mapl$)) || !getarg(3)) {
+				if(getcharid(1) == .@partyID) {
+					if(!getarg(5) || (distance(.@xl,.@yl,.@xm,.@ym) < getarg(5))) {
+						if(getarg(5) && (.@mapm$ != .@mapl$)) continue;
+						sc_start getarg(0),getarg(1),getarg(2);
+								percentheal -99,0;
+					}
+				}
+			}
+		}
+	}
+	return;
+}
+
+//============== 地图属性 ==================
+1@nyd	mapflag	noteleport
+1@nyd	mapflag	nosave	SavePoint
+1@nyd	mapflag	nomemo
+1@nyd	mapflag	nobranch
+1@nyd	mapflag	noicewall
+1@nyd	mapflag	monster_noteleport
+
+2@nyd	mapflag	noteleport
+2@nyd	mapflag	nosave	SavePoint
+2@nyd	mapflag	nomemo
+2@nyd	mapflag	nobranch
+2@nyd	mapflag	noicewall
+2@nyd	mapflag	monster_noteleport
+
+
+	
+		
+	
+
+
+
+

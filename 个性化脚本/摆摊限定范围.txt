@@ -1,0 +1,24 @@
+prontera,147,130,5	script	摆摊牌#1	858,{
+end;
+OnInit:
+waitingroom "沿此向上摆摊",0;
+setcell "prontera",148,0,163,400,cell_novending,1;
+setcell "prontera",165,126,300,400,cell_novending,1;
+setcell "prontera",0,0,146,400,cell_novending,1;
+setcell "prontera",0,0,300,111,cell_novending,1;
+}
+prontera,164,130,5	script	摆摊牌#2	858,{
+end;
+OnInit:
+waitingroom "沿此向上摆摊",0;
+}
+prontera,147,176,5	script	摆摊牌#3	858,{
+end;
+OnInit:
+waitingroom "沿此向下摆摊",0;
+}
+prontera,164,176,5	script	摆摊牌#4	858,{
+end;
+OnInit:
+waitingroom "沿此向下摆摊",0;
+}

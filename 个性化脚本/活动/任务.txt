@@ -1,0 +1,278 @@
+/************************************************************\
+					EAthena Script
+**************************************************************
+【名    称】任务发布员
+【类    型】游戏内置任务
+【版    本】1.0
+【版权所有】泠然
+【服 务 端】99MAXEA v8.10.0
+【制作人员】
+    策划：泠然
+    编程：泠然
+    文饰：泠然
+    制作：泠然
+    测试：泠然
+【简要说明】
+    本脚本为 EAthena 服务端用脚本。适合自立服使用。鼓励玩家主动组队打各种boss
+	使用说明：
+		1、将questid2display.txt 拷贝到 客户端/data/目录下。
+		2、将quest_db.txt中的内容 增加到 db/quest_db.txt中 （注意不要覆盖）
+		3、载入脚本
+		4、GM可在线修改每日boss次数 和boss任务P点奖励
+	功能说明：
+		1、小怪任务获取根据玩家当前等级，然后获取任务列表中对应任务。只显示当前等级附近的10个任务。按照任务个数的百分比计算。
+		例如：一共30个任务。1级可以看到前10个任务。50级看到中间12-22个任务，90级可以看到最后10个任务。
+		2、修改任务方式
+			(1)在本脚本后面任务数组修改。格式：name,quest_id,exp(给予的经验是填写的数字的100倍),zeny；
+			添加任务一定根据从弱到强顺序在数组中插入排列。否则接取时会出现高等级遇到低等级任务。
+			(2)在客户端/data/questid2display.txt 中修改对应描述
+			(3)在db/quest_db.txt 中修改对应任务ID和数量
+	讨论：
+		开始是放了100个任务，发现数组最多能存128个单位。后面的读取不出来。
+		把名字、id等信息分数组保存又不方便后面修改。
+		想到了一个办法就是再建一个数组。大家有没有其他好的办法可以解决。
+【更新日志】
+	2015-08-17	  1.0.2	   修复深渊骑士任务无法领取奖励bug，修复GM后台无法重置当天boss次数bug
+	2015-08-01    1.0.1    增加GM后台，可修改boss任务奖励P点和每日boss任务次数
+    2015-07-26    1.0.0    创建脚本
+【错误回报】
+\************************************************************/
+prontera.gat,141,125,5	script	任务发布员	810,{
+	if(player_reload_boss_time<$reload_boss_time){
+		set player_reload_boss_time,player_reload_boss_time+1;
+		set player_boss_time,0;
+	}
+	mes "[任务发布员]";
+	mes "你好，请问你是来干什么的？";
+	next;
+	switch(select("领取任务","完成任务","放弃未完成的小怪任务",getgmlevel()>90?"后台设置":"")) {
+		case 1:
+			mes "请选择狩猎魔物类型";
+			switch(select("普通魔物","首领魔物")){
+				case 1:
+					set @qNumber,BaseLevel*((getarraysize($npc_quest_info$)-1)/4)/99;
+					if (@qNumber <5){
+						set @qNumber,5;
+					}
+					if (@qNumber >(getarraysize($npc_quest_info$)-1)/4-5){
+						set @qNumber,(getarraysize($npc_quest_info$)-1)/4-5;
+					}
+					for (@i=0;@i<10;@i++){
+						set @hunt$[@i],$npc_quest_info$[((@qNumber-4+@i)*4)-3];
+					}
+					mes "[任务发布员]";
+					mes "请选择猎杀的怪物";
+					set @op,select(@hunt$[0],@hunt$[1],@hunt$[2],@hunt$[3],@hunt$[4],@hunt$[5],@hunt$[6],@hunt$[7],@hunt$[8],@hunt$[9]);  //创建菜单
+					switch(@op) {
+						default:
+							set @questid,$npc_quest_info$[((@qNumber-4+@op-1)*4)-2];
+							if(checkquest(@questid,HUNTING) == 0 ||checkquest(@questid,HUNTING) == 1){ 
+								mes "此任务正在执行或保留当中。";
+								close;
+							}
+							if(checkquest(@questid,HUNTING) == 2){ 
+								mes "此任务已完成。";
+								close;
+							}
+							setquest @questid;  //领取任务
+							close;
+						break;
+					}
+				break;
+				case 2:
+					if(BaseLevel<90){
+						mes "90级以上才可以完成boss任务";
+						close;
+					}
+					mes "BOSS任务为随机领取";
+					mes "每个玩家只能同时领取一个";
+					mes "^0000FF您今日剩余 领取/重置 次数："+($boss_time_everyday-player_boss_time)+"^000000";
+					mes "特殊奖励："+$boss_p_add+" P点";
+					switch(select("领取任务","重置任务")) {
+						case 1:
+							if(player_boss_quest==1){ 
+								mes "您身上已经有接取的BOSS任务，无法领取新任务";
+								mes "请先完成之前的任务或选择重置任务";
+								close;
+							}
+							if(player_boss_time>=$boss_time_everyday){
+								mes "您今日领取次数不足";
+								mes "请明日再来";
+								close;
+							}
+							set player_boss_quest,1;
+							set player_boss_time,player_boss_time+1;
+							set player_boss_quest_id,rand((getarraysize($boss_quest_info$)-1)/4)+1;  //随机出一个boss任务
+							set @bossnum,$boss_quest_info$[player_boss_quest_id*4-2];
+							setquest @bossnum;
+							mes "领取任务：击杀"+$boss_quest_info$[player_boss_quest_id*4-3];
+							close;
+						break;
+						case 2:
+							if(player_boss_time>=$boss_time_everyday){
+								mes "您今日领取次数不足";
+								mes "请明日再来";
+								close;
+							}
+							if(player_boss_quest==0){ 
+								mes "您身上没有任何BOSS任务";
+								mes "请选择领取任务";
+								close;
+							}
+							set @questid,$boss_quest_info$[player_boss_quest_id*4-2];
+							erasequest @questid;
+							set player_boss_quest,1;
+							set player_boss_time,player_boss_time+1;
+							set player_boss_quest_id,rand((getarraysize($boss_quest_info$)-1)/4)+1;  //随机出一个boss任务
+							set @bossnum,$boss_quest_info$[player_boss_quest_id*4-2];
+							setquest @bossnum;
+							mes "领取任务：击杀"+$boss_quest_info$[player_boss_quest_id*4-3];
+							close;
+						break;
+					}
+				break;
+			}
+		break;
+		case 2:
+			switch(select("普通魔物","首领魔物")) {
+				case 1:
+					set @x$,"";
+					set @y,0;
+					deletearray @fin_quest;
+					for (@i=1;@i<(getarraysize($npc_quest_info$)-1)/4+1;@i++){
+						set @questid,$npc_quest_info$[@i*4-2];
+						if(checkquest(@questid,HUNTING) == 2){ 
+							set @x$,@x$+$npc_quest_info$[@i*4-3]+":";
+							setarray @fin_quest[@y],@i;
+							set @y,@y+1;
+						}
+					}
+					mes "[小怪任务]";
+					mes "请选择想要提交的任务";
+					set @op,select("全部领取",@x$);
+					switch(@op) {
+						case 1:
+							for (@i=1;@i<(getarraysize($npc_quest_info$)-1)/4+1;@i++){
+								set @questid,$npc_quest_info$[@i*4-2];
+								if(checkquest(@questid,HUNTING) == 2){ 
+									set @exp,$npc_quest_info$[@i*4-1];
+									set @zeny,$npc_quest_info$[@i*4];
+									erasequest @questid;
+									getexp @exp*10,@exp*10;
+									zeny=zeny+@zeny;
+									dispbottom "获得经验："+@exp*100;
+									dispbottom "获得Zeny："+@zeny;
+								}
+							}
+							close;
+						break;
+						default:
+							set @questid,$npc_quest_info$[@fin_quest[@op-2]*4-2];
+							set @exp,$npc_quest_info$[@fin_quest[@op-2]*4-1];
+							set @zeny,$npc_quest_info$[@fin_quest[@op-2]*4];
+							erasequest @questid;
+							getexp @exp*10,@exp*10;
+							zeny=zeny+@zeny;
+							dispbottom "获得经验："+@exp*100;
+							dispbottom "获得Zeny："+@zeny;
+							close;
+						break;
+					}
+				break;
+				case 2:
+					if(!player_boss_quest_id){
+						mes "您目前没有接取BOSS任务";
+						close;
+					}
+					if (checkquest($boss_quest_info$[player_boss_quest_id*4-2],HUNTING) ==0 || checkquest($boss_quest_info$[player_boss_quest_id*4-2],HUNTING) ==1){
+						mes "[BOSS任务]";
+						mes "击杀 "+$boss_quest_info$[player_boss_quest_id*4-3]+" 任务未完成";
+						close;
+					}
+					if(checkquest($boss_quest_info$[player_boss_quest_id*4-2],HUNTING) ==-1){
+						mes "[BOSS任务]";
+						mes "您目前没有接取BOSS任务";
+						close;
+					}
+					set @questid,$boss_quest_info$[player_boss_quest_id*4-2];
+					set @exp,$boss_quest_info$[player_boss_quest_id*4-1];
+					set @zeny,$boss_quest_info$[player_boss_quest_id*4];
+					erasequest @questid;
+					getexp @exp*10,@exp*10;
+					zeny=zeny+@zeny;
+					atcommand "@cash "+$boss_p_add;
+					set player_boss_quest,0;
+					mes "[BOSS任务]";
+					mes "您的任务已经完成";
+					dispbottom "获得经验："+@exp*100;
+					dispbottom "获得Zeny："+@zeny;
+					dispbottom "P点："+$boss_p_add;
+					close;
+				break;
+			}		
+		break;
+		case 3:
+			for (@i=1;@i<=(getarraysize($npc_quest_info$)-1)/4;@i++){
+				set @questid,$npc_quest_info$[@i*4-2];
+				if(checkquest(@questid,HUNTING) == 0 || checkquest(@questid,HUNTING) == 1){ 
+					erasequest @questid;
+				}
+			}
+			close;
+		break;
+		case 4:
+			mes "[GM后台]";
+			mes "请选择修改的内容";
+			switch(select("boss P点奖励","BOSS次数","重置玩家当天boss任务次数")) {
+				case 1:
+					mes "当前P点奖励为"+$boss_p_add;
+					mes "请输入P点奖励。";
+					input @num;
+					set $boss_p_add,@num;
+					mes "修改成功";
+					close;
+				break;
+				case 2:
+					mes "当前每日BOSS次数为"+$boss_time_everyday;
+					mes "请输入每日BOSS次数。";
+					input @num;
+					set $boss_time_everyday,@num;
+					mes "修改成功";
+					close;
+				break;
+				case 3:
+					set $reload_boss_time,$reload_boss_time+1;
+					mes "重置成功";
+					close;
+				break;
+			}
+			
+		break;
+	}
+	OnClock0000:
+		set $reload_boss_time,$reload_boss_time+1;
+		end;
+	OnInit:
+		waitingroom "狩猎任务",0;
+		if($npc_quest_info$[0]==""){
+			//boss p点奖励
+			set $boss_p_add,50;
+			//boss每日次数
+			set $boss_time_everyday,2;
+			//任务数组
+			//编辑格式:名字,quest_id,经验,金钱  
+			setarray $npc_quest_info$[0],"1","波利","30001","50","5000","邪骇战士","30016","50","5000","腐尸","30011","50","5000","波波利","30013","50","5000","白蚁","30026","100","5000","兽人战士","30032","300","5000"
+			,"兽人女战士","30033","300","5000","突变蛙","30035","300","5000","邪骸士兵","30039","300","5000","邪骸弓箭手","30040","300","5000","异变鱼","30043","500","5000"
+			,"邪骸矿工","30047","500","5000","黑狐","30048","500","5000","马克","30055","1000","5000","鳄鱼人","30065","2000","5000","兽人弓箭手","30074","3000","5000"
+			,"兽人战士长","30075","3000","5000","茅膏菜","30078","3000","5000","魔羌","30089","5000","5000","毕帝特飞龙","30064","2000","5000","卡利斯格","30083","5000","5000"
+			,"幽灵剑士","30081","5000","5000","幽灵弓箭手","30082","5000","5000","虎蜥人","30084","5000","5000","大眼怪首领","30092","10000","5000","女妖","30093","10000","5000"
+			,"变异腐尸","30094","10000","5000","亡灵巫师","30095","10000","5000","飞龙","30096","10000","5000","三角幼狮兽","30097","10000","5000","深渊骑士","30098","10000","5000";
+			//
+			//BOSS数组
+			setarray $boss_quest_info$[0],"1","巴风特","31001","10000","100000","死灵","31002","10000","100000","俄塞里斯","31003","10000","100000","兽人英雄","31004","10000","100000"
+			,"黄金虫","31005","10000","100000","乌龟将军","31006","10000","100000","基尔-D-01","31007","100000","100000","死灵骑士","31008","10000","100000","塔奥群卡","31009","10000","100000"
+			,"RSX 0806","31010","100000","100000","闇●骑士领主 赛依连","31011","100000","100000","闇●十字刺客 艾勒梅斯","31012","100000","100000","贝思波","31013","100000","100000"
+			,"迪塔勒泰晤勒斯","31014","100000","100000";
+		}
+	end;
+}

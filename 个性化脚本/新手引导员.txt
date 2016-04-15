@@ -1,0 +1,161 @@
+/************************************************************\
+		EAthena Script
+**************************************************************
+【名    称】新手引导员
+【类    型】新手引导
+【版    本】1.0
+【版权所有】泠然
+【服 务 端】99MAXEA v8.10.0
+【制作人员】
+    策划：泠然
+    编程：泠然
+    文饰：泠然
+    制作：泠然
+    测试：泠然
+【简要说明】
+    本脚本为 EA 服务端用新手引导员脚本。
+    有GM后台，支持在线修改服务器名、添加和删除初始赠送的物品。
+    经验倍率、装备倍率、卡片倍率、最大ASPD均读取服务器设置。
+【更新日志】
+    2015-07-26    1.0.0    创建脚本
+【错误回报】论坛
+\************************************************************/
+
+new_1-1,56,109,4	script	新手引导员	862,{   
+	mes "[新手引导员]";
+	mes "哇！你是传说中的冒险家 [^FF0000"+strcharinfo(0)+"^000000] 吗？";
+	mes "欢迎来到[^0000FF"+$npc_new_bee$[1]+"^000000],在游戏开始之前";
+	mes "请遵守游戏规则，不要使用非法程序";
+	next;
+	switch (select("开始旅途",getgmlevel()>90?"后台设置":"")) {
+		case 1:
+			mes "[新手引导员]";
+			mes "本服务器为仿公服，服务器设置如下";
+			mes "经验倍率：^0000FF"+getBattleFlag("base_exp_rate")/100+"倍^000000";
+			mes "装备掉率：^0000FF"+getBattleFlag("item_rate_equip")/100+"倍^000000";
+			mes "卡片掉率：^0000FF"+getBattleFlag("item_rate_card")/100+"倍^000000";
+			mes "最大ASPD：^0000FF"+(200-getBattleFlag("max_aspd")/10)+"^000000";
+			mes "希望你在游戏中玩的开心!";
+			next;
+			if (new_bee==1) {
+				save "prontera.gat",154,99;
+				warp "prontera.gat",154,99;
+				end;
+			}
+			mes "[新手引导员]";
+			set new_bee,1;
+			for(set @i,0;@i<=getarraysize($npc_new_bee_item);set @i,@i+2){
+				getitem $npc_new_bee_item[@i],$npc_new_bee_item[@i+1];
+			}
+			save "prontera.gat",154,99;
+			warp "prontera.gat",154,99;
+			end;
+		break;
+		case 2:
+			cleararray @name$[0],"",getarraysize(@name$);
+			set @j,0;
+			for(set @i,0;@i<getarraysize($npc_new_bee_item);set @i,@i+2){
+				setarray @name$[@j],(@j+1)+"："+getitemname($npc_new_bee_item[@i])+$npc_new_bee_item[@i+1]+"个";
+				set @j,@j+1;
+			}
+			set @op,select("修改赠送物品","服务器名["+$npc_new_bee$[1]+"]");
+			setarray @word$[0],"","服务器名";
+			switch(@op){
+				case 1:
+					mes "[GM后台]";
+					mes "赠送物品";
+					for(set @i,0;@i<@j;@i++){
+						mes "["+@name$[@i]+"]";
+					}
+					next;
+					switch(select("添加物品","删除物品","测试领取")) {
+						case 1:
+							mes "[GM后台]"; 
+							mes "请输入物品ID";
+							input @num;
+							if (getitemname(@num)=="null") { 
+								mes "您输入的物品ID错误。"; 
+								close; 
+								}
+							next;
+							mes "添加物品["+getitemname(@num)+"]";
+							mes "请输入物品数量";
+							input @num2;
+							if (@num2>1000||@num2<1) { 
+								mes "[GM后台]";
+								mes "输入的数值不在允许范围内。";
+								close; 
+								}
+							next;
+							mes "添加赠送物品["+getitemname(@num)+"]"+@num2+"个";
+							mes "是否确定？";
+							switch(select("确定","取消")) {
+								case 1:
+									setarray $npc_new_bee_item[getarraysize($npc_new_bee_item)],@num;
+									setarray $npc_new_bee_item[getarraysize($npc_new_bee_item)],@num2;
+									mes "添加成功";
+									close;
+								break;
+								case 2:
+									close;
+								break;
+							}
+						break;
+						case 2:
+							mes "[GM后台]";
+							for(set @i,0;@i<@j;@i++){
+							mes "["+@name$[@i]+"]";
+							}
+							mes "请输入要删除的物品序号";
+							next;
+							input @num;
+							if (@num>@j||@num<1) { 
+								mes "[GM后台]";
+								mes "输入的数值不在允许范围内。";
+								close; 
+								}
+							next;
+							mes "您要删除的物品是["+@name$[@num-1]+"]";
+							mes "是否确定？";
+							switch(select("确定","取消")) {
+								case 1:
+									deletearray $npc_new_bee_item[(@num*2-2)],2;
+									mes "删除成功";
+									close;
+								break;
+								case 2:
+									close;
+								break;
+							}
+						break;
+						case 3:
+							for(set @i,0;@i<=getarraysize($npc_new_bee_item);set @i,@i+2){
+							getitem $npc_new_bee_item[@i],$npc_new_bee_item[@i+1];
+							}
+							close;
+						break;
+					}
+				break;
+				default:
+					mes "[GM后台]";
+					mes "请输入"+@word$[@op]+"。";
+					mes "例：小小仙境";
+					next;
+					input @num$;
+					set $npc_new_bee$[1],@num$;
+					mes "[GM后台]";
+					mes "设置修改成功！";
+					close;
+				break;
+			}
+		break;
+	}
+OnInit:
+	waitingroom "新手指导员",0;
+	if($npc_new_bee$[0]=="0"){
+		//初始化
+		setarray $npc_new_bee$[0],"1","小小仙境";
+		setarray $npc_new_bee_item[0],1243,1,5055,1,501,50;
+		}
+	end;
+}

@@ -1,0 +1,7 @@
+prontera,146,92,5	script	医生	47,{
+	mes "[医生]";
+	mes "如果在外面受了伤可以来找我回复哦！";
+	mes "已经治疗完毕。";
+	percentheal 100,100;
+	close;
+}

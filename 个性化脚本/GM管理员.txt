@@ -1,0 +1,345 @@
+/************************************************************\
+					EAthena Script
+**************************************************************
+【名    称】GM管理员
+【类    型】GM管理
+【版    本】1.0
+【版权所有】泠然
+【服 务 端】99MAXEA v8.10.0
+【制作人员】
+    策划：泠然
+    编程：泠然
+    文饰：泠然
+    制作：泠然
+    测试：泠然
+【简要说明】
+    本脚本为 EAthena 服务端用GM控制台。
+	可在线给制定玩家增加/减少 P点，VIP时间。
+	可在线编辑多倍经验，可设置每天某个时间段、立即开启持续时间等，方便做活动等。
+	多倍经验本来想用setbattleflag,但是发现没效果。数值变了。打怪获得的经验还是没变。
+	后来只能采用状态赋予的形式。但是占用资源较多，大家如果有更好的办法可以一起讨论。
+【更新日志】
+    2015-07-26    1.0.0    创建脚本
+【错误回报】
+\************************************************************/
+-	script	TaskBonus	-1,{
+OnPCStatCalcEvent:
+	if(gettime(7)==$change_exp_time1[4] && gettime(6)==$change_exp_time1[3] && gettime(5)==$change_exp_time1[2] && gettime(3)<=$change_exp_time1[1]){
+		if(gettime(3)==$change_exp_time1[1] && gettime(3)<$change_exp_time1[0]){
+		}else{
+			bonus2 bExpAddRace,RC_All,($change_exp_add1-1)*100;
+		}
+	}
+	if(gettime(3) >=$change_exp_time2[0] &&gettime(3) <$change_exp_time2[1]){
+		bonus2 bExpAddRace,RC_All,($change_exp_add2-1)*100;
+	}else if(gettime(3)==$change_exp_time2[1] && gettime(2)<$change_exp_time2[2]){
+		bonus2 bExpAddRace,RC_All,($change_exp_add2-1)*100;
+	}
+}
+function	script	gm_control	{
+//prontera,133,125,5	script	GM管理员	435,{
+	mes "[GM控制台]";
+	mes "尊敬的[^FF0000"+strcharinfo(0)+"^000000] 阁下";
+	mes "请问您想进行哪项操作？";
+	next;
+	if(getgmlevel()>90){
+		switch(select("P点","VIP","活动","补偿专员")) {
+			case 1:
+				set @op,select("增加P点","减少P点","查询P点");
+				switch(@op) {
+					case 3:
+						mes "[查询P点]";
+						mes "^FF0000注意：玩家如果在线则P点数量可能不准";
+						mes "^000000请输入 玩家名称";
+						input @name$;
+						set @online,0;
+						query_sql "select `online` from `char` where `name`= '"+@name$+"'",@online;
+						if(@online==0){
+							mes "该玩家不在线或输入错误。";
+							close;
+						}
+						query_sql "select `account_id` from `char` where `name`= '"+@name$+"'",@id;
+						query_sql "select `value` from `global_reg_value` where `account_id`= '"+@id+"'",@points;
+						mes @name$+" P点为"+@points;
+						close;
+					break;
+					default:
+						if (@op==2){
+							set .text$,"减少";
+						}else{
+							set .text$,"增加";
+						}
+						mes "["+.text$+"P点]";
+						mes "请输入 玩家名称";
+						input @name$;
+						mes "玩家名：^FF0000"+@name$+"^000000";
+						mes "请输入"+.text$+"P点数量(1-1000000)";
+						input @num;
+						if (@num>1000000||@num<1) { 
+							mes "输入的数值不在允许范围内。";
+							close; 
+						}
+						mes "P点数量：^FF0000"+@num+"^000000";
+						mes .text$+"玩家 [^FF0000"+@name$+"^000000][^0000FF"+@num+"^000000]P点";
+						mes "是否确定？";
+						next;
+						switch(select("确定")) {
+							case 1:
+								set @online,0;
+								query_sql "select `online` from `char` where `name`= '"+@name$+"'",@online;
+								if(@online==0){
+									mes "[GM控制台]";
+									mes "该玩家不在线或输入错误。";
+									close;
+								}
+								if (@op==2){
+									atcommand "#cash "+@name$+" "+(-@num);
+								}else{
+									atcommand "#cash "+@name$+" "+@num;
+								}
+								mes "[GM控制台]";
+								mes .text$+"成功!";
+								close;
+							break;
+						}
+					break;
+				}
+			break;
+			case 2:
+				set @op,select("增加VIP时间","减少VIP时间","查询VIP时间");
+				switch(@op) {
+					case 3:
+						mes "[查询VIP时间]";
+						mes "^000000请输入 玩家名称";
+						input @name$;
+						set @online,0;
+						query_sql "select `online` from `char` where `name`= '"+@name$+"'",@online;
+						if(@online==0){
+							mes "该玩家不在线或输入错误。";
+							close;
+						}
+						mes "玩家名：^FF0000"+@name$+"^000000";
+						if(vip_status(2,@name$)==0){
+							mes "该玩家不是VIP";
+							close;
+						}
+						mes "到期时间"+vip_status(2,@name$);
+						close;
+					break;
+					default:
+						if (@op==2){
+							set .text$,"减少";
+						}else{
+							set .text$,"增加";
+						}
+						mes "["+.text$+"VIP时间]";
+						mes "请输入 玩家名称";
+						input @name$;
+						mes "玩家名：^FF0000"+@name$+"^000000";
+						mes "请输入天数(1-10000)";
+						input @num;
+						if (@num>10000||@num<1) { 
+							mes "输入的数值不在允许范围内。";
+							close; 
+						}
+						mes "["+.text$+"VIP天数：^FF0000"+@num+"^000000";
+						mes "["+.text$+"玩家 [^FF0000"+@name$+"^000000][^0000FF"+@num+"^000000]天VIP";
+						mes "是否确定？";
+						next;
+						switch(select("确定")) {
+							case 1:
+								set @online,0;
+								query_sql "select `online` from `char` where `name`= '"+@name$+"'",@online;
+								if(@online==0){
+									mes "[GM控制台]";
+									mes "该玩家不在线或输入错误。";
+									close;
+								}
+								if (@op==2){
+									atcommand "@vip -"+@num+"d "+@name$;
+								}else{
+									atcommand "@vip +"+@num+"d "+@name$;;
+								}
+								mes "[GM控制台]";
+								mes .text$+"成功!";
+								close;
+							break;
+						}
+					break;
+				}
+			break;
+			case 3:
+				mes "[服务器设置]";
+				mes "请选择需要更改的内容";
+				switch(select("经验加倍活动")) {
+					case 1:
+						set @all_exp_add,0;
+						set @add_time,0;
+						if(gettime(7)==$change_exp_time1[4] && gettime(6)==$change_exp_time1[3] && gettime(5)==$change_exp_time1[2] && gettime(3)<=$change_exp_time1[1]){
+							if(gettime(3)==$change_exp_time1[1] && gettime(3)<$change_exp_time1[0]){
+							}else{
+								set @all_exp_add,@all_exp_add+$change_exp_add1;
+								set @add_time,@add_time+1;
+							}
+						}
+						if(gettime(3) >=$change_exp_time2[0] &&gettime(3) <$change_exp_time2[1]){
+							set @all_exp_add,@all_exp_add+$change_exp_add2;
+							set @add_time,@add_time+1;
+						}else if(gettime(3)==$change_exp_time2[1] && gettime(2)<$change_exp_time2[2]){
+							set @all_exp_add,@all_exp_add+$change_exp_add2;
+							set @add_time,@add_time+1;
+						}
+						mes "当前的经验加成："+(@all_exp_add-@add_time+1)+"倍";
+						mes "请选择变化时间类型";
+						mes "注意：每种类型互相叠加(加法)";
+						next;
+						switch(select("临时增加","每天固定时段")) {
+							case 1:
+								mes "[临时增加]";
+								mes "请输入从现在开始持续时间(小时)(0-24)";
+								mes "输入0则取消经验加成";
+								input @num;
+								if (@num>24||@num<0) { 
+									mes "输入的数值不在允许范围内。";
+									close; 
+								}
+								if(@num==0){
+									set $change_exp_time1[4],0;
+									mes "已经取消临时增加经验加成";
+									close;
+								}
+								mes "持续时间："+@num+"小时";
+								mes "请输入经验倍数(2-100)";
+								input @num2;
+								if (@num2>100||@num2<2) { 
+									mes "输入的数值不在允许范围内。";
+									close; 
+								}
+								next;
+								mes "注意：最长持续到当天23点59分。";
+								mes "是否确定？";
+								switch(select("确定")) {
+									case 1:
+										set $change_exp_add1,@num2;
+										setarray $change_exp_time1[0],gettime(2);
+										setarray $change_exp_time1[1],@num+gettime(3);  
+										setarray $change_exp_time1[2],gettime(5);
+										setarray $change_exp_time1[3],gettime(6);
+										setarray $change_exp_time1[4],gettime(7);
+										if((@num+gettime(3))/24>0){
+											setarray $change_exp_time1[1],23;
+											setarray $change_exp_time1[0],59;
+										}
+										mes "设置已生效";
+										mes "经验获得："+@num2+"倍";
+										mes "结束时间："+$change_exp_time1[1]+"点"+$change_exp_time1[0]+"分";
+										close;
+									break;
+								}
+								close;
+							break;
+							case 2:
+								mes "[每天同一个时间段]";
+								mes "当前时间段为每天"+$change_exp_time2[0]+"点 到"+$change_exp_time1[1]+"点";
+								mes "请输入开始时间(小时)(0-23)";
+								mes "输入24则取消当前经验加成";
+								input @num_begin;
+								if (@num_begin>24||@num_begin<0) { 
+									mes "输入的数值不在允许范围内。";
+									close; 
+								}
+								if(@num_begin==24){
+									setarray $change_exp_time2[1],0,0;
+									mes "已经取消每天固定时段加成";
+									close;
+								}
+								mes "请输入结束时间(小时)(1-24)";
+								input @num_end;
+								if (@num_end>24||@num_end<1) { 
+									mes "输入的数值不在允许范围内。";
+									close; 
+								}
+								mes "请输入经验倍数(2-100)";
+								input @num2;
+								if (@num2>100||@num2<2) { 
+									mes "输入的数值不在允许范围内。";
+									close; 
+								}
+								next;
+								mes "是否确定？";
+								switch(select("确定")) {
+									case 1:
+										set $change_exp_add2,@num2;
+										setarray $change_exp_time2[0],@num_begin,@num_end,0;  
+										if((@num_end)==24){
+											setarray $change_exp_time2[1],23,59;
+										}
+										mes "设置已生效";
+										mes "经验获得："+@num2+"倍";
+										mes "生效时间：每天"+$change_exp_time2[0]+"点 到"+$change_exp_time1[1]+"点";
+										close;
+									break;
+								}
+								close;
+							break;
+						}
+					break;
+					case 2:
+						close;
+					break;
+				}
+			break;
+			case 4:
+				mes "[补偿设置]";
+				mes "请选择需要修改的内容";
+				switch(select("开启补偿专员","关闭补偿专员","重置补偿次数","设置补偿S点","设置可领取等级")) {
+					case 1:
+						hideoffnpc "补偿专员";
+						doevent "补偿专员::OnOpen";
+						mes "注意：开启补偿后，如果为新补偿，请重置补偿次数";
+						mes "如果不重置次数，则已经领取过的无法再次领取。";
+						mes "开启成功";
+						close;
+					break;
+					case 2:
+						hideonnpc "补偿专员";
+						delwaitingroom "补偿专员";
+						mes "关闭成功";
+						close;
+					break;
+					case 3:
+						set $npc_spoint_give_time,$npc_spoint_give_time+1;
+						mes "重置成功";
+						close;
+					break;
+					case 4:
+						mes "请输入补偿S点数量(1-100000)";
+						input @num;
+						if (@num>100000||@num<1) { 
+							mes "输入的数值不在允许范围内。";
+							close; 
+						}
+						set $npc_spoint_give,@num;
+						mes "设置成功";
+						close;
+					break;
+					case 5:
+						mes "请输入可领取最低等级(1-150)";
+						input @num;
+						if (@num>149||@num<1) { 
+							mes "输入的数值不在允许范围内。";
+							close; 
+						}
+						set $npc_spoint_give,@num;
+						set $npc_spoint_give_lv,@num;
+						close;
+				}
+			break;
+		}
+	}else{
+		mes "[GM控制台]";
+		mes "对不起，您的权限不足。";
+		close;
+	}
+}
+

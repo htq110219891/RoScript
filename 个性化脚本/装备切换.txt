@@ -1,0 +1,184 @@
+/////////////////////////////////////////////////////
+//                                                 //
+//                                                 //
+//    作者 : By.cc                                 //
+//                                                 //
+//    脚本环境 : rAthena 17690[SQL]                //
+//                                                 //
+//    如转载麻烦保留此段 谢谢                      //
+//                                                 //
+//                                                 //
+/////////////////////////////////////////////////////
+
+/*
+
+使用方法
+
+SQL内创下表
+
+CREATE TABLE `FastSwitch` (
+  `id` int(11)  NOT NULL ,
+  `num` int(11) NOT NULL ,
+  `name` varchar( 24 ) NOT NULL ,
+  `equip` int(11) NOT NULL ,
+  `refine` int(11) NOT NULL ,
+  `card_1` int(11) NOT NULL ,
+  `card_2` int(11) NOT NULL ,
+  `card_3` int(11) NOT NULL ,
+  `card_4` int(11) NOT NULL DEFAULT '0'
+);
+
+item_db 内增加
+
+10000,Test,Test,11,300,,50,,,,,0xFFFFFFFF,7,2,,,,,,{ callfunc "FastSwitch"; },{},{}
+
+*/
+
+prontera,164,109,4	script	装备快速切换	100,{
+
+query_sql "select `name` from `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 1", .@name1$ ;
+query_sql "select `name` from `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 2", .@name2$ ;
+query_sql "select `name` from `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 3", .@name3$ ;
+setarray .@equip$,"","头上","衣服","左手","右手","披风","鞋子","左饰","右饰","头中","头下";
+setarray .@equip,"1","2","3","4","5","6","7","8","9","10";
+
+meun:
+
+mes "[目前装备]";
+for ( set .@i,1; .@i<11; set .@i,.@i+1 )
+	{
+		set .@name_id,getequipid(.@i);
+		set .@ref_lv,getequiprefinerycnt(.@i);
+		set .@card_id1,getequipcardid(.@i,0); 
+		set .@card_id2,getequipcardid(.@i,1);
+		set .@card_id3,getequipcardid(.@i,2);
+		set .@card_id4,getequipcardid(.@i,3);
+		
+		mes " ^964B3C[ "+.@equip$[.@i]+" ]^000000 ^2DD2F0+"+.@ref_lv+"^000000  "+getitemname(.@name_id)+" ";
+	}
+	next;
+	set .@menu,select ( (.@name1$)?"[ 1 ] - ^69C3F0"+.@name1$+"^000000":"[ 1 ] - ^888888尚未使用^000000" , (.@name2$)?"[ 2 ] - ^87FF3C"+.@name2$+"^000000":"[ 2 ] - ^888888尚未使用^000000" , (.@name3$)?"[ 3 ] - ^D24BB4"+.@name3$+"^000000":"[ 3 ] - ^888888尚未使用^000000"  ) ;
+	switch ( .@menu )
+	{
+		case 1: 
+			mes "[套装装备]";
+			query_sql "SELECT count(num) FROM `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 1" , .@count1;
+				for ( set .@i,0; .@i<.@count1; set .@i,.@i+1 )
+				{
+					query_sql "select `equip`,`refine` from `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 1", .@kk , .@kkk ;
+					mes " ^964B3C[ "+.@equip[.@i]+" ]^000000 ^2DD2F0+"+.@kkk[.@i]+"^000000  "+getitemname(.@kk[.@i])+" ";
+				}
+			break;
+			
+		case 2: 
+			mes "[套装装备]";
+			query_sql "SELECT count(num) FROM `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 2" , .@count2;
+				for ( set .@i,0; .@i<.@count2; set .@i,.@i+1 )
+				{
+					query_sql "select `equip`,`refine` from `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 2", .@kk , .@kkk ;
+					mes " ^964B3C[ "+.@equip[.@i]+" ]^000000 ^2DD2F0+"+.@kkk[.@i]+"^000000  "+getitemname(.@kk[.@i])+" ";
+				}
+			break;
+				
+		case 3: 
+			mes "[套装装备]";
+			query_sql "SELECT count(num) FROM `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 3" , .@count3;
+				for ( set .@i,0; .@i<.@count3; set .@i,.@i+1 )
+				{
+					query_sql "select `equip`,`refine` from `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 3", .@kk , .@kkk ;
+					mes " ^964B3C[ "+.@equip[.@i]+" ]^000000 ^2DD2F0+"+.@kkk[.@i]+"^000000  "+getitemname(.@kk[.@i])+" ";
+				}
+			break;
+	}
+		if ( select ( "记录装备:上一页" ) == 1 )
+				{					
+					for ( set .@j,1; .@j<11; set .@j,.@j+1 )
+					{
+						set .@name_id,getequipid(.@j);
+						set .@ref_lv,getequiprefinerycnt(.@j);
+						set .@card_id1,getequipcardid(.@j,0); 
+						set .@card_id2,getequipcardid(.@j,1);
+						set .@card_id3,getequipcardid(.@j,2);
+						set .@card_id4,getequipcardid(.@j,3);
+						query_sql "delete from `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = '"+.@menu+"'";
+					}	
+					for ( set .@j,1; .@j<11; set .@j,.@j+1 )
+					{
+						set .@name_id,getequipid(.@j);
+						set .@ref_lv,getequiprefinerycnt(.@j);
+						set .@card_id1,getequipcardid(.@j,0); 
+						set .@card_id2,getequipcardid(.@j,1);
+						set .@card_id3,getequipcardid(.@j,2);
+						set .@card_id4,getequipcardid(.@j,3);
+						query_sql "insert `FastSwitch` values ( '"+getcharid(0)+"' , "+.@menu+" , 0 , "+.@name_id+" , "+.@ref_lv+" , "+.@card_id1+" , "+.@card_id2+" , "+.@card_id3+" , "+.@card_id4+" )";
+						query_sql "delete from `FastSwitch` where `equip` = -1";
+					}
+						dispbottom "为套装取个名字吧";
+						input .@name$;
+						query_sql "update `FastSwitch` set `name` = '"+.@name$+"' where `id` = '"+getcharid(0)+"' and `num` = '"+.@menu+"'";
+						close;
+				}
+					next;
+					goto meun;	
+}
+
+
+function	script	FastSwitch	{
+
+query_sql "select `num` from `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 1", .@num1 ;
+query_sql "select `num` from `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 2", .@num2 ;
+query_sql "select `num` from `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 3", .@num3 ;
+query_sql "select count(num) from `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 1" , .@count1;
+query_sql "select count(num) from `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 2" , .@count2;
+query_sql "select count(num) from `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 3" , .@count3;
+query_sql "select `name` from `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 1", .@name1$ ;
+query_sql "select `name` from `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 2", .@name2$ ;
+query_sql "select `name` from `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 3", .@name3$ ;
+
+for ( set .@j,1; .@j<11; set .@j,.@j+1 )
+{
+	if(getequipid(.@j)!=-1){
+		unequip .@j;
+	}
+	
+}
+if ( .@num1 && .@num2 && .@num3 ) { set .@v,rand(1,3); }
+if ( .@num1 && .@num2 && !.@num3 ) { set .@v,rand(1,2); }
+if ( .@num2 && .@num3 && !.@num1 ) { set .@v,rand(2,3); }
+if ( .@num1 && .@num3 && !.@num2 ) { set .@v,rand(1,2); if ( .@v == 2 ) { set .@v,3; } }
+
+if ( .@v == 1 && .@num1 || .@num1 && .@v != 2 && .@v != 3 )
+	{
+
+		for ( set .@i,0; .@i<.@count1; set .@i,.@i+1 )
+		{
+		query_sql "select `equip`,`refine`,`card_1`,`card_2`,`card_3`,`card_4` from `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 1", .@ch1 , .@re1 , .@ca1 , .@ca2 , .@ca3 , .@ca4 ;
+		equip .@ch1[.@i];
+		sleep2 1;
+		}
+	dispbottom	"目前套装为 [ "+.@name1$+" ]";
+	end;
+	}
+if ( .@v == 2 && .@num2 || .@num2 && .@v != 1 && .@v != 3 )
+	{
+		for ( set .@i,0; .@i<.@count2; set .@i,.@i+1 )
+		{
+		query_sql "select `equip`,`refine`,`card_1`,`card_2`,`card_3`,`card_4` from `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 2", .@ch1 , .@re1 , .@ca1 , .@ca2 , .@ca3 , .@ca4 ;
+		equip .@ch1[.@i];
+		sleep2 1;
+		}
+	dispbottom	"目前套装为 [ "+.@name2$+" ]";
+	end;
+	}
+if ( .@v == 3 && .@num3 || .@num3 && .@v != 1 && .@v !=2 )
+	{
+		for ( set .@i,0; .@i<.@count3; set .@i,.@i+1 )
+		{
+		query_sql "select `equip`,`refine`,`card_1`,`card_2`,`card_3`,`card_4` from `FastSwitch` where `id` = '"+getcharid(0)+"' and `num` = 3", .@ch1 , .@re1 , .@ca1 , .@ca2 , .@ca3 , .@ca4 ;
+		equip .@ch1[.@i];
+		sleep2 1;
+		}
+	dispbottom	"目前套装为 [ "+.@name3$+" ]";
+	end;	
+	}
+}

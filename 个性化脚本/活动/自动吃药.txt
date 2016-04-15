@@ -1,0 +1,124 @@
+/************************************************************\
+					EAthena Script
+**************************************************************
+【名    称】自动吃药
+【类    型】辅助工具
+【版    本】1.0
+【版权所有】泠然
+【服 务 端】99MAXEA v8.10.0
+【制作人员】
+    策划：泠然
+    编程：泠然
+    文饰：泠然
+    制作：泠然
+    测试：泠然
+【简要说明】
+	本脚本为 EAthena 服务端用工具脚本，适合自立服使用。
+	玩家可设置低于一定HP/SP自动吃药。可设置吃药种类。
+	药数量为0时，停止吃药。让玩家更专注于使用技能。
+【更新日志】
+    2016-04-13    1.0.0    创建脚本
+【错误回报】论坛反馈
+【相关变量】AutoUseItem_reHpItem、AutoUseItem_reSpItem、AutoUseItem_reHpVal、AutoUseItem_reSpVal
+\************************************************************/
+prontera,0,0,0	script	CheckHPSP	-1,{
+OnCheckUp:
+	if(@AutoUseItemOn==1){
+		if(readparam(5)*100/readparam(6)<50){
+			if (countitem(501)>0){
+				delitem 501,1;
+				consumeitem(501);
+				
+				specialeffect2 204;
+				addtimer 100,"CheckHPSP::OnCheckUp";
+				end;
+			}else{
+				dispbottom "红色药水数量不足。停止吃药";
+				set @AutoUseItemOn,0;
+				end;
+			}
+		}
+		addtimer 100,"CheckHPSP::OnCheckUp";
+	}
+	end;
+OnInit:
+	if($AutoUseItem_HpList[0]==0){
+		//初始化
+		setarray $AutoUseItem_HpList[0],501;
+		setarray $AutoUseItem_SpList[0],501;
+	}
+	end;
+}
+
+function	script	AutoUseItem	{
+	mes "[补血助手]";
+	mes "---------------------";
+	mes "HP低于"+getitemname(AutoUseItem_reHpVal)+"%使用";
+	mes "SP低于"+getitemname(AutoUseItem_reSpVal)+"%使用";
+	mes "HP药品："+getitemname(AutoUseItem_reHpItem);
+	mes "SP药品："+getitemname(AutoUseItem_reSpItem);
+	mes "---------------------";
+	switch(select(@AutoUseItemOn==0?"开启":"关闭","设置",getgmlevel()>90?"后台设置":"")) {
+	case 1:
+		if(@AutoUseItemOn==0){
+			set @AutoUseItemOn,1;
+			doevent "CheckHPSP::OnCheckUp";
+			dispbottom "开启成功";
+		}else{
+			set @AutoUseItemOn,0;
+			dispbottom "关闭成功";
+		}
+	break;
+	case 2:
+		mes "请选择设置内容";
+		switch(select("HP百分比","SP百分比","HP药品","SP药品")) {
+			case 1:
+				mes "请输入HP百分比";
+				input @num;
+				set AutoUseItem_reHpVal,@num;
+				mes "设置成功";
+				close;
+			break;
+			case 2:
+				mes "请输入SP百分比";
+				input @num;
+				set AutoUseItem_reSpVal,@num;
+				mes "设置成功";
+				close;
+			break;
+			case 3:
+				set @x$,"";
+				for (@i=0;@i<getarraysize($AutoUseItem_HpList)/;@i++){	 
+					set @x$,@x$+getitemname($npc_quest_info$[@i])+":";
+				}
+				mes "请选择HP药品";
+				set @op,select(@x$);
+				switch(@op) {
+					default:
+						set AutoUseItem_reHpItem,$AutoUseItem_HpList[@op];
+					break;
+				}
+			break;
+			case 4:
+				
+			break;
+		}
+	break;
+	case 3:
+		mes "请选择设置内容";
+		switch(select("HP药物","SP药物")) {
+			case 1:
+				for(set @i,0;@i<getarraysize($AutoUseItem_HpList);@i++){
+					mes "["+getitemname($npc_quest_info$[@i]+"]";
+				}
+				switch(select("添加","修改","删除")) {
+					
+				}
+			break;
+			
+		}
+	break;
+	}
+
+}
+

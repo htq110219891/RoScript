@@ -1,0 +1,416 @@
+///////////////////////////////////////////////////////////////
+//                                                           //
+// 雕文系统 (Glyph System)                                   //
+//                                                           //
+// 版本: Ver1.0                                              //
+//                                                           //
+// 作者: 小鲑鱼 (grass0916)                                  //
+//                                                           //
+// 脚本简介: 玩家藉由容易、中等、困难的方式取得雕文。        //
+//           将它铭文在身上, 使技能有额外的特殊强化效果,     //
+//           有限定雕文的使用数量, 玩家们的玩法就可以        //
+//           更活、更自由。                                  //
+//                                                           //
+// 脚本备注: 对外释出版, 移除极效雕文的部份, 并且只留下      //
+//           剑士雕文给下载者参考。                          //
+//                                                           //
+///////////////////////////////////////////////////////////////
+/*
+当你新增好NPC之后, 还要再弄其他的设定哦 !
+
+:::伺服器设定::::
+找到(db\item_db.txt), 需要增加的道具 
+
+皆设定成 收集品类的道具即可
+"请见程式码当中的 set $Glyph_Control, XX ; ", 必须新增道具 此为道具编号
+"请见程式码当中的 setarray $Glyph_Primer[1], XX, XX, ...... ; ", 必须依照顺序新增道具 此为道具编号
+*/
+
+gef_fild07,180,240,4	script	小鲑鱼雕文	897,{
+
+	set $NPC_Glyph$, "[小鲑鱼雕文]" ;
+	switch( select( "^ff0000开发雕文 - 技能强化^000000", "^336600什么是铭文学 ?^000000" ) ) {
+		case 1:
+			callfunc "Glyph" ;
+			close ;
+		case 2:
+			callfunc "Guile_Glyph" ;
+			close ;
+	} // switch
+
+	OnInit:
+		// 防止不预期意外发生的初始化
+		deletearray $Glyph_Primer ; deletearray $Glyph_Primer_Name$ ;
+		// 雕文控制器(被安插在头饰上的道具)
+		set $Glyph_Control, 30000 ;
+		// 初阶雕文
+		setarray $Glyph_Primer[1], 30001, 30002, 30003, 30004, 30005, 30006, 30007, 30008, 30009, 30010, 30011, 30012, 30013, 30014, 30015, 30016, 30017, 30018, 30019, 30020, 30021, 30022, 30023, 30024, 30025, 30026, 30027, 30028, 30029, 30030, 30031, 30032, 30033, 30034, 30035, 30036, 30037, 30038, 30039, 30040, 30041, 30042, 30043, 30044, 30045, 30046, 30047, 30048, 30049, 30050, 30051, 30052, 30053 ;
+		setarray $Glyph_Primer_Name$[1], "基本技能雕文", "单手剑使用熟练度雕文", "双手剑使用熟练度雕文", "快速回复雕文", "狂击雕文", "挑衅雕文", "怒爆雕文", "霸体雕文", "禅心雕文", "火狩雕文", "火箭术雕文", "冰箭术雕文", "雷击术雕文", "圣灵召唤雕文", "火球术雕文", "冰冻术雕文", "雷爆术雕文", "石化术雕文", "心灵爆破雕文", "火焰之壁雕文", "暗之障壁雕文", "鹗枭之眼雕文", "苍鹰之眼雕文", "心神凝聚雕文", "二连矢雕文", "箭雨雕文", "天使之护雕文", "天使之击雕文", "光猎雕文", "光之障壁雕文", "瞬间移动雕文", "传送之阵雕文", "治癒术雕文", "加速术雕文", "缓速术雕文", "天使之泪雕文", "天使之光雕文", "天使之障壁雕文", "天使之赐福雕文", "治疗术雕文", "负重量上升雕文", "低价买进雕文", "高价卖出雕文", "手推车使用雕文", "物品鉴定雕文", "露天商店雕文", "金钱攻击雕文", "二刀连击雕文", "残影雕文", "偷窃雕文", "隐匿雕文", "施毒雕文", "解毒雕文" ;
+		end ;
+
+}
+
+function	script	Glyph	{
+
+	set .@PClevel, callfunc( "Glyph_Condition" ) ; // 依等级开发的雕文数不同
+
+	setarray .@Glyph_Type$[1], "第一初阶雕文", "第二初阶雕文", "第三初阶雕文" ;
+
+	switch( select( "配置雕文", "启用雕文效果" ) ) {
+		case 1:
+			mes .@Glyph_Type$[1] + " : ^0066ff" + Glyph_Primer_01$ + "^000000" ;
+			mes .@Glyph_Type$[2] + " : ^0066ff" + Glyph_Primer_02$ + "^000000" ;
+			mes .@Glyph_Type$[3] + " : ^0066ff" + Glyph_Primer_03$ + "^000000" ;
+			next ;
+			switch( select( ( .@PClevel >= 1 )? "修改 " + .@Glyph_Type$[1] : "等级不足, 无法开启 " + .@Glyph_Type$[1], ( .@PClevel >= 2 )? "修改 " + .@Glyph_Type$[2] : "等级不足, 无法开启 " + .@Glyph_Type$[2], ( .@PClevel >= 3 )? "修改 " + .@Glyph_Type$[3] : "等级不足, 无法开启 " + .@Glyph_Type$[3] ) ) {
+				case 1:
+					if ( .@PClevel >= 1 )
+						callfunc "Glyph_Set", Glyph_Primer_01$, .@Glyph_Type$[1], 1 ;
+					break ;
+				case 2:
+					if ( .@PClevel >= 2 )
+						callfunc "Glyph_Set", Glyph_Primer_02$, .@Glyph_Type$[2], 1 ;
+					break ;
+				case 3:
+					if ( .@PClevel >= 3 )
+						callfunc "Glyph_Set", Glyph_Primer_03$, .@Glyph_Type$[3], 1 ;
+					break ;
+			}
+
+			close ;
+
+		case 2:
+			callfunc "Glyph_TurnOn" ;
+			close ;
+	} // switch
+
+}
+
+
+function	script	Glyph_Condition	{
+
+	else if ( Upper ) return 4 ;
+	else if ( !Upper && BaseLevel >= 90 ) return 3 ;
+	else if ( !Upper && BaseLevel >= 60 ) return 2 ;
+	else if ( !Upper && BaseLevel >= 30 ) return 1 ;
+	else return 0 ;
+
+}
+
+function	script	Glyph_Set	{
+
+	if ( getarg(2) == 1 ) {
+		copyarray .@level, $Glyph_Primer, getarraysize( $Glyph_Primer )  ;
+		copyarray .@level_Name$, $Glyph_Primer_Name$, getarraysize( $Glyph_Primer_Name$ ) ;
+		set .@level2$, "$Glyph_Primer" ;
+		set .@level_Name2$, "$Glyph_Primer_Name$" ;
+	} // if
+
+	mes $NPC_Glyph$ ;
+	mes "请输入你要学习的雕文编号的 0~ 100。" ;
+	mes "^ff0000  输入 999, 即可遗忘掉该雕文。^000000" ;
+	next ;
+	input .@select ;
+
+	// 数字 0, 跳出雕文铭文选单
+	if ( .@select == 0 )
+		close ;
+
+	// 数字 999, 遗忘该雕文
+	if ( .@select == 999 ) {
+		if ( select( "取消", "^ff0000遗忘雕文^000000" ) == 2 ) {
+			specialeffect2 618 ;
+			set getarg(0), "" ;
+			dispbottom "已经遗忘了雕文 ..." ;
+		} // if
+		return ;
+	} // if
+
+	// 超出范围的数字, 会要你一直输入到正确范围内为止
+	if ( .@select < 0 || .@select > getarraysize( .@level ) - 1 )
+		callfunc "Glyph_Set", getarg(0), getarg(1), getarg(2) ;
+	else {
+		if ( countitem( .@level[ .@select ] ) ) {
+			if ( callfunc( "Glyph_Set_Check", getarg(1), getd( .@level_Name2$ + "[" + .@select + "]" ), getd( .@level2$ + "[" + .@select + "]" ) ) )
+				set getarg(0), .@level_Name$[ .@select ] ;
+		} // if
+		else {
+			specialeffect2 611 ;
+			mes $NPC_Glyph$ ;
+			mes "你身上并没有 ^ff0000" + .@level_Name$[ .@select ] + " ^000000。" ;
+			close ;
+		} // else
+	} // else
+	return ;
+
+}
+
+function	script	Glyph_Set_Check	{
+
+	if ( callfunc( "Glyph_Set_Check_Duplicate", getarg(1) ) ) {
+		specialeffect2 611 ;
+		mes $NPC_Glyph$ ;
+		mes "该雕文已经存在, 不可重複铭文。" ;
+		close;
+	} // if
+
+	mes $NPC_Glyph$ ;
+	mes "确定将 ^ff0000" + getarg(1) + "^000000 铭文在 ^0033ff" + getarg(0) + "^000000 上吗 ?" ;
+	if ( select( "取消", "确定" ) == 2 ) {
+		specialeffect2 408 ; specialeffect2 610 ;
+		delitem getarg(2), 1 ;
+		dispbottom getarg(1) + " 已经成功铭文在 " + getarg(0) + "。" ;
+		return 1 ;
+	} // if
+	return 0 ;
+
+}
+
+function	script	Glyph_Set_Check_Duplicate	{
+
+	for ( set .@i, 1 ; .@i <= 3 ; set .@i, .@i + 1 ) {
+		if ( getd( "Glyph_Primer_0" + .@i + "$" ) == getarg(0) )
+			return 1 ;
+	} // for
+	return 0 ;
+
+}
+
+function	script	Glyph_TurnOn	{
+
+	if ( getequipid( 9 ) == -1 ) {
+		mes $NPC_Glyph$ ;
+		mes "请装备^ff0000头中^000000的头饰。" ;
+		mes "我将会将雕文魔法能量注入其中。" ;
+		close ;
+	} // if
+
+	else {
+		query_sql "SELECT `refine`, `card0`, `card1`, `card2`, `card3` From `inventory` WHERE `char_id` = " + getcharid(0) + " AND `equip` = 512", .@temprefine, .@tempcard1, .@tempcard2, .@tempcard3, .@tempcard4 ;
+		mes $NPC_Glyph$ ;
+		mes "同一种 Head-2 ^ff0000请勿携带两个以上^000000" ;
+		mes "不在预期中被删除道具" ;
+		mes "^ff0000恕 不 赔 偿^000000" ;
+		next ;
+		set .@tempHead2, getequipid( 9 ) ;
+		mes $NPC_Glyph$ ;
+		mes "请确认你目前的 Head-2 的是否为: " ;
+		mes "//-----------------------------//" ;
+		mes "     " + getequipname( 9 ) + " 精练值: +" + .@temprefine ;
+		mes "     安插的卡片为 : "+ getitemname( .@tempcard1 ) +"" ;
+		mes "//-----------------------------//" ;
+		mes "若不是, 请重新登入后会自动刷新。" ;
+		next ;
+		if ( countitem( .@tempHead2 ) > 1 ) {
+			mes $NPC_Glyph$ ;
+			mes "你携带两个以上的相同的 Head-2 装备, " ;
+			mes "将不需要付予雕文能力的装备放入仓库。 " ;
+			close ;
+		} // if
+		if ( select( "取消", "没有错, 我要进行启用铭文" ) == 2 ) {
+			mes $NPC_Glyph$ ;
+			mes "现在将雕文之力注入你的体内 ..." ;
+			specialeffect2 805 ;
+			delitem .@tempHead2, 1 ;
+			getitem2 .@tempHead2, 1, 1, .@temprefine, 0, .@tempcard1, .@tempcard2, .@tempcard3, $Glyph_Control ;
+		} // if
+		close ;
+	} // else
+
+}
+
+function	script	Guile_Glyph	{
+
+	mes $NPC_Glyph$ ;
+	mes "铭文学, 是由巫师们将魔法能量注入在雕文上, " ;
+	mes "而这股魔法能量可以激发人们的潜能, " ;
+	mes "对于技能的使用可以更容易抓住其精随。" ;
+	next ;
+	mes $NPC_Glyph$ ;
+	mes "而你只需要带来铭文师撰写的雕文, " ;
+	mes "我能引导你阅读其内容, 加速瞭解技能的奥义。" ;
+	next ;
+	callsub Teaching ;
+
+	Teaching:
+		mes $NPC_Glyph$ ;
+		mes "还有其他问题吗 ?" ;
+		next ;
+
+		switch( select( "如何取得雕文 ?", "雕文开发的等级限制 ?", "雕文的效果 ?", "雕文的职业限制 ?" ) ) {
+			case 1:
+				mes $NPC_Glyph$ ;
+				mes "雕文是高深的巫师将魔力铭文在符纸上, " ;
+				mes "而铭文纸材料必须藉由生活採集: " ;
+				mes "伐木、钓鱼, 来取得製作。" ;
+				next ;
+				mes $NPC_Glyph$ ;
+				mes "大部分的初阶雕文 NPC都有贩售, " ;
+				mes "而极效雕文必须有巫师製作。 " ;
+				next ;
+				callsub Teaching ;
+				close ;
+			case 2:
+				mes $NPC_Glyph$ ;
+				mes "雕文的开发等即是有限制的, " ;
+				mes "未转生 30 / 60 / 90 可以开启" ;
+				mes "一至三枚的初阶雕文。" ;
+				next ;
+				mes $NPC_Glyph$ ;
+				mes "转生 30 / 60 / 90 可以开启" ;
+				mes "一至三枚的极效雕文。" ;
+				next ;
+				callsub Teaching ;
+				close ;
+			case 3:
+				mes $NPC_Glyph$ ;
+				mes "雕文的效果是很多样化的, " ;
+				mes "在道具的说明都会有详细介绍, " ;
+				mes "如果你需要雕文的效果介绍, 我可以提供给你。" ;
+				next ;
+				callsub Teaching ;
+				close ;
+			case 4:
+				mes $NPC_Glyph$ ;
+				mes "是没有职业限制的, 由于仙境传说本身的技能扩充非常广, " ;
+				mes "多项装备、道具捲轴可以习得各种技能, " ;
+				mes "因此任何雕文都可以让每种职业使用。" ;
+				mes "※但触发雕文效果前提必须习得该技能" ;
+				next ;
+				callsub Teaching ;
+				close ;
+
+		} // switch
+	close ;
+
+}
+
+
+function	script	Glyph_Effect	{
+
+	// Glyph_Primer 初阶雕文
+	for ( set .@i, 1 ; .@i <= 3 ; set .@i, .@i + 1 ) {
+		if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "" ) ; // 没有设置雕文
+
+		// Job - Novice series skills
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "基本技能雕文" ) { // All Status + 1
+			if ( getskilllv( "NV_BASIC" ) ) { bonus bStr, 1 ; bonus bAgi, 1 ; bonus bVit, 1 ; bonus bInt, 1 ; bonus bDex, 1 ; bonus bLuk, 1 ; } }
+
+		// Job - Swordman series skills
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "单手剑使用熟练度雕文" ) { // Atk + 0.5 * SkillLv
+			if ( getskilllv( "SM_SWORD" ) ) bonus bAtk, getskilllv( "SM_SWORD" ) * 5 / 10 ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "双手剑使用熟练度雕文" ) { // Atk + 0.5 * SkillLv
+			if ( getskilllv( "SM_TWOHAND" ) ) bonus bAtk, getskilllv( "SM_TWOHAND" ) * 5 / 10 ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "快速回复雕文" ) { // 增加 HP恢复道具效果 10%、受到治癒术治疗量提升 3%
+			if ( getskilllv( "SM_RECOVERY" ) ) { bonus bAddItemHealRate, 10 ; bonus2 bSkillHeal2, "AL_HEAL", 3 ; } }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "狂击雕文" ) { // 狂击伤害提高 25%, 狂击带有击退 3格效果
+			if ( getskilllv( "SM_BASH" ) ) { bonus2 bSkillAtk, "SM_BASH", 25 ; bonus2 bAddSkillBlow, "SM_BASH", 3 ; } }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "挑衅雕文" ) { // Luk + 0.5 * SkillLv
+			if ( getskilllv( "SM_PROVOKE" ) ) bonus bLuk, getskilllv( "SM_PROVOKE" ) * 5 / 10 ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "怒爆雕文" ) { // 使用技能 10秒内获得铠甲火属性
+			 }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "霸体雕文" ) { // Vit、Def、Mdef + 0.2 * SkillLv
+			 }
+
+		// Job - Mage series skills
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "禅心雕文" ) { // 技能延迟 - 0.3 * SkillLv %
+			if ( getskilllv( "MG_SRECOVERY" ) ) bonus bDelayRate, - getskilllv( "MG_SRECOVERY" ) * 3 / 10 ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "火狩雕文" ) { // 火狩寻敌范围上升、使用火狩 15秒内获得火属性抵御 10%
+			bonus5 bAutoSpellOnSkill, "MG_SIGHT", "NPC_WIDESIGHT", 1, 1000, 1 ; autobonus3 "{ bonus2 bSubEle, Ele_Fire, 10 ; }", 1000, 15000, "MG_SIGHT", "{ specialeffect2 225 ; }" ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "火箭术雕文" ) { // 火箭术伤害增加 10%、火箭术咏唱时间缩短 10%
+			bonus2 bSkillAtk, "MG_FIREBOLT", 10 ; bonus2 bCastrate, "MG_FIREBOLT", -10 ; autobonus3 "{ }", 1000, 10, "MG_FIREBOLT", "{ specialeffect2 958 ; }" ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "冰箭术雕文" ) { // 冰箭术伤害增加 10%、冰箭术伤咏唱时间缩短 10%
+			bonus2 bSkillAtk, "MG_COLDBOLT", 10 ; bonus2 bCastrate, "MG_COLDBOLT", -10 ; autobonus3 "{ }", 1000, 10, "MG_COLDBOLT", "{ specialeffect2 954 ; }" ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "雷击术雕文" ) { // 雷击术伤害增加 10%、雷击术咏唱时间缩短 10%
+			bonus2 bSkillAtk, "MG_LIGHTNINGBOLT", 10 ; bonus2 bCastrate, "MG_LIGHTNINGBOLT", -10 ; autobonus3 "{ }", 1000, 10, "MG_LIGHTNINGBOLT", "{ specialeffect2 948 ; }" ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "圣灵召唤雕文" ) { // 圣灵召唤伤害增加 20%、圣灵召唤咏唱时间缩短 20%
+			bonus2 bSkillAtk, "MG_SOULSTRIKE", 20 ; bonus2 bCastrate, "MG_SOULSTRIKE", -20 ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "火球术雕文" ) { // 强化所有火属性技能 + 0.2 * SkillLv %
+			 }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "冰冻术雕文" ) { // 强化所有水属性技能 + 0.2 * SkillLv %
+			 }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "雷爆术雕文" ) { // 强化所有风属性技能 + 0.2 * SkillLv %
+			 }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "石化术雕文" ) { // 强化所有地属性技能 + 0.2 * SkillLv %
+			 }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "心灵爆破雕文" ) { // 强化所有念属性技能 + 0.4 * SkillLv %
+			 }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "火焰之壁雕文" ) { // 附加著火效果
+			 }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "暗之障壁雕文" ) { // MDef + 0.5 * SkillLv
+			if ( getskilllv( "MG_SAFETYWALL" ) ) bonus bMdef, getskilllv( "MG_SAFETYWALL" ) * 5 / 10 ; }
+
+		// Job - Archer series skills
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "鹗枭之眼雕文" ) { // Dex + 0.3 * SkillLv
+			if ( getskilllv( "AC_OWL" ) ) bonus bMdef, getskilllv( "AC_OWL" ) * 3 / 10 ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "苍鹰之眼雕文" ) { // 所有武器攻击距离增加 1
+			if ( getskilllv( "AC_VULTURE" ) ) bonus bAtkRange, 1; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "心神凝聚雕文" ) { // 使用心神凝聚 移动速度额外增加 5%, 能够与其他移动速度技能并存, 持续时间 100秒
+			if ( getskilllv( "AC_CONCENTRATION" ) ) autobonus3 "{ bonus bSpeedAddRate, 5 ; }", 1000, 100000, "AC_CONCENTRATION", "{ specialeffect2 519 ; }" ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "二连矢雕文" ) { // 使用二连矢获得 Dex增加 5的状态, 持续时间 3秒
+			if ( getskilllv( "AC_DOUBLE" ) ) autobonus3 "{ bonus bDex, 5 ; }", 1000, 3000, "AC_DOUBLE", "{ specialeffect2 649 ; }" ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "箭雨雕文" ) { // 箭雨等级 5以上, 1% 机率普通攻击 1秒溅射状态 3*3, 每提升 1等级机率上升 0.5%
+			if ( getskilllv( "AC_SHOWER" ) >= 5 ) autobonus "{ bonus bSplashRange, 1 ; }", 10 + ( getskilllv( "AC_SHOWER" ) - 5 ) * 5, 1000, BF_WEAPON, "{ }" ; }
+
+		// Job - Acolyte series skills
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "天使之护雕文" ) { // Def、MDef + 0.3 * SkillLv
+			if ( getskilllv( "AL_DP" ) ) { bonus bDef, getskilllv( "AL_DP" ) * 3 / 10 ; bonus bMdef, getskilllv( "AL_DP" ) * 3 / 10 ; } }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "天使之击雕文" ) { // Atk、MAtk + 0.2 * SkillLv
+			if ( getskilllv( "AL_DEMONBANE" ) ) { bonus bAtk, getskilllv( "AL_DEMONBANE" ) * 2 / 10 ; bonus bMatk, getskilllv( "AL_DEMONBANE" ) * 2 / 10 ; } }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "光猎雕文" ) { // 5% 机率使用魔法技能 10秒内获得全属性抵御 3%
+			if ( getskilllv( "AL_RUWACH" ) ) autobonus "{ bonus2 bSubEle, Ele_Neutral, 3; bonus2 bSubEle, Ele_Water, 3 ; bonus2 bSubEle, Ele_Earth, 3; bonus2 bSubEle, Ele_Fire, 3 ; bonus2 bSubEle, Ele_Wind, 3 ; bonus2 bSubEle, Ele_Poison, 3 ; bonus2 bSubEle, Ele_Holy, 3; bonus2 bSubEle, Ele_Dark, 3; bonus2 bSubEle, Ele_Ghost, 3 ; bonus2 bSubEle, Ele_Undead, 3 ; }", 50, 10000, BF_MAGIC, "{ specialeffect2 542 ; }"; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "光之障壁雕文" ) { // 永久受到远距离伤害减少 3%, 光之障壁 SP消耗增加 10
+			 }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "瞬间移动雕文" ) { // Agi + 3、Flee + 3
+			if ( getskilllv( "AL_TELEPORT" ) ) bonus bAgi, 3 ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "传送之阵雕文" ) { // 施展传送之阵时, 咏唱不可被中断
+			 }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "治癒术雕文" ) { // 治癒术恢复量 + 0.5 * SkillLv
+			bonus2 bSkillHeal, "AL_HEAL", getskilllv( "AL_HEAL" ) * 5 / 100 ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "加速术雕文" ) { // 加速术效果增加 Flee + ( 1 * SkillLv ), 60秒
+			 }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "缓速术雕文" ) { // 使用缓速术时, 自身的移动速度增加 30%, 持续2秒
+			 }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "天使之泪雕文" ) { // Int + 3、使用天使之泪 50%机率获得 2瓶圣水
+			if ( getskilllv( "AL_HOLYWATER" ) ) { bonus bInt, 3 ; autobonus3 "{ }", 1000, 10, "AL_HOLYWATER", "{ specialeffect2 9 ; if ( rand( 0, 1 ) ) getitem 523, 1 ; }" ; } }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "天使之光雕文" ) { // 使用天使之光时, 5秒内获得铠甲圣属性
+			 }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "天使之障壁雕文" ) { // 来自不死系、恶魔系伤害减少 0.5 * SkillLv %
+			if ( getskilllv( "AL_ANGELUS" ) ) bonus2 bSubRace, RC_Undead, getskilllv( "AL_ANGELUS" ) * 5 / 10 ; bonus2 bSubRace, RC_Demon, getskilllv( "AL_ANGELUS" ) * 5 / 10  ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "天使之赐福雕文" ) { // 30% 机率增加施放者的 All Status + 1, 15秒
+			 }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "治疗术雕文" ) { // 使用治疗术时, 100%机率联繫技能(不需消耗SP), 对目标施展等级 5的 治癒术
+			if ( getskilllv( "AL_CURE" ) ) bonus5 bAutoSpellOnSkill, "AL_CURE", "AL_HEAL", 5, 1000, 0 ; }
+
+		// Job - Merchant series skills
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "负重量上升雕文" ) { // Str + 0.3 * SkillLv、额外获得 50 * SkillLv 负重量
+			 }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "低价买进雕文" ) { // 低价买进 技能等级上升 1
+			skill "MC_DISCOUNT", getskilllv( "MC_DISCOUNT" ) + 1 ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "高价卖出雕文" ) { // 高价卖出 技能等级上升 1
+			skill "MC_OVERCHARGE", getskilllv( "MC_OVERCHARGE" ) + 1 ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "手推车使用雕文" ) { // 移动速度增加 0.5 * SkillLv %
+			bonus bSpeedRate, getskilllv( "MC_PUSHCART" ) * 5 / 10 ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "物品鉴定雕文" ) { // Dex、Int、Luk + 3
+			if ( getskilllv( "MC_IDENTIFY" ) ) { bonus bDex, 3 ; bonus bInt, 3 ; bonus bLuk, 3 ; } }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "露天商店雕文" ) { // 增加 NPC好感度 的上升速度
+			 }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "金钱攻击雕文" ) { // 金钱攻击伤害增加 30%, 减少 100 的 Zeny消耗
+			if ( getskilllv( "MC_MAMMONITE" ) ) { bonus2 bSkillAtk, "MC_MAMMONITE", 30 ; autobonus3 "{ }", 1000, 10, "MC_MAMMONITE", "{ specialeffect2 518 ; set Zeny, Zeny + 100 ; }" ; } }
+
+		// Job - Theif series skills
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "二刀连击雕文" ) { // 装备短剑时, Atk增加 1 * SkillLv
+			if ( getskilllv( "TF_DOUBLE" ) ) bonus2 bWeaponAtk, 1, getskilllv( "TF_DOUBLE" ) ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "残影雕文" ) { // 完全迴避 + 0.2 * SkillLv
+			if ( getskilllv( "TF_MISS" ) ) { bonus bFlee2, getskilllv( "TF_MISS" ) * 2 / 10 ; } }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "偷窃雕文" ) { // Dex + 3, 偷窃成功机率上升 1 * SkillLv %
+			if ( getskilllv( "TF_DETOXIFY" ) ) { bonus bDex, 3 ; bonus bAddStealRate, getskilllv( "TF_STEAL" ) ; } }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "隐匿雕文" ) { // 10% 机率受到物理攻击伤害, 使用已习得等级的 隐匿
+			if ( getskilllv( "TF_HIDING" ) ) bonus3 bAutoSpellWhenHit, "TF_HIDING", getskilllv( "TF_HIDING" ), 100 ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "施毒雕文" ) { // 施毒伤害增加 30%
+			bonus2 bSkillAtk, "TF_POISON", 30 ; }
+		else if ( getd( "Glyph_Primer_0" + .@i + "$" ) == "解毒雕文" ) { // Vit + 3, 使用解毒自身恢复 100HP
+			if ( getskilllv( "TF_DETOXIFY" ) ) { bonus bVit, 3 ; autobonus3 "{ }", 1000, 10, "TF_DETOXIFY", "{ specialeffect2 331 ; Heal 100, 0 ; }" ; } }
+	} // for
+
+}

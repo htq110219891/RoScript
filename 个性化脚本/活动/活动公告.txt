@@ -1,0 +1,194 @@
+/************************************************************\
+					EAthena Script
+**************************************************************
+【名    称】活动公告
+【类    型】
+【版    本】1.0
+【版权所有】泠然
+【服 务 端】99MAXEA v8.10.0
+【制作人员】
+    策划：泠然
+    编程：泠然
+    文饰：泠然
+    制作：泠然
+    测试：泠然
+【简要说明】
+    可在线编辑公告内容。
+【更新日志】
+    2015-08-11    1.0.0    创建脚本
+【错误回报】
+\************************************************************/
+prontera.gat,144,125,5	script	公告	858,{
+	mes "[公告]";
+	for(set @i,0;@i<getarraysize($npc_activity$);@i++){
+		mes "活动"+(@i+1)+"："+$npc_activity$[@i];
+	}
+	mes "请选择想要查看的活动详情";
+	next;
+	if (getgmlevel()>90){
+		switch(select("添加活动","删除活动","修改活动","查看活动")) {
+			case 1:
+				mes "[添加活动]";
+				mes "请输入活动标题";
+				input @title$;
+				mes "请输入活动时间";
+				input @time$;
+				mes "请输入活动内容";
+				input @content$;
+				mes "请输入活动链接";
+				mes "输入0则不显示链接";
+				input @http_link$;
+				next;
+				mes "[添加活动]";
+				mes "活动标题："+@title$;
+				mes "活动时间："+@time$;
+				mes "活动内容："+@content$;
+				if(@http_link$!="0"){
+					mes "活动链接：<URL>点我打开并放大查看<INFO>"+@http_link$+"</INFO></URL>";
+				}
+				mes "是否确定？";
+				switch(select("确定")) {
+					case 1:
+						setarray $npc_activity$[getarraysize($npc_activity$)],@title$;
+						setarray $npc_activity_time$[getarraysize($npc_activity_time$)],@time$;
+						setarray $npc_activity_content$[getarraysize($npc_activity_content$)],@content$;
+						setarray $npc_activity_url$[getarraysize($npc_activity_url$)],@http_link$;
+						mes "添加成功";
+						close;
+					break;
+				}
+			break;
+			case 2:
+				mes "[删除活动]";
+				mes "请选择要删除的活动";
+				set @x$,"";
+				for (set @i,0;@i<getarraysize($npc_activity$);@i++){
+					set @x$,@x$+"活动"+(@i+1)+":";
+				}
+				set @op,select(@x$);
+				switch(@op) {
+					default:
+						mes "[活动"+(@op)+"]";
+						mes "活动标题："+$npc_activity$[@op-1];
+						mes "活动时间："+$npc_activity_time$[@op-1];
+						mes "活动内容："+$npc_activity_content$[@op-1];
+						if($npc_activity_url$[@op-1]!="0"){
+							mes "活动链接：<URL>点我打开并放大查看<INFO>"+$npc_activity_url$[@op-1]+"</INFO></URL>";
+						}
+						mes "是否确定？";
+						switch(select("确定")) {
+							case 1:
+								deletearray $npc_activity$[@op-1],1;
+								deletearray $npc_activity_time$[@op-1],1;
+								deletearray $npc_activity_content$[@op-1],1;
+								deletearray $npc_activity_url$[@op-1],1;
+								mes "删除成功";
+								close;
+							break;
+						}
+						close;
+					break;
+				}
+			break;
+			case 3:
+				mes "[修改活动]";
+				mes "请选择要修改的活动";
+				next;
+				set @x$,"";
+				for (set @i,0;@i<getarraysize($npc_activity$);@i++){
+					set @x$,@x$+"活动"+(@i+1)+":";
+				}
+				set @op,select(@x$);
+				switch(@op) {
+					default:
+						mes "[活动"+(@op)+"]";
+						mes "活动标题："+$npc_activity$[@op-1];
+						mes "活动时间："+$npc_activity_time$[@op-1];
+						mes "活动内容："+$npc_activity_content$[@op-1];
+						if($npc_activity_url$[@op-1]!="0"){
+							mes "活动链接：<URL>点我打开并放大查看<INFO>"+$npc_activity_url$[@op-1]+"</INFO></URL>";
+						}
+						mes "请选择修改的内容";
+						next;
+						switch(select("标题","时间","内容","链接")) {
+							case 1:
+								mes "请输入修改的标题";
+								input @title$;
+								setarray $npc_activity$[@op-1],@title$;
+								mes "修改成功";
+								close;
+							break;
+							case 2:
+								mes "请输入修改的时间";
+								input @time$;
+								setarray $npc_activity_time$[@op-1],@time$;
+								mes "修改成功";
+								close;
+							break;
+							case 3:
+								mes "请输入修改的内容";
+								input @content$;
+								setarray $npc_activity_content$[@op-1],@content$;
+								mes "修改成功";
+								close;
+							break;
+							case 4:
+								mes "请输入修改的内容";
+								mes "输入0则不显示链接";
+								input @http_link$;
+								setarray $npc_activity_url$[@op-1],@http_link$;
+								mes "修改成功";
+								close;
+							break;
+						}
+						close;
+					break;
+				}
+			break;
+			case 4:
+				set @x$,"";
+				for (set @i,0;@i<getarraysize($npc_activity$);@i++){
+					set @x$,@x$+"活动"+(@i+1)+":";
+				}
+				set @op,select(@x$);
+				switch(@op) {
+					default:
+						mes "活动标题："+$npc_activity$[@op-1];
+						mes "活动时间："+$npc_activity_time$[@op-1];
+						mes "活动内容："+$npc_activity_content$[@op-1];
+						if($npc_activity_url$[@op-1]!="0"){
+							mes "活动链接：<URL>点我打开并放大查看<INFO>"+$npc_activity_url$[@op-1]+"</INFO></URL>";
+						}
+						close;
+					break;
+				}
+			break;
+		}
+	}else{
+		set @x$,"";
+		for (set @i,0;@i<getarraysize($npc_activity$);@i++){
+			set @x$,@x$+"活动"+(@i+1)+":";
+		}
+		set @op,select(@x$);
+		switch(@op) {
+			default:
+				mes "活动标题："+$npc_activity$[@op-1];
+				mes "活动时间："+$npc_activity_time$[@op-1];
+				mes "活动内容："+$npc_activity_content$[@op-1];
+				if($npc_activity_url$[@op-1]!="0"){
+					mes "活动链接：<URL>点我打开并放大查看<INFO>"+$npc_activity_url$[@op-1]+"</INFO></URL>";
+				}
+				close;
+			break;
+		}
+	}
+	OnInit:
+		//初始化活动
+		if($npc_activity_init==0){
+			set $npc_activity_init,1;
+			setarray $npc_activity$[0],"新开服冲级有奖活动","充值满200送50活动";
+			setarray $npc_activity_time$[0],"2015.8.7 - 2015.8.11","2015.8.7 - 2015.8.11";
+			setarray $npc_activity_content$[0],"凡是到达三转99级的玩家均可在首都NPC处领取奖励","单笔充值满200可获得道具格瓦斯50个";
+			setarray $npc_activity_url$[0],"baidu.com","baidu.com";
+		}
+}

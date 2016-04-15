@@ -1,0 +1,273 @@
+-	shop	quest_shop	-1,512:100	//生成商店，请无视这行
+prontera,167,125,5,	script	头饰制作A	445,{ //自行设定位子,外观
+	set @i,0;
+	mes "[头饰制作]";
+	mes "请按照购买物品似的选择";
+	mes "材料足够后将直接制作";
+	mes "材料不足将直接提示材料";
+	mes "请^FF0000一次选购一种^000000头饰";
+	mes "请放心选购^FF3399 查看头饰时,不会扣除相应Zeny^000000";
+	callshop "quest_shop",1;
+	npcshopattach "quest_shop";
+	end;
+
+OnBuyItem:
+        
+	if(.BuildQuest) {
+		for(set .e,0; !compare(getarg(.e+1),"Zeny"); set .e,.e+2) {}
+		npcshopadditem "quest_shop",getarg(.e+2),getarg(.e)*compare(getarg(.e+1),"SZeny");
+		setarray .Shop[.i],getarg(.e+2);
+		set .i,.i+1;
+		if(.i%20==0){sleep(1);}
+		goto Quest_Setup;
+	}
+	if(.Shop[@i]!=@bought_nameid) for(set @i,1; 1; set @i,@i+1) if(.Shop[@i]==@bought_nameid) { set .i,@i; callsub Quest_Setup; }
+	for(set @i,1; !@e; set @i,@i+1) if(.Shop[@i]==@bought_nameid) { set @e,1; set .i,@i; callsub Quest_Setup; }
+	mes "- 制作 ^FF0000"+getitemname(@bought_nameid)+"^000000";
+	mes "- 请准备好下面材料！";
+	for(set @i,0; !compare(getarg(@i+1),"Zeny"); set @i,@i+2) mes " ^0066CC" + getitemname(getarg(@i)) + "^000000 x " + ((countitem(getarg(@i))>=getarg(@i+1))? "":"") + "" + getarg(@i+1) + " [^009900" + countitem(getarg(@i)) + "^000000/^FF6600" + getarg(@i+1) + "^000000]"+( countitem(getarg(@i))>=getarg(@i+1)?" ( ^D2691E已完成^000000 )":" ( ^999999未完成^000000 )");
+	if(getarg(@i)) mes " ^FF1493需要制作费用^000000 " + ((Zeny>=getarg(@i))? "^FF0000":"") + "" + getarg(@i) + "^000000 "+((Zeny>=getarg(@i))? "( ^D2691E已完成^000000 )":"( ^999999金钱不足^000000 )");
+	mes "- 在交换条件里写着, 我将会给你：^0000FF";
+	for(set @i,@i+2; getarg(@i+1,0); set @i,@i+2) mes getarg(@i+1) + " 个 " + getitemname(getarg(@i));
+	switch(select("- 1、制作 ^FF0000"+getitemname(@bought_nameid)+"^000000:" + (((((getiteminfo(@bought_nameid,5) & 1) || (getiteminfo(@bought_nameid,5) & 256) || (getiteminfo(@bought_nameid,5) & 512)) && @equip==0))? "- 2、看看他长啥样":"") + ":- 3、结束对话")) {
+		case 1:
+			for(set @i,0; !compare(getarg(@i+1),"Zeny"); set @i,@i+2) if(countitem(getarg(@i)) < getarg(@i+1)) {
+				next;
+				mes "[头饰制作]";
+				mes "你身上有 ^FF0000" + countitem(getarg(@i)) + "^000000 个 ^FF0000" + getitemname(getarg(@i)) + "^000000,我需要 ^009900" + getarg(@i+1) + "^000000 个";
+				mes "请补齐 ^FF0000" + (getarg(@i+1)-countitem(getarg(@i))) + "^000000 个 ^FF0000" + getitemname(getarg(@i)) + "^000000 再来找我.";
+				emotion 53;
+				close;
+			}
+			if(Zeny < getarg(@i)) {
+				next;
+				mes "[头饰制作]";
+				mes "你身上携带的金钱不足.";
+				mes "请补齐 ^FF0000" + (getarg(@i)-Zeny) + "Zeny差额再来找我^000000.";
+				emotion 53;
+				close;
+			}
+			for(set @i,0; !compare(getarg(@i+1),"Zeny"); set @i,@i+2) delitem getarg(@i),getarg(@i+1);
+			set Zeny,Zeny-getarg(@i);
+			for(set @i,@i+2; getarg(@i+1,0); set @i,@i+2) getitem getarg(@i),getarg(@i+1);
+			specialeffect2 154;
+			emotion 21;
+			if (compare(getarg(@i,0),"announce")) announce strcharinfo(0) + " 获得了 " + getitemname(@bought_nameid) + "!",bc_all;
+			close;
+		case 2:
+			specialeffect2 6;
+			set @bottomview, getlook(3);
+			set @topview, getlook(4);
+			set @midview, getlook(5);
+			addtimer 1000, strnpcinfo(3)+"::On_Leave";
+			set @equip,getiteminfo(@bought_nameid, 5);
+			set @view, getiteminfo(@bought_nameid, 11);
+			if(@equip != -1 && @view > 0) {
+				if(@equip & 1) atcommand "@changelook 3 " + @view;
+				if(@equip & 256) atcommand "@changelook 1 " + @view;
+				if(@equip & 512) atcommand "@changelook 2 " + @view;
+			}
+			next;
+			goto OnBuyItem;
+
+		case 3:
+			emotion 12;
+			close;
+	}
+On_Leave:
+	atcommand "@changelook 1 " + @topview;
+	atcommand "@changelook 2 " + @midview;
+	atcommand "@changelook 3 " + @bottomview;
+	set @equip,0;
+	set @view,0;
+	set @topview,0;
+	set @midview,0;
+	set @bottomview,0;
+	end;
+OnInit:
+	npcshopitem "quest_shop",0,0;
+	set .BuildQuest,1;
+	set .i,1;
+Quest_Setup:
+	switch(.i) {
+		default: set .BuildQuest,0; set .e,0; set .i,0; end;
+                case 1: callsub OnBuyItem,1019,50,983,1,1,"SZeny",2272,1;
+                case 2: callsub OnBuyItem,5073,1,1750,1,1,"SZeny",2285,1;
+                case 3: callsub OnBuyItem,1049,4,1,"SZeny",2293,1;
+                case 4: callsub OnBuyItem,949,100,706,1,722,1,2213,1,1,"SZeny",2214,1;
+                case 5: callsub OnBuyItem,1030,10,1,"SZeny",5016,1;
+                case 6: callsub OnBuyItem,5001,1,949,200,724,1,1,"SZeny",2283,1;
+                case 7: callsub OnBuyItem,2275,1,998,50,733,1,1,"SZeny",2273,1;
+                case 8: callsub OnBuyItem,710,1,704,1,703,1,708,1,1,"SZeny",5012,1;
+                case 9: callsub OnBuyItem,999,40,1003,1,970,1,984,1,1,"SZeny",5001,1;
+                case 10: callsub OnBuyItem,923,20,1,"SZeny",2284,1;
+                case 11: callsub OnBuyItem,2247,1,916,300,1,"SZeny",5018,1;
+                case 12: callsub OnBuyItem,2243,1,999,100,1,"SZeny",2296,1;
+                case 13: callsub OnBuyItem,909,10,705,10,914,10,1,"SZeny",2278,1;
+                case 14: callsub OnBuyItem,999,20,707,1,1,"SZeny",2281,1;
+                case 15: callsub OnBuyItem,999,50,1,"SZeny",2292,1;
+                case 16: callsub OnBuyItem,701,5,1,"SZeny",5004,1;
+                case 17: callsub OnBuyItem,1059,150,907,100,978,1,1,"SZeny",5023,1;
+                case 18: callsub OnBuyItem,2279,1,7035,50,526,100,1,"SZeny",5028,1;
+                case 19: callsub OnBuyItem,2233,1,746,20,1,"SZeny",5034,1;
+                case 20: callsub OnBuyItem,10007,1,968,50,1,"SZeny",5042,1;
+                case 21: callsub OnBuyItem,2271,1,975,1,1,"SZeny",5047,1;
+                case 22: callsub OnBuyItem,7013,1200,1,"SZeny",5041,1;
+                case 23: callsub OnBuyItem,5041,1,999,10,1,"SZeny",5048,1;
+                case 24: callsub OnBuyItem,2221,1,2227,1,1059,250,7063,600,1,"SZeny",5032,1;
+                case 25: callsub OnBuyItem,1099,1500,1,"SZeny",5049,1;
+                case 26: callsub OnBuyItem,529,10,530,5,538,15,539,20,999,10,1,"SZeny",5024,1;
+                case 27: callsub OnBuyItem,2252,1,1036,400,7001,50,4052,1,1,"SZeny",5027,1;
+                case 28: callsub OnBuyItem,2608,1,7069,500,1,"SZeny",5036,1;
+                case 29: callsub OnBuyItem,2211,1,978,1,7003,300,1,"SZeny",5052,1;
+                case 30: callsub OnBuyItem,539,120,982,1,949,330,1036,450,1,"SZeny",5026,1;
+                case 31: callsub OnBuyItem,1038,600,7048,40,1,"SZeny",5038,1;
+                case 32: callsub OnBuyItem,7033,850,7068,300,1015,1,1,"SZeny",5029,1;
+                case 33: callsub OnBuyItem,2213,1,1036,20,7012,200,7065,300,1,"SZeny",5033,1;
+                case 34: callsub OnBuyItem,2252,1,1054,450,943,1200,1,"SZeny",5045,1;
+                case 35: callsub OnBuyItem,2233,1,969,1,999,20,949,80,938,800,1,"SZeny",5021,1;
+                case 36: callsub OnBuyItem,5015,1,978,1,7030,50,1,"SZeny",5039,1;
+                case 37: callsub OnBuyItem,5009,1,5028,1,747,1,999,25,1,"SZeny",5031,1;
+                case 38: callsub OnBuyItem,5037,1,7064,500,1,"SZeny",5050,1;
+                case 39: callsub OnBuyItem,2254,1,2229,1,7036,5,1,"SZeny",5025,1,"announce";
+	}
+}
+
+
+//================================================================================================================//
+
+-	shop	questz_shop	-1,512:100	//生成商店，请无视这行
+prontera,169,125,5,	script	头饰制作B	446,{ //自行设定位子,外观
+	set @i,0;
+	mes "[头饰制作]";
+	mes "请按照购买物品似的选择";
+	mes "材料足够后将直接制作";
+	mes "材料不足将直接提示材料";
+	mes "请^FF0000一次选购一种^000000头饰";
+	mes "请放心选购^FF3399 查看头饰时,不会扣除相应Zeny^000000";
+	callshop "questz_shop",1;
+	npcshopattach "questz_shop";
+	end;
+
+OnBuyItem:
+        
+	if(.BuildQuest) {
+		for(set .e,0; !compare(getarg(.e+1),"Zeny"); set .e,.e+2) {}
+		npcshopadditem "questz_shop",getarg(.e+2),getarg(.e)*compare(getarg(.e+1),"SZeny");
+		setarray .Shop[.i],getarg(.e+2);
+		set .i,.i+1;
+		if(.i%20==0){sleep(1);}
+		goto Quest_Setup;
+	}
+	if(.Shop[@i]!=@bought_nameid) for(set @i,1; 1; set @i,@i+1) if(.Shop[@i]==@bought_nameid) { set .i,@i; callsub Quest_Setup; }
+	for(set @i,1; !@e; set @i,@i+1) if(.Shop[@i]==@bought_nameid) { set @e,1; set .i,@i; callsub Quest_Setup; }
+	mes "- 制作 ^FF0000"+getitemname(@bought_nameid)+"^000000";
+	mes "- 请准备好下面材料！";
+	for(set @i,0; !compare(getarg(@i+1),"Zeny"); set @i,@i+2) mes " ^0066CC" + getitemname(getarg(@i)) + "^000000 x " + ((countitem(getarg(@i))>=getarg(@i+1))? "":"") + "" + getarg(@i+1) + " [^009900" + countitem(getarg(@i)) + "^000000/^FF6600" + getarg(@i+1) + "^000000]"+( countitem(getarg(@i))>=getarg(@i+1)?" ( ^D2691E已完成^000000 )":" ( ^999999未完成^000000 )");
+	if(getarg(@i)) mes " ^FF1493需要制作费用^000000 " + ((Zeny>=getarg(@i))? "^FF0000":"") + "" + getarg(@i) + "^000000 "+((Zeny>=getarg(@i))? "( ^D2691E已完成^000000 )":"( ^999999金钱不足^000000 )");
+	mes "- 在交换条件里写着, 我将会给你：^0000FF";
+	for(set @i,@i+2; getarg(@i+1,0); set @i,@i+2) mes getarg(@i+1) + " 个 " + getitemname(getarg(@i));
+	switch(select("- 1、制作 ^FF0000"+getitemname(@bought_nameid)+"^000000:" + (((((getiteminfo(@bought_nameid,5) & 1) || (getiteminfo(@bought_nameid,5) & 256) || (getiteminfo(@bought_nameid,5) & 512)) && @equip==0))? "- 2、看看他长啥样":"") + ":- 3、结束对话")) {
+		case 1:
+			for(set @i,0; !compare(getarg(@i+1),"Zeny"); set @i,@i+2) if(countitem(getarg(@i)) < getarg(@i+1)) {
+				next;
+				mes "[头饰制作]";
+				mes "你身上有 ^FF0000" + countitem(getarg(@i)) + "^000000 个 ^FF0000" + getitemname(getarg(@i)) + "^000000,我需要 ^009900" + getarg(@i+1) + "^000000 个";
+				mes "请补齐 ^FF0000" + (getarg(@i+1)-countitem(getarg(@i))) + "^000000 个 ^FF0000" + getitemname(getarg(@i)) + "^000000 再来找我.";
+				emotion 53;
+				close;
+			}
+			if(Zeny < getarg(@i)) {
+				next;
+				mes "[头饰制作]";
+				mes "你身上携带的金钱不足.";
+				mes "请补齐 ^FF0000" + (getarg(@i)-Zeny) + "Zeny差额再来找我^000000.";
+				emotion 53;
+				close;
+			}
+			for(set @i,0; !compare(getarg(@i+1),"Zeny"); set @i,@i+2) delitem getarg(@i),getarg(@i+1);
+			set Zeny,Zeny-getarg(@i);
+			for(set @i,@i+2; getarg(@i+1,0); set @i,@i+2) getitem getarg(@i),getarg(@i+1);
+			specialeffect2 154;
+			emotion 21;
+			if (compare(getarg(@i,0),"announce")) announce strcharinfo(0) + " 获得了 " + getitemname(@bought_nameid) + "!",bc_all;
+			close;
+		case 2:
+			specialeffect2 6;
+			set @bottomview, getlook(3);
+			set @topview, getlook(4);
+			set @midview, getlook(5);
+			addtimer 1000, strnpcinfo(3)+"::On_Leave";
+			set @equip,getiteminfo(@bought_nameid, 5);
+			set @view, getiteminfo(@bought_nameid, 11);
+			if(@equip != -1 && @view > 0) {
+				if(@equip & 1) atcommand "@changelook 3 " + @view;
+				if(@equip & 256) atcommand "@changelook 1 " + @view;
+				if(@equip & 512) atcommand "@changelook 2 " + @view;
+			}
+			next;
+			goto OnBuyItem;
+
+		case 3:
+			emotion 12;
+			close;
+	}
+On_Leave:
+	atcommand "@changelook 1 " + @topview;
+	atcommand "@changelook 2 " + @midview;
+	atcommand "@changelook 3 " + @bottomview;
+	set @equip,0;
+	set @view,0;
+	set @topview,0;
+	set @midview,0;
+	set @bottomview,0;
+	end;
+OnInit:
+	npcshopitem "questz_shop",0,0;
+	set .BuildQuest,1;
+	set .i,1;
+Quest_Setup:
+	switch(.i) {
+		default: set .BuildQuest,0; set .e,0; set .i,0; end;
+                case 1: callsub OnBuyItem,7047,100,1000,"SZeny",5040,1;
+                case 2: callsub OnBuyItem,2281,1,1048,50,1000,"SZeny",5043,1;
+                case 3: callsub OnBuyItem,2269,1,999,10,20000,"SZeny",5061,1;
+                case 4: callsub OnBuyItem,970,1,930,500,1000,"SZeny",5063,1;
+                case 5: callsub OnBuyItem,945,600,1000,"SZeny",5064,1;
+                case 6: callsub OnBuyItem,2278,1,975,1,1000,"SZeny",5077,1;
+                case 7: callsub OnBuyItem,2294,1,7220,400,1000,"SZeny",5079,1;
+                case 8: callsub OnBuyItem,1022,999,1000,"SZeny",5069,1;
+                case 9: callsub OnBuyItem,5010,1,5049,1,7101,10,10000,"SZeny",5071,1;
+                case 10: callsub OnBuyItem,2249,1,714,1,969,3,40000,"SZeny",5081,1,"announce";
+                case 11: callsub OnBuyItem,2244,1,10007,1,2209,1,1000,"SZeny",5083,1;
+                case 12: callsub OnBuyItem,1026,1000,7065,100,945,10,1000,"SZeny",5084,1;
+                case 13: callsub OnBuyItem,2233,1,983,1,7206,300,1000,"SZeny",5058,1;
+                case 14: callsub OnBuyItem,2211,1,982,1,7216,300,7097,300,1000,"SZeny",5070,1;
+                case 15: callsub OnBuyItem,2226,1,7038,500,1000,"SZeny",5076,1;
+                case 16: callsub OnBuyItem,921,300,1000,"SZeny",5082,1;
+                case 17: callsub OnBuyItem,2213,1,983,1,914,200,10000,"SZeny",5057,1;
+                case 18: callsub OnBuyItem,2236,1,7111,100,7151,100,1000,"SZeny",5060,1;
+                case 19: callsub OnBuyItem,624,1,959,300,544,50,1023,1,938,100,1000,"SZeny",5065,1;
+                case 20: callsub OnBuyItem,2285,1,1550,1,1000,"SZeny",5073,1;
+                case 21: callsub OnBuyItem,5030,1,7213,100,7217,100,7161,300,1000,"SZeny",5059,1;
+                case 22: callsub OnBuyItem,5267,1,7197,300,7150,300,1000,"SZeny",5062,1;
+                case 23: callsub OnBuyItem,5033,1,5064,1,1000,"SZeny",5078,1;
+                case 24: callsub OnBuyItem,5062,1,952,50,1907,1,1000,"SZeny",5067,1;
+                case 25: callsub OnBuyItem,2248,1,7030,108,7194,108,7120,4,1000,"SZeny",5075,1;
+                case 26: callsub OnBuyItem,10006,1,714,1,969,3,20000,"SZeny",5080,1,"announce";
+                case 27: callsub OnBuyItem,10016,1,714,1,969,3,20000,"SZeny",5091,1,"announce";
+                case 28: callsub OnBuyItem,909,10000,931,10000,968,100,1000,"SZeny",5094,1,"announce";
+                case 29: callsub OnBuyItem,2255,1,2286,1,20000,"SZeny",5068,1;
+                case 30: callsub OnBuyItem,2254,1,2286,1,20000,"SZeny",5074,1;
+                case 31: callsub OnBuyItem,1095,3000,2288,1,1000,"SZeny",5086,1;
+                case 32: callsub OnBuyItem,731,10,748,3,982,1,50000,"SZeny",5117,1;
+                case 33: callsub OnBuyItem,10015,1,975,1,10007,1,5032,1,50000,"SZeny",5109,1;
+                case 34: callsub OnBuyItem,983,1,749,1,7267,999,50000,"SZeny",5115,1;
+                case 35: callsub OnBuyItem,611,10,7301,1887,5120,1,50000,"SZeny",5108,1;
+                case 36: callsub OnBuyItem,1951,1,7315,369,660,1,7263,1,7099,30,1000,"SZeny",5121,1;
+                case 37: callsub OnBuyItem,519,50,548,50,7031,50,539,50,1000,"SZeny",5107,1;
+                case 38: callsub OnBuyItem,7270,1,10004,1,941,1,1000,"SZeny",5110,1;
+                case 39: callsub OnBuyItem,5172,1,7063,100,982,1,1000,"SZeny",5170,1;
+                case 40: callsub OnBuyItem,983,1,7111,100,938,99,100000,"SZeny",5175,1;
+	}
+}

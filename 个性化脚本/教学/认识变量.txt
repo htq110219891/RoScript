@@ -1,0 +1,23 @@
+prontera,164,97,4	script	认识变量	435,{
+check:
+	mes "@a："+@a;           //显示变量@a 的值
+	mes "@a$："+@a$;		 // 显示变量@a$的值
+	switch(select("@a+1","@a$+文字1","归零")) {   //3个选项
+		case 1:								//选项1：设置变量@a 加1，整型变量只能做数字的算数
+			set @a,@a+1;
+			next;
+			goto check;
+		break;
+		case 2:
+			set @a$,@a$+"1";				//选项2：设置变量@a$ 加 文本"1" 注意不是数字1，也可以加abcde中文都可以 。字符串变量不能做加减法等，只能做字符串拼接
+			next;
+			goto check;
+		break;
+		case 3:
+			set @a,0;   					//选项3：整型变量@a ，如果未经过设定，初始就是默认为0，字符串@a$如果未经过设定，初始默认是"" 空字符
+			set @a$,"";	
+			next;
+			goto check;
+		break;
+	}
+}

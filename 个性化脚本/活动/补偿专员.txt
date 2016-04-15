@@ -1,0 +1,60 @@
+/************************************************************\
+					EAthena Script
+**************************************************************
+【名    称】补偿专员
+【类    型】特殊点数商店
+【版    本】1.0
+【版权所有】泠然
+【服 务 端】99MAXEA v8.10.0
+【制作人员】
+    策划：泠然
+    编程：泠然
+    文饰：泠然
+    制作：泠然
+    测试：泠然
+【简要说明】
+    本脚本为 EAthena 服务端用补偿脚本，适合自立服使用。
+	可配合GM管理员脚本，调整S点奖励，开关NPC，重置补偿次数。
+	也可自行在脚本中设置。
+	$npc_spoint_give_lv：限制等级
+	$npc_spoint_give_time：是否领取过补偿
+	$npc_spoint_give：奖励S点数量
+	删除此行：hideonnpc "补偿专员"; 可显示npc
+【更新日志】
+    2015-08-03    1.0.0    创建脚本
+【错误回报】
+\************************************************************/
+prontera,164,99,4	script	补偿专员	435,{
+	mes "您好，服务器出问题后，我会发给大家S点作为补偿";
+	switch(select("领取补偿")) {
+		case 1:
+			if(BaseLevel<$npc_spoint_give_lv){
+				mes $npc_spoint_give_lv+"级以上才可以获得补偿";
+				close;
+			}
+			if(p_spoint_give_time==$npc_spoint_give_time){
+				mes "您已经领取过补偿";
+				close;
+			}
+			mes "补偿已经发给您啦，请查收";
+			set s_point,s_point+$npc_spoint_give;
+			dispbottom "增加"+$npc_spoint_give+"点S点。现在S点总共："+s_point;
+			set p_spoint_give_time,$npc_spoint_give_time;
+			close;
+		break;
+	}
+	end;
+	
+OnInit:
+	//初始化
+	
+	if($npc_spoint_give==0){
+		set $npc_spoint_give,10;
+		set $npc_spoint_give_lv,80;
+	}
+	hideonnpc "补偿专员";
+	end;
+OnOpen:
+waitingroom "补偿专员",0;
+}
+

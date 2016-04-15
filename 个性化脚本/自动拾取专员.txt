@@ -1,0 +1,58 @@
+/************************************************************\
+					EAthena Script
+**************************************************************
+【名    称】自动拾取
+【类    型】
+【版    本】1.0
+【版权所有】泠然
+【服 务 端】99MAXEA v8.10.0
+【制作人员】
+    策划：泠然
+    编程：泠然
+    文饰：泠然
+    制作：泠然
+    测试：泠然
+【简要说明】
+    本脚本为 EAthena 服务端用补偿脚本，适合自立服使用。
+【更新日志】
+    2015-08-03    1.0.0    创建脚本
+【错误回报】
+\************************************************************/
+1@new_1-2,92,81,5	script	自动拾取专员	716,{
+	mes "[自动拾取专员]";
+	mes "我会发放自动领取道具";
+	mes "自动拾取卷使用期限为1小时";
+	mes "时间到后请再找我领取";
+	switch(select("领取自动拾取")) {
+		case 1:
+			if (countitem(50003)>0){
+				mes "您身上已经有自动拾取卷";
+				mes "请时间到后再来领取";
+				close;
+			}
+			rentitem 50003,3600;
+			close;
+		break;
+	}
+	end;
+	OnInit:
+		waitingroom "自动拾取专员",0;
+}
+prontera,0,0,0	script	AutoLoot	-1,{
+OnLootUp:
+	if (countitem(50003)<1){
+		atcommand "@autoloot";
+		set @looted,0;
+		end;
+	}
+	addtimer 60000,"AutoLoot::OnLootUp";
+	end;
+}
+function	script	autoloot	{
+	if(@looted==1){
+		end;
+	}
+	atcommand "@autoloot";
+	set @looted,1;
+	doevent "AutoLoot::OnLootUp";
+}

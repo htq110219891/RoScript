@@ -1,0 +1,136 @@
+prontera,156,186,4	script	[轉換外表]	854,{
+
+setarray @nothing[0],1003,1006,1017,1021,1022,1027,1043,1136,1137,1168,1171,1172,1173,1181,1210,1217,1218,1223,1284,1407,1411,1414,1496,1501;
+
+setarray @JOB[0],0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,4001,4002,4003,4004,4005,4006
+	,4007,4008,4009,4010,4011,4012,4013,4014,4015,4016,4017,4018,4019,4020,4021,4023,4024,4025,4026,4027,4028,4029,4030
+	,4031,4032,4033,4034,4035,4036,4037,4038,4039,4040,4041,4042,4043,4044,4045,4046,4047,4048,4049,4001,4002
+	,4003,4004,4005,4006,4007,4008,4009,4010,4011,4012,4013,4014,4015,4016,4017,4018,4019,4020,4021;
+
+
+menu "[外表更換]",dfgd,"[男女外表互換]",dfgd21,"[指定變換(職業)]",fewf,"[指定變換(怪物)]",sdcsd,"[恢復變化]",rfgerg;
+dfgd21:
+	if( dsex == 0 ){ changebase 4020; set dsex,1; }else{ changebase 4021; set dsex,0; }
+dfgd:
+	set .@b,@JOB[rand(getarraysize(@JOB))];
+	changebase .@b;
+	if( .@b == 4021 || .@b == 4043 || .@b == 20 ){ set dsex,0; }
+	if( .@b == 4020 || .@b == 4042 || .@b == 19 ){ set dsex,1; }
+	close;
+fewf :
+	announce "輸入職業編碼",bc_self,0x00FFFF;
+	mes "----職業----編碼----";
+	while( .@P < getarraysize(@JOB)-21 ){
+		mes "^000088["+jobname(@JOB[.@P])+"]^FF0000["+@JOB[.@P]+"]";
+		set .@P,.@P+1;
+		}
+	input .@o;
+	while( .@P2 < getarraysize(@JOB)-21 ){
+		if( .@o != @JOB[.@P2] ){ 
+			set .@fail,.@fail+1; }
+		if( .@fail >= getarraysize(@JOB)-21 ){
+			announce "輸入錯誤",bc_self,0x00FFFF; close; }
+		set .@P2,.@P2+1;
+	}
+	announce "完成",bc_self,0x00FFFF;
+	changebase .@o;
+	close;
+sdcsd:
+	menu "[查看怪物編號]",kjhup,"[輸入怪物編號]",kjhujd;
+kjhup:
+	menu "[從編號]",kjhuj,"[從名稱]",kjhujkjhuj;
+
+kjhujkjhuj:
+	input .@mmmmmm$;
+
+kjhujkjhu2:
+	set .@mobname,1001;
+
+kjhujkjhu3:
+	if( .@mobname == @nothing[.@G] ){ goto kjhujkjhu30; }
+	set .@G,.@G+1;
+	if( .@G <= getarraysize(@nothing) ){ goto kjhujkjhu3; }
+	if( .@G > getarraysize(@nothing) ){ set .@G,0; }
+
+	if( .@qwrdgbfg+1001 >= 2000 ){ goto kjhujkjhu4; }
+	if( .@mobname == 2000 ){ goto kjhujkjhu4; }
+	if(compare(getmonsterinfo(.@mobname,MOB_NAME),.@mmmmmm$)){
+		set .@dfghjm,.@dfghjm+1;
+		setd ".@nmb"+.@dfghjm+"$",getmonsterinfo(.@mobname,MOB_NAME);
+		setd ".@nmb"+.@dfghjm,.@mobname;
+	}
+kjhujkjhu30:
+	set .@qwrdgbfg,.@qwrdgbfg+1;
+	set .@q2,.@qwrdgbfg+1001;
+	set .@mobname,.@mobname+1;	
+	if( .@qwrdgbfg % 20 == 0 ){ mes "進度編號到"+.@q2+""; sleep2 100; }
+	goto kjhujkjhu3;
+
+kjhujkjhu4:
+	next;
+	mes "尋找";
+	mes "所有["+.@mmmmmm$+"]的編號,及有關字眼";
+	while( .@hj < .@dfghjm ){
+		set .@hj,.@hj+1;
+		mes "["+getd(".@nmb"+.@hj)+"] ["+getd(".@nmb"+.@hj+"$")+"]";
+	}
+	close;
+
+kjhuj:
+	menu "[1001-1100]",qkjhuj1,"[1101-1200]",qkjhuj2,"[1201-1300]",qkjhuj3,"[1301-1400]",qkjhuj4,"[1401-1500]",qkjhuj5,
+	"[1501-1600]",qkjhuj6,"[1601-1700]",qkjhuj7,"[1701-1800]",qkjhuj8,"[1801-1900]",qkjhuj9,"[1900-2000]",qkjhuj10;
+
+qkjhuj10:
+qkjhuj9:
+qkjhuj8:
+qkjhuj7:
+qkjhuj6:
+qkjhuj5:
+qkjhuj4:
+qkjhuj3:
+qkjhuj2:
+qkjhuj1:
+	mes "----名稱----編碼----";
+
+qkjhuj10000:
+	if( .@m >= 100 ){ goto qkjhuj100001; }
+	set .@m,.@m+1;
+	set .@mm,(1000+.@m)+(@menu-1)*100;
+qkjhuj99:
+	if( .@mm == @nothing[.@G] ){ goto qkjhuj10000; }
+	set .@G,.@G+1;
+	if( .@G <= getarraysize(@nothing) ){ goto qkjhuj99; }
+	if( .@G > getarraysize(@nothing) ){ set .@G,0; }
+
+qkjhuj199:
+	if( .@mm != 2000 ){
+	mes "^000088["+getmonsterinfo(.@mm,MOB_NAME)+"]^FF0000["+.@mm+"]"; }
+	if( .@m % 10 == 0 ){ sleep2 100; }
+	goto qkjhuj10000;
+
+
+qkjhuj100001:
+
+	close;
+
+kjhujd:
+	input .@o;
+	if( .@o != 0 ){
+	if( getmonsterinfo(.@o,MOB_MAXHP) > 0 ){
+	disguise .@o;
+	announce "完成",bc_self,0x00FFFF; 
+	close; } }
+	announce "錯誤編碼",bc_self,0x00FFFF; 
+	close;
+			
+			
+
+rfgerg: 
+	undisguise;
+	changebase Class2;
+	close;
+}
+-	script	Login	-1,{
+OnPCloginEvent:
+	set Class2,Class;
+}

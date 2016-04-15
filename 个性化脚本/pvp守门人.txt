@@ -1,0 +1,28 @@
+prontera,146,108,5	script	PVP守门人	758,{
+
+	if(BaseLevel < 31) {
+		mes "[PVP守门人]";
+		mes "至少要LV51以上才可进入";
+	}
+	set @menu,select(	"普隆德拉[" +getmapusers("pvp_y_8-1.gat")+ " / 128]",
+				"依斯鲁得[" +getmapusers("pvp_y_8-2.gat")+ " / 128]",
+				"斐扬[" +getmapusers("pvp_y_8-3.gat")+ " / 128]",
+				"艾尔贝塔[" +getmapusers("pvp_y_8-4.gat")+ " / 128]",
+				"梦罗克[" 	+getmapusers("pvp_y_8-5.gat")+ " / 128]",
+				"取消");
+	if(@menu==6) {
+		close;
+	}
+
+	if(getmapusers("pvp_y_8-"+@menu+"") >= 128) {
+		mes "[PVP守门人]";
+		mes "人数到达极限";
+		return;
+	}
+	warp "pvp_y_8-"+@menu+"",0,0;	end;
+	close;
+
+OnInit:
+	waitingroom "PVP",0;
+	end;
+}

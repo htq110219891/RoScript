@@ -1,0 +1,185 @@
+/************************************************************\
+					EAthena Script
+**************************************************************
+【名    称】补偿商店
+【类    型】特殊点数商店
+【版    本】1.0
+【版权所有】泠然
+【服 务 端】99MAXEA v8.10.0
+【制作人员】
+    策划：泠然
+    编程：泠然
+    文饰：泠然
+    制作：泠然
+    测试：泠然
+【简要说明】
+    本脚本为 EAthena 服务端用补偿脚本，适合自立服使用。
+	补偿商店购买物品需要消耗S(sorry)点。变量名：s_point
+	S点获得需自行添加，或配合脚本【补偿专员】使用。
+	补偿内容多为消耗品，经验书、掉宝糖、料理等。
+	GM可在线添加补偿道具和所需S点。
+【更新日志】
+    2015-08-03    1.0.0    创建脚本
+【错误回报】
+\************************************************************/
+-	shop	s_point_shop	-1,512:-1
+
+prontera,164,103,4	script	补偿商店	90,{
+	if(getgmlevel()>90){
+		mes "尊敬的GM阁下您好";
+		switch(select("查看商店","增加道具","删除道具","增加S点","编辑价格")) {
+			case 1:
+				dispbottom "您的S点为："+s_point;
+				dispbottom "请注意：一次只能购买一件道具";
+				npcshopitem "s_point_shop",0,0;
+				for(set @i,0;@i<getarraysize($s_shop_sell_id);set @i,@i+2){
+					npcshopadditem "s_point_shop",$s_shop_sell_id[@i],$s_shop_sell_id[@i+1];
+				}
+				callshop "s_point_shop",1;
+				npcshopattach "s_point_shop";
+				end;
+			break;
+			case 2:
+				mes "[添加道具]"; 
+				mes "请输入物品ID";
+				input @num;
+				if (getitemname(@num)=="null") { 
+					mes "您输入的物品ID错误。"; 
+					close; 
+				}
+				next;
+				mes "添加物品["+getitemname(@num)+"]";
+				mes "请输入物品价格(S点)(1-1000000)";
+				input @num2;
+				if (@num2>1000000||@num2<1) { 
+					mes "[添加道具]";
+					mes "输入的数值不在允许范围内。";
+					close; 
+				}
+				next;
+				mes "添加出售物品["+getitemname(@num)+"] 价格："+@num2+"S";
+				mes "是否确定？";
+				switch(select("确定","取消")) {
+					case 1:
+						setarray $s_shop_sell_id[getarraysize($s_shop_sell_id)],@num;
+						setarray $s_shop_sell_id[getarraysize($s_shop_sell_id)],@num2;
+						mes "添加成功";
+						close;
+					break;
+					case 2:
+						close;
+					break;
+				}
+			break;
+			case 3:
+				switch(select("通过物品ID删除","通过选项删除")) {
+					case 1:
+						mes "[删除道具]"; 
+						mes "请输入物品ID";
+						input @num;
+						if (getitemname(@num)=="null") { 
+							mes "您输入的物品ID错误。"; 
+							close; 
+						}
+						for(set @i,0;@i<getarraysize($s_shop_sell_id);set @i,@i+2){
+							if (@num==$s_shop_sell_id[@i]){
+								mes "删除出售物品["+getitemname(@num)+"]";
+								mes "是否确定？";
+								switch(select("确定","取消")) {
+									case 1:
+										deletearray $s_shop_sell_id[@i],2;
+										mes "删除成功";
+										close;
+									break;
+									case 2:
+										close;
+									break;
+								}
+							}
+						}
+						mes "您目前并没有出售"+getitemname(@num);
+						close;
+					break;
+					case 2:
+						set @x$,"";
+						for(set @i,0;@i<getarraysize($s_shop_sell_id);set @i,@i+2){
+							set @x$,@x$+getitemname($s_shop_sell_id[@i])+":";
+						}
+						set @op,select(@x$);
+						switch(@op) {
+							default:
+								deletearray $s_shop_sell_id[(@op-1)*2],2;
+								mes "删除成功";
+								close;
+							break;
+						}
+					break;
+				}
+			break;
+			case 4:
+				mes "请输入增加的玩家名字";
+				input @name$;
+				if (attachrid(getcharid(3,@name$))==0){
+					mes "您输入的玩家不在线或输入错误";
+					close;
+				}
+				attachrid(getcharid(3,"@name$"));
+				mes "请输入增加S点数量";
+				input @num;
+				set s_point,s_point+@num;
+				mes "S点增加 "+@num+"点,"+@name$+"的S点为："+s_point;
+				close;
+
+			break;
+			case 5:
+					set @x$,"";
+					for(set @i,0;@i<getarraysize($s_shop_sell_id);set @i,@i+2){
+						set @x$,@x$+getitemname($s_shop_sell_id[@i])+":";
+					}
+					set @op,select(@x$);
+					switch(@op) {
+						default:
+							mes "请输入价格";
+							input @num;
+							setarray $s_shop_sell_id[(@op-1)*2+1],@num;
+							mes "修改成功";
+							close;
+						break;
+					}
+			break;
+		}
+	}else{
+		dispbottom "您的S点为："+s_point;
+		dispbottom "请注意：一次只能购买一种道具";
+		npcshopitem "s_point_shop",0,0;
+		for(set @i,0;@i<getarraysize($s_shop_sell_id);set @i,@i+2){
+			npcshopadditem "s_point_shop",$s_shop_sell_id[@i],$s_shop_sell_id[@i+1];
+		}
+		callshop "s_point_shop",1;
+		npcshopattach "s_point_shop";
+		end;
+	}
+
+OnBuyItem:
+	for (set @i,0;@i<getarraysize($s_shop_sell_id);set @i,@i+2){
+		if(@bought_nameid==$s_shop_sell_id[@i]){
+			if(s_point<@bought_quantity*$s_shop_sell_id[@i+1]){
+				dispbottom "对不起，您的S点不足",0xFF0000;
+				end;
+			}else{
+				set s_point,s_point-@bought_quantity*$s_shop_sell_id[@i+1];
+				getitem @bought_nameid,@bought_quantity;
+				dispbottom "您的剩余S点为："+s_point,0x00FA9A;
+				end;
+			}
+		}
+	}
+	
+OnInit:
+	//初始化
+	if($npc_spointshop_init==0){
+	set $npc_spointshop_init,1;
+	setarray $s_shop_sell_id[0],12263,10,12264,10;
+	}
+}
+
