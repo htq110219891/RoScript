@@ -16,6 +16,15 @@
 	本脚本为 EAthena 服务端用工具脚本，适合自立服使用。
 	玩家可设置低于一定HP/SP自动吃药。可设置吃药种类。
 	药数量为0时，停止吃药。让玩家更专注于使用技能。
+	注意：此脚本无视物品本身冷却时间（例如天地树果实）。
+	如果担心有影响，请不要设置带有冷却时间的物品。
+【使用方法】
+	1、将脚本加载到服务器中。
+	2、在Item_db中 的某个物品上加入脚本AutoUseItem。
+	例如：50007,auto_item,自动吃药,11,0,,0,,,,,0xFFFFFFFF,7,2,,,,,,{ callfunc "AutoUseItem"; },{},{}
+	3、GM使用此物品进行设置药物。不设置默认只能吃红色药水和蓝色药水。
+	4、玩家通过此物品可以设置吃药百分比和使用的药水。
+	5、addtimer 150,"CheckHPSP::OnCheckUp"; 此行代码表示0.15秒吃一次。 可修改频率。
 【更新日志】
     2016-04-13    1.0.0    创建脚本
 【错误回报】论坛反馈
@@ -27,37 +36,95 @@ prontera,0,0,0	script	CheckHPSP	-1,{
 			if(readparam(5)*100/readparam(6)<AutoUseItem_reHpVal){
 				if (countitem(AutoUseItem_reHpItem)>0){
 					if(readparam(5)>0){
+						if(@CheckHP_showTip==1){
+							set @CheckHP_showTip,0;
+						}
 						delitem AutoUseItem_reHpItem,1;
 						consumeitem(AutoUseItem_reHpItem);
-						specialeffect2 204;
-						addtimer 100,"CheckHPSP::OnCheckUp";
-						end;
+						switch (AutoUseItem_reHpItem){
+							case 501:
+								specialeffect2 204;
+							break;
+							case 502:
+								specialeffect2 205;
+							break;
+							case 503:
+								specialeffect2 206;
+							break;
+							case 504:
+								specialeffect2 207;
+							break;
+							case 505:
+								specialeffect2 208;
+							break;
+							case 506:
+								specialeffect2 209;
+							break;
+							case 607:
+								specialeffect2 211;
+							break;
+							case 608:
+								specialeffect2 211;
+							break;
+							default:
+								specialeffect2 007;
+							break;
+						}
 					}else{
 						if(AutoUseItem_DieUse==0){
 							set @AutoUseItemOn,0;
 							dispbottom "死亡后停止自动吃药。";
 						}
 					}
-				}else{
-					dispbottom "["+getitemname(AutoUseItem_reHpItem)+"]数量不足。停止吃药";
-					set @AutoUseItemOn,0;
-					end;
+				}else if(@CheckHP_showTip==0){
+					dispbottom "["+getitemname(AutoUseItem_reHpItem)+"]数量不足。";
+					set @CheckHP_showTip,1;
+					//set @AutoUseItemOn,0;
 				}
 			}
 			if(readparam(7)*100/readparam(8)<AutoUseItem_reSpVal){
 				if (countitem(AutoUseItem_reSpItem)>0){
-						delitem AutoUseItem_reSpItem,1;
-						consumeitem(AutoUseItem_reSpItem);
-						specialeffect2 208;
-						addtimer 100,"CheckHPSP::OnCheckUp";
-						end;
-				}else{
-					dispbottom "["+getitemname(AutoUseItem_reSpItem)+"]数量不足。停止吃药";
-					set @AutoUseItemOn,0;
-					end;
+					if(@CheckSP_showTip==1){
+						set @CheckSP_showTip,0;
+					}
+					delitem AutoUseItem_reSpItem,1;
+					consumeitem(AutoUseItem_reSpItem);
+					switch (AutoUseItem_reSpItem){
+						case 501:
+							specialeffect2 204;
+						break;
+						case 502:
+							specialeffect2 205;
+						break;
+						case 503:
+							specialeffect2 206;
+						break;
+						case 504:
+							specialeffect2 207;
+						break;
+						case 505:
+							specialeffect2 208;
+						break;
+						case 506:
+							specialeffect2 209;
+						break;
+						case 607:
+							specialeffect2 211;
+						break;
+						case 608:
+							specialeffect2 211;
+						break;
+						default:
+							specialeffect2 007;
+						break;
+					}
+				}else if(@CheckSP_showTip==0){
+					dispbottom "["+getitemname(AutoUseItem_reSpItem)+"]数量不足。";
+					set @CheckSP_showTip,1;
+					//set @AutoUseItemOn,0;
 				}
 			}
-			addtimer 100,"CheckHPSP::OnCheckUp";
+			addtimer 150,"CheckHPSP::OnCheckUp";
 		}
 	end;
 
@@ -65,13 +132,15 @@ prontera,0,0,0	script	CheckHPSP	-1,{
 
 function	script	AutoUseItem	{
 	if($AutoUseItem_HpList[0]==null){
+		setarray $AutoUseItem_HpList[0],501;
+		setarray $AutoUseItem_SpList[0],505;
+	}
+	if(AutoUseItem_reHpVal==0){
 		set AutoUseItem_DieUse,0;
 		set AutoUseItem_reHpVal,50;
 		set AutoUseItem_reSpVal,50;
 		set AutoUseItem_reHpItem,501;
 		set AutoUseItem_reSpItem,505;
-		setarray $AutoUseItem_HpList[0],501;
-		setarray $AutoUseItem_SpList[0],505;
 	}
 	mes "[补血助手]";
 	mes "---------------------";
@@ -86,11 +155,11 @@ function	script	AutoUseItem	{
 		if(@AutoUseItemOn==0){
 			set @AutoUseItemOn,1;
 			doevent "CheckHPSP::OnCheckUp";
-			dispbottom "开启成功";
+			dispbottom "开启自动吃药";
 			close;
 		}else{
 			set @AutoUseItemOn,0;
-			dispbottom "关闭成功";
+			dispbottom "关闭自动吃药";
 			close;
 		}
 	break;
@@ -172,7 +241,7 @@ function	script	AutoUseItem	{
 	break;
 	case 3:
 		mes "请选择设置内容";
-		switch(select("HP药物","SP药物","HPSP药物清空")) {
+		switch(select("HP药物","SP药物","清空药物列表")) {
 			case 1:
 				for(set @i,0;@i<getarraysize($AutoUseItem_HpList);@i++){
 					mes (@i+1)+":["+getitemname($AutoUseItem_HpList[@i])+"]";
@@ -183,6 +252,9 @@ function	script	AutoUseItem	{
 						input @num;
 						if (getitemname(@num)=="null") { 
 							mes "您输入的物品ID错误。"; 
+							close; 
+						}else if(getiteminfo(@num,2)!=0){
+							mes "您输入的物品不是恢复品。"; 
 							close; 
 						}
 						mes "添加HP药物["+getitemname(@num)+"]";
@@ -207,8 +279,11 @@ function	script	AutoUseItem	{
 						}
 						mes "请输入修改后的ID";
 						input @num2;
-						if (getitemname(@num)=="null") { 
+						if (getitemname(@num2)=="null") { 
 							mes "您输入的物品ID错误。"; 
+							close; 
+						}else if(getiteminfo(@num2,2)!=0){
+							mes "您输入的物品不是恢复品。"; 
 							close; 
 						}
 						mes "["+getitemname($AutoUseItem_HpList[@num-1])+"]改为["+getitemname(@num2)+"]";
@@ -258,6 +333,9 @@ function	script	AutoUseItem	{
 						if (getitemname(@num)=="null") { 
 							mes "您输入的物品ID错误。"; 
 							close; 
+						}else if(getiteminfo(@num,2)!=0){
+							mes "您输入的物品不是恢复品。"; 
+							close; 
 						}
 						mes "添加SP药物["+getitemname(@num)+"]";
 						mes "是否确定？";
@@ -281,8 +359,11 @@ function	script	AutoUseItem	{
 						}
 						mes "请输入修改后的ID";
 						input @num2;
-						if (getitemname(@num)=="null") { 
+						if (getitemname(@num2)=="null") { 
 							mes "您输入的物品ID错误。"; 
+							close; 
+						}else if(getiteminfo(@num2,2)!=0){
+							mes "您输入的物品不是恢复品。"; 
 							close; 
 						}
 						mes "["+getitemname($AutoUseItem_SpList[@num-1])+"]改为["+getitemname(@num2)+"]";
@@ -322,11 +403,23 @@ function	script	AutoUseItem	{
 				}
 			break;
 			case 3:
-				setarray $AutoUseItem_HpList[0],501;
-				setarray $AutoUseItem_SpList[0],505;
-				close;
+				mes "初始化当前设置的所有HP和SP药物";
+				mes "只保留红色药水和蓝色药水";
+				mes "是否确定？";
+				switch(select("确定","取消")) {
+					case 1:
+						deletearray $AutoUseItem_HpList[0],getarraysize($AutoUseItem_HpList)-1;
+						deletearray $AutoUseItem_SpList[0],getarraysize($AutoUseItem_SpList)-1;
+						setarray $AutoUseItem_HpList[0],501;
+						setarray $AutoUseItem_SpList[0],505;
+						mes "清除成功";
+						close;
+					break;
+					case 2:
+					close;
+					break;
+				}
 			break;
-			
 		}
 	break;
 	}
