@@ -45,7 +45,7 @@ OnLootUp:
 		set @looted,0;
 		end;
 	}
-	addtimer 60000,"AutoLoot::OnLootUp";
+	addtimer 10000,"AutoLoot::OnLootUp";
 	end;
 }
 function	script	autoloot	{
