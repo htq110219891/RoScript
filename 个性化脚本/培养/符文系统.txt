@@ -27,10 +27,21 @@ OnPCStatCalcEvent:
 			bonus2 bHPDrainRate,100,10;				//吸血符文：10%几率吸收10%伤害到HP
 		break;
 		case 50102:
-			bonus2 bAddSkillBlow,5,1;				//击退符文：使用狂击击退1格
+			bonus2 bAddSkillBlow,5,1;				//击退符文：使用矿机技能击退1格
 		break;
 		case 50109:
 			if(getskilllv(1)){bonus2 bExpAddClass,Class_All,10;bonus2 bAddGetZenyNum,100,100;}	//基本技能符文：增加10%经验获得和1-100Z
+		break;
+		case 50701:
+			bonus3 bAutoSpell,29,10,10;				//自动加速术符文：1%几率释放Lv10级加速术
+		break;
+	//bonus bIgnoreDefRace,n; 无视 n 种族的防御力 0,无形　1,不死　2,动物　3,植物　4,昆虫　5,鱼贝　6,恶魔　7,人形　8,天使　9,龙族　10,BOSS　11,BOSS以外(普通的怪物、包括玩家)
+	//bonus3 bAutoSpell,n,x,y;自动念咒以 y%(万分率)机率使用 x 等级的技能 n
+		case 50702:
+			bonus bDoubleRate,5;         			//5%几率发动连击
+		break;
+		case 50703:
+			bonus bUseSPrate,-10;					//所有技能SP消耗减少10%
 		break;
 	//剑士
 		case 50100:
@@ -131,26 +142,32 @@ function	script	runes_system	{
 			mes "失败后符文消失";
 			set @menu$,"";
 			for(set @i,1;@i<6;@i++){
-				set @menu$,@menu$+":";
+				//set @menu$,@menu$+":";
 				if(player_runes_place>=@i-1){
 					if(getd("player_runes"+@i)!=0){
-						set @menu$,@menu$+"符文孔"+@i+"：^0000FF"+getitemname(getd("player_runes"+@i))+"^000000";
+						set @menu$,@menu$+"符文孔"+@i+"：^0000FF"+getitemname(getd("player_runes"+@i))+"^000000"+":";
+					}else{
+						set @menu$,@menu$+"符文孔"+@i+"：^FF0000未镶嵌^000000"+":";
 					}
 				}
 			}
 			set @op,select(@menu$);
 			switch(@op) {
 				default:
+					if(getd("player_runes"+@op)==0){
+						mes "此符文孔为空。没有可卸除符文。";
+						close;
+					}
 					set @rand,rand(100);
 					if (@rand<20){
-						set getd("player_runes"+(@op-1)),0;
+						set getd("player_runes"+(@op)),0;
 						getitem 50097,rand(1,4);
 						mes "卸除失败";
 						close;
 					}else{
 						mes "卸除成功";
-						getitem getd("player_runes"+(@op-1)),1;
-						set getd("player_runes"+(@op-1)),0;
+						getitem getd("player_runes"+(@op)),1;
+						set getd("player_runes"+(@op)),0;
 						close;
 					}
 				break;
@@ -198,11 +215,17 @@ function	script	runes_add	{
 	next;
 	switch(select("镶嵌符文")) {
 		case 1:
-			set @op,select(player_runes1!=0?"符文孔1："+getitemname(player_runes1):"符文孔1：",
-			player_runes2!=0?"符文孔2："+getitemname(player_runes2):"符文孔2：",
-			player_runes3!=0?"符文孔3："+getitemname(player_runes3):"符文孔3：",
-			player_runes4!=0?"符文孔4："+getitemname(player_runes4):"符文孔4：",
-			player_runes5!=0?"符文孔5："+getitemname(player_runes5):"符文孔5：");
+			set @x$,"";
+			for (@i=0;@i<player_runes_place+1;@i++){ 
+				if(getd("player_runes"+(@i+1))!=0){
+					set @x$,@x$+"符文孔"+(@i+1)+"："+getitemname(getd("player_runes"+(@i+1)))+":";
+				}else{
+					set @x$,@x$+"符文孔"+(@i+1)+"："+":";
+				}
+			}
+			mes "[镶嵌符文]";
+			mes "请选择要镶入的符文孔";
+			set @op,select(@x$);
 			switch(@op) {
 				default:
 					if(getd("player_runes"+@op)==0){
@@ -210,13 +233,12 @@ function	script	runes_add	{
 							dispbottom "缺少符文物品，镶嵌失败";
 							close;
 						}
-						dispbottom "镶嵌成功";
 						specialeffect2 408;
 						set getd("player_runes"+@op),getarg(0);
 						delitem getarg(0),1;
+						mes "镶嵌成功";
 						close;
 					}else{
-						mes "[镶嵌符文]";
 						mes "符文孔"+@op+"中已经有符文 ^0000FF"+getitemname(getd("player_runes"+@op))+"^000000，请先卸除符文";
 						close;
 						/*switch(select("替换")) {
@@ -225,15 +247,18 @@ function	script	runes_add	{
 								close;
 							}
 							specialeffect2 408;
-							dispbottom "镶嵌成功";
 							getitem getd("player_runes"+@op),1;
 							set getd("player_runes"+@op),getarg(0);
 							delitem getarg(0),1;
+							mes "镶嵌成功";
 							close;
 						}*/
 					}
 				break;
 			}
+
+
+
 		break;
 	}
 }
