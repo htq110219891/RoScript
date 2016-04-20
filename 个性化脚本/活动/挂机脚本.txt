@@ -1,0 +1,66 @@
+/************************************************************\
+					EAthena Script
+**************************************************************
+【名    称】自动挂机
+【类    型】辅助工具
+【版    本】1.0
+【版权所有】泠然
+【服 务 端】99MAXEA v8.10.0
+【制作人员】
+    策划：泠然
+    编程：泠然
+    文饰：泠然
+    制作：泠然
+    测试：泠然
+【简要说明】
+	本脚本为 EAthena 服务端用工具脚本，适合自立服使用。
+【使用方法】
+	1、
+【更新日志】
+    2016-04-20    1.0.0    创建脚本
+【错误回报】论坛反馈
+【相关人物变量】
+\************************************************************/
+-	script	CheckStatus	-1,{
+OnCheckUp:
+	if(!getstatus(32)){
+		if(getskilllv(29)){
+			bonus3 bAutoSpell,29,getskilllv(29),1000;
+		}
+	}
+	//bonus3 bAutoSpell,34,10,1000;
+	addtimer 60000,"CheckStatus::OnCheckUp";
+end;
+
+OnCheckUpHp://自动治愈术回血
+	if(readparam(5)*100/readparam(6)<50){
+		if(getskilllv(28)){
+			bonus3 bAutoSpellWhenHit,28,getskilllv(28),1000;
+			//10+3*getskilllv(28)
+		}
+	}
+	if(readparam(5)*100/readparam(6)>50){
+		bonus3 bAutoSpellWhenHit,28,getskilllv(28),-1000;
+	}
+	addtimer 1500,"CheckStatus::OnCheckUpHp";
+end;
+}
+
+function	script	AutoAttack	{
+	mes "[挂机系统]";
+	mes "欢迎使用挂机系统";
+	mes "1、开启后会在周围自动巡逻攻击";
+	mes "2、角色只会进行普通攻击，不会使用技能";
+	switch(select("开启/关闭","测试")) {
+		case 1:
+			atcommand "@autoattack";
+			close;
+		break;
+		case 2:
+			addtimer 1000,"CheckStatus::OnCheckUp";
+			addtimer 1000,"CheckStatus::OnCheckUpHp";
+			close;
+		break;
+	}
+	
+}
