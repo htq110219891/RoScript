@@ -33,14 +33,15 @@ OnCheckUp:
 end;
 
 OnCheckUpHp://自动治愈术回血
-	if(readparam(5)*100/readparam(6)<50){
+	if(readparam(5)*100/readparam(6)<99){
 		if(getskilllv(28)){
-			bonus3 bAutoSpellWhenHit,28,getskilllv(28),1000;
+			dispbottom readparam(42)+"matk";
+			//治愈术恢复公式[(BaseLv+INT)/5*30*(SLv/10)*(1+Mod%)+MATK]
+			heal (readparam(11)+readparam(16))/5*30*(getskilllv(28)/10)*(1+0)+readparam(42),0;
+			skilleffect 28,(readparam(11)+readparam(16))/5*30*(getskilllv(28)/10)*(1+0)+readparam(2046);
+			//bonus3 bAutoSpellWhenHit,28,getskilllv(28),1000;
 			//10+3*getskilllv(28)
 		}
-	}
-	if(readparam(5)*100/readparam(6)>50){
-		bonus3 bAutoSpellWhenHit,28,getskilllv(28),-1000;
 	}
 	addtimer 1500,"CheckStatus::OnCheckUpHp";
 end;
