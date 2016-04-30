@@ -65,6 +65,26 @@ switch(select("我要转职","我要转生","学习新技能","租赁职业道具","重置点数",getgm
 						setarray @jobcode[0],0,1,2,3,4,5,6,23,24,25,4046,4023;
 						if (@jobcode[@xz]==23&&BaseLevel<40) { mes "[职业辅助管理员]"; mes "您的基本等级不足40级，无法转职！"; close; }
 						jobchange @jobcode[@xz];
+						switch(@jobcode[@xz]){
+							case 1:
+								getitem 2766,1;
+							break;
+							case 2:
+								getitem 2768,1;
+							break;
+							case 3:
+								getitem 2769,1;
+							break;
+							case 4:
+								getitem 2767,1;
+							break;
+							case 5:
+								getitem 2771,1;
+							break;
+							case 6:
+								getitem 2770,1;
+							break;
+						}
 						if (@jobcode[@xz]==23) { set SkillPoint,20; }
 						if (@jobcode[@xz]==4023) { set JobLevel,10; set SkillPoint,0; }
 						break;
@@ -220,7 +240,11 @@ switch(select("我要转职","我要转生","学习新技能","租赁职业道具","重置点数",getgm
 					}
 				break;
 			}
-		for (set @t,1;@t<11;set @t,@t+1) unequip @t;
+		for (set @t,1;@t<11;set @t,@t+1) {
+			if(getequipid(@t)!=-1){
+				unequip @t;
+			}
+		}
 		mes "[职业辅助管理员]";
 		mes "恭喜您转职成功！";
 		break;
@@ -251,7 +275,11 @@ switch(select("我要转职","我要转生","学习新技能","租赁职业道具","重置点数",getgm
 		set JobLevel,1;
 		set BaseExp,0;
 		set JobExp,0;
-		for (set @t,1;@t<11;set @t,@t+1) unequip @t;
+		for (set @t,1;@t<11;set @t,@t+1) {
+			if(getequipid(@t)!=-1){
+				unequip @t;
+			}
+		}
 		set metempsychosis,metempsychosis+1;
 		if ($Job_option[3]>=2) set StatusPoint,$Job_option[5]*metempsychosis+100;
 		if ($Job_option[3]==1) set StatusPoint,148;

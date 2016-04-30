@@ -3,6 +3,11 @@ end;
 OnInit:
 	waitingroom "组队区",0;
 }
+prontera.gat,166,102,5	script	精炼屋	111,{
+end;
+OnInit:
+	waitingroom "精炼屋",0;
+}
 prontera.gat,143,105,5	script	转职大厅	111,{
 end;
 OnInit:

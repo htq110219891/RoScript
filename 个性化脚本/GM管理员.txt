@@ -18,7 +18,9 @@
 	可在线编辑多倍经验，可设置每天某个时间段、立即开启持续时间等，方便做活动等。
 	多倍经验本来想用setbattleflag,但是发现没效果。数值变了。打怪获得的经验还是没变。
 	后来只能采用状态赋予的形式。但是占用资源较多，大家如果有更好的办法可以一起讨论。
+
 【更新日志】
+	2016-04-27	  1.0.1	   优化部分语法，修改查询玩家在线方式
     2015-07-26    1.0.0    创建脚本
 【错误回报】
 \************************************************************/
@@ -49,18 +51,23 @@ function	script	gm_control	{
 				switch(@op) {
 					case 3:
 						mes "[查询P点]";
-						mes "^FF0000注意：玩家如果在线则P点数量可能不准";
+						//mes "^FF0000注意：玩家如果在线则P点数量可能不准";
 						mes "^000000请输入 玩家名称";
 						input @name$;
-						set @online,0;
-						query_sql "select `online` from `char` where `name`= '"+@name$+"'",@online;
-						if(@online==0){
+						if (isloggedin(getcharid(3,@name$))==0){
+						//set @online,0;
+						//query_sql "select `online` from `char` where `name`= '"+@name$+"'",@online;
+						//if(@online==0){
 							mes "该玩家不在线或输入错误。";
 							close;
+						//}
 						}
-						query_sql "select `account_id` from `char` where `name`= '"+@name$+"'",@id;
-						query_sql "select `value` from `global_reg_value` where `account_id`= '"+@id+"'",@points;
-						mes @name$+" P点为"+@points;
+						//query_sql "select `account_id` from `char` where `name`= '"+@name$+"'",@id;
+						//query_sql "select `value` from `global_reg_value` where `account_id`= '"+@id+"'",@points;
+						attachrid(getcharid(3,@name$));
+						mes @name$+" P点为"+#CASHPOINTS;
+						close2;
+						detachrid;
 						close;
 					break;
 					default:
@@ -85,12 +92,14 @@ function	script	gm_control	{
 						next;
 						switch(select("确定")) {
 							case 1:
-								set @online,0;
-								query_sql "select `online` from `char` where `name`= '"+@name$+"'",@online;
-								if(@online==0){
+								//set @online,0;
+								if (isloggedin(getcharid(3,@name$))==0){
+								//query_sql "select `online` from `char` where `name`= '"+@name$+"'",@online;
+								//if(@online==0){
 									mes "[GM控制台]";
 									mes "该玩家不在线或输入错误。";
 									close;
+								//}
 								}
 								if (@op==2){
 									atcommand "#cash "+@name$+" "+(-@num);
@@ -113,10 +122,12 @@ function	script	gm_control	{
 						mes "^000000请输入 玩家名称";
 						input @name$;
 						set @online,0;
-						query_sql "select `online` from `char` where `name`= '"+@name$+"'",@online;
-						if(@online==0){
+						if (isloggedin(getcharid(3,@name$))==0){
+						//query_sql "select `online` from `char` where `name`= '"+@name$+"'",@online;
+						//if(@online==0){
 							mes "该玩家不在线或输入错误。";
 							close;
+						//}
 						}
 						mes "玩家名：^FF0000"+@name$+"^000000";
 						if(vip_status(2,@name$)==0){
@@ -149,11 +160,13 @@ function	script	gm_control	{
 						switch(select("确定")) {
 							case 1:
 								set @online,0;
-								query_sql "select `online` from `char` where `name`= '"+@name$+"'",@online;
-								if(@online==0){
+								if (isloggedin(getcharid(3,@name$))==0){
+								//query_sql "select `online` from `char` where `name`= '"+@name$+"'",@online;
+								//if(@online==0){
 									mes "[GM控制台]";
 									mes "该玩家不在线或输入错误。";
 									close;
+								//}
 								}
 								if (@op==2){
 									atcommand "@vip -"+@num+"d "+@name$;
