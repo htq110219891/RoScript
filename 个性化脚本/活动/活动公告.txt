@@ -18,7 +18,7 @@
     2015-08-11    1.0.0    创建脚本
 【错误回报】
 \************************************************************/
-prontera.gat,144,125,5	script	公告	858,{
+prontera.gat,139,98,5	script	公告	858,{
 	mes "[公告]";
 	for(set @i,0;@i<getarraysize($npc_activity$);@i++){
 		mes "活动"+(@i+1)+"："+$npc_activity$[@i];

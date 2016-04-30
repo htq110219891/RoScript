@@ -31,7 +31,7 @@ prontera.gat,135,125,5	script	抢答活动	743,{
 			mes "抢答活动开始后，玩家直接在聊天栏中回答";
 			mes "第一个回答正确的可获得奖励";
 			mes "奖励内容10w Zeny 和 1 P点";
-			mes "回答正确数量最高的随机获得符文石";
+			mes "回答正确数量最高的可获得100P点奖励";
 			mes "如果不在线将无法获得奖励，不予补偿";
 			close;
 		break;
@@ -96,10 +96,14 @@ prontera.gat,135,125,5	script	抢答活动	743,{
 				copyarray .use_question$[0],$qd_question5$[0],getarraysize($qd_question5$);
 				copyarray .use_answer$[0],$qd_question5_answer$[0],getarraysize($qd_question5$);
 			break;
+			case 6:
+				copyarray .use_question$[0],$qd_question6$[0],getarraysize($qd_question6$);
+				copyarray .use_answer$[0],$qd_question6_answer$[0],getarraysize($qd_question6$);
+			break;
 		}
 		set .question_id,rand(getarraysize(.use_question$));
-		defpattern 1, "([^:]+):\\s"+.use_answer$[.question_id]+".*", "bingo";
-		activatepset 1;
+		defpattern .quest_time, "([^:]+):\\s"+.use_answer$[.question_id]+".*", "bingo";
+		activatepset .quest_time;
 		npctalk "第"+.quest_time+"题："+.use_question$[.question_id];
 		sleep2 5000;
 		if (.is_answer==1){
@@ -109,8 +113,9 @@ prontera.gat,135,125,5	script	抢答活动	743,{
 					end;
 				}
 				attachrid(getcharid(3,.qd_winner$));
-				set @rand,rand(50100,50110);
-				getitem @rand,1;
+				//set @rand,rand(50100,50110);
+				//getitem @rand,1;
+				atcommand "@cash 100 "+strcharinfo(0);
 				detachrid;
 				end;
 			}
@@ -148,7 +153,8 @@ prontera.gat,135,125,5	script	抢答活动	743,{
 			end;
 		}
 		npctalk "无人答对，5秒后开始下一题";
-		deletepset 1;
+		deactivatepset .quest_time;
+		//deletepset 1;
 		sleep2 5000;
 		goto Onstart;
 		end;
@@ -160,7 +166,8 @@ prontera.gat,135,125,5	script	抢答活动	743,{
 			set .qd_new_day,1;
 		}
 		qd_right_count++;
-		deletepset 1;
+		deactivatepset .quest_time;
+		//deletepset 1;
 		set .is_answer,1;
 		npctalk "恭喜["+strcharinfo(0)+"]回答正确!";
 		zeny=zeny+100000;
@@ -218,5 +225,9 @@ prontera.gat,135,125,5	script	抢答活动	743,{
 		,"《吸血鬼日记》中克劳斯一直躲避的吸血鬼是谁","纸牌屋中弗兰西斯的扮演者是谁","生活大爆炸里面最矮的人是","生活大爆炸中谁想成为蝙蝠侠","生活大爆炸中莱纳德在第四季中与谁在一起";
 		//答案5
 		setarray $qd_question5_answer$[0],"姐妹","6","卡尔","霍利","蓖麻","65","比尔","迈克尔","凯文史派西","霍华德","谢尔顿","普瑞亚";
+				//-------------------------------------------------------------美剧题库5-------------------------------------------------------------
+		setarray $qd_question6$[0],"1+1=?","1+2=?","1+3=?";
+		//答案5
+		setarray $qd_question6_answer$[0],"2","3","4";
 }
 

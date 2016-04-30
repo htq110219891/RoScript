@@ -3,7 +3,7 @@
 **************************************************************
 【名    称】自动挂机
 【类    型】辅助工具
-【版    本】1.0
+【版    本】1.0.2
 【版权所有】泠然
 【服 务 端】99MAXEA v8.13.1
 【制作人员】
@@ -22,7 +22,9 @@
 		  //}
 		  4、自动使用治愈术，加速术，天赐，心神凝聚，圣母之折福。
 		  5、需要配合自动拾取功能@autoloot，本身没有拾取功能。
-		  6、每30秒杀怪后会飞一次，如果150秒没有杀怪也会飞。
+		  6、1分钟没有杀怪后会飞。
+		  7、可配合自动吃药脚本
+
 	测试：没有经过太多测试。挂了几个号2天没出问题。仅供学习。
 	
 【使用方法】
@@ -30,6 +32,7 @@
 	2、在Item_db中 的某个物品上加入脚本AutoAttack。
 	例如：50007,auto_attack,自动挂机,11,0,,0,,,,,0xFFFFFFFF,7,2,,,,,,{ callfunc "AutoAttack"; },{},{}
 【更新日志】
+    2016-04-24    1.0.1    优化脚本，自动飞的方式为1分钟内没有杀死怪物使用苍蝇翅膀
     2016-04-23    1.0.0    创建脚本
 【错误回报】论坛反馈
 【相关人物变量】
@@ -39,14 +42,7 @@ OnNPCKillEvent:
 	if(@startAutoAtk==0){
 		end;
 	}
-	if(@allowFly>=1){//如果有瞬间移动技能，则不消耗苍蝇翅膀。
-		if(getskilllv(26)){
-			warp "Random",0,0;
-		}else if(countitem(601)>0){
-			delitem 601,1;
-			//itemskill "AL_TELEPORT",1;
-			warp "Random",0,0;
-		}
+	if(@allowFly>=1){
 		set @allowFly,0;
 	}
 end;
@@ -59,76 +55,114 @@ OnPCDieEvent://死亡停止挂机
 end;
 
 OnCheckUp://检查状态
-	if(@startAutoAtk==0){
-		end;
-	}
-	if(!getstatus(32)){//加速术
-		if(getskilllv(29)&&readparam(7)>=15+getskilllv(29)*3){
-			Sp=Sp-15-getskilllv(29)*3;
-			sc_start 32,240000,getskilllv(29);
-			skilleffect 29,0;
+	freeloop(1);
+	while(@startAutoAtk==1){
+		if(!getstatus(32)){//加速术
+			if(getskilllv(29)&&readparam(7)>=15+getskilllv(29)*3){
+				atcommand "@useskill 29 "+getskilllv(29)+" self";
+				sleep2 2000;
+				if(@startAutoAtk==0){
+					end;
+				}
+			}
 		}
-	}
-	if(!getstatus(30)){//天赐
-		if(getskilllv(34)&&readparam(7)>=24+getskilllv(34)*4){
-			Sp=Sp-24-getskilllv(34)*4;
-			sc_start 30,240000,getskilllv(34);
-			skilleffect 34,0;
+		if(!getstatus(30)){//天赐
+			if(getskilllv(34)&&readparam(7)>=24+getskilllv(34)*4){
+				//Sp=Sp-24-getskilllv(34)*4;
+				//sc_start 30,240000,getskilllv(34);
+				//skilleffect 34,0;
+				atcommand "@useskill 34 "+getskilllv(34)+" self";
+				sleep2 900;
+				if(@startAutoAtk==0){
+					end;
+				}
+			}
 		}
-	}
-	if(!getstatus(23)){//心神凝聚
-		if(getskilllv(45)&&readparam(7)>=20+getskilllv(45)*5){
-			Sp=Sp-20-getskilllv(45)*5;
-			sc_start 23,240000,getskilllv(45);
-			skilleffect 45,0;
+		if(!getstatus(23)){//心神凝聚
+			if(getskilllv(45)&&readparam(7)>=20+getskilllv(45)*5){
+				//Sp=Sp-20-getskilllv(45)*5;
+				//sc_start 23,240000,getskilllv(45);
+				//skilleffect 45,0;
+				atcommand "@useskill 45 "+getskilllv(45)+" self";
+				sleep2 800;
+				if(@startAutoAtk==0){
+					end;
+				}
+			}
 		}
-	}
-	if(!getstatus(115)){//圣母之祈福
-		if(getskilllv(361)&&readparam(7)>=10+getskilllv(361)*10){
-			Sp=Sp-10-getskilllv(361)*10;
-			sc_start 115,100000,getskilllv(361);
-			skilleffect 361,0;
+		if(!getstatus(115)){//圣母之祈福
+			if(getskilllv(361)&&readparam(7)>=10+getskilllv(361)*10){
+				//Sp=Sp-10-getskilllv(361)*10;
+				//sc_start 115,100000,getskilllv(361);
+				//skilleffect 361,0;
+				atcommand "@useskill 361 "+getskilllv(361)+" self";
+				sleep2 3000;
+				if(@startAutoAtk==0){
+					end;
+				}
+			}
 		}
-	}
-	if(!getstatus(56)&&BaseClass!=4&&Class!=19&&Class!=20&&Class!=4020&&Class!=4021){//觉醒药水 服饰系列和 舞娘诗人无法使用
-		if(countitem(656)>0){
-			delitem 656,1;
-			consumeitem(656);
+		if(@startAutoAtk==0){
+			end;
 		}
-	}
-	set @allowFly,@allowFly+1;
-	if(@allowFly>5){
-		set @allowFly,0;
-		if(getskilllv(26)){
-			warp "Random",0,0;
-		}else if(countitem(601)>0){
-			delitem 601,1;
-			warp "Random",0,0;
+		if(!getstatus(56)&&BaseClass!=4&&Class!=19&&Class!=20&&Class!=4020&&Class!=4021){//觉醒药水 服饰系列和 舞娘诗人无法使用
+			if(countitem(656)>0){
+				delitem 656,1;
+				consumeitem(656);
+			}
 		}
+		set @allowFly,@allowFly+1;
+		//dispbottom "@allowFly="+@allowFly;
+		if(@allowFly>1){
+			//dispbottom "getmapflag(@AutoAtkMap$,noteleport)="+getmapflag(@AutoAtkMap$,nowarp);
+			//if(getmapflag(@AutoAtkMap$,noteleport)==0){
+				set @allowFly,0;
+				if(getskilllv(26)){
+					warp "Random",0,0;
+				}else if(countitem(601)>0){
+					delitem 601,1;
+					warp "Random",0,0;
+				}else if(countitem(12323)>0){
+					delitem 12323,1;
+					warp "Random",0,0;
+				}
+			//}
+		}
+		if(strcharinfo(3)!=@AutoAtkMap$){
+			warp @AutoAtkMap$,0,0;
+		}
+		//deltimer "CheckStatus::OnCheckUp";
+		sleep2 30000;
 	}
-	//if(strcharinfo(3)!=@AutoAtkMap$){
-	//	warp @AutoAtkMap$,0,0;
-	//}
-	addtimer 30000,"CheckStatus::OnCheckUp";//30秒检查一次状态
+freeloop(0);
+end;
+	
+
+	//addtimer 30000,"CheckStatus::OnCheckUp";//30秒检查一次状态
 end;
 
 OnCheckUpHp://自动治愈术回血
-	if(@startAutoAtk==0){
-		end;
-	}
-	if(readparam(5)*100/readparam(6)<30){
-		if(getskilllv(28)&&readparam(7)>=10+getskilllv(28)*3){
-			//dispbottom readparam(bInt)*2+(readparam(bInt)/7)*(readparam(bInt)/7)+(readparam(bInt)/5)*(readparam(bInt)/5);
-			set @healNumber,(readparam(11)+readparam(16))/5*30*(getskilllv(28)/10)*(1+0)+readparam(bInt)*2+(readparam(bInt)/7)*(readparam(bInt)/7)+(readparam(bInt)/5)*(readparam(bInt)/5);
-			//治愈术恢复公式(BaseLv+INT)/5*30*(SLv/10)*(1+Mod%)+MATK
-			heal @healNumber,-10-getskilllv(28)*3; //加血扣SP
-			skilleffect 28,@healNumber;//显示出来
+	freeloop(1);
+	while(@startAutoAtk==1){
+		if(readparam(5)*100/readparam(6)<30){
+			if(getskilllv(28)&&readparam(7)>=10+getskilllv(28)*3){
+				//dispbottom readparam(bInt)*2+(readparam(bInt)/7)*(readparam(bInt)/7)+(readparam(bInt)/5)*(readparam(bInt)/5);
+				//set @healNumber,(readparam(11)+readparam(16))/5*30*(getskilllv(28)/10)*(1+0)+readparam(bInt)*2+(readparam(bInt)/7)*(readparam(bInt)/7)+(readparam(bInt)/5)*(readparam(bInt)/5);
+				//治愈术恢复公式(BaseLv+INT)/5*30*(SLv/10)*(1+Mod%)+MATK
+				//heal @healNumber,-10-getskilllv(28)*3; //加血扣SP
+				//skilleffect 28,@healNumber;//显示出来
+				atcommand "@useskill 28 "+getskilllv(28)+" self";
+			}
 		}
+		//deltimer "CheckStatus::OnCheckUpHp";
+		sleep2 1500;//1.5秒检查一次血量
 	}
-	addtimer 1500,"CheckStatus::OnCheckUpHp";//1.5秒检查一次血量
-end;
+	freeloop(0);
+	end;
+OnCoolDown:
+	set @autoAtkCoolDown,0;
+	end;
 }
-
 function	script	AutoAttack	{
 	mes "[挂机系统]";
 	mes "1、角色只会进行普通攻击";
@@ -138,25 +172,30 @@ function	script	AutoAttack	{
 	switch(select(@startAutoAtk==0?"开启":"关闭")) {
 		case 1:
 			if(@startAutoAtk==0){
+				if(@autoAtkCoolDown==1){
+					mes "^FF0000每次关闭后需要间隔30秒才可开启^000000";
+					close;
+					end;
+				}
 				set @AutoAtkMap$,strcharinfo(3);	//记录挂机地图
 				set @startAutoAtk,1;
 				atcommand "@autoattack";
-				addtimer 1000,"CheckStatus::OnCheckUp";
+				doevent "CheckStatus::OnCheckUp";
 				if(getskilllv(28)){
-					addtimer 1000,"CheckStatus::OnCheckUpHp";
+					doevent "CheckStatus::OnCheckUpHp";
 				}
+				set @allowFly,0;
 				close;
 			}else{
 				set @startAutoAtk,0;
+				set @autoAtkCoolDown,1;
+				awake "CheckStatus";
 				atcommand "@autoattack";
+				addtimer 31000,"CheckStatus::OnCoolDown";
 				close;
+				
 			}
 		break;
-		case 2:
-			addtimer 1000,"CheckStatus::OnCheckUp";
-			addtimer 1000,"CheckStatus::OnCheckUpHp";
-			close;
-		break;
 	}
-	
+
 }
