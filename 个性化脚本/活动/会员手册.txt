@@ -1,0 +1,59 @@
+function	script	PlayerBook	{
+	mes "^8B4789「小小RO」服务器信息^000000";
+	mes "尊贵的 ^FF0000"+strcharinfo(0)+"^000000,您好";
+	mes "-----------------------------------";
+	mes "现在时间：^4F94CD"+gettimestr("%Y-%m/%d %H:%M:%S",21)+"^000000";
+	mes "当前在线人数为：[ "+getusers(1)+" ]人";
+	mes "-----------------------------------";
+	mes "<<<<<<<<「小小RO」会员手册>>>>>>>>";
+	next;
+	switch(select("查询信息","辅助功能",@startAutoAtk==1?"停止挂机":"")) {
+		case 1:
+			switch(select("玩家信息","游戏信息")) {
+				case 1:
+					mes strcharinfo(0)+"的个人信息";
+					mes "-----------------------------------";
+					mes "->「C点」^9400D3"+#CASHPOINTS+"^000000";
+					mes "->「S点」^473C8B"+s_point+"^000000";
+					mes "->「完成任务」^8B0000"+"11"+"^000000";
+					mes "->「S点」^7171C6"+s_point+"^000000";
+					mes "-----------------------------------";
+					close;
+				break;
+				case 2:
+					mes "^8B4789「小小RO」服务器信息^000000";
+					mes "-----------------------------------";
+					mes "经验倍率：^0000FF"+getBattleFlag("base_exp_rate")/100+"倍^000000";
+					mes "装备掉率：^0000FF"+getBattleFlag("item_rate_equip")/100+"倍^000000";
+					mes "卡片掉率：^0000FF"+getBattleFlag("item_rate_card")/100+"倍^000000";
+					mes "最大ASPD：^0000FF"+(200-getBattleFlag("max_aspd")/10)+"^000000";
+					mes "-----------------------------------";
+					close;
+				break;
+			}
+		break;
+		case 2:
+			switch(select("挂机","自动吃药")) {
+				case 1:
+					next;
+					callfunc "AutoAttack";
+				break;
+				case 2:
+					next;
+					callfunc "AutoUseItem";
+				break;
+			}
+		break;
+		case 3:
+			set @startAutoAtk,0;
+			set @autoAtkCoolDown,1;
+			awake "CheckStatus";
+			atcommand "@autoattack";
+			addtimer 60000,"CheckStatus::OnCoolDown";
+			close;
+			end;
+		break;
+			
+	}
+	close;
+}
