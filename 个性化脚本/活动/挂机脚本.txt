@@ -189,6 +189,7 @@ OnAutoSkill://自动使用范围技能
 	//freeloop(0);
 end;
 }
+
 function	script	AutoAttack	{
 	mes "[挂机系统]";
 	mes "1、角色只会进行普通攻击";
