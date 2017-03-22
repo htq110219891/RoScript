@@ -1,0 +1,65 @@
+prontera.gat,142,98,5	script	﹏、腾讯ro。精炼师	808,{
+	set @max,10;
+	set @part,1;
+	set @part_max,7;
+	set @ngp,1;
+	set @ygp,1;
+	set @ngpmx,7;
+	set @ygpmx,7;
+	mes " [全﹏、腾讯ro。自动超快精炼师]";
+	mes " 我是专门锻治武器与防具的铁匠。";
+	mes " 我可以^ff0000超快速^000000把所有物品安全+"+@max+"";
+	next;
+	menu	"我要锻治",L_Yes,
+		"取消",L_CLOSE;
+L_dme:
+	mes " [﹏、腾讯ro。全自动超快精炼师]";
+	mes " 第一次使用记得看说明唷。";
+	mes " 此精炼师为科技产品";
+	mes " 因为他是一个全自动化的npc";
+	mes " ^0000FF功能一：^000000全自动判断你要精炼的装备。";
+	mes " ^0000FF特点一：^000000只有一个字那就是'^0000FF快^000000'";
+	next;
+	mes " 可不用装备头中、头下、饰品1、饰品2，npc不会去判断所以有装和没装都一样。";
+	goto L_CLOSE;
+
+L_Yes:
+	if (@ngp == @ngpmx) goto L_ERROR;
+	if (@ygp == @ygpmx) goto L_ERROR1;
+	if (@part == @part_max) goto L_CLOSE;
+	if ( getequipisequiped(@part) > 0) goto L_Yes2;
+	set @ngp,@ngp+1;
+	set @part,@part+1;
+	goto L_Yes;
+L_Yes2:
+	if ( getequiprefinerycnt(@part) < @max) goto L_Yes3;
+	set @ygp,@ygp+1;
+	set @part,@part+1;
+	goto L_Yes;
+L_Yes3:
+	if ( getequipisenableref(@part) > 0 ) goto L_Yes4;
+	set @part,@part+1;
+	goto L_Yes;
+L_Yes4:
+	if ( getequiprefinerycnt(@part) >= @max) end;
+	goto L_Yes5;
+L_Yes5:
+	successrefitem @part;
+	goto L_Yes;
+
+L_ERROR:
+	mes " [﹏、腾讯ro。全自动超快精炼师]";
+	mes " 你是来找搽的吗?";
+	mes " 全身都没有装备你来干嘛!!";
+	mes " 滚吧，我不想看见你!";
+	goto L_CLOSE;
+L_ERROR1:
+	mes " [﹏、腾讯ro。全自动超快精炼师]";
+	mes " 对不起!!你全身装备+"+@max+"喽";
+	mes " 没有一个可以再精炼的!!";
+	goto L_CLOSE;
+
+
+L_CLOSE:
+	close;
+}
