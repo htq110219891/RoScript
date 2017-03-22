@@ -13,7 +13,7 @@
     制作：泠然
     测试：泠然
 【简要说明】
-    本脚本为 EAthena 服务端用符文系统。构思来源于OK论坛
+    本脚本为 EAthena 服务端用符文系统。
 【更新日志】
     2015-08-12    1.0.0    创建脚本
 【错误回报】
@@ -66,11 +66,16 @@ OnPCStatCalcEvent:
 		case 50111:
 			if(getskilllv(10)){bonus bIntravision,n;}	//火守符文：看到隐身单位
 		break;
-		case 50112:
-			//心灵爆破符文
+		case 50112://心灵爆破符文：增加心灵爆破、圣灵召唤伤害(4*技能等级)%
+			if(getskilllv(11)){
+				bonus2 bSkillAtk,11,4*getskilllv(11);
+				bonus2 bSkillAtk,13,4*getskilllv(11);
+			}
 		break;
-		case 50113:
-			//暗之障壁符文
+		case 50113://暗之障壁符文：减少(2*技能等级)%受到的魔法伤害
+			if(getskilllv(12)){
+				bonus bMagicAtkDef,2*getskilllv(12);	
+			}
 		break;
 		case 50114:
 			//圣灵召唤符文
