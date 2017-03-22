@@ -1,0 +1,395 @@
+/************************************************************\
+					EAthena Script
+**************************************************************
+【名    称】自动挂机
+【类    型】辅助工具
+【版    本】1.0.2
+【版权所有】泠然
+【服 务 端】99MAXEA v8.13.1
+【制作人员】
+    策划：泠然
+    编程：泠然
+    文饰：泠然
+    制作：泠然
+    测试：泠然
+【简要说明】
+	本脚本为 EAthena 服务端用挂机脚本，适合自立服使用。
+	功能：1、自动攻击周围敌人（普通攻击）
+		  2、自动吃觉醒药水
+		  3、离开挂机地图，自动传回
+		  4、可设置辅助技能，目前支持技能
+		  加速、天赐、圣母之折福、心神凝聚、双手剑攻击加速、风之步、猎杀狙击
+		  5、需要配合自动拾取功能@autoloot，本身没有拾取功能。
+		  6、1分钟没有杀怪后会飞。
+		  7、可配合自动吃药脚本进行自动吃药。
+
+	
+【使用方法】
+	1、将脚本加载到服务器中。
+	2、在Item_db中 的某个物品上加入脚本AutoAttack。
+	例如：50007,auto_attack,自动挂机,11,0,,0,,,,,0xFFFFFFFF,7,2,,,,,,{ callfunc "AutoAttack"; },{},{}
+【更新日志】
+    2016-04-24    1.0.1    优化脚本，自动飞的方式为1分钟内没有杀死怪物使用苍蝇翅膀
+    2016-04-23    1.0.0    创建脚本
+【错误回报】论坛反馈
+【相关人物变量】
+\************************************************************/
+-	script	CheckStatus	-1,{
+OnNPCKillEvent:
+	if(@startAutoAtk==0){
+		end;
+	}
+	if(@allowFly>=1){
+		set @allowFly,0;
+	}
+end;
+
+OnPCDieEvent://死亡停止挂机
+	if(@startAutoAtk==1){
+		set @startAutoAtk,0;
+		atcommand "@autoattack";
+	}
+end;
+
+OnCheckUp://检查状态
+	freeloop(1);
+	while(@startAutoAtk==1){
+		//职业判断
+		switch(BaseClass){
+			case 0:						//初学者
+				
+			break;
+			case 1:						//剑士系列
+				if(!getstatus(22)&&getd("autoAtkSkill"+60)==1){			//双手剑攻击加速
+					if(getskilllv(60)&&readparam(7)>=10+getskilllv(60)*4){
+						atcommand "@useskill 60 "+getskilllv(60)+" self";
+					}
+				}
+			break;
+			case 2:						//魔法师系列
+			
+			break;
+			case 3:						//弓箭手系列
+				if(!getstatus(23)&&getd("autoAtkSkill"+45)==1){			//心神凝聚
+					if(getskilllv(45)&&readparam(7)>=20+getskilllv(45)*5){
+						atcommand "@useskill 45 "+getskilllv(45)+" self";
+						sleep2 300;
+					}
+				}
+				if(!getstatus(121)&&getd("autoAtkSkill"+383)==1){			//风之步
+					if(getskilllv(383)&&readparam(7)>=40+getskilllv(383)*6){
+						atcommand "@useskill 383 "+getskilllv(383)+" self";
+						sleep2 4000;
+					}
+				}
+				if(!getstatus(120)&&getd("autoAtkSkill"+380)==1){			//狙击猎杀
+					if(getskilllv(380)&&readparam(7)>=20+getskilllv(380)*2){
+						atcommand "@useskill 380 "+getskilllv(380)+" self";
+						sleep2 500;
+					}
+				}
+			break;
+			case 4:						//服饰系列
+				if(!getstatus(32)&&getd("autoAtkSkill"+29)==1){//加速术
+					if(getskilllv(29)&&readparam(7)>=15+getskilllv(29)*3){
+						atcommand "@useskill 29 "+getskilllv(29)+" self";
+						sleep2 2000;
+						if(@startAutoAtk==0){
+							end;
+						}
+					}
+				}
+				if(!getstatus(30)&&getd("autoAtkSkill"+34)==1){//天赐
+					if(getskilllv(34)&&readparam(7)>=24+getskilllv(34)*4){
+						atcommand "@useskill 34 "+getskilllv(34)+" self";
+						sleep2 900;
+						if(@startAutoAtk==0){
+							end;
+						}
+					}
+				}
+				
+				if(!getstatus(115)&&getd("autoAtkSkill"+361)==1){//圣母之祈福
+					if(getskilllv(361)&&readparam(7)>=10+getskilllv(361)*10){
+						atcommand "@useskill 361 "+getskilllv(361)+" self";
+						sleep2 3000;
+						if(@startAutoAtk==0){
+							end;
+						}
+					}
+				}
+			break;
+			case 5:					//商人系列
+				
+			break;
+			case 6:					//盗贼系列
+				
+			break;
+			default:				//其他
+				
+			break;
+		}
+
+		//加速药水判断 657 波色克 656觉醒 645集中
+		if(!getstatus(56)&&BaseClass!=4&&Class!=19&&Class!=20&&Class!=4020&&Class!=4021){//觉醒药水 服饰系列和 舞娘诗人无法使用
+			if(countitem(656)>0){
+				delitem 656,1;
+				consumeitem(656);
+			}
+		}
+		set @allowFly,@allowFly+1;
+		//dispbottom "@allowFly="+@allowFly;
+		if(@allowFly>1){
+			//dispbottom "getmapflag(@AutoAtkMap$,noteleport)="+getmapflag(@AutoAtkMap$,nowarp);
+			//if(getmapflag(@AutoAtkMap$,noteleport)==0){
+				set @allowFly,0;
+				if(getskilllv(26)&&readparam(7)>=10){
+					Sp=Sp-10;
+					warp "Random",0,0;
+				}else if(countitem(601)>0){
+					delitem 601,1;
+					warp "Random",0,0;
+				}else if(countitem(12323)>0){
+					delitem 12323,1;
+					warp "Random",0,0;
+				}
+			//}
+		}
+		if(@startAutoAtk==0){
+			end;
+		}
+		if(strcharinfo(3)!=@AutoAtkMap$){
+			warp @AutoAtkMap$,0,0;
+		}
+
+		sleep2 30000;
+	}
+freeloop(0);
+end;
+
+OnCheckUpHp://自动治愈术回血
+	freeloop(1);
+	while(@startAutoAtk==1){
+		if(readparam(5)*100/readparam(6)<30){
+			if(getskilllv(28)&&readparam(7)>=10+getskilllv(28)*3){
+				atcommand "@useskill 28 "+getskilllv(28)+" self";
+			}
+		}
+		sleep2 1500;//1.5秒检查一次血量
+	}
+	freeloop(0);
+end;
+
+OnCoolDown://停止挂机后冷却1分钟。
+	set @autoAtkCoolDown,0;
+end;
+
+OnAutoSkill://自动使用范围技能
+	//freeloop(1);
+	//freeloop(0);
+end;
+}
+
+function	script	AutoAttack	{
+	mes "[挂机系统]";
+	mes "1、角色只会进行普通攻击";
+	mes "2、可设置觉醒药水和辅助技能";
+	mes "3、如携带苍蝇翅膀或瞬移技能可自动寻怪";
+	//mes "4、挂机开始的地图会记录，如果到别的地图会自动传回";
+	switch(select(@startAutoAtk==0?"开启":"关闭","设置")) {
+		case 1:
+			if(@startAutoAtk==0){
+				if(@autoAtkCoolDown==1){
+					mes "^FF0000每次关闭后需要间隔1分钟才可开启^000000";
+					close;
+					end;
+				}
+				set @AutoAtkMap$,strcharinfo(3);	//记录挂机地图
+				set @startAutoAtk,1;
+				atcommand "@autoattack";
+				doevent "CheckStatus::OnCheckUp";
+				if(getskilllv(28)){
+					doevent "CheckStatus::OnCheckUpHp";
+				}
+				set @allowFly,0;
+				close;
+			}else{
+				set @startAutoAtk,0;
+				set @autoAtkCoolDown,1;
+				awake "CheckStatus";
+				atcommand "@autoattack";
+				addtimer 60000,"CheckStatus::OnCoolDown";
+				close;
+				
+			}
+		break;
+		case 2:
+			switch(BaseClass){
+				case 1:						//剑士系列
+					mes "请选择要设置的技能";
+					switch(select("双手剑攻击加速["+(getd("autoAtkSkill"+60)==0?"关闭":"开启")+"]")) {
+						case 1:
+							if(getskilllv(60)){		//心神凝聚
+								switch(select(getd("autoAtkSkill"+60)==0?"开启":"关闭")) {
+									default:
+										if(getd("autoAtkSkill"+60)==0){
+											set getd("autoAtkSkill"+60),1;
+											mes "开启成功";
+											close;
+										}else{
+											set getd("autoAtkSkill"+60),0;
+											mes "关闭成功";
+											close;
+										}
+									break;
+								}
+							}else{
+								mes "您没有学会此技能";
+								close;
+							}
+						break;
+					}
+					close;
+				break;
+				case 2:						//魔法师系列
+					mes "此职业暂无可设置辅助技能";
+					close;
+				break;
+				case 3:						//弓箭手系列
+					mes "请选择要设置的技能";
+					switch(select("心神凝聚["+(getd("autoAtkSkill"+45)==0?"关闭":"开启")+"]","风之步["+(getd("autoAtkSkill"+383)==0?"关闭":"开启")+"]","狙杀瞄准["+(getd("autoAtkSkill"+380)==0?"关闭":"开启")+"]")) {
+						case 1:
+							if(getskilllv(45)){		//心神凝聚
+								switch(select(getd("autoAtkSkill"+45)==0?"开启":"关闭")) {
+									default:
+										if(getd("autoAtkSkill"+45)==0){
+											set getd("autoAtkSkill"+45),1;
+											mes "开启成功";
+											close;
+										}else{
+											set getd("autoAtkSkill"+45),0;
+											mes "关闭成功";
+											close;
+										}
+									break;
+								}
+							}else{
+								mes "您没有学会此技能";
+								close;
+							}
+						break;
+						case 2:
+							if(getskilllv(383)){		//风之步
+								switch(select(getd("autoAtkSkill"+383)==0?"开启":"关闭")) {
+									default:
+										if(getd("autoAtkSkill"+383)==0){
+											set getd("autoAtkSkill"+383),1;
+											mes "开启成功";
+											close;
+										}else{
+											set getd("autoAtkSkill"+383),0;
+											mes "关闭成功";
+											close;
+										}
+									break;
+								}
+							}else{
+								mes "您没有学会此技能";
+								close;
+							}
+						break;
+						case 3:
+							if(getskilllv(380)){		//心神凝聚
+								switch(select(getd("autoAtkSkill"+380)==0?"开启":"关闭")) {
+									default:
+										if(getd("autoAtkSkill"+380)==0){
+											set getd("autoAtkSkill"+380),1;
+											mes "开启成功";
+											close;
+										}else{
+											set getd("autoAtkSkill"+380),0;
+											mes "关闭成功";
+											close;
+										}
+									break;
+								}
+							}else{
+								mes "您没有学会此技能";
+								close;
+							}
+						break;
+					}
+				break;
+				case 4:						//服饰系列
+					mes "请选择要设置的技能";
+					switch(select("加速术["+(getd("autoAtkSkill"+29)==0?"关闭":"开启")+"]","天使之赐福["+(getd("autoAtkSkill"+34)==0?"关闭":"开启")+"]","圣母之祈福["+(getd("autoAtkSkill"+361)==0?"关闭":"开启")+"]")) {
+						case 1:
+							if(getskilllv(29)){		//加速术
+								switch(select(getd("autoAtkSkill"+29)==0?"开启":"关闭")) {
+									default:
+										if(getd("autoAtkSkill"+29)==0){
+											set getd("autoAtkSkill"+29),1;
+											mes "开启成功";
+											close;
+										}else{
+											set getd("autoAtkSkill"+29),0;
+											mes "关闭成功";
+											close;
+										}
+									break;
+								}
+							}else{
+								mes "您没有学会此技能";
+								close;
+							}
+						break;
+						case 2:
+							if(getskilllv(34)){		//天赐
+								switch(select(getd("autoAtkSkill"+34)==0?"开启":"关闭")) {
+									default:
+										if(getd("autoAtkSkill"+34)==0){
+											set getd("autoAtkSkill"+34),1;
+											mes "开启成功";
+											close;
+										}else{
+											set getd("autoAtkSkill"+34),0;
+											mes "关闭成功";
+											close;
+										}
+									break;
+								}
+							}else{
+								mes "您没有学会此技能";
+								close;
+							}
+						break;
+						case 3:
+							if(getskilllv(361)){		//圣母之折福
+								switch(select(getd("autoAtkSkill"+361)==0?"开启":"关闭")) {
+									default:
+										if(getd("autoAtkSkill"+361)==0){
+											set getd("autoAtkSkill"+361),1;
+											mes "开启成功";
+											close;
+										}else{
+											set getd("autoAtkSkill"+361),0;
+											mes "关闭成功";
+											close;
+										}
+									break;
+								}
+							}else{
+								mes "您没有学会此技能";
+								close;
+							}
+						break;
+					}
+				break;
+				default:
+					mes "此职业暂无可设置辅助技能";
+					close;
+				break;
+			}
+		break;
+	}
+}

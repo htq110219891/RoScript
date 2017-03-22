@@ -1,0 +1,258 @@
+/************************************************************\
+					EAthena Script
+**************************************************************
+【名    称】等级礼包
+【类    型】升级奖励
+【版    本】1.0
+【版权所有】泠然
+【服 务 端】99MAXEA v8.13.1
+【制作人员】
+    策划：泠然
+    编程：泠然
+    文饰：泠然
+    制作：泠然
+    测试：泠然
+【使用方法】
+	1、将脚本加载到服务器中。
+	2、在Item_db中 的某个物品上加入脚本LvGiftItem。
+	例如：50007,gift,等级礼包,11,0,,0,,,,,0xFFFFFFFF,7,2,,,,,,{ callfunc "LvGiftItem"; },{},{}
+	3、GM账号使用礼包可设置后台，设置礼包奖励内容和等级。默认只有1级。
+	4、设置好后，就可以给玩家发礼包了。
+【简要说明】
+    本脚本为 EAthena 服务端用娱乐脚本。
+	后台设置等级礼包开启等级和奖励内容。
+	新添加的礼包等级需设置给与物品，默认10个红包（1000z-10000z)。
+	每个角色只能领取一次各等级礼包。（有多个礼包物品也只能领取一次）
+【更新日志】
+    2016-05-19    1.0.0    创建脚本
+【错误回报】
+\************************************************************/
+function	script	LvGiftItem	{
+	set .giftItemId,50011;	//礼包物品id
+	set .serverMaxLv,99;	//最高等级
+	//set nowGiftItemLv,0;
+	if($npcGiftItemLv[0]==0){
+		setarray $npcGiftItemLv[0],1;
+		set nowGiftItemLv,0;
+		setarray $npcGiftItem1[0],668,10;
+	}
+	if($npcGiftItemLv[nowGiftItemLv]==0){
+		mes "[等级礼包]";
+		mes "您已经领取了全部礼包";
+		mes "再见";
+		close;
+	}
+	mes "[等级礼包]";
+	mes "您的等级是："+BaseLevel+(BaseLevel<$npcGiftItemLv[nowGiftItemLv]?"[等级不足]":"");
+	mes "当前礼包开启等级："+$npcGiftItemLv[nowGiftItemLv];
+	mes "礼包内容";
+	mes "-----------------------";
+	for(set @i,0;@i<getarraysize(getd("$npcGiftItem"+$npcGiftItemLv[nowGiftItemLv]));set @i,@i+2){
+		mes "[" + getitemname(getd("$npcGiftItem"+$npcGiftItemLv[nowGiftItemLv]+"["+@i+"]"))+"]" + getd("$npcGiftItem"+$npcGiftItemLv[nowGiftItemLv]+"["+(@i+1)+"]") + "个";
+	}
+	mes "-----------------------";
+	if(BaseLevel<$npcGiftItemLv[nowGiftItemLv]){
+		close;
+	}
+	next;
+	switch (select("领取礼包",getgmlevel()>90?"后台设置":"")) {
+		case 1:
+			set @string$,"$npcGiftItem"+$npcGiftItemLv[nowGiftItemLv];
+			for(set @i,0;@i<getarraysize(getd(@string$));set @i,@i+2){
+				getitem getd(@string$+"["+@i+"]"),getd(@string$+"["+(@i+1)+"]");
+			}
+			if(nowGiftItemLv+1<getarraysize($npcGiftItemLv)){//如果有下一个礼包
+				set nowGiftItemLv,nowGiftItemLv+1;//激活下一个礼包
+				mes "[等级礼包]";
+				mes "下个礼包开启等级："+$npcGiftItemLv[nowGiftItemLv];
+			}else{
+				mes "您已经获得全部礼包";
+				mes "我们将删除您的礼包物品";
+				delitem .giftItemId,1;
+				set nowGiftItemLv,nowGiftItemLv+1;
+			}
+			close;
+		break;
+		case 2:
+			mes "[后台设置]";
+			mes "请选择修改内容";
+			switch (select("修改礼包等级","修改礼包内容","测试领取")) {
+				case 1:
+					mes "当前包含等级";
+					set .nowLv$,"";
+					for (set @i,0;@i<getarraysize($npcGiftItemLv);@i++){
+						set .nowLv$,.nowLv$+$npcGiftItemLv[@i]+" ";
+					}
+					mes .nowLv$;
+					switch (select("添加等级","删除等级")) {
+						case 1:
+							mes "请输入要添加的等级";
+							mes "注意：添加等级后需要设置礼包内容，默认为10个红包。";
+							input @s;
+							set @u,0;
+							for(set @k,0;@k<getarraysize($npcGiftItemLv);@k++){
+								if(@s==$npcGiftItemLv[@k]){
+									set @u,1;
+								}
+							}
+							if(@s<1 || @s>.serverMaxLv){
+								mes "您输入的等级范围有误(1-"+.serverMaxLv+")";
+								close;
+							}
+							if(@u==1){
+								mes "已经存在您输入的等级";
+							}else{
+								set @m,-1;
+								for(set @k,0;@k<getarraysize($npcGiftItemLv);@k++){
+									if(@s>$npcGiftItemLv[@k] && @s<$npcGiftItemLv[@k+1]){
+										set @m,@k;
+									}
+									if(@s>$npcGiftItemLv[@k] && @k+1==getarraysize($npcGiftItemLv)){
+										setarray $npcGiftItemLv[@k+1],@s;
+									}
+								}
+								if(@m!=-1){
+										for(set @k,getarraysize($npcGiftItemLv);@k>@m;@k--){
+											setarray $npcGiftItemLv[@k],$npcGiftItemLv[@k-1];
+										}
+										setarray $npcGiftItemLv[@m+1],@s;
+								}
+								setarray getd("$npcGiftItem"+@s+"[0]"),668,10;
+								mes "添加成功";
+							}
+							close;
+						break;
+						case 2:
+							mes "请输入要删除的等级";
+							input @s;
+							set @u,0;
+							for(set @k,0;@k<getarraysize($npcGiftItemLv);@k++){
+								if(@s==$npcGiftItemLv[@k]){
+									set @u,@k;
+								}
+							}
+							if(@u!=0){
+								deletearray $npcGiftItemLv[@u],1;
+								mes "删除成功";
+							}else{
+								mes "没有找到您输入的等级";
+							}
+							close;
+						break;
+						case 3:
+							cleararray $npcGiftItemLv[0],0,256;
+							setarray $npcGiftItemLv[0],1;
+							close;
+						break;
+					}
+				break;
+				case 2:
+					mes "请输入要修改的礼包等级";
+					input @s;
+					set @u,0;
+					for(set @k,0;@k<getarraysize($npcGiftItemLv);@k++){
+						if(@s==$npcGiftItemLv[@k]){
+							set @u,1;
+						}
+					}
+					if(@u==1){
+						//显示礼包内容
+						for(set @i,0;@i<getarraysize(getd("$npcGiftItem"+@s));set @i,@i+2){
+							mes "[" + getitemname(getd("$npcGiftItem"+@s+"["+@i+"]"))+"]" + getd("$npcGiftItem"+@s+"["+(@i+1)+"]") + "个";
+						}
+						next;
+						switch(select("添加物品","删除物品")) {
+							case 1:
+								mes "[GM后台]"; 
+								mes "请输入物品ID";
+								input @num;
+								if (getitemname(@num)=="null") { 
+									mes "您输入的物品ID错误。"; 
+									close; 
+									}
+								next;
+								mes "添加物品["+getitemname(@num)+"]";
+								mes "请输入物品数量";
+								input @num2;
+								if (@num2>1000||@num2<1) { 
+									mes "[GM后台]";
+									mes "输入的数值不在允许范围内。";
+									close; 
+									}
+								next;
+								mes "添加物品["+getitemname(@num)+"]"+@num2+"个";
+								mes "是否确定？";
+								switch(select("确定","取消")) {
+									case 1:
+										setarray getd("$npcGiftItem"+@s+"["+getarraysize(getd("$npcGiftItem"+@s))+"]"),@num;
+										setarray getd("$npcGiftItem"+@s+"["+getarraysize(getd("$npcGiftItem"+@s))+"]"),@num2;
+										mes "添加成功";
+										close;
+									break;
+									case 2:
+										close;
+									break;
+								}
+							break;
+							case 2:
+								mes "[GM后台]";
+								mes "请输入要删除的物品序号";
+								set @j,0;
+								for(set @i,0;@i<getarraysize(getd("$npcGiftItem"+@s));set @i,@i+2){
+									@j++;
+									mes @j+":[" + getitemname(getd("$npcGiftItem"+@s+"["+@i+"]"))+"]" + getd("$npcGiftItem"+@s+"["+(@i+1)+"]") + "个";
+									
+								}
+								next;
+								input @num;
+								if (@num>@j||@num<1) { 
+									mes "[GM后台]";
+									mes "输入的数值不在允许范围内。";
+									close; 
+									}
+								next;
+								mes "您要删除的物品是["+getitemname(getd("$npcGiftItem"+@s+"["+(@num*2-2)+"]"))+"]";
+								mes "是否确定？";
+								switch(select("确定","取消")) {
+									case 1:
+										deletearray getd("$npcGiftItem"+@s+"["+(@num*2-2)+"]"),2;
+										mes "删除成功";
+										close;
+									break;
+									case 2:
+										close;
+									break;
+								}
+							break;
+						}
+						//getd("$npcGiftItem"+@s+"[0]");
+					}else{
+						mes "输入ID错误";
+					}
+					close;
+				break;
+				case 3:
+					set @u,0;
+					mes "请输入要领取的等级";
+					input @s;
+					for(set @k,0;@k<getarraysize($npcGiftItemLv);@k++){
+						if(@s==$npcGiftItemLv[@k]){
+							set @u,1;
+						}
+					}
+					if(@u==1){
+						for(set @i,0;@i<getarraysize(getd("$npcGiftItem"+@s));set @i,@i+2){
+							getitem getd("$npcGiftItem"+@s+"["+@i+"]"),getd("$npcGiftItem"+@s+"["+(@i+1)+"]");
+						}
+					}else{
+						mes "没有找到您输入的等级";
+					}
+					close;
+				break;
+			}
+			close;
+		break;
+		
+	}
+
+}

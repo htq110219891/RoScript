@@ -17,6 +17,7 @@
     有GM后台，支持在线修改服务器名、添加和删除初始赠送的物品。
     经验倍率、装备倍率、卡片倍率、最大ASPD均读取服务器设置。
 【更新日志】
+	2016-04-23	  1.0.1    修复一个无影响的MAP报错
     2015-07-26    1.0.0    创建脚本
 【错误回报】论坛
 \************************************************************/
@@ -44,7 +45,7 @@ new_1-1,56,109,4	script	新手引导员	862,{
 			}
 			mes "[新手引导员]";
 			set new_bee,1;
-			for(set @i,0;@i<=getarraysize($npc_new_bee_item);set @i,@i+2){
+			for(set @i,0;@i<getarraysize($npc_new_bee_item);set @i,@i+2){
 				getitem $npc_new_bee_item[@i],$npc_new_bee_item[@i+1];
 			}
 			save "prontera.gat",154,99;
@@ -129,8 +130,8 @@ new_1-1,56,109,4	script	新手引导员	862,{
 							}
 						break;
 						case 3:
-							for(set @i,0;@i<=getarraysize($npc_new_bee_item);set @i,@i+2){
-							getitem $npc_new_bee_item[@i],$npc_new_bee_item[@i+1];
+							for(set @i,0;@i<getarraysize($npc_new_bee_item);set @i,@i+2){
+								getitem $npc_new_bee_item[@i],$npc_new_bee_item[@i+1];
 							}
 							close;
 						break;

@@ -5,7 +5,7 @@
 【类    型】趣味问答
 【版    本】1.0
 【版权所有】泠然
-【服 务 端】99MAXEA v8.10.0
+【服 务 端】eAthena、rAthena
 【制作人员】
     策划：泠然
     编程：泠然
@@ -74,7 +74,7 @@ prontera.gat,135,125,5	script	抢答活动	743,{
 	Onstart:
 		set .is_answer,0;
 		set .quest_time,.quest_time+1;
-		set .question_bank,rand(1,5);
+		set .question_bank,rand(6,6);
 		switch (.question_bank){
 			case 1:
 				copyarray .use_question$[0],$qd_question1$[0],getarraysize($qd_question1$);
@@ -102,8 +102,8 @@ prontera.gat,135,125,5	script	抢答活动	743,{
 			break;
 		}
 		set .question_id,rand(getarraysize(.use_question$));
-		defpattern .quest_time, "([^:]+):\\s"+.use_answer$[.question_id]+".*", "bingo";
-		activatepset .quest_time;
+		defpattern 1, "([^:]+):\\s"+.use_answer$[.question_id]+".*", "bingo";
+		activatepset 1;
 		npctalk "第"+.quest_time+"题："+.use_question$[.question_id];
 		sleep2 5000;
 		if (.is_answer==1){
@@ -153,8 +153,7 @@ prontera.gat,135,125,5	script	抢答活动	743,{
 			end;
 		}
 		npctalk "无人答对，5秒后开始下一题";
-		deactivatepset .quest_time;
-		//deletepset 1;
+		deletepset 1;
 		sleep2 5000;
 		goto Onstart;
 		end;
@@ -166,8 +165,7 @@ prontera.gat,135,125,5	script	抢答活动	743,{
 			set .qd_new_day,1;
 		}
 		qd_right_count++;
-		deactivatepset .quest_time;
-		//deletepset 1;
+		deletepset 1;
 		set .is_answer,1;
 		npctalk "恭喜["+strcharinfo(0)+"]回答正确!";
 		zeny=zeny+100000;

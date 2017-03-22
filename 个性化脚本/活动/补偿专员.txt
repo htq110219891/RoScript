@@ -24,7 +24,7 @@
     2015-08-03    1.0.0    创建脚本
 【错误回报】
 \************************************************************/
-prontera,164,99,4	script	补偿专员	435,{
+prontera,164,87,4	script	补偿专员	435,{
 	mes "您好，服务器出问题后，我会发给大家S点作为补偿";
 	switch(select("领取补偿")) {
 		case 1:
@@ -47,11 +47,9 @@ prontera,164,99,4	script	补偿专员	435,{
 	
 OnInit:
 	//初始化
+	set $npc_spoint_give,10;
+	set $npc_spoint_give_lv,80;
 	
-	if($npc_spoint_give==0){
-		set $npc_spoint_give,10;
-		set $npc_spoint_give_lv,80;
-	}
 	hideonnpc "补偿专员";
 	end;
 OnOpen:

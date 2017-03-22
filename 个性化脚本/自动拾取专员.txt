@@ -21,7 +21,7 @@
 1@new_1-2,92,81,5	script	自动拾取专员	716,{
 	mes "[自动拾取专员]";
 	mes "我会发放自动领取道具";
-	mes "自动拾取卷使用期限为1小时";
+	mes "自动拾取卷使用期限为2小时";
 	mes "时间到后请再找我领取";
 	switch(select("领取自动拾取")) {
 		case 1:
@@ -30,7 +30,7 @@
 				mes "请时间到后再来领取";
 				close;
 			}
-			rentitem 50003,3600;
+			rentitem 50003,7200;
 			close;
 		break;
 	}
@@ -45,14 +45,27 @@ OnLootUp:
 		set @looted,0;
 		end;
 	}
-	addtimer 10000,"AutoLoot::OnLootUp";
+	sleep2 60000;
+	doevent "AutoLoot::OnLootUp";
 	end;
 }
 function	script	autoloot	{
 	if(@looted==1){
 		end;
 	}
-	atcommand "@autoloot";
-	set @looted,1;
+	if(vip_status(1)==0){
+		atcommand "@autoloot";
+		set @looted,1;
+	}else{
+		mes "请输入拾取物品掉落几率";
+		input @num;
+		if(@num==0 ||@num>100){
+			mes "您输入的几率有误";
+			close;
+		}
+		atcommand "@autoloot "+@num;
+		set @looted,1;
+	}
 	doevent "AutoLoot::OnLootUp";
+	end;
 }

@@ -30,6 +30,109 @@
 【错误回报】论坛反馈
 【相关人物变量】AutoUseItem_reHpItem、AutoUseItem_reSpItem、AutoUseItem_reHpVal、AutoUseItem_reSpVal
 \************************************************************/
+-	script	CheckHPSP	-1,{
+OnPCDieEvent://死亡停止挂机
+	if(AutoUseItem_DieUse==0 && @AutoUseItemOn==1){
+		set @AutoUseItemOn,0;
+		dispbottom "死亡后停止自动吃药。";
+	}
+end;
+
+						
+OnCheckUp:
+freeloop(1);
+while(@AutoUseItemOn==1){
+	if(readparam(5)*100/readparam(6)<AutoUseItem_reHpVal){
+		if (countitem(AutoUseItem_reHpItem)>0){
+			if(readparam(5)>0){
+				if(@CheckHP_showTip==1){
+					set @CheckHP_showTip,0;
+				}
+				delitem AutoUseItem_reHpItem,1;
+				consumeitem(AutoUseItem_reHpItem);
+				switch (AutoUseItem_reHpItem){
+					case 501:
+						specialeffect2 204;
+					break;
+					case 502:
+						specialeffect2 205;
+					break;
+					case 503:
+						specialeffect2 206;
+					break;
+					case 504:
+						specialeffect2 207;
+					break;
+					case 505:
+						specialeffect2 208;
+					break;
+					case 506:
+						specialeffect2 209;
+					break;
+					case 607:
+						specialeffect2 211;
+					break;
+					case 608:
+						specialeffect2 211;
+					break;
+					default:
+						specialeffect2 007;
+					break;
+				}
+			}
+		}else if(@CheckHP_showTip==0){
+			dispbottom "["+getitemname(AutoUseItem_reHpItem)+"]数量不足。";
+			set @CheckHP_showTip,1;
+		}
+	}
+	if(readparam(7)*100/readparam(8)<AutoUseItem_reSpVal){
+		if (countitem(AutoUseItem_reSpItem)>0){
+			if(@CheckSP_showTip==1){
+				set @CheckSP_showTip,0;
+			}
+			delitem AutoUseItem_reSpItem,1;
+			consumeitem(AutoUseItem_reSpItem);
+			switch (AutoUseItem_reSpItem){
+				case 501:
+					specialeffect2 204;
+				break;
+				case 502:
+					specialeffect2 205;
+				break;
+				case 503:
+					specialeffect2 206;
+				break;
+				case 504:
+					specialeffect2 207;
+				break;
+				case 505:
+					specialeffect2 208;
+				break;
+				case 506:
+					specialeffect2 209;
+				break;
+				case 607:
+					specialeffect2 211;
+				break;
+				case 608:
+					specialeffect2 211;
+				break;
+				default:
+					specialeffect2 007;
+				break;
+			}
+		}else if(@CheckSP_showTip==0){
+			dispbottom "["+getitemname(AutoUseItem_reSpItem)+"]数量不足。";
+			set @CheckSP_showTip,1;
+			//set @AutoUseItemOn,0;
+		}
+	}
+	sleep2 150;
+}
+freeloop(0);
+end;
+}
+
 function	script	AutoUseItem	{
 	if($AutoUseItem_HpList[0]==null){
 		setarray $AutoUseItem_HpList[0],501;
@@ -50,18 +153,22 @@ function	script	AutoUseItem	{
 	mes "SP药品："+getitemname(AutoUseItem_reSpItem);
 	mes "---------------------";
 	next;
-	switch(select("开启","关闭","设置",getgmlevel()>90?"后台设置":"")) {
+	switch(select(@AutoUseItemOn==0?"开启":"关闭","设置",getgmlevel()>90?"后台设置":"")) {
 	case 1:
-		atcommand "@autopots 1 "+AutoUseItem_reHpVal+" "+AutoUseItem_reHpItem+" "+AutoUseItem_reSpVal+" "+AutoUseItem_reSpItem;
-		close;
+		if(@AutoUseItemOn==0){
+			set @AutoUseItemOn,1;
+			doevent "CheckHPSP::OnCheckUp";
+			dispbottom "开启自动吃药";
+			close;
+		}else{
+			set @AutoUseItemOn,0;
+			dispbottom "关闭自动吃药";
+			close;
+		}
 	break;
 	case 2:
-		atcommand "@autopots 0 "+AutoUseItem_reHpVal+" "+AutoUseItem_reHpItem+" "+AutoUseItem_reSpVal+" "+AutoUseItem_reSpItem;
-		close;
-	break;
-	case 3:
 		mes "请选择设置内容";
-		switch(select("HP百分比","SP百分比","HP药品","SP药品")) {
+		switch(select("HP百分比","SP百分比","HP药品","SP药品","死亡后是否停止自动吃药")) {
 			case 1:
 				mes "请输入HP百分比";
 				input @num;
@@ -70,7 +177,6 @@ function	script	AutoUseItem	{
 					close; 
 				}
 				set AutoUseItem_reHpVal,@num;
-				atcommand "@autopots 1 "+AutoUseItem_reHpVal+" "+AutoUseItem_reHpItem+" "+AutoUseItem_reSpVal+" "+AutoUseItem_reSpItem;
 				mes "设置成功";
 				close;
 			break;
@@ -82,7 +188,6 @@ function	script	AutoUseItem	{
 					close; 
 				}
 				set AutoUseItem_reSpVal,@num;
-				atcommand "@autopots 1 "+AutoUseItem_reHpVal+" "+AutoUseItem_reHpItem+" "+AutoUseItem_reSpVal+" "+AutoUseItem_reSpItem;
 				mes "设置成功";
 				close;
 			break;
@@ -96,7 +201,6 @@ function	script	AutoUseItem	{
 				switch(@op) {
 					default:
 						set AutoUseItem_reHpItem,$AutoUseItem_HpList[@op-1];
-						atcommand "@autopots 1 "+AutoUseItem_reHpVal+" "+AutoUseItem_reHpItem+" "+AutoUseItem_reSpVal+" "+AutoUseItem_reSpItem;
 						mes "设置成功";
 						close;
 					break;
@@ -112,7 +216,6 @@ function	script	AutoUseItem	{
 				switch(@op) {
 					default:
 						set AutoUseItem_reSpItem,$AutoUseItem_SpList[@op-1];
-						atcommand "@autopots 1 "+AutoUseItem_reHpVal+" "+AutoUseItem_reHpItem+" "+AutoUseItem_reSpVal+" "+AutoUseItem_reSpItem;
 						mes "设置成功";
 						close;
 					break;
@@ -139,7 +242,7 @@ function	script	AutoUseItem	{
 			break;
 		}
 	break;
-	case 4:
+	case 3:
 		mes "请选择设置内容";
 		switch(select("HP药物","SP药物","清空药物列表")) {
 			case 1:

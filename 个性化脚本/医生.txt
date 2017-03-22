@@ -2,6 +2,23 @@ prontera,146,92,5	script	医生	47,{
 	mes "[医生]";
 	mes "如果在外面受了伤可以来找我回复哦！";
 	mes "已经治疗完毕。";
-	percentheal 100,100;
-	close;
+	mes "治疗费用500z(Lv90以下免费)";
+	switch(select("治疗我","取消")){
+	case 1:
+		if(BaseLevel>=90){
+			if(Zeny<500){
+				mes "您身上的钱不足500z";
+				close;
+			}
+			Zeny=Zeny-500;
+			percentheal 100,100;
+			close;
+		}
+		percentheal 100,100;
+		close;
+	break;
+	case 2:
+		close;
+	break;
+	}
 }
