@@ -1,0 +1,315 @@
+-	script	服务员::Son_SeA	-1,{
+	cutin "son",2;
+	mes "[服务员]";
+	mes "请你跟我说需要什么样的服务呢？";
+	next;
+	switch(select("传送服务")){
+	case 1:
+		mes "[服务员]";
+		mes "请告诉我你大致要去哪里";
+		mes "城市传送(500z),洞穴传送(20000z)";
+		mes "Vip城市传送免费，洞穴传送减半";
+		next;
+		switch(select("城市传送","野外传送"))
+		{
+			case 1:
+				if(vip_status(1)==0){
+					if(Zeny<500){
+						mes "[服务员]";
+						mes "您身上的钱不足500z";
+						close;
+					}
+				}
+				mes "[服务员]";
+				mes "请问你想要去那里呢？";
+				next;
+				switch( select("普隆德拉","依斯鲁德","吉芬","梦罗克","斐扬","爱尔贝塔","艾尔帕兰","克魔岛","克雷斯特汉姆古城","朱诺",
+					"天津","昆仑","汶巴拉","姜饼城","尼芙菲姆","洛阳城","夏威夷","哎哟泰雅","里希塔乐镇","艾音布罗克","艾音贝赫",
+					"毁葛","拉赫","伯仁斯","莫斯科","矿山村庄马努克","拉皮内前线基地辉煌领域","米德加尔特联合驻地","巴西","沙帕首都埃迪斯特斯","草精族穆拉村","德瓦他","喵喵岛"
+				) )
+				{
+				case 1: warp "prontera",156,187;	break;
+				case 2: warp "izlude",128,111;	break;
+				case 3: warp "geffen",119,66;	break;
+				case 4: warp "morocc",159,93;	break;
+				case 5: warp "payon",170,110;	break;
+				case 6: warp "alberta",27,236;	break;
+				case 7: warp "aldebaran",145,120;	break;
+				case 8: warp "comodo",188,161;	break;
+				case 9: warp "glast_01",200,200;	break;
+				case 10: warp "yuno",160,168;	break;
+				case 11: warp "amatsu",197,86;	break;
+				case 12: warp "gonryun",150,130;	break;
+				case 13: warp "umbala",130,130;	break;
+				case 14: warp "xmas",148,131;	break;
+				case 15: warp "niflheim",202,177;	break;	
+				case 16: warp "louyang",210,108;	break;
+				case 17: warp "jawaii",221,215;	break;	
+				case 18: warp "ayothaya",149,118;	break;	
+				case 19: warp "lighthalzen",158,92;	break;	
+				case 20: warp "einbroch",64,200;	break;	
+				case 21: warp "einbech",70,95;	break;	
+				case 22: warp "hugel",96,145;	break;	
+				case 23: warp "rachel",260,126;	break;	
+				case 24: warp "veins",216,123;	break;
+				case 25: warp "moscovia",223,184;	break;
+				case 26: warp "manuk",266,202;	break;	
+				case 27: warp "splendide",197,175;	break;
+				case 28: warp "mid_camp",215,242;	break;
+				case 29: warp "brasilis",226,99;	break;
+				case 30: warp "dicastes01",197,181;	break;
+				case 31: warp "mora",119,97;	break;
+				case 32: warp "dewata",200,177;	break;
+				case 33: warp "malangdo",217,85;	break;
+				}
+				if(vip_status(1)==0){
+					Zeny-=500;
+				}
+				break;
+			case 2:
+				if(vip_status(1)==0){
+					if(Zeny<20000){
+						mes "[服务员]";
+						mes "您身上的钱不足20000z";
+						close;
+					}
+				}else{
+					if(Zeny<10000){
+						mes "[服务员]";
+						mes "您身上的钱不足10000z";
+						close;
+					}
+				}
+				mes "[服务员]";
+				mes "请问你想要去那里呢？";
+				next;
+				switch(select("迷藏森林","普隆德拉地下水道","海底洞窟","史芬克斯密穴","金字塔迷宫","蚂蚁地狱密穴","吉芬塔地下密穴",
+					"妙勒尼废弃矿场","克雷斯特汉姆古城","兽人地下洞窟","裴扬迷宫","沉没之船","艾尔帕兰钟塔","龟岛","玩具工厂",
+					"诺可罗德溶洞","樱花城迷宫","昆仑洞穴","古神木树洞","洛阳古都王陵","葛帔尼亚","优配擂斯废墟","机械娃娃工厂",
+					"达纳托斯之塔","矿山洞穴","奥丁神殿","生体试验研究所","深渊湖水地下洞穴","冰洞穴","古代神殿迷宫","神殿圣域洞穴",
+					"图尔火山洞窟","无名的海岛","地下公会","克魔岛密穴","深渊森林洞穴","次元空间","马努克旷野","辉煌领域旷野",
+					"尼德霍格洞穴"))
+				{
+				case 1:
+					set .@menu,select("迷藏森林1层","迷藏森林2层","迷藏森林3层")-1;
+					setarray .@mapname$[0],"prt_maze01","prt_maze02","prt_maze03";
+					break;
+				case 2:
+					set .@menu,select("普隆德拉地下水道1层","普隆德拉地下水道2层","普隆德拉地下水道3层","普隆德拉地下水道4层")-1;
+					setarray .@mapname$[0],"prt_sewb1","prt_sewb2","prt_sewb3","prt_sewb4";
+					break;
+				case 3:
+					set .@menu,select("海底洞窟1层","海底洞窟2层","海底洞窟3层","海底洞窟4层","海底洞窟5层")-1;
+					setarray .@mapname$[0],"iz_dun00","iz_dun01","iz_dun02","iz_dun03","iz_dun04";
+					break;
+				case 4:
+					set .@menu,select("史芬克斯密穴1层","史芬克斯密穴2层","史芬克斯密穴3层","史芬克斯密穴4层","史芬克斯密穴5层")-1;
+					setarray .@mapname$[0],"in_sphinx1","in_sphinx2","in_sphinx3","in_sphinx4","in_sphinx5";
+					break;
+				case 5:
+					set .@menu,select("金字塔迷宫地上1层","金字塔迷宫地上2层","金字塔迷宫地上3层","金字塔迷宫地上4层","金字塔迷宫地下1层","金字塔迷宫地下2层")-1;
+					setarray .@mapname$[0],"moc_pryd01","moc_pryd02","moc_pryd03","moc_pryd04","moc_pryd05","moc_pryd06";
+					break;
+				case 6:
+					set .@menu,select("蚂蚁地狱密穴1层","蚂蚁地狱密穴2层")-1;
+					setarray .@mapname$[0],"anthell01","anthell02";
+					break;
+				case 7:
+					set .@menu,select("吉芬塔地下密穴1层","吉芬塔地下密穴2层","吉芬塔地下密穴3层","吉芬塔地下密穴4层")-1;
+					setarray .@mapname$[0],"gef_dun00","gef_dun01","gef_dun02","gef_dun03";
+					break;
+				case 8:
+					set .@menu,select("妙勒尼废弃矿场1层","妙勒尼废弃矿场2层","妙勒尼废弃矿场3层")-1;
+					setarray .@mapname$[0],"mjo_dun01","mjo_dun02","mjo_dun03";
+					break;
+				case 9:
+					set .@menu,select("克雷斯特汉姆古城","修道院","地下公墓","地上1层","地上2层","监狱1层","监狱2层","骑士团1层","骑士团2层","室内","楼梯密穴","下水道1层","下水道2层","下水道3层","下水道4层","地下洞窟1层","地下洞窟2层")-1;
+					setarray .@mapname$[0],"glast_01","gl_church","gl_chyard","gl_cas01","gl_cas02","gl_prison","gl_prison1","gl_knt01","gl_knt02","gl_in01","gl_step","gl_sew01","gl_sew02","gl_sew03","gl_sew04","gl_dun01","gl_dun02";
+					break;
+				case 10:
+					set .@menu,select("兽人地下洞窟1层","兽人地下洞窟2层")-1;
+					setarray .@mapname$[0],"orcsdun01","orcsdun02";
+					break;
+				case 11:
+					set .@menu,select("裴扬迷宫1层","裴扬迷宫2层","裴扬迷宫3层","裴扬迷宫4层","裴扬迷宫5层")-1;
+					setarray .@mapname$[0],"pay_dun00","pay_dun01","pay_dun02","pay_dun03","pay_dun04";
+					break;
+				case 12:
+					set .@menu,select("沉没之船1层","沉没之船2层")-1;
+					setarray .@mapname$[0],"treasure01","treasure02";
+					break;
+				case 13:
+					set .@menu,select("艾尔帕兰钟塔地上1层","艾尔帕兰钟塔地上2层","艾尔帕兰钟塔地上3层","艾尔帕兰钟塔地上4层","艾尔帕兰钟塔地下1层","艾尔帕兰钟塔地下2层","艾尔帕兰钟塔地下3层","艾尔帕兰钟塔地下4层")-1;
+					setarray .@mapname$[0],"c_tower1","c_tower2","c_tower3","c_tower4","alde_dun01","alde_dun02","alde_dun03","alde_dun04";
+					break;
+				case 14:
+					set .@menu,select("龟岛表层","密穴1层","密穴2层","密穴3层")-1;
+					setarray .@mapname$[0],"tur_dun01","tur_dun02","tur_dun03","tur_dun04";
+					break;
+				case 15:
+					set .@menu,select("玩具工厂1层","玩具工厂2层")-1;
+					setarray .@mapname$[0],"xmas_dun01","xmas_dun02";
+					break;
+				case 16:
+					set .@menu,select("诺可罗德溶洞1层","诺可罗德溶洞2层")-1;
+					setarray .@mapname$[0],"mag_dun01","mag_dun02";
+					break;
+				case 17:
+					set .@menu,select("樱花城迷宫1层","樱花城迷宫2层","樱花城迷宫3层")-1;
+					setarray .@mapname$[0],"ama_dun01","ama_dun02","ama_dun03";
+					break;
+				case 18:
+					set .@menu,select("昆仑洞穴1层","昆仑洞穴2层","昆仑洞穴3层")-1;
+					setarray .@mapname$[0],"gon_dun01","gon_dun02","gon_dun03";
+					break;
+				case 19:
+					set .@menu,select("古神木树洞1层","古神木树洞2层")-1;
+					setarray .@mapname$[0],"um_dun01","um_dun02";
+					break;
+				case 20:
+					set .@menu,select("洛阳古都王陵1层","洛阳古都王陵2层","洛阳古都王陵3层")-1;
+					setarray .@mapname$[0],"lou_dun01","lou_dun02","lou_dun03";
+					break;
+				case 21:
+					set .@menu,select("葛帔尼亚1层","葛帔尼亚2层","葛帔尼亚3层","葛帔尼亚4层")-1;
+					setarray .@mapname$[0],"gefenia01","gefenia02","gefenia03","gefenia04";
+					break;
+				case 22:
+					set .@menu,select("优配擂斯废墟1层","优配擂斯废墟2层","优配擂斯中心部")-1;
+					setarray .@mapname$[0],"juperos_01","juperos_02","jupe_core";
+					break;
+				case 23:
+					set .@menu,select("机械娃娃工厂1层","机械娃娃工厂2层")-1;
+					setarray .@mapname$[0],"kh_dun01","kh_dun02";
+					break;
+				case 24:
+					set .@menu,select("达纳托斯之塔1层","达纳托斯之塔2层","达纳托斯之塔3层","达纳托斯之塔4层","达纳托斯之塔5层","达纳托斯之塔6层","达纳托斯之塔7层","达纳托斯之塔8层","达纳托斯之塔9层","达纳托斯之塔10层","达纳托斯之塔11层","达纳托斯之塔12层","达纳托斯之塔13层")-1;
+					setarray .@mapname$[0],"tha_t01","tha_t02","tha_t03","tha_t04","tha_t05","tha_t06","tha_t07","tha_t08","tha_t09","tha_t10","tha_t11","tha_t12","thana_boss";
+					break;
+				case 25:
+					set .@menu,select("矿山洞穴1层","矿山洞穴2层")-1;
+					setarray .@mapname$[0],"ein_dun01","ein_dun02";
+					break;
+				case 26:
+					set .@menu,select("奥丁神殿1层","奥丁神殿2层","奥丁神殿3层")-1;
+					setarray .@mapname$[0],"odin_tem01","odin_tem02","odin_tem03";
+					break;
+				case 27:
+					set .@menu,select("生体试验研究所1层","生体试验研究所2层","生体试验研究所3层")-1;
+					setarray .@mapname$[0],"lhz_dun01","lhz_dun02","lhz_dun03";
+					break;
+				case 28:
+					set .@menu,select("深渊湖水地下洞穴1层","深渊湖水地下洞穴2层","深渊湖水地下洞穴3层")-1;
+					setarray .@mapname$[0],"abyss_01","abyss_02","abyss_03";
+					break;
+				case 29:
+					set .@menu,select("冰洞穴1层","冰洞穴2层","冰洞穴3层")-1;
+					setarray .@mapname$[0],"ice_dun01","ice_dun02","ice_dun03";
+					break;
+				case 30:
+					set .@menu,select("古代神殿迷宫1层","古代神殿迷宫2层")-1;
+					setarray .@mapname$[0],"ayo_dun01","ayo_dun02";
+					break;
+				case 31:
+					set .@menu,select("神殿圣域洞穴1层","神殿圣域洞穴2层","神殿圣域洞穴3层","神殿圣域洞穴4层","神殿圣域洞穴5层")-1;
+					setarray .@mapname$[0],"ra_san01","ra_san02","ra_san03","ra_san04","ra_san05";
+					break;
+				case 32:
+					set .@menu,select("图尔火山洞窟1层","图尔火山洞窟2层","图尔火山洞窟3层")-1;
+					setarray .@mapname$[0],"thor_v01","thor_v02","thor_v03";
+					break;
+				case 33:
+					set .@menu,select("无名的海岛(昼)","无名的海岛(夜)","修道院1层","修道院2层","修道院3层")-1;
+					setarray .@mapname$[0],"nameless_i","nameless_n","abbey01","abbey02","abbey03";
+					break;
+                                case 34:
+					set .@menu,select("地下公会1层","地下公会2层","地下公会3层","地下公会4层")-1;
+					setarray .@mapname$[0],"gld_dun01","gld_dun02","gld_dun03","gld_dun04";
+					break;  
+                                case 35:
+					set .@menu,select("克魔岛密穴 西边","克魔岛密穴 北边","克魔岛密穴 东边")-1;
+					setarray .@mapname$[0],"beach_dun","beach_dun2","beach_dun3";
+					break;
+                                case 36:
+					set .@menu,select("深渊森林洞穴1层","深渊森林洞穴2层","深渊森林洞穴3层")-1;
+					setarray .@mapname$[0],"mosk_dun01","mosk_dun02","mosk_dun03";
+					break; 
+                                case 37:
+					set .@menu,select("次元空间1层","次元空间2层","次元空间3层")-1;
+					setarray .@mapname$[0],"moc_fild20","moc_fild21","moc_fild22";
+					break; 
+                                case 38:
+					set .@menu,select("马努克旷野1层","马努克旷野2层","马努克旷野3层")-1;
+					setarray .@mapname$[0],"man_fild01","man_fild02","man_fild03";
+					break; 
+                                case 39:
+					set .@menu,select("辉煌领域旷野1层","辉煌领域旷野2层","辉煌领域旷野3层")-1;
+					setarray .@mapname$[0],"spl_fild01","spl_fild02","spl_fild03";
+					break;
+                                case 40:
+					set .@menu,select("尼德霍格洞穴1层","尼德霍格洞穴2层")-1;
+					setarray .@mapname$[0],"nyd_dun01","nyd_dun02";
+					break; 
+				}
+				if(vip_status(1)==0){
+					Zeny-=20000;
+				}else{
+					Zeny-=10000;
+				}
+				warp .@mapname$[.@menu],0,0;
+				break;
+		}
+		break;
+	cutin "son",255;
+	close;
+	}
+}
+//"普隆德拉"
+prontera,146,98,5	duplicate(Son_SeA)	服务员#1	756
+//"依斯鲁德岛"
+izlude,134,92,3	duplicate(Son_SeA)	服务员#2	756
+//"艾尔帕兰"
+aldebaran,143,116,3	duplicate(Son_SeA)	服务员#3	756
+//"吉芬"
+geffen,123,62,8	duplicate(Son_SeA)	服务员#4	756
+//"梦罗克"
+morocc,160,97,3	duplicate(Son_SeA)	服务员#5	756
+//"爱尔贝塔"
+alberta,25,238,3	duplicate(Son_SeA)	服务员#6	756
+//"斐扬"
+payon,184,104,3	duplicate(Son_SeA)	服务员#7	756
+//"尤诺"
+yuno,164,48,3	duplicate(Son_SeA)	服务员#8	756
+//"天津"
+amatsu,192,81,5	duplicate(Son_SeA)	服务员#9	756
+//"昆仑"
+gonryun,156,14,5	duplicate(Son_SeA)	服务员#10	756
+//"姜饼城"
+xmas,149,135,5	duplicate(Son_SeA)	服务员#11	756
+//"洛阳"
+louyang,224,60,5	duplicate(Son_SeA)	服务员#12	756
+//"尼芙菲姆"
+niflheim,21,159,5	duplicate(Son_SeA)	服务员#13	756
+//"夏威夷"
+jawaii,223,204,4	duplicate(Son_SeA)	服务员#14	756
+//"莫斯科"
+moscovia,226,191,3	duplicate(Son_SeA)	服务员#15	756
+//"伯仁斯"
+veins,215,123,5	duplicate(Son_SeA)	服务员#16	756
+//"艾音贝赫"
+einbech,77,103,3	duplicate(Son_SeA)	服务员#17	756
+//"拉赫"
+rachel,134,99,3	duplicate(Son_SeA)	服务员#18	756
+//"修吉尔"
+hugel,99,168,3	duplicate(Son_SeA)	服务员#19	756
+//"艾音布罗克"
+einbroch,69,203,3	duplicate(Son_SeA)	服务员#20	756
+//"里希塔勒镇"
+lighthalzen,153,100,5	duplicate(Son_SeA)	服务员#21	756
+//"克魔岛"
+comodo,194,156,3	duplicate(Son_SeA)	服务员#22	756
+//"汶巴拉"
+umbala,90,159,5	duplicate(Son_SeA)	服务员#23	756
+//"泰国"
+ayothaya,145,117,5	duplicate(Son_SeA)	服务员#24	756
+//
