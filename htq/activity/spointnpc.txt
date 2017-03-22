@@ -47,9 +47,11 @@ prontera,164,87,4	script	补偿专员	435,{
 	
 OnInit:
 	//初始化
-	set $npc_spoint_give,10;
-	set $npc_spoint_give_lv,80;
 	
+	if($npc_spoint_give==0){
+		set $npc_spoint_give,10;
+		set $npc_spoint_give_lv,80;
+	}
 	hideonnpc "补偿专员";
 	end;
 OnOpen:
