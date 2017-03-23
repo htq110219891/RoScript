@@ -7,7 +7,7 @@ function	script	PlayerBook	{
 	mes "-----------------------------------";
 	mes "<<<<<<<<「小小RO」会员手册>>>>>>>>";
 	next;
-	switch(select("查询信息","辅助功能")) {
+	switch(select("查询信息","辅助功能",@startAutoAtk==1?"停止挂机":"")) {
 		case 1:
 			switch(select("玩家信息","游戏信息")) {
 				case 1:
@@ -15,8 +15,8 @@ function	script	PlayerBook	{
 					mes "-----------------------------------";
 					mes "->「C点」^9400D3"+#CASHPOINTS+"^000000";
 					mes "->「S点」^473C8B"+s_point+"^000000";
-					//mes "->「完成任务」^8B0000"+"11"+"^000000";
-					mes "->「天梯积分」^7171C6"+ladder_point+"^000000";
+					mes "->「完成任务」^8B0000"+"11"+"^000000";
+					mes "->「S点」^7171C6"+s_point+"^000000";
 					mes "-----------------------------------";
 					close;
 				break;
@@ -33,12 +33,27 @@ function	script	PlayerBook	{
 			}
 		break;
 		case 2:
-			switch(select("自动吃药")) {
+			switch(select("挂机","自动吃药")) {
 				case 1:
+					next;
+					callfunc "AutoAttack";
+				break;
+				case 2:
+					next;
 					callfunc "AutoUseItem";
 				break;
 			}
-		break;	
+		break;
+		case 3:
+			set @startAutoAtk,0;
+			set @autoAtkCoolDown,1;
+			awake "CheckStatus";
+			atcommand "@autoattack";
+			addtimer 60000,"CheckStatus::OnCoolDown";
+			close;
+			end;
+		break;
+			
 	}
 	close;
 }
