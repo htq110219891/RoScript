@@ -88,8 +88,10 @@ OnPCStatCalcEvent:
 				bonus bMagicAtkDef,2*getskilllv(12);	
 			}
 		break;
-		case 50114:
-			//Ê¥ÁéÕÙ»½·ûÎÄ
+		case 50114://Ê¥ÁéÕÙ»½·ûÎÄ£º¼õÉÙÊ¥ÁéÕÙ»½¶ÀÁ¢ÑÓ³Ù
+			if(getskilllv(13)){
+				bonus2 bSkillCooldown,13,-20000;	
+			}
 		break;
 		case 50115:
 			//±ù¼ıÊõ·ûÎÄ
