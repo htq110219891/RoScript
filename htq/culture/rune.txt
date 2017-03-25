@@ -93,8 +93,10 @@ OnPCStatCalcEvent:
 				bonus5 bAutoSpell,"MG_SOULSTRIKE",getskilllv(13),500,BF_MAGIC,1; 
 			}
 		break;
-		case 50115:
-			//冰箭术符文
+		case 50115//冰箭术符文：增加(5%*技能等级)对火属性敌人魔法伤害
+			if(getskilllv(14)){
+				bonus2 bMagicAddEle,3,5*getskilllv(14); 
+			}
 		break;
 		case 50116:
 			//冰冻术符文
