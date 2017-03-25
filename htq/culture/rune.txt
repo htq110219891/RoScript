@@ -90,7 +90,7 @@ OnPCStatCalcEvent:
 		break;
 		case 50114://圣灵召唤符文：减少圣灵召唤独立延迟未生效
 			if(getskilllv(13)){
-				bonus2 bSkillCooldown,"MG_SOULSTRIKE",-20000;	
+				bonus5 bAutoSpell,"MG_SOULSTRIKE",getskilllv(13),1000,BF_MAGIC,1; 
 			}
 		break;
 		case 50115:
