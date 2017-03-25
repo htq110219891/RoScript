@@ -88,9 +88,9 @@ OnPCStatCalcEvent:
 				bonus bMagicAtkDef,2*getskilllv(12);	
 			}
 		break;
-		case 50114://圣灵召唤符文：释放技能时，有20%几率释放技能等级圣灵召唤
+		case 50114://圣灵召唤符文：释放技能时，有50%几率释放当前等级圣灵召唤，不可叠加
 			if(getskilllv(13)){
-				bonus5 bAutoSpell,"MG_SOULSTRIKE",getskilllv(13),200,BF_MAGIC,1; 
+				bonus5 bAutoSpell,"MG_SOULSTRIKE",getskilllv(13),500,BF_MAGIC,1; 
 			}
 		break;
 		case 50115:
