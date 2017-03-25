@@ -88,9 +88,9 @@ OnPCStatCalcEvent:
 				bonus bMagicAtkDef,2*getskilllv(12);	
 			}
 		break;
-		case 50114://圣灵召唤符文：减少圣灵召唤独立延迟
+		case 50114://圣灵召唤符文：减少圣灵召唤独立延迟未生效
 			if(getskilllv(13)){
-				bonus2 bSkillCooldown,13,-20000;	
+				bonus2 bSkillCooldown,"MG_SOULSTRIKE",-20000;	
 			}
 		break;
 		case 50115:
