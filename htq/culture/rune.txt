@@ -144,8 +144,10 @@ OnPCStatCalcEvent:
 				bonus2 bSkillAtk,85,2*getskilllv(20);
 			}
 		break;
-		case 50122://21雷暴术符文
-			
+		case 50122://21雷暴术符文：攻击时自动(3*技能等级)%几率释放雷暴术
+			if(getskilllv(21)){
+				bonus2 bCastrate,21,3*getskilllv(21);	
+			}
 		break;
 		case 50123://22天使之护
 			
