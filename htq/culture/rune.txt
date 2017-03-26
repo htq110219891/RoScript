@@ -128,9 +128,12 @@ OnPCStatCalcEvent:
 				bonus bDef,3*getskilllv(18)/10;
 			}
 		break;
-		case 50120://19火箭术符文
+		case 50120://19火箭术符文：增加(5*技能等级)对植物、动物、昆虫、BOSS魔法伤害
 			if(getskilllv(19)){
-				
+				bonus2 bMagicAddRace,2,5*getskilllv(19);
+				bonus2 bMagicAddRace,3,5*getskilllv(19);
+				bonus2 bMagicAddRace,4,5*getskilllv(19);
+				bonus2 bMagicAddRace,2,10*getskilllv(19);
 			}
 		break;
 		case 50121://20雷击术符文
