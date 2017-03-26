@@ -144,19 +144,27 @@ OnPCStatCalcEvent:
 				bonus2 bSkillAtk,85,2*getskilllv(20);
 			}
 		break;
-		case 50122://21雷暴术符文：攻击时自动(3*技能等级)%几率释放雷暴术
+		case 50122://21雷暴术符文：攻击时自动(3*技能等级)%几率释放雷暴术，不能叠加
 			if(getskilllv(21)){
 				bonus4 bAutoSpell,21,getskilllv(21),30*getskilllv(21),1;	
 			}
 		break;
-		case 50123://22天使之护
-			
+		case 50123://22天使之护：增加DEF2、MDEF2(0.3*技能等级)
+			if(getskilllv(22)){
+				bonus bDef2,3*getskilllv(22)/10;
+				bonus bMdef2,3*getskilllv(22)/10;
+			}
 		break;
-		case 50124://23天使之击
-			
+		case 50124://23天使之击：增加ATK、MATK(2*技能等级)
+			if(getskilllv(23)){
+				bonus bMatk,2*getskilllv(23); 
+				bonus bAtk,2*getskilllv(23);
+			}
 		break;
-		case 50125://24光猎
-			
+		case 50125://24光猎：使用魔法时，20%几率触发防御层，6秒内减少10%无属性伤害%
+			if (getskilllv(24)) {
+				autobonus "{bonus2 bSubEle,0,10;}", 100, 6000, BF_MAGIC, "{specialeffect2 542;}"; 
+			}
 		break;
 		case 50126://25光之障壁
 			
