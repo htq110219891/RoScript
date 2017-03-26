@@ -163,6 +163,7 @@ OnPCStatCalcEvent:
 		break;
 		case 50125://24光猎：使用魔法时，50%几率触发防御层，6秒内减少50%无属性伤害%无效果
 			if (getskilllv(24)) {
+				autobonus "{ bonus bAllStats,10; }",10000,1000,BF_WEAPON|BF_MISC|BF_MAGIC,"{ specialeffect2 EF_FIRESPLASHHIT; }";
 				autobonus "{bonus2 bSubEle, Ele_Neutral, 50; bonus2 bSubEle, Ele_Water, 50 ; bonus2 bSubEle, Ele_Earth, 50; bonus2 bSubEle, Ele_Fire, 50 ; bonus2 bSubEle, Ele_Wind, 50 ; bonus2 bSubEle, Ele_Poison, 50 ; bonus2 bSubEle, Ele_Holy, 50; bonus2 bSubEle, Ele_Dark, 50; bonus2 bSubEle, Ele_Ghost, 50 ; bonus2 bSubEle, Ele_Undead, 50 ; }", 5000, 6000, BF_MAGIC, "{specialeffect2 542;}"; 
 			}
 		break;
