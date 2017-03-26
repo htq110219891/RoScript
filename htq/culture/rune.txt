@@ -167,8 +167,8 @@ OnPCStatCalcEvent:
 				bonus bIgnoreMDefRace,11;	
 			}
 		break;
-		case 50126://25光之障壁：减少10%远距离伤害
-			bonus bLongAtkDef,15%; 
+		case 50126://25光之障壁：减少15%远距离伤害
+			bonus bLongAtkDef,15;
 		break;
 		case 50127://26瞬间移动
 			
