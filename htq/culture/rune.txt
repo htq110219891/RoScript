@@ -161,9 +161,9 @@ OnPCStatCalcEvent:
 				bonus bAtk,2*getskilllv(23);
 			}
 		break;
-		case 50125://24光猎：使用魔法时，20%几率触发防御层，6秒内减少50%无属性伤害%无效果
+		case 50125://24光猎：使用魔法时，50%几率触发防御层，6秒内减少50%无属性伤害%无效果
 			if (getskilllv(24)) {
-				autobonus "{bonus2 bSubEle, Ele_Neutral, 50; bonus2 bSubEle, Ele_Water, 50 ; bonus2 bSubEle, Ele_Earth, 50; bonus2 bSubEle, Ele_Fire, 50 ; bonus2 bSubEle, Ele_Wind, 50 ; bonus2 bSubEle, Ele_Poison, 50 ; bonus2 bSubEle, Ele_Holy, 50; bonus2 bSubEle, Ele_Dark, 50; bonus2 bSubEle, Ele_Ghost, 50 ; bonus2 bSubEle, Ele_Undead, 50 ; }", 500, 6000, BF_SHORT, "{specialeffect2 542;}"; 
+				autobonus "{bonus2 bSubEle, Ele_Neutral, 50; bonus2 bSubEle, Ele_Water, 50 ; bonus2 bSubEle, Ele_Earth, 50; bonus2 bSubEle, Ele_Fire, 50 ; bonus2 bSubEle, Ele_Wind, 50 ; bonus2 bSubEle, Ele_Poison, 50 ; bonus2 bSubEle, Ele_Holy, 50; bonus2 bSubEle, Ele_Dark, 50; bonus2 bSubEle, Ele_Ghost, 50 ; bonus2 bSubEle, Ele_Undead, 50 ; }", 5000, 6000, BF_MAGIC, "{specialeffect2 542;}"; 
 			}
 		break;
 		case 50126://25光之障壁
