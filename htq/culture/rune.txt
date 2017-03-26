@@ -36,7 +36,7 @@ OnPCStatCalcEvent:
 			bonus2 bHPDrainRate,100,10;				//吸血符文：10%几率吸收10%伤害到HP
 		break;
 		case 50102:
-			bonus2 bAddSkillBlow,5,1;				//击退符文：使用矿机技能击退1格
+			bonus2 bAddSkillBlow,5,1;				//击退符文：使用狂击技能击退1格
 		break;
 		case 50109:
 			if(getskilllv(1)){bonus2 bExpAddClass,Class_All,10;bonus2 bAddGetZenyNum,100,100;}	//基本技能符文：增加10%经验获得和1-100Z
@@ -108,100 +108,104 @@ OnPCStatCalcEvent:
 				bonus2 bSkillAtk,14,3*getskilllv(14);
 			}
 		break;
-		case 50116://15冰冻术符文：被攻击时，(3*技能等级)%几率使目标冰冻
+		case 50116://15冰冻术符文：被攻击时,(2*技能等级)%几率使目标冰冻,可叠加
 			if(getskilllv(15)){
-				bonus2 bAddEffWhenHit,Eff_Freeze,3*getskilllv(15)*100;
+				bonus2 bAddEffWhenHit,Eff_Freeze,2*getskilllv(15)*100;
 			}
 		break;
-		case 50117:
-			//16石化术符文
+		case 50117://16石化术符文：使用后触发沉默。
+			if(getskilllv(16)){
+				bonus4 bAutoSpellOnSkill,16,76,10,1000;
+			}
 		break;
-		case 50118:
-			//17火球术符文
+		case 50118://17火球术符文：增加(1.5*技能等级)%魔法攻击力。
+			if(getskilllv(17)){
+				bonus bMatkRate,1.5*getskilllv(17);
+			}
 		break;
-		case 50119:
-			//18火之障壁符文
+		case 50119://18火之障壁符文
+			
 		break;
-		case 50120:
-			//19火箭术符文
+		case 50120://19火箭术符文
+			
 		break;
-		case 50121:
-			//20雷击术符文
+		case 50121://20雷击术符文
+			
 		break;
-		case 50122:
-			//21雷暴术符文
+		case 50122://21雷暴术符文
+			
 		break;
-		case 50123:
-			//22天使之护
+		case 50123://22天使之护
+			
 		break;
-		case 50124:
-			//23天使之击
+		case 50124://23天使之击
+			
 		break;
-		case 50125:
-			//24光猎
+		case 50125://24光猎
+			
 		break;
-		case 50126:
-			//25光之障壁
+		case 50126://25光之障壁
+			
 		break;
-		case 50127:
-			//26瞬间移动
+		case 50127://26瞬间移动
+			
 		break;
-		case 50128:
-			//27传送之阵
+		case 50128://27传送之阵
+			
 		break;
-		case 50129:
-			//28治愈术
+		case 50129://28治愈术
+			
 		break;
-		case 50130:
-			//29加速术
+		case 50130://29加速术
+			
 		break;
-		case 50131:
-			//30缓速术
+		case 50131://30缓速术
+			
 		break;
-		case 50132:
-			//31天使之泪
+		case 50132://31天使之泪
+			
 		break;
-		case 50133:
-			//32天使之光
+		case 50133://32天使之光
+			
 		break;
-		case 50134:
-			//33天使之障壁
+		case 50134://33天使之障壁
+			
 		break;
-		case 50135:
-			//34天使之赐福
+		case 50135://34天使之赐福
+			
 		break;
-		case 50136:
-			//35治疗术
+		case 50136://35治疗术
+			
 		break;
-		case 50137:
-			//36负重量上升
+		case 50137://36负重量上升
+			
 		break;
-		case 50138:
-			//37低价买进
+		case 50138://37低价买进
+			
 		break;
-		case 50139:
-			//38高价卖出
+		case 50139://38高价卖出
+			
 		break;
-		case 50140:
-			//39手推车使用
+		case 50140://39手推车使用
+			
 		break;
-		case 50141:
-			//40物品鉴定
+		case 50141://40物品鉴定
+			
 		break;
-		case 50142:
-			//41露天商店
+		case 50142://41露天商店
+			
 		break;
-		case 50143:
-			//42金钱攻击
+		case 50143://42金钱攻击
+			
 		break;
-		case 50144:
-			//43鹗枭之眼
+		case 50144://43鹗枭之眼
+			
 		break;
-		case 50145:
-			//44苍鹰之眼
+		case 50145://44苍鹰之眼
+			
 		break;
-		case 50146:
-			//45心神凝聚
+		case 50146://45心神凝聚
+			
 		break;
 		case 50147:
 			//46二连矢
