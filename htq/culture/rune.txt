@@ -168,16 +168,24 @@ OnPCStatCalcEvent:
 			}
 		break;
 		case 50126://25光之障壁：减少15%远距离伤害
-			bonus bLongAtkDef,15;
+			if (getskilllv(25)) {
+				bonus bLongAtkDef,15;
+			}
 		break;
-		case 50127://26瞬间移动
-			
+		case 50127://26瞬间移动：回避+15
+			if (getskilllv(26)) {
+				bonus bFlee,15;
+				}
 		break;
-		case 50128://27传送之阵
-			
+		case 50128://27传送之阵：移动速度+5%
+			if (getskilllv(27)) {
+				bonus bSpeedAddRate,5;
+				}
 		break;
-		case 50129://28治愈术
-			
+		case 50129://28治愈术：增加(5*技能等级)%治愈术恢复量
+			if (getskilllv(28)) {
+				bonus2 bSkillHeal2,28,5*getskilllv(28);
+			}
 		break;
 		case 50130://29加速术：AGI+5
 			if (getskilllv(29)) {
