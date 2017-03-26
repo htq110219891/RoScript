@@ -120,7 +120,7 @@ OnPCStatCalcEvent:
 		break;
 		case 50118://17火球术符文：增加(1.5*技能等级)%魔法攻击力。
 			if(getskilllv(17)){
-				bonus bMatkRate,1.5*getskilllv(17);
+				bonus bMatkRate,15*getskilllv(17)/10;
 			}
 		break;
 		case 50119://18火之障壁符文
