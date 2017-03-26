@@ -16,6 +16,15 @@
     本脚本为 EAthena 服务端用符文系统。
 【更新日志】
     2015-08-12    1.0.0    创建脚本
+	剑士： 烽胶沛_畴揪令
+	其他： 烽胶沛_扼捞档
+	法师： 烽胶沛_海福墨唱
+	服饰： 烽胶沛_酒捞箕
+	商人：  烽胶沛_俊捞矫福
+	弓箭手： 烽胶沛_快福令
+	盗贼： 烽胶沛_譬府辑胶
+	烽胶沛_其福静
+	烽胶沛_窍哎扼令
 【错误回报】
 \************************************************************/
 -	script	FWBonus	-1,{
@@ -32,47 +41,47 @@ OnPCStatCalcEvent:
 		case 50109:
 			if(getskilllv(1)){bonus2 bExpAddClass,Class_All,10;bonus2 bAddGetZenyNum,100,100;}	//基本技能符文：增加10%经验获得和1-100Z
 		break;
-		case 50701:
-			bonus3 bAutoSpell,29,10,10;				//自动加速术符文：1%几率释放Lv10级加速术
+		case 50701://自动加速术符文：1%几率释放Lv10级加速术
+			bonus3 bAutoSpell,29,10,10;				
 		break;
 	//bonus bIgnoreDefRace,n; 无视 n 种族的防御力 0,无形　1,不死　2,动物　3,植物　4,昆虫　5,鱼贝　6,恶魔　7,人形　8,天使　9,龙族　10,BOSS　11,BOSS以外(普通的怪物、包括玩家)
 	//bonus3 bAutoSpell,n,x,y;自动念咒以 y%(万分率)机率使用 x 等级的技能 n
-		case 50702:
-			bonus bDoubleRate,5;         			//5%几率发动连击
+		case 50702://5%几率发动连击
+			bonus bDoubleRate,5;         			
 		break;
-		case 50703:
-			bonus bUseSPrate,-10;					//所有技能SP消耗减少10%
+		case 50703://所有技能SP消耗减少10%
+			bonus bUseSPrate,-10;					
 		break;
 	//剑士
-		case 50100:
-			bonus2 bSkillAtk,5,25;  				//狂击符文：增加狂击伤害25%
+		case 50100://狂击符文：增加狂击伤害25%
+			bonus2 bSkillAtk,5,25;  				
 		break;
-		case 50103: 
-			bonus2 bSkillHeal2,28,5*getskilllv(4);	//快速回复符文：增加技能等级*5% 的治愈术效果
+		case 50103: //快速回复符文：增加技能等级*5% 的治愈术效果
+			bonus2 bSkillHeal2,28,5*getskilllv(4);	
 		break;
-		case 50104: 
-			bonus bAtk,5*getskilllv(2)/10;			//单手剑熟练度符文：增加 0.5*技能等级 的ATK
+		case 50104: //单手剑熟练度符文：增加 0.5*技能等级 的ATK
+			bonus bAtk,5*getskilllv(2)/10;			
 		break;
-		case 50105: 
-			bonus bAtk,5*getskilllv(3)/10;			//双手剑熟练度符文：增加 0.5*技能等级 的ATK
+		case 50105: //双手剑熟练度符文：增加 0.5*技能等级 的ATK
+			bonus bAtk,5*getskilllv(3)/10;			
 		break;
-		case 50106:
+		case 50106://怒爆符文：使用后触发加速术
 			//autobonus3 "{bonus bStr,100;}", 10000, 10000, 7, "{ specialeffect2 225 ; }" ;
 			//autobonus3 "{bonus bStr,100;}", 10000, 100000, "SM_MAGNUM", "{ specialeffect2 519 ; }" ; 
 			//autobonus "{ bonus bAllStats,10; }",10000,10000,BF_WEAPON|BF_MISC,"{ specialeffect2 EF_FIRESPLASHHIT; }";
 			//autobonus3 "{ bonus bInt,100; }",1000,3000,"AL_HEAL","{ bonus bInt,100;specialeffect2 EF_HEAL3; }";
 			//dispbottom "怒爆";
-			bonus4 bAutoSpellOnSkill,7,29,10,1000; 		//怒爆符文：使用后触发加速术
+			bonus4 bAutoSpellOnSkill,7,29,10,1000; 		
 		break;
-		case 50107:
-			if(getskilllv(6)){bonus bDef,-1*getskilllv(6);	bonus bMdef,-1*getskilllv(6);bonus bAtk,15*getskilllv(6)/10;} 		//挑衅符文：DEF-技能等级,MDEF-技能等级,ATK+1.5*技能等级
+		case 50107://挑衅符文：DEF-技能等级,MDEF-技能等级,ATK+1.5*技能等级
+			if(getskilllv(6)){bonus bDef,-1*getskilllv(6);	bonus bMdef,-1*getskilllv(6);bonus bAtk,15*getskilllv(6)/10;} 		
 		break;
-		case 50108:
-			if(getskilllv(8)){bonus bVit,2;bonus bFlee2,1*getskilllv(8);}						//霸体符文：Vit+2，完全回避+技能等级
+		case 50108://霸体符文：Vit+2，完全回避+技能等级
+			if(getskilllv(8)){bonus bVit,2;bonus bFlee2,1*getskilllv(8);}						
 		break;
 	//法师
-		case 50110:
-			if(getskilllv(9)){bonus bSPGainValue,8*getskilllv(9);}		//禅心符文：杀死魔物回复技能等级*8SP
+		case 50110://禅心符文：杀死魔物回复技能等级*8SP
+			if(getskilllv(9)){bonus bSPGainValue,8*getskilllv(9);}		
 		break;
 		case 50111:
 			if(getskilllv(10)){bonus bIntravision,n;}	//火守符文：看到隐身单位
@@ -88,37 +97,141 @@ OnPCStatCalcEvent:
 				bonus bMagicAtkDef,2*getskilllv(12);	
 			}
 		break;
-		case 50114://圣灵召唤符文：释放技能时，有50%几率释放当前等级圣灵召唤，不可叠加
+		case 50114://圣灵召唤符文：释放技能时，有70%几率释放当前等级圣灵召唤，不可叠加
 			if(getskilllv(13)){
-				bonus5 bAutoSpell,"MG_SOULSTRIKE",getskilllv(13),500,BF_MAGIC,1; 
+				bonus5 bAutoSpell,"MG_SOULSTRIKE",getskilllv(13),700,BF_MAGIC,1; 
 			}
 		break;
-		case 50115://冰箭术符文：增加(3%*技能等级)对火属性敌人魔法伤害，增加(3%*技能等级)冰箭术伤害
+		case 50115://冰箭术符文：增加(3*技能等级)%对火属性敌人魔法伤害，增加(3%*技能等级)冰箭术伤害
 			if(getskilllv(14)){
 				bonus2 bMagicAddEle,Ele_Fire,3*getskilllv(14); 
 				bonus2 bSkillAtk,14,3*getskilllv(14);
 			}
 		break;
-		case 50116:
-			//冰冻术符文
+		case 50116://15冰冻术符文：被攻击时，(3*技能等级)%几率使目标冰冻
+			if(getskilllv(15)){
+				bonus2 bAddEffWhenHit,Eff_Freeze,3*getskilllv(15)*100;
+			}
 		break;
 		case 50117:
-			//石化术符文
+			//16石化术符文
 		break;
 		case 50118:
-			//火球术符文
+			//17火球术符文
 		break;
 		case 50119:
-			//火之障壁符文
+			//18火之障壁符文
 		break;
 		case 50120:
-			//火箭术符文
+			//19火箭术符文
 		break;
 		case 50121:
-			//雷击术符文
+			//20雷击术符文
 		break;
 		case 50122:
-			//雷暴术符文
+			//21雷暴术符文
+		break;
+		case 50123:
+			//22天使之护
+		break;
+		case 50124:
+			//23天使之击
+		break;
+		case 50125:
+			//24光猎
+		break;
+		case 50126:
+			//25光之障壁
+		break;
+		case 50127:
+			//26瞬间移动
+		break;
+		case 50128:
+			//27传送之阵
+		break;
+		case 50129:
+			//28治愈术
+		break;
+		case 50130:
+			//29加速术
+		break;
+		case 50131:
+			//30缓速术
+		break;
+		case 50132:
+			//31天使之泪
+		break;
+		case 50133:
+			//32天使之光
+		break;
+		case 50134:
+			//33天使之障壁
+		break;
+		case 50135:
+			//34天使之赐福
+		break;
+		case 50136:
+			//35治疗术
+		break;
+		case 50137:
+			//36负重量上升
+		break;
+		case 50138:
+			//37低价买进
+		break;
+		case 50139:
+			//38高价卖出
+		break;
+		case 50140:
+			//39手推车使用
+		break;
+		case 50141:
+			//40物品鉴定
+		break;
+		case 50142:
+			//41露天商店
+		break;
+		case 50143:
+			//42金钱攻击
+		break;
+		case 50144:
+			//43鹗枭之眼
+		break;
+		case 50145:
+			//44苍鹰之眼
+		break;
+		case 50146:
+			//45心神凝聚
+		break;
+		case 50147:
+			//46二连矢
+		break;
+		case 50148:
+			//47箭雨
+		break;
+		case 50149:
+			//48二刀连击
+		break;
+		case 50150:
+			//49残影
+		break;
+		case 50151:
+			//50偷窃
+		break;
+		case 50152:
+			//51隐匿
+		break;
+		case 50153:
+			//52施毒
+		break;
+		case 50154:
+			//53解毒
+		break;
+		case 50155:
+			//54复活术
+		break;
+		case 50156:
+			//55长矛使用熟练度
 		break;
 		default:
 		break;
