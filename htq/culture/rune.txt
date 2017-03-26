@@ -161,14 +161,14 @@ OnPCStatCalcEvent:
 				bonus bAtk,2*getskilllv(23);
 			}
 		break;
-		case 50125://24光猎：使用魔法时，50%几率触发防御层，6秒内减少50%无属性伤害%无效果
+		case 50125://24光猎：忽视怪物魔防
 			if (getskilllv(24)) {
-				autobonus "{ bonus bAllStats,10; }",10000,1000,BF_SKILL,"{ specialeffect2 EF_FIRESPLASHHIT; }";
-				autobonus "{bonus2 bSubEle, Ele_Neutral, 50; bonus2 bSubEle, Ele_Water, 50 ; bonus2 bSubEle, Ele_Earth, 50; bonus2 bSubEle, Ele_Fire, 50 ; bonus2 bSubEle, Ele_Wind, 50 ; bonus2 bSubEle, Ele_Poison, 50 ; bonus2 bSubEle, Ele_Holy, 50; bonus2 bSubEle, Ele_Dark, 50; bonus2 bSubEle, Ele_Ghost, 50 ; bonus2 bSubEle, Ele_Undead, 50 ; }", 5000, 6000, BF_SKILL, "{specialeffect2 542;}"; 
+				bonus bIgnoreMDefRace,10;	
+				bonus bIgnoreMDefRace,11;	
 			}
 		break;
-		case 50126://25光之障壁
-			
+		case 50126://25光之障壁：减少10%远距离伤害
+			bonus bLongAtkDef,15%; 
 		break;
 		case 50127://26瞬间移动
 			
@@ -179,8 +179,10 @@ OnPCStatCalcEvent:
 		case 50129://28治愈术
 			
 		break;
-		case 50130://29加速术
-			
+		case 50130://29加速术：AGI+5
+			if (getskilllv(29)) {
+				bonus bAgi,5;
+			}
 		break;
 		case 50131://30缓速术
 			
@@ -188,8 +190,12 @@ OnPCStatCalcEvent:
 		case 50132://31天使之泪
 			
 		break;
-		case 50133://32天使之光
-			
+		case 50133://32天使之光：增加对不死、暗生物魔法伤害(3*技能等级)%
+			if (getskilllv(32)) {
+				bonus2 bMagicAddEle,7,3*getskilllv(32);
+				bonus2 bMagicAddEle,8,3*getskilllv(32);
+				bonus2 bMagicAddEle,9,3*getskilllv(32);
+			}
 		break;
 		case 50134://33天使之障壁
 			
