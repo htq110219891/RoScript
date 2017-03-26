@@ -123,11 +123,15 @@ OnPCStatCalcEvent:
 				bonus bMatkRate,15*getskilllv(17)/10;
 			}
 		break;
-		case 50119://18火之障壁符文
-			
+		case 50119://18火之障壁符文：增加防御力(0.3*技能等级)
+			if(getskilllv(18)){
+				bonus bDef,3*getskilllv(18)/10;
+			}
 		break;
 		case 50120://19火箭术符文
-			
+			if(getskilllv(19)){
+				
+			}
 		break;
 		case 50121://20雷击术符文
 			
