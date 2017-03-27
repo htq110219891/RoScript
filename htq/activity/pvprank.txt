@@ -52,7 +52,7 @@ prontera.gat,139,111,5	script	天梯竞技场	858,{
 			for(.@i = 0; .@i < getarraysize($ladder_pvp_queue); .@i++){
 				if(getarraysize($ladder_pvp_ready)<=1){//准备数组小与等于1
 				dispbottom "是否在线?"+isloggedin(getcharid(3,strcharinfo(0,ladder_pvp_queue[.@i])));
-					if(isloggedin(getcharid(3,strcharinfo(0,ladder_pvp_queue[.@i]))))==1){
+					if(isloggedin(getcharid(3,strcharinfo(0,ladder_pvp_queue[.@i])))==1){
 						setarray $ladder_pvp_ready[getarraysize($ladder_pvp_ready)],$ladder_pvp_queue[.@i];//将匹配数组移动到准备数组
 						deletearray $ladder_pvp_queue[.@i],1;
 					}else{
