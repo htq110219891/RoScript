@@ -25,7 +25,7 @@ prontera.gat,139,111,5	script	天梯竞技场	858,{
 	mes "欢迎来到天梯竞技场";
 	next;
 	getsameipinfo();
-	checkip;
+	//checkip;//检测双开暂时没激活
 	//检查角色charid是否在匹配数组里面
 	for(.@i = 1; .@i < getarraysize($ladder_pvp_queue); .@i++){
 		if($ladder_pvp_queue[.@i]==getcharid(0)){
