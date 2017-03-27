@@ -1,0 +1,59 @@
+/************************************************************\
+					EAthena Script
+**************************************************************
+【名    称】天梯竞技场
+【类    型】
+【版    本】1.0
+【版权所有】泠然
+【服 务 端】rathena
+【制作人员】
+    策划：泠然
+    编程：泠然
+    文饰：泠然
+    制作：泠然
+    测试：泠然
+【简要说明】
+    全服积分排名、匹配积分相近对手、防双开刷分。
+【更新日志】
+    2017-03-27    1.0.0    创建脚本
+【错误回报】
+\************************************************************/
+prontera.gat,139,111,5	script	天梯竞技场	858,{
+	function checkip;
+	mes "[天梯竞技场]";
+	mes "欢迎来到天梯竞技场";
+	next;
+	getsameipinfo();
+	checkip;
+	//检查角色charid是否在匹配数组里面
+	setarray $ladder_pvp_queue[getarraysize($ladder_pvp_queue)],getcharid(0);
+	for(@i=0;@i<600;@i++){
+		mes "匹配中...";
+		mes "已经等待时间："+@i/60+"分 "+@i%60+"秒";
+		sleep 1000;
+		if(getarraysize($ladder_pvp_queue)>2){
+			//检查双方是否在线。不在线将该数组中移除。
+			//传送到竞技场
+			end;
+		}
+		mesclear();
+	}
+	mes "已超时，请重新匹配。";
+	close;
+	OnInit:
+		//初始化
+		setarray $ladder_pvp_queue[0],0;
+		end;
+	
+	function checkip {
+		if (@sameip_amount > 1){
+			mes "天梯竞技场禁止双开，请先将以下角色退出";
+			for (.@i = 0; .@i < @sameip_amount; .@i++){
+				if (@sameip_cid[.@i] != getcharid(0)){
+					mes "- ^0055ff" + @sameip_name$[.@i] + "^000000";
+				}
+			close;
+			}
+		}
+	}
+}
