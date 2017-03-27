@@ -39,12 +39,14 @@ prontera.gat,139,111,5	script	天梯竞技场	858,{
 		mes "匹配中...";
 		mes "已经等待时间："+@i/60+"分 "+@i%60+"秒";
 		sleep2 1000;
+		dispbottom "--------------------------------";
 		dispbottom "当前$ladder_pvp_queue长度:"+getarraysize($ladder_pvp_queue);
 		dispbottom ""+$ladder_pvp_queue[0];
 		dispbottom ""+$ladder_pvp_queue[1];
 		dispbottom "------------";
 		dispbottom "当前$ladder_pvp_ready长度:"+getarraysize($ladder_pvp_ready);
-		if(getarraysize($ladder_pvp_queue)>2){
+		dispbottom "--------------------------------";
+		if(getarraysize($ladder_pvp_queue)>=2){
 			//检查双方是否在线。不在线将该数组中移除。
 			//加入准备组
 			for(.@i = 0; .@i < getarraysize($ladder_pvp_queue); .@i++){
@@ -61,8 +63,8 @@ prontera.gat,139,111,5	script	天梯竞技场	858,{
 			if(getarraysize($ladder_pvp_ready)==2){
 				warp "prontera",139,120,$ladder_pvp_ready[1];
 				warp "prontera",139,120,$ladder_pvp_ready[2];
+				end;
 			}
-			end;
 		}
 		mesclear();
 	}
