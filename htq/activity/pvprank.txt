@@ -40,12 +40,15 @@ prontera.gat,139,111,5	script	天梯竞技场	858,{
 		mes "已经等待时间："+@i/60+"分 "+@i%60+"秒";
 		sleep2 1000;
 		dispbottom "当前$ladder_pvp_queue长度:"+getarraysize($ladder_pvp_queue);
+		dispbottom ""+$ladder_pvp_queue[0];
+		dispbottom ""+$ladder_pvp_queue[1];
+		dispbottom "------------";
 		dispbottom "当前$ladder_pvp_ready长度:"+getarraysize($ladder_pvp_ready);
 		if(getarraysize($ladder_pvp_queue)>2){
 			//检查双方是否在线。不在线将该数组中移除。
 			//加入准备组
-			for(.@i = 1; .@i < getarraysize($ladder_pvp_queue); .@i++){
-				if(getarraysize($ladder_pvp_ready)<=2){//准备数组小与等于2
+			for(.@i = 0; .@i < getarraysize($ladder_pvp_queue); .@i++){
+				if(getarraysize($ladder_pvp_ready)<=1){//准备数组小与等于2
 					if(isloggedin($ladder_pvp_queue[.@i])==1){
 						setarray $ladder_pvp_ready[getarraysize($ladder_pvp_ready)],$ladder_pvp_queue[.@i];//将匹配数组移动到准备数组
 						deletearray $ladder_pvp_queue[.@i],1;
@@ -55,7 +58,7 @@ prontera.gat,139,111,5	script	天梯竞技场	858,{
 				}
 			}
 			//传送到竞技场
-			if(getarraysize($ladder_pvp_ready)==3){
+			if(getarraysize($ladder_pvp_ready)==2){
 				warp "prontera",139,120,$ladder_pvp_ready[1];
 				warp "prontera",139,120,$ladder_pvp_ready[2];
 			}
@@ -64,7 +67,7 @@ prontera.gat,139,111,5	script	天梯竞技场	858,{
 		mesclear();
 	}
 	mes "已超时，请重新匹配。";
-	for(.@i = 1; .@i < getarraysize($ladder_pvp_queue); .@i++){
+	for(.@i = 0; .@i < getarraysize($ladder_pvp_queue); .@i++){
 		if($ladder_pvp_queue[.@i]==getcharid(0)){
 			deletearray $ladder_pvp_queue[.@i],1;
 		}
