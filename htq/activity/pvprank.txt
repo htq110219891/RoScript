@@ -20,14 +20,22 @@
 \************************************************************/
 prontera.gat,139,111,5	script	天梯竞技场	858,{
 	function checkip;
+	set @used,0;
 	mes "[天梯竞技场]";
 	mes "欢迎来到天梯竞技场";
 	next;
 	getsameipinfo();
 	checkip;
 	//检查角色charid是否在匹配数组里面
-	setarray $ladder_pvp_queue[getarraysize($ladder_pvp_queue)],getcharid(0);
-	for(@i=0;@i<600;@i++){
+	for(.@i = 1; .@i < getarraysize($ladder_pvp_queue); .@i++){
+		if($ladder_pvp_queue[.@i]==getcharid(0)){
+			set @used,1;
+		}
+	}
+	if(@used==0){
+		setarray $ladder_pvp_queue[getarraysize($ladder_pvp_queue)],getcharid(0);
+	}
+	for(@i=0;@i<300;@i++){
 		mes "匹配中...";
 		mes "已经等待时间："+@i/60+"分 "+@i%60+"秒";
 		sleep 1000;
@@ -56,6 +64,11 @@ prontera.gat,139,111,5	script	天梯竞技场	858,{
 		mesclear();
 	}
 	mes "已超时，请重新匹配。";
+	for(.@i = 1; .@i < getarraysize($ladder_pvp_queue); .@i++){
+		if($ladder_pvp_queue[.@i]==getcharid(0)){
+			deletearray $ladder_pvp_queue[.@i],1;
+		}
+	}
 	close;
 	
 	OnInit:
@@ -63,7 +76,13 @@ prontera.gat,139,111,5	script	天梯竞技场	858,{
 		setarray $ladder_pvp_queue[0],0;
 		setarray $ladder_pvp_ready[0],0;
 		end;
-	
+	OnPCLogoutEvent:
+		for(.@i = 1; .@i < getarraysize($ladder_pvp_queue); .@i++){
+			if($ladder_pvp_queue[.@i]==getcharid(0)){
+				deletearray $ladder_pvp_queue[.@i],1;
+			}
+		}
+		end;
 	function checkip {
 		if (@sameip_amount > 1){
 			mes "天梯竞技场禁止双开，请先将以下角色退出";
