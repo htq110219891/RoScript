@@ -52,17 +52,19 @@ prontera.gat,139,111,5	script	天梯竞技场	858,{
 			for(@i = 0; @i < getarraysize($ladder_pvp_queue); @i++){
 				if(getarraysize($ladder_pvp_ready)<=1){//准备数组小与等于1
 					if(isloggedin(getcharid(3,strcharinfo(0,$ladder_pvp_queue[@i])))==1){
-						setarray $ladder_pvp_ready[getarraysize($ladder_pvp_ready)],$ladder_pvp_queue[@i];//将匹配数组移动到准备数组
-						deletearray $ladder_pvp_queue[@i],1;
+						setarray $ladder_pvp_ready[getarraysize($ladder_pvp_ready)],$ladder_pvp_queue[0];//将匹配数组移动到准备数组
+						deletearray $ladder_pvp_queue[0],1;
 					}else{
 						deletearray $ladder_pvp_queue[@i],1;//将不在线的移除数组。
 					}
+					set @i,@i-1;
 				}
 			}
 			//传送到竞技场
 			if(getarraysize($ladder_pvp_ready)==2){
+				warp "prontera",139,120,$ladder_pvp_ready[0];
 				warp "prontera",139,120,$ladder_pvp_ready[1];
-				warp "prontera",139,120,$ladder_pvp_ready[2];
+				deletearray $ladder_pvp_ready[0],2;
 				end;
 			}
 		}
@@ -82,7 +84,7 @@ prontera.gat,139,111,5	script	天梯竞技场	858,{
 		setarray $ladder_pvp_ready[0],0;
 		end;
 	OnPCLogoutEvent:
-		for(@i = 1; @i < getarraysize($ladder_pvp_queue); @i++){
+		for(@i = 0; @i < getarraysize($ladder_pvp_queue); @i++){
 			if($ladder_pvp_queue[@i]==getcharid(0)){
 				deletearray $ladder_pvp_queue[@i],1;
 			}
