@@ -263,9 +263,9 @@ OnPCStatCalcEvent:
 				bonus bAgi,2;
 			}
 		break;
-		case 50147://46二连矢：两次攻击几率增加(2*技能等级)%。
+		case 50147://46二连矢：两次攻击几率增加(1.5*技能等级)%。
 			if (getskilllv(46)) {
-				bonus bDoubleAddRate,20;
+				bonus bDoubleAddRate,15*getskilllv(46)/10;
 			}
 		break;
 		case 50148:
