@@ -62,9 +62,15 @@ prontera.gat,139,111,5	script	天梯竞技场	858,{
 			}
 			//传送到竞技场
 			if(getarraysize($ladder_pvp_ready)==2){
-				warp "prontera",139,120,$ladder_pvp_ready[0];
-				warp "prontera",139,120,$ladder_pvp_ready[1];
+				party_create("test001",$ladder_pvp_ready[0]);
+				sleep2 1000;
+				party_addmember($@party_create_id,$ladder_pvp_ready[1]);
+				sleep2 1000;
+				instance_create("PVPRANK");
+				instance_enter("PVPRANK",96,25,$ladder_pvp_ready[0]);
+				instance_enter("PVPRANK",96,25,$ladder_pvp_ready[1]);
 				deletearray $ladder_pvp_ready[0],2;
+				party_destroy($@party_create_id);
 				end;
 			}
 		}
