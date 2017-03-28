@@ -205,17 +205,25 @@ OnPCStatCalcEvent:
 				bonus2 bMagicAddEle,9,3*getskilllv(32);
 			}
 		break;
-		case 50134://33天使之障壁
-			
+		case 50134://33天使之障壁：施法不会被打断
+			if (getskilllv(33)) {
+				bonus bNoCastCancel2,n;
+			}
 		break;
-		case 50135://34天使之赐福
-			
+		case 50135://34天使之赐福：每秒回复(2*技能等级)点SP
+			if (getskilllv(34)) {
+				bonus2 bSPRegenRate,2*getskilllv(34),1000;
+			}
 		break;
-		case 50136://35治疗术
-			
+		case 50136://35治疗术：增加200% HP回复速度
+			if (getskilllv(36)) {
+				bonus bHPrecovRate,200;	 
+			}
 		break;
-		case 50137://36负重量上升
-			
+		case 50137://36负重量上升：str增加3
+			if (getskilllv(36)) {
+				bonus bStr,3;
+			}
 		break;
 		case 50138://37低价买进
 			
@@ -223,8 +231,10 @@ OnPCStatCalcEvent:
 		case 50139://38高价卖出
 			
 		break;
-		case 50140://39手推车使用
-			
+		case 50140://39手推车使用：增加 技能等级 对普通怪物的暴击率
+			if (getskilllv(39)) {
+				bonus2 bCriticalAddRace,getskilllv(39),11;
+			}
 		break;
 		case 50141://40物品鉴定
 			
@@ -232,20 +242,31 @@ OnPCStatCalcEvent:
 		case 50142://41露天商店
 			
 		break;
-		case 50143://42金钱攻击
-			
+		case 50143://42金钱攻击：增加(2*技能等级)%金钱攻击伤害
+			if (getskilllv(42)) {
+				bonus2 bSkillAtk,42,2*getskilllv(42);
+			}
 		break;
-		case 50144://43鹗枭之眼
-			
+		case 50144://43鹗枭之眼:杀死魔物后恢复(50*技能等级)HP和(2*技能等级)SP
+			if (getskilllv(43)) {
+				bonus bHPGainValue,50*getskilllv(43);
+				bonus bSPGainValue,2*getskilllv(43);
+			}
 		break;
-		case 50145://44苍鹰之眼
-			
+		case 50145://44苍鹰之眼：DEX+3
+			if (getskilllv(44)) {
+				bonus bDex,3;
+			}
 		break;
-		case 50146://45心神凝聚
-			
+		case 50146://45心神凝聚：AGI+2
+			if (getskilllv(45)) {
+				bonus bAgi,2;
+			}
 		break;
-		case 50147:
-			//46二连矢
+		case 50147://46二连矢：两次攻击几率增加(2*技能等级)%。
+			if (getskilllv(46)) {
+				bonus bDoubleAddRate,20;
+			}
 		break;
 		case 50148:
 			//47箭雨
@@ -268,8 +289,10 @@ OnPCStatCalcEvent:
 		case 50154:
 			//53解毒
 		break;
-		case 50155:
-			//54复活术
+		case 50155://54复活术：被复活时，HPSP全满。
+			if (getskilllv(54)) {
+				bonus bRestartFullRecover,n;
+			}
 		break;
 		case 50156:
 			//55长矛使用熟练度
