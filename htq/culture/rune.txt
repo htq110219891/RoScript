@@ -56,8 +56,8 @@ OnPCStatCalcEvent:
 		case 50100://狂击符文：增加狂击伤害25%
 			bonus2 bSkillAtk,5,25;  				
 		break;
-		case 50103: //快速回复符文：增加技能等级*5% 的治愈术效果
-			bonus2 bSkillHeal2,28,5*getskilllv(4);	
+		case 50103: //快速回复符文：增加技能等级*5% 的治愈效果
+			bonus2 bHealPower2,5*getskilllv(4);	
 		break;
 		case 50104: //单手剑熟练度符文：增加 0.5*技能等级 的ATK
 			bonus bAtk,5*getskilllv(2)/10;			
@@ -182,9 +182,9 @@ OnPCStatCalcEvent:
 				bonus bSpeedAddRate,5;
 				}
 		break;
-		case 50129://28治愈术：增加(5*技能等级)%治愈术恢复量
+		case 50129://28治愈术：增加(5*技能等级)%治愈效果
 			if (getskilllv(28)) {
-				bonus2 bSkillHeal2,28,5*getskilllv(28);
+				bonus2 bHealPower,5*getskilllv(28);
 			}
 		break;
 		case 50130://29加速术：AGI+5
@@ -192,11 +192,15 @@ OnPCStatCalcEvent:
 				bonus bAgi,5;
 			}
 		break;
-		case 50131://30缓速术
-			
+		case 50131://30缓速术：Free+(2*技能等级)
+			if (getskilllv(30)) {
+				bonus bFlee,2*getskilllv(30);
+			}
 		break;
-		case 50132://31天使之泪
-			
+		case 50132://31天使之泪：攻击属性改为圣属性
+			if (getskilllv(31)) {
+				bonus bAtkEle,6;	
+			}
 		break;
 		case 50133://32天使之光：增加对不死、暗生物魔法伤害(3*技能等级)%
 			if (getskilllv(32)) {
@@ -225,22 +229,30 @@ OnPCStatCalcEvent:
 				bonus bStr,3;
 			}
 		break;
-		case 50138://37低价买进
-			
+		case 50138://37低价买进：杀死魔物5%几率掉落蓝色药水
+			if (getskilllv(37)) {
+				bonus3 bAddMonsterDropItem,11,505,5;
+			}
 		break;
-		case 50139://38高价卖出
-			
+		case 50139://38高价卖出：杀死魔物5%几率掉落枯树枝
+			if (getskilllv(38)) {
+				bonus3 bAddMonsterDropItem,11,604,5;
+			}
 		break;
 		case 50140://39手推车使用：增加 技能等级 对普通怪物的暴击率
 			if (getskilllv(39)) {
 				bonus2 bCriticalAddRace,getskilllv(39),11;
 			}
 		break;
-		case 50141://40物品鉴定
-			
+		case 50141://40物品鉴定：Hit+20
+			if (getskilllv(40)) {
+				bonus bHit,20;
+			}
 		break;
-		case 50142://41露天商店
-			
+		case 50142://41露天商店：杀死魔物5%几率掉落白色纤细药水
+			if (getskilllv(41)) {
+				bonus3 bAddMonsterDropItem,11,547,5;	
+			}
 		break;
 		case 50143://42金钱攻击：增加(2*技能等级)%金钱攻击伤害
 			if (getskilllv(42)) {
@@ -268,26 +280,40 @@ OnPCStatCalcEvent:
 				bonus bDoubleAddRate,15*getskilllv(46)/10;
 			}
 		break;
-		case 50148:
-			//47箭雨
+		case 50148://47箭雨：增加0.5*技能等级击退概率
+			if (getskilllv(47)) {
+				bonus bPerfectHitAddRate,5*getskilllv(47)/10;	
+			}
 		break;
-		case 50149:
-			//48二刀连击
+		case 50149://48二刀连击：攻击速度+10%
+			if (getskilllv(48)) {
+				bonus bAspdRate,10;
+			}
 		break;
-		case 50150:
-			//49残影
+		case 50150://49残影：增加10%移动速度
+			if (getskilllv(49)) {
+				bonus bSpeedRate,10;
+			}
 		break;
-		case 50151:
-			//50偷窃
+		case 50151://50偷窃：杀死魔物20%几率掉落1-500z
+			if (getskilllv(50)) {
+				bonus2 bAddGetZenyNum,500,20;
+			}
 		break;
-		case 50152:
-			//51隐匿
+		case 50152://51隐匿：增加(2*技能等级)%暴击伤害
+			if (getskilllv(51)) {
+				bonus bCritAtkRate,2*getskilllv(51);
+			}
 		break;
-		case 50153:
-			//52施毒
+		case 50153://52施毒：攻击属性改为毒
+			if (getskilllv(52)) {
+				bonus bAtkEle,5;
+			}
 		break;
-		case 50154:
-			//53解毒
+		case 50154://53解毒：增加50%对毒属性敌人伤害
+			if (getskilllv(53)) {
+				bonus2 bAddEle,5,50;	
+			}
 		break;
 		case 50155://54复活术：被复活时，HPSP全满。
 			if (getskilllv(54)) {
