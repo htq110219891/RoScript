@@ -1,0 +1,932 @@
+[50097] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "符文石残渣", 
+			identifiedResourceName = "烽狼盔籍_老馆", 
+			identifiedDescriptionName = {
+				"制作失败的残渣",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50098] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "符文孔开启石", 
+			identifiedResourceName = "烽狼盔籍_脚厚", 
+			identifiedDescriptionName = {
+				"开启符文孔的神奇石头",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50099] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "符文储存石", 
+			identifiedResourceName = "烽巩磊林巩籍", 
+			identifiedDescriptionName = {
+				"符文说明书",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50100] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "狂击符文", 
+			identifiedResourceName = "烽胶沛_畴揪令", 
+			identifiedDescriptionName = {
+				"增加狂击技能伤害25%",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50101] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "吸血符文", 
+			identifiedResourceName = "烽胶沛_扼捞档", 
+			identifiedDescriptionName = {
+				"攻击时10%几率吸收10%生命值",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50102] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "击退符文", 
+			identifiedResourceName = "烽胶沛_畴揪令", 
+			identifiedDescriptionName = {
+				"使用狂击技能击退1格",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50103] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "快速回复符文", 
+			identifiedResourceName = "烽胶沛_畴揪令", 
+			identifiedDescriptionName = {
+				"增加技能等级*5% 的治愈术效果",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50104] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "单手剑熟练度符文", 
+			identifiedResourceName = "烽胶沛_畴揪令", 
+			identifiedDescriptionName = {
+				"增加 0.5*技能等级 的ATK",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50105] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "双手剑熟练度符文", 
+			identifiedResourceName = "烽胶沛_畴揪令", 
+			identifiedDescriptionName = {
+				"增加 0.5*技能等级 的ATK",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50106] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "怒爆符文", 
+			identifiedResourceName = "烽胶沛_畴揪令", 
+			identifiedDescriptionName = {
+				"使用后触发加速术",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50107] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "挑衅符文", 
+			identifiedResourceName = "烽胶沛_畴揪令", 
+			identifiedDescriptionName = {
+				"DEF,MDEF-10,ATK+15",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50108] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "霸体符文", 
+			identifiedResourceName = "烽胶沛_畴揪令", 
+			identifiedDescriptionName = {
+				"Vit+2，完全回避+技能等级",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50109] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "基本技能符文", 
+			identifiedResourceName = "烽胶沛_扼捞档", 
+			identifiedDescriptionName = {
+				"杀死怪物额外获得10%经验值，并随机获得1-100Zeny",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50110] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "禅心符文", 
+			identifiedResourceName = "烽胶沛_海福墨唱", 
+			identifiedDescriptionName = {
+				"杀死魔物回复技能等级*8SP",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50111] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "火守符文", 
+			identifiedResourceName = "烽胶沛_海福墨唱", 
+			identifiedDescriptionName = {
+				"看到隐身单位",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50112] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "心灵爆破符文", 
+			identifiedResourceName = "烽胶沛_海福墨唱", 
+			identifiedDescriptionName = {
+				"增加(4*技能等级)%心灵爆破、圣灵召唤伤害",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50113] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "暗之障壁符文", 
+			identifiedResourceName = "烽胶沛_海福墨唱", 
+			identifiedDescriptionName = {
+				"减少(2*技能等级)%受到的魔法伤害",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50114] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "圣灵召唤符文", 
+			identifiedResourceName = "烽胶沛_海福墨唱", 
+			identifiedDescriptionName = {
+				"释放任何技能时，有70%几率释放当前等级圣灵召唤，不可叠加",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50115] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "冰箭术符文", 
+			identifiedResourceName = "烽胶沛_海福墨唱", 
+			identifiedDescriptionName = {
+				"增加(3%*技能等级)对火属性敌人魔法伤害，增加(3%*技能等级)冰箭术伤害",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50116] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "冰冻术符文", 
+			identifiedResourceName = "烽胶沛_海福墨唱", 
+			identifiedDescriptionName = {
+				"被攻击时,(2*技能等级)%几率使目标冰冻,可叠加",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50117] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "石化术符文", 
+			identifiedResourceName = "烽胶沛_海福墨唱", 
+			identifiedDescriptionName = {
+				"使用后触发沉默",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50118] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "火球术符文", 
+			identifiedResourceName = "烽胶沛_海福墨唱", 
+			identifiedDescriptionName = {
+				"增加(1.5*技能等级)%魔法攻击力",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50119] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "火之障壁符文", 
+			identifiedResourceName = "烽胶沛_海福墨唱", 
+			identifiedDescriptionName = {
+				"增加防御力(0.3*技能等级)",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50120] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "火箭术符文", 
+			identifiedResourceName = "烽胶沛_海福墨唱", 
+			identifiedDescriptionName = {
+				"增加(5*技能等级)%对植物、动物、昆虫、BOSS魔法伤害",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50121] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "雷击术符文", 
+			identifiedResourceName = "烽胶沛_海福墨唱", 
+			identifiedDescriptionName = {
+				"增加雷系法术伤害(2*技能等级)%",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50122] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "雷暴术符文", 
+			identifiedResourceName = "烽胶沛_海福墨唱", 
+			identifiedDescriptionName = {
+				"物理攻击时自动(3*技能等级)%几率释放雷暴术，不能叠加",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50123] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "天使之护符文", 
+			identifiedResourceName = "烽胶沛_酒捞箕", 
+			identifiedDescriptionName = {
+				"增加DEF2、MDEF2(0.3*技能等级)",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	
+	[50124] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "天使之击符文", 
+			identifiedResourceName = "烽胶沛_酒捞箕", 
+			identifiedDescriptionName = {
+				"增加ATK、MATK(2*技能等级)",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	
+	[50125] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "光猎符文", 
+			identifiedResourceName = "烽胶沛_酒捞箕", 
+			identifiedDescriptionName = {
+				"忽视怪物魔防",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50126] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "光之障壁符文", 
+			identifiedResourceName = "烽胶沛_酒捞箕", 
+			identifiedDescriptionName = {
+				"减少15%远距离伤害",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50127] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "瞬间移动符文", 
+			identifiedResourceName = "烽胶沛_酒捞箕", 
+			identifiedDescriptionName = {
+				"回避+15",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50128] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "传送之阵符文", 
+			identifiedResourceName = "烽胶沛_酒捞箕", 
+			identifiedDescriptionName = {
+				"移动速度+5%",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50129] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "治愈术符文", 
+			identifiedResourceName = "烽胶沛_酒捞箕", 
+			identifiedDescriptionName = {
+				"增加(5*技能等级)%治愈术恢复量",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50130] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "加速术符文", 
+			identifiedResourceName = "烽胶沛_酒捞箕", 
+			identifiedDescriptionName = {
+				"AGI+5",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50131] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "缓速术符文", 
+			identifiedResourceName = "烽胶沛_酒捞箕", 
+			identifiedDescriptionName = {
+				"Free+(2*技能等级)",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50132] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "天使之泪符文", 
+			identifiedResourceName = "烽胶沛_酒捞箕", 
+			identifiedDescriptionName = {
+				"攻击属性改为圣属性",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50133] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "天使之光符文", 
+			identifiedResourceName = "烽胶沛_酒捞箕", 
+			identifiedDescriptionName = {
+				"增加对不死、暗生物魔法伤害(3*技能等级)%",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50134] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "天使之障壁符文", 
+			identifiedResourceName = "烽胶沛_酒捞箕", 
+			identifiedDescriptionName = {
+				"施法不会被打断",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50135] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "天使之赐福符文", 
+			identifiedResourceName = "烽胶沛_酒捞箕", 
+			identifiedDescriptionName = {
+				"每秒回复(2*技能等级)点SP",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50136] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "治疗术符文", 
+			identifiedResourceName = "烽胶沛_酒捞箕", 
+			identifiedDescriptionName = {
+				"增加200% HP回复速度",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50137] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "负重量上升符文", 
+			identifiedResourceName = "烽胶沛_俊捞矫福", 
+			identifiedDescriptionName = {
+				"str增加3",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50138] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "低价买进符文", 
+			identifiedResourceName = "烽胶沛_俊捞矫福", 
+			identifiedDescriptionName = {
+				"杀死魔物5%几率掉落蓝色药水",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50139] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "高价卖出符文", 
+			identifiedResourceName = "烽胶沛_俊捞矫福", 
+			identifiedDescriptionName = {
+				"杀死魔物5%几率掉落枯树枝",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50140] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "手推车使用符文", 
+			identifiedResourceName = "烽胶沛_俊捞矫福", 
+			identifiedDescriptionName = {
+				"增加 技能等级 对普通怪物的暴击率",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50141] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "物品鉴定符文", 
+			identifiedResourceName = "烽胶沛_俊捞矫福", 
+			identifiedDescriptionName = {
+				"Hit+20",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50142] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "露天商店符文", 
+			identifiedResourceName = "烽胶沛_俊捞矫福", 
+			identifiedDescriptionName = {
+				"5%几率掉落白色纤细药水",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50143] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "金钱攻击符文", 
+			identifiedResourceName = "烽胶沛_俊捞矫福", 
+			identifiedDescriptionName = {
+				"增加(2*技能等级)%金钱攻击伤害",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50144] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "鹗枭之眼符文", 
+			identifiedResourceName = "烽胶沛_快福令", 
+			identifiedDescriptionName = {
+				"杀死魔物后恢复(50*技能等级)HP和(2*技能等级)SP",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50145] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "苍鹰之眼符文", 
+			identifiedResourceName = "烽胶沛_快福令", 
+			identifiedDescriptionName = {
+				"DEX+3",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50146] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "心神凝聚符文", 
+			identifiedResourceName = "烽胶沛_快福令", 
+			identifiedDescriptionName = {
+				"AGI+2",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50147] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "二连矢符文", 
+			identifiedResourceName = "烽胶沛_快福令", 
+			identifiedDescriptionName = {
+				"两次攻击几率增加(1.5*技能等级)%",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50148] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "箭雨符文", 
+			identifiedResourceName = "烽胶沛_快福令", 
+			identifiedDescriptionName = {
+				"效果不明",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50149] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "二刀连击符文", 
+			identifiedResourceName = "烽胶沛_譬府辑胶", 
+			identifiedDescriptionName = {
+				"效果不明",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50150] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "残影符文", 
+			identifiedResourceName = "烽胶沛_譬府辑胶", 
+			identifiedDescriptionName = {
+				"效果不明",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50151] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "偷窃符文", 
+			identifiedResourceName = "烽胶沛_譬府辑胶", 
+			identifiedDescriptionName = {
+				"效果不明",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50152] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "隐匿符文", 
+			identifiedResourceName = "烽胶沛_譬府辑胶", 
+			identifiedDescriptionName = {
+				"增加(2*技能等级)%暴击伤害",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50153] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "施毒符文", 
+			identifiedResourceName = "烽胶沛_譬府辑胶", 
+			identifiedDescriptionName = {
+				"攻击属性改为毒",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50154] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "解毒符文", 
+			identifiedResourceName = "烽胶沛_譬府辑胶", 
+			identifiedDescriptionName = {
+				"增加50%对毒属性敌人伤害",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50155] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "复活术符文", 
+			identifiedResourceName = "烽胶沛_酒捞箕", 
+			identifiedDescriptionName = {
+				"被复活时，HPSP全满",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50701] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "[自动]加速术符文", 
+			identifiedResourceName = "烽胶沛_扼捞档", 
+			identifiedDescriptionName = {
+				"攻击时1%几率释放加速术Lv10",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50702] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "连击符文", 
+			identifiedResourceName = "烽胶沛_扼捞档", 
+			identifiedDescriptionName = {
+				"攻击时5%几率发动连击",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
+	[50703] = {
+			unidentifiedDisplayName = "",
+			unidentifiedResourceName = "", 
+			unidentifiedDescriptionName = {
+			}, 
+			identifiedDisplayName = "咒语优化符文", 
+			identifiedResourceName = "烽胶沛_扼捞档", 
+			identifiedDescriptionName = {
+				"优化你的咒语，所有技能SP消耗减少10%",
+				"系列：^777777符文^000000",
+				"重量：^7777770^000000",
+			}, 
+			slotCount = 1, 
+			ClassNum = 4216
+	},
