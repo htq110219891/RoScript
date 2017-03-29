@@ -62,7 +62,7 @@ OnRefreshBours:
 			bonus2 bSkillAtk,5,25;  				
 		break;
 		case 50103: //快速回复符文：增加技能等级*5% 的治愈效果
-			bonus2 bHealPower2,5*getskilllv(4);	
+			bonus bHealPower2,5*getskilllv(4);	
 		break;
 		case 50104: //单手剑熟练度符文：增加 0.5*技能等级 的ATK
 			bonus bAtk,5*getskilllv(2)/10;			
@@ -189,7 +189,7 @@ OnRefreshBours:
 		break;
 		case 50129://28治愈术：增加(5*技能等级)%治愈效果
 			if (getskilllv(28)) {
-				bonus2 bHealPower,5*getskilllv(28);
+				bonus bHealPower,5*getskilllv(28);
 			}
 		break;
 		case 50130://29加速术：AGI+5
