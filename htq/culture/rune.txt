@@ -28,12 +28,7 @@
 【错误回报】
 \************************************************************/
 -	script	FWBonus	-1,{
-//OnPCStatCalcEvent:
-OnPCLoginEvent:
-	doevent "FWBonus::OnRefreshBours";
-end;
-
-OnRefreshBours:
+OnPCStatCalcEvent:
 	for(set @i,1;@i<6;@i++){
 		switch(getd("player_runes"+@i)){
 	//通用
@@ -386,7 +381,6 @@ function	script	runes_system	{
 						getitem getd("player_runes"+(@op)),1;
 						set getd("player_runes"+(@op)),0;
 					}
-					doevent "FWBonus::OnRefreshBours";
 					close;
 				break;
 			}
@@ -455,7 +449,6 @@ function	script	runes_add	{
 						set getd("player_runes"+@op),getarg(0);
 						delitem getarg(0),1;
 						mes "镶嵌成功";
-						doevent "FWBonus::OnRefreshBours";
 						close;
 					}else{
 						mes "符文孔"+@op+"中已经有符文 ^0000FF"+getitemname(getd("player_runes"+@op))+"^000000，请先卸除符文";
