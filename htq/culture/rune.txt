@@ -28,7 +28,12 @@
 【错误回报】
 \************************************************************/
 -	script	FWBonus	-1,{
-OnPCStatCalcEvent:
+//OnPCStatCalcEvent:
+OnPCLoginEvent:
+	doevent "FWBonus::OnRefreshBours";
+end;
+
+OnRefreshBours:
 	for(set @i,1;@i<6;@i++){
 		switch(getd("player_runes"+@i)){
 	//通用
@@ -372,17 +377,17 @@ function	script	runes_system	{
 						close;
 					}
 					set @rand,rand(100);
-					if (@rand<20){
+					if (@rand<5){
 						set getd("player_runes"+(@op)),0;
 						getitem 50097,rand(1,4);
 						mes "卸除失败";
-						close;
 					}else{
 						mes "卸除成功";
 						getitem getd("player_runes"+(@op)),1;
 						set getd("player_runes"+(@op)),0;
-						close;
 					}
+					doevent "FWBonus::OnRefreshBours";
+					close;
 				break;
 			}
 		break;
@@ -394,16 +399,16 @@ function	script	runes_system	{
 				mes "符文孔已经全部开启";
 				close;
 			}else{
-				mes "开启下一个需要消耗2个符文孔开启石";
+				mes "开启下一个需要消耗"+(player_runes_place+1)*2+"个符文孔开启石";
 				next;
 				switch(select("确定")){
 					case 1:
-						if(countitem(50098)<2){
+						if(countitem(50098)<(player_runes_place+1)*2){
 							mes "符文孔开启石数量不足";
 							close;
 						}
 						mes "开启成功";
-						delitem 50098,2;
+						delitem 50098,(player_runes_place+1)*2;
 						set player_runes_place,player_runes_place+1;
 						close;
 					break;
@@ -450,6 +455,7 @@ function	script	runes_add	{
 						set getd("player_runes"+@op),getarg(0);
 						delitem getarg(0),1;
 						mes "镶嵌成功";
+						doevent "FWBonus::OnRefreshBours";
 						close;
 					}else{
 						mes "符文孔"+@op+"中已经有符文 ^0000FF"+getitemname(getd("player_runes"+@op))+"^000000，请先卸除符文";
