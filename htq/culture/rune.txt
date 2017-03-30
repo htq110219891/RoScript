@@ -550,7 +550,904 @@ OnPCStatCalcEvent:
 				
 			}
 		break;
+		case 50202://101斧头制作
+			if (getskilllv(101)) {
+				
+			}
+		break;
+		case 50203://102权杖制作
+			if (getskilllv(102)) {
+				
+			}
+		break;
+		case 50204://103拳套制作
+			if (getskilllv(103)) {
+				
+			}
+		break;
+		case 50205://104长矛制作
+			if (getskilllv(104)) {
+				
+			}
+		break;
+		case 50206://105武器保有
+			if (getskilllv(105)) {
+				
+			}
+		break;
+		case 50207://106寻找矿石
+			if (getskilllv(106)) {
+				
+			}
+		break;
+		case 50208://107武器研究
+			if (getskilllv(107)) {
+				
+			}
+		break;
+		case 50209://108武器修理
+			if (getskilllv(108)) {
+				
+			}
+		break;
+		case 50210://109强化火属性
+			if (getskilllv(109)) {
+				
+			}
+		break;
+		case 50211://110大地之击
+			if (getskilllv(110)) {
+				
+			}
+		break;
+		case 50212://111速度激发
+			if (getskilllv(111)) {
+				
+			}
+		break;
+		case 50213://112无视体型攻击
+			if (getskilllv(112)) {
+				
+			}
+		break;
+		case 50214://113凶砍
+			if (getskilllv(113)) {
+				
+			}
+		break;
+		case 50215://114武器值最大化
+			if (getskilllv(114)) {
+				
+			}
+		break;
+		case 50216://115滑动陷阱
+			if (getskilllv(115)) {
+				
+			}
+		break;
+		case 50217://116地雷陷阱
+			if (getskilllv(116)) {
+				
+			}
+		break;
+		case 50218://117定位陷阱
+			if (getskilllv(117)) {
+				
+			}
+		break;
+		case 50219://118魔耗陷阱
+			if (getskilllv(118)) {
+				
+			}
+		break;
+		case 50220://119睡魔陷阱
+			if (getskilllv(119)) {
+				
+			}
+		break;
+		case 50221://120强光陷阱
+			if (getskilllv(120)) {
+				
+			}
+		break;
+		case 50222://121霜冻陷阱
+			if (getskilllv(121)) {
+				
+			}
+		break;
+		case 50223://122定时爆炸陷阱
+			if (getskilllv(122)) {
+				
+			}
+		break;
+		case 50224://123爆散陷阱
+			if (getskilllv(123)) {
+				
+			}
+		break;
+		case 50225://124陷阱移除
+			if (getskilllv(124)) {
+				
+			}
+		break;
+		case 50226://125陷阱探查
+			if (getskilllv(125)) {
+				
+			}
+		break;
+		case 50227://126动物杀手
+			if (getskilllv(126)) {
+				
+			}
+		break;
+		case 50228://127驯鹰术
+			if (getskilllv(127)) {
+				
+			}
+		break;
+		case 50229://128钢制喙
+			if (getskilllv(128)) {
+				
+			}
+		break;
+		case 50230://129闪电冲击
+			if (getskilllv(129)) {
+				
+			}
+		break;
+		case 50231://130猎鹰寻敌
+			if (getskilllv(130)) {
+				
+			}
+		break;
+		case 50232://131爆破陷阱
+			if (getskilllv(131)) {
+				
+			}
+		break;
+		case 50233://132右手修练
+			if (getskilllv(132)) {
+				
+			}
+		break;
+		case 50234://133左手修练
+			if (getskilllv(133)) {
+				
+			}
+		break;
+		case 50235://134拳刃修练
+			if (getskilllv(134)) {
+				
+			}
+		break;
+		case 50236://135伪装
+			if (getskilllv(135)) {
+				
+			}
+		break;
+		case 50237://136音速投掷
+			if (getskilllv(136)) {
+				
+			}
+		break;
+		case 50238://137无影之牙
+			if (getskilllv(137)) {
+				
+			}
+		break;
+		case 50239://138涂毒
+			if (getskilllv(138)) {
+				
+			}
+		break;
+		case 50240://139毒性反弹
+			if (getskilllv(139)) {
+				
+			}
+		break;
+		case 50241://140病毒散拨
+			if (getskilllv(140)) {
+				
+			}
+		break;
+		case 50242://141毒性感染
+			if (getskilllv(141)) {
+				
+			}
+		break;
+		case 50243://142紧急治疗
+			if (getskilllv(142)) {
+				
+			}
+		break;
+		case 50244://143装死
+			if (getskilllv(143)) {
+				
+			}
+		break;
+		case 50245://144移动时恢复HP
+			if (getskilllv(144)) {
+				
+			}
+		break;
+		case 50246://145攻击弱点
+			if (getskilllv(145)) {
+				
+			}
+		break;
+		case 50247://146狂暴状态
+			if (getskilllv(146)) {
+				
+			}
+		break;
+		case 50248://147制作箭
+			if (getskilllv(147)) {
+				
+			}
+		break;
+		case 50249://148冲锋箭
+			if (getskilllv(148)) {
+				
+			}
+		break;
+		case 50250://149喷砂
+			if (getskilllv(149)) {
+				
+			}
+		break;
+		case 50251://150后退回避
+			if (getskilllv(150)) {
+				
+			}
+		break;
+		case 50252://151捡石头
+			if (getskilllv(151)) {
+				
+			}
+		break;
+		case 50253://152投掷石头
+			if (getskilllv(152)) {
+				
+			}
+		break;
+		case 50254://153手推车攻击
+			if (getskilllv(153)) {
+				
+			}
+		break;
+		case 50255://154改装手推车
+			if (getskilllv(154)) {
+				
+			}
+		break;
+		case 50256://155大声吶喊
+			if (getskilllv(155)) {
+				
+			}
+		break;
+		case 50257://156神圣之光
+			if (getskilllv(156)) {
+				
+			}
+		break;
+		case 50258://157能量外套
+			if (getskilllv(157)) {
+				
+			}
+		break;
+		//三转
+		case 50310://210强夺
+			if (getskilllv(210)) {
+				
+			}
+		break;
+		case 50311://211偷钱
+			if (getskilllv(211)) {
+				
+			}
+		break;
+		case 50312://212背刺
+			if (getskilllv(212)) {
+				
+			}
+		break;
+		case 50313://213潜遁
+			if (getskilllv(213)) {
+				
+			}
+		break;
+		case 50314://214潜击
+			if (getskilllv(214)) {
+				
+			}
+		break;
+		case 50315://215卸除武器
+			if (getskilllv(215)) {
+				
+			}
+		break;
+		case 50316://216卸除盾牌
+			if (getskilllv(216)) {
+				
+			}
+		break;
+		case 50317://217卸除铠甲
+			if (getskilllv(217)) {
+				
+			}
+		break;
+		case 50318://218卸除头盔
+			if (getskilllv(218)) {
+				
+			}
+		break;
+		case 50319://219胁持
+			if (getskilllv(219)) {
+				
+			}
+		break;
+		case 50320://220涂鸦
+			if (getskilllv(220)) {
+				
+			}
+		break;
+		case 50321://221旗帜涂鸦
+			if (getskilllv(221)) {
+				
+			}
+		break;
+		case 50322://222清洗
+			if (getskilllv(222)) {
+				
+			}
+		break;
+		case 50323://223流氓天堂
+			if (getskilllv(223)) {
+				
+			}
+		break;
+		case 50324://224强制减价
+			if (getskilllv(224)) {
+				
+			}
+		break;
+		case 50325://225抄袭
+			if (getskilllv(225)) {
+				
+			}
+		break;
+		case 50326://226斧头使用熟练度
+			if (getskilllv(226)) {
+				
+			}
+		break;
+		case 50327://227知识药水
+			if (getskilllv(227)) {
+				
+			}
+		break;
+		case 50328://228配药
+			if (getskilllv(228)) {
+				
+			}
+		break;
+		case 50329://229火烟瓶投掷
+			if (getskilllv(229)) {
+				
+			}
+		break;
+		case 50330://230强酸攻击
+			if (getskilllv(230)) {
+				
+			}
+		break;
+		case 50331://231药水投掷
+			if (getskilllv(231)) {
+				
+			}
+		break;
+		case 50332://232生物调拨
+			if (getskilllv(232)) {
+				
+			}
+		break;
+		case 50333://233气泡虫召唤
+			if (getskilllv(233)) {
+				
+			}
+		break;
+		case 50334://234化学武器保护
+			if (getskilllv(234)) {
+				
+			}
+		break;
+		case 50335://235化学盾牌保护
+			if (getskilllv(235)) {
+				
+			}
+		break;
+		case 50336://236化学铠甲保护
+			if (getskilllv(236)) {
+				
+			}
+		break;
+		case 50337://237化学头盔保护
+			if (getskilllv(237)) {
+				
+			}
+		break;
+		case 50338://238生命伦理
+			if (getskilllv(238)) {
+				
+			}
+		break;
+		case 50339://239
+			if (getskilllv(239)) {
+				
+			}
+		break;
+		case 50340://240
+			if (getskilllv(240)) {
+				
+			}
+		break;
+		case 50341://241
+			if (getskilllv(241)) {
+				
+			}
+		break;
+		case 50342://242
+			if (getskilllv(242)) {
+				
+			}
+		break;
+		case 50343://243生命体召唤
+			if (getskilllv(243)) {
+				
+			}
+		break;
+		case 50344://244安息
+			if (getskilllv(244)) {
+				
+			}
+		break;
+		case 50345://245
+			if (getskilllv(245)) {
+				
+			}
+		break;
+		case 50346://246
+			if (getskilllv(246)) {
+				
+			}
+		break;
+		case 50347://247复活生命体
+			if (getskilllv(247)) {
+				
+			}
+		break;
+		case 50348://248信任
+			if (getskilllv(248)) {
+				
+			}
+		break;
+		case 50349://249自动防御
+			if (getskilllv(249)) {
+				
+			}
+		break;
+		case 50350://250盾击
+			if (getskilllv(250)) {
+				
+			}
+		break;
+		case 50351://251回旋盾击
+			if (getskilllv(251)) {
+				
+			}
+		break;
+		case 50352://252反射盾
+			if (getskilllv(252)) {
+				
+			}
+		break;
+		case 50353://253圣十字攻击
+			if (getskilllv(253)) {
+				
+			}
+		break;
+		case 50354://254圣十字审判
+			if (getskilllv(254)) {
+				
+			}
+		break;
+		case 50355://255牺牲
+			if (getskilllv(255)) {
+				
+			}
+		break;
+		case 50356://256神佑之光
+			if (getskilllv(256)) {
+				
+			}
+		break;
+		case 50357://257光之盾
+			if (getskilllv(257)) {
+				
+			}
+		break;
+		case 50358://258长矛加速术
+			if (getskilllv(258)) {
+				
+			}
+		break;
+		case 50359://259铁沙掌
+			if (getskilllv(259)) {
+				
+			}
+		break;
+		case 50360://260运气调息
+			if (getskilllv(260)) {
+				
+			}
+		break;
+		case 50361://261蓄气
+			if (getskilllv(261)) {
+				
+			}
+		break;
+		case 50362://262吸气
+			if (getskilllv(262)) {
+				
+			}
+		break;
+		case 50363://263六合拳
+			if (getskilllv(263)) {
+				
+			}
+		break;
+		case 50364://264弓身弹影
+			if (getskilllv(264)) {
+				
+			}
+		break;
+		case 50365://265移花接木
+			if (getskilllv(265)) {
+				
+			}
+		break;
+		case 50366://266浸透劲
+			if (getskilllv(266)) {
+				
+			}
+		break;
+		case 50367://267弹指神通
+			if (getskilllv(267)) {
+				
+			}
+		break;
+		case 50368://268金刚不坏
+			if (getskilllv(268)) {
+				
+			}
+		break;
+		case 50369://269真剑百破道
+			if (getskilllv(269)) {
+				
+			}
+		break;
+		case 50370://270爆气
+			if (getskilllv(270)) {
+				
+			}
+		break;
+		case 50371://271阿修罗霸凰拳
+			if (getskilllv(271)) {
+				
+			}
+		break;
+		case 50372://272连环全身掌
+			if (getskilllv(272)) {
+				
+			}
+		break;
+		case 50373://273猛龙夸强
+			if (getskilllv(273)) {
+				
+			}
+		break;
+		case 50374://274进化之书
+			if (getskilllv(274)) {
+				
+			}
+		break;
+		case 50375://275取消施法
+			if (getskilllv(275)) {
+				
+			}
+		break;
+		case 50376://276魔法惩罚
+			if (getskilllv(276)) {
+				
+			}
+		break;
+		case 50377://277念咒拆除
+			if (getskilllv(277)) {
+				
+			}
+		break;
+		case 50378://278自由施法
+			if (getskilllv(278)) {
+				
+			}
+		break;
+		case 50379://279自动念咒
+			if (getskilllv(279)) {
+				
+			}
+		break;
+		case 50380://280火焰属性附加
+			if (getskilllv(280)) {
+				
+			}
+		break;
+		case 50381://281水属性附加
+			if (getskilllv(281)) {
+				
+			}
+		break;
+		case 50382://282风属性附加
+			if (getskilllv(282)) {
+				
+			}
+		break;
+		case 50383://283地属性附加
+			if (getskilllv(283)) {
+				
+			}
+		break;
+		case 50384://284龙知识
+			if (getskilllv(284)) {
+				
+			}
+		break;
+		case 50385://285火元素领域
+			if (getskilllv(285)) {
+				
+			}
+		break;
+		case 50386://286水元素领域
+			if (getskilllv(286)) {
+				
+			}
+		break;
+		case 50387://287风元素领域
+			if (getskilllv(287)) {
+				
+			}
+		break;
+		case 50388://288地元素领域
+			if (getskilllv(288)) {
+				
+			}
+		break;
+		case 50389://289魔法效果解除
+			if (getskilllv(289)) {
+				
+			}
+		break;
+		case 50390://290随机技能
+			if (getskilllv(290)) {
+				
+			}
+		break;
+		case 50391://291变换成波利
+			if (getskilllv(291)) {
+				
+			}
+		break;
+		case 50392://292变换成Boss级魔物
+			if (getskilllv(292)) {
+				
+			}
+		break;
+		case 50393://293
+			if (getskilllv(293)) {
+				
+			}
+		break;
+		case 50394://294
+			if (getskilllv(294)) {
+				
+			}
+		break;
+		case 50404://304临机应变
+			if (getskilllv(304)) {
+				
+			}
+		break;
+		case 50405://305安可
+			if (getskilllv(305)) {
+				
+			}
+		break;
+		case 50406://306摇篮曲
+			if (getskilllv(306)) {
+				
+			}
+		break;
+		case 50407://307经验值倍增
+			if (getskilllv(307)) {
+				
+			}
+		break;
+		case 50408://308永远的混沌
+			if (getskilllv(308)) {
+				
+			}
+		break;
+		case 50409://309战鼓震天
+			if (getskilllv(309)) {
+				
+			}
+		break;
+		case 50410://310尼贝隆根之戒指
+			if (getskilllv(310)) {
+				
+			}
+		break;
+		case 50411://311洛奇的悲鸣
+			if (getskilllv(311)) {
+				
+			}
+		break;
+		case 50412://312触媒之所
+			if (getskilllv(312)) {
+				
+			}
+		break;
+		case 50413://313不死神齐格弗里德
+			if (getskilllv(313)) {
+				
+			}
+		break;
+		case 50414://314
+			if (getskilllv(314)) {
+				
+			}
+		break;
+		case 50415://315操控乐器
+			if (getskilllv(315)) {
+				
+			}
+		break;
+		case 50416://316乐器攻击
+			if (getskilllv(316)) {
+				
+			}
+		break;
+		case 50417://317不谐和音
+			if (getskilllv(317)) {
+				
+			}
+		break;
+		case 50418://318冷笑话
+			if (getskilllv(318)) {
+				
+			}
+		break;
+		case 50419://319吹口哨
+			if (getskilllv(319)) {
+				
+			}
+		break;
+		case 50420://320刺客的黄昏
+			if (getskilllv(320)) {
+				
+			}
+		break;
+		case 50421://321布莱奇之诗
+			if (getskilllv(321)) {
+				
+			}
+		break;
+		case 50422://322伊登的苹果
+			if (getskilllv(322)) {
+				
+			}
+		break;
+		case 50423://323练习舞蹈
+			if (getskilllv(323)) {
+				
+			}
+		break;
+		case 50424://324缠箭投掷
+			if (getskilllv(324)) {
+				
+			}
+		break;
+		case 50425://325丑陋之舞
+			if (getskilllv(325)) {
+				
+			}
+		break;
+		case 50426://326惊声尖叫
+			if (getskilllv(326)) {
+				
+			}
+		break;
+		case 50427://327哼唱之音
+			if (getskilllv(327)) {
+				
+			}
+		break;
+		case 50428://328勿忘我
+			if (getskilllv(328)) {
+				
+			}
+		break;
+		case 50429://329女神之吻
+			if (getskilllv(329)) {
+				
+			}
+		break;
+		case 50430://330为您服务
+			if (getskilllv(330)) {
+				
+			}
+		break;
+		case 50431://331
+			if (getskilllv(331)) {
+				
+			}
+		break;
+		case 50432://332
+			if (getskilllv(332)) {
+				
+			}
+		break;
+		case 50433://333
+			if (getskilllv(333)) {
+				
+			}
+		break;
+		case 50434://334只呵护妳
+			if (getskilllv(334)) {
+				
+			}
+		break;
+		case 50435://335只为你牺牲
+			if (getskilllv(335)) {
+				
+			}
+		break;
+		case 50436://336想念你
+			if (getskilllv(336)) {
+				
+			}
+		break;
+		case 50455://355灵气剑
+			if (getskilllv(355)) {
+				
+			}
+		break;
+		case 50456://356双剑挌挡
+			if (getskilllv(356)) {
+				
+			}
+		break;
+		case 50457://357
+			if (getskilllv(357)) {
+				
+			}
+		break;
+		case 50458://358
+			if (getskilllv(358)) {
+				
+			}
+		break;
 		default:
+
 		break;
 		}
 	}
