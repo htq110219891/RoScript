@@ -320,8 +320,235 @@ OnPCStatCalcEvent:
 				bonus bRestartFullRecover,n;
 			}
 		break;
-		case 50156:
-			//55长矛使用熟练度
+		case 50156://55长矛使用熟练度
+			if (getskilllv(55)) {
+			
+			}
+		break;
+		case 50157://56连刺攻击
+			if (getskilllv(56)) {
+			
+			}
+		break;
+		case 50158://57骑乘攻击
+			if (getskilllv(57)) {
+			
+			}
+		break;
+		case 50159://58长矛刺击
+			if (getskilllv(58)) {
+			
+			}
+		break;
+		case 50160://59投掷长矛攻击
+			if (getskilllv(59)) {
+			
+			}
+		break;
+		case 50161://60双手剑攻击速度增加
+			if (getskilllv(60)) {
+			
+			}
+		break;
+		case 50162://61反击
+			if (getskilllv(61)) {
+			
+			}
+		break;
+		case 50163://62怪物互击
+			if (getskilllv(62)) {
+			
+			}
+		break;
+		case 50164://63骑乘术
+			if (getskilllv(63)) {
+			
+			}
+		break;
+		case 50165://64骑兵修练
+			if (getskilllv(64)) {
+			
+			}
+		break;
+		case 50166://65权杖使用熟练度
+			if (getskilllv(65)) {
+			
+			}
+		break;
+		case 50167://66神威祈福
+			if (getskilllv(66)) {
+			
+			}
+		break;
+		case 50168://67牺牲祈福
+			if (getskilllv(67)) {
+			
+			}
+		break;
+		case 50169://68撒水祈福
+			if (getskilllv(68)) {
+			
+			}
+		break;
+		case 50170://69圣之祈福
+			if (getskilllv(69)) {
+			
+			}
+		break;
+		case 50171://70光耀之堂
+			if (getskilllv(70)) {
+			
+			}
+		break;
+		case 50172://71缓毒术
+			if (getskilllv(71)) {
+			
+			}
+		break;
+		case 50173://72痊愈术
+			if (getskilllv(72)) {
+			
+			}
+		break;
+		case 50174://73霸邪之阵
+			if (getskilllv(73)) {
+			
+			}
+		break;
+		case 50175://74圣母之颂歌
+			if (getskilllv(74)) {
+			
+			}
+		break;
+		case 50176://75幸运之颂歌
+			if (getskilllv(75)) {
+			
+			}
+		break;
+		case 50177://76沉默之术
+			if (getskilllv(76)) {
+			
+			}
+		break;
+		case 50178://77转生术
+			if (getskilllv(77)) {
+			
+			}
+		break;
+		case 50179://78天使之怒
+			if (getskilllv(78)) {
+			
+			}
+		break;
+		case 50180://79十字驱魔攻击
+			if (getskilllv(79)) {
+			
+			}
+		break;
+		case 50181://80火柱攻击
+			if (getskilllv(80)) {
+			
+			}
+		break;
+		case 50182://81火之猎杀
+			if (getskilllv(81)) {
+			
+			}
+		break;
+		case 50183://82陨石术
+			if (getskilllv(82)) {
+				
+			}
+		break;
+		case 50184://83
+			if (getskilllv(83)) {
+				
+			}
+		break;
+		case 50185://84雷鸣术
+			if (getskilllv(84)) {
+				
+			}
+		break;
+		case 50186://85怒雷强击
+			if (getskilllv(85)) {
+				
+			}
+		break;
+		case 50187://86水球术
+			if (getskilllv(86)) {
+				
+			}
+		break;
+		case 50188://87冰刃之墙
+			if (getskilllv(87)) {
+				
+			}
+		break;
+		case 50189://88霜冻之术
+			if (getskilllv(88)) {
+				
+			}
+		break;
+		case 50190://89暴风雪
+			if (getskilllv(89)) {
+				
+			}
+		break;
+		case 50191://90地震术
+			if (getskilllv(90)) {
+				
+			}
+		break;
+		case 50192://91崩裂术
+			if (getskilllv(91)) {
+				
+			}
+		break;
+		case 50193://92泥沼地
+			if (getskilllv(92)) {
+				
+			}
+		break;
+		case 50194://93怪物情报
+			if (getskilllv(93)) {
+				
+			}
+		break;
+		case 50195://94铁制造
+			if (getskilllv(94)) {
+				
+			}
+		break;
+		case 50196://95钢制造
+			if (getskilllv(95)) {
+				
+			}
+		break;
+		case 50197://96属性石制造
+			if (getskilllv(96)) {
+				
+			}
+		break;
+		case 50198://97神之金属研究
+			if (getskilllv(97)) {
+				
+			}
+		break;
+		case 50199://98短剑制作
+			if (getskilllv(98)) {
+				
+			}
+		break;
+		case 50200://99剑制作
+			if (getskilllv(99)) {
+				
+			}
+		break;
+		case 50201://100双手剑制作
+			if (getskilllv(100)) {
+				
+			}
 		break;
 		default:
 		break;
