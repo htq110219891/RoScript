@@ -1,0 +1,2789 @@
+//===== Hercules Script ====================================== 
+//= End of Morroc Instance 'Episode 14.3'  (jRO Servers)
+//===== By: ================================================== 
+//= pengc2010
+//===== Current Version: ===================================== 
+//= 1.3 (Chinese version)
+//===== Compatible With: ===================================== 
+//= Hercules
+//===== Additional Comments: ================================= 
+//= [jRO Playing Conversion]
+//= Translated to Chinese [pengc2010]
+//= 1.0 First Version [pengc2010]
+//= 1.1 Implemented special skills for MVPs [pengc2010]
+//= 1.2 Clean up redundant code [pengc2010]
+//= 1.3 Fixed some bugs related to special skills [pengc2010]
+//============================================================
+1@eom	mapflag	src4instance
+
+//----------------------------------------------------------------------
+//	End of Morocc
+//----------------------------------------------------------------------
+
+
+//----------------------------------------------------------------------
+//	Entrance
+//----------------------------------------------------------------------
+
+
+moro_cav,41,73,4	script	守护者 尼德霍格#epeo	510,{
+	.@party_id = getcharid(1);
+	.@md_name$ = "魔神殿";
+  if(questprogress(7597)) {
+		cutin "EP14_NYD01", 2;
+		mes "[尼德霍格]";
+		mes "终于打败了梦罗克，";
+		mes "请快去向司令官报告吧。";
+		close2;
+		warp "moro_vol",114,90; 
+		cutin "",255;
+		end;		
+	}
+	if(!questprogress(7593)) { 
+		cutin "EP14_NYD01", 2;
+		mes "[尼德霍格]";
+		mes "对不起，冒险者";
+		mes "没有讨伐部队司令官的允许，我不能让你参加魔神梦罗克的讨伐";
+		next;
+		mes "[尼德霍格]";
+		mes "如果要申请参加讨伐队，就请去找司令官西帕 阿希夫吧。";
+		close2;
+		warp "moro_vol",114,90;
+		cutin "",255;
+		end;		
+	}
+	if (!.@party_id) {
+		mes "[尼德霍格]";
+		mes "魔神的讨伐十分危险，先组成队伍再来吧。";
+		close2;
+		cutin "",255;
+		end;
+	}
+	if (getcharid(0) != getpartyleader(.@party_id,2)) {
+		mes "[尼德霍格]";
+		mes "为了整个讨伐队的安全，我要和你们队长先谈谈。";
+		close2;
+		cutin "",255;
+		end;
+	}
+	if (has_instance("1@eom") != "") {
+		mes "[尼德霍格]";
+		mes "...我只能维持很短一段时间，";
+		mes "接下来通过旁边的大树进入深层就行了。";
+		mes "我会与你们一起同行的，请不要害怕。";
+		cutin "ep14_nyd04.bmp", 2;
+		close2;
+		cutin "ep14_nyd04.bmp", 255;
+		end;
+	}
+	mes "[尼德霍格]";
+	mes "你们来了？";
+	mes "梦罗克正在深处。";
+	cutin "ep14_nyd04", 2;
+	next;
+	mes "[尼德霍格]";
+	mes "这大树真像世界树啊。";
+	mes "梦罗克果然隐藏在这里。";
+	cutin "ep14_nyd03.bmp", 2;
+	next;
+	mes "[尼德霍格]";
+	mes "这里的魔力流动很强。";
+	mes "每次打开通路后，都有很长一段时间无法再次进入，需要等待魔力安定下来。";
+	mes "如果你们准备好了就告诉我。";
+	mes "我会为你们打开通往洞穴深层的通路。";
+	cutin "ep14_nyd04.bmp", 2;
+	next;
+	if(select("我们已经准备好了:还需要再准备") == 2) {
+		cutin "ep14_nyd04.bmp", 2;
+		mes "[尼德霍格]";
+		mes "明白了，讨伐之前一定要做好完全的准备。";
+		mes "我们还有很多时间，你们不需要着急。";
+		mes "我会在这里等你们的。";
+		close2;
+		cutin "", 255;
+		end;
+	}
+	mes "[尼德霍格]";
+	mes "队伍名称 "+getpartyname(.@party_id)+"...";
+	mes "队    长 "+strcharinfo(0)+"...";
+	.@instance = instance_create(.@md_name$, .@party_id);
+	if (.@instance < 0) {
+			mes "嗯...";
+			next;
+			mes "[尼德霍格]";
+			if (!.@playtime)
+				mes "魔力好像不受我控制了。";
+			else
+				mes "里面的动静有些奇怪。";
+			mes "...晚一些再来吧。";
+			close2;
+			cutin "", 255;
+			end;
+	}
+	if (instance_attachmap("1@eom",.@instance) != "") {
+		instance_set_timeout 10800,300,.@instance;
+		instance_init(.@instance);
+		mes "好了，我已经为你们打开通路了。";
+		next;
+		mes "[尼德霍格]";
+		mes "...我只能维持很短一段时间，";
+		mes "接下来通过大树进入深层就行了。";
+		mes "我会与你们一起同行的，请不要害怕。";
+		cutin "ep14_nyd04.bmp", 2;
+		close2;
+		cutin "ep14_nyd04.bmp", 255;
+		end;
+	} else {
+		instance_destroy(.@instance);
+		mes "副本创建失败！";
+		close2;
+		cutin "ep14_nyd04.bmp", 255;
+		end;
+	}
+}
+
+moro_cav,45,75,0	script	伪世界树#eom_gate	844,{/* 65387 */
+	.@party_id = getcharid(1);
+  if(questprogress(7597)) {
+		cutin "EP14_NYD01", 2;
+		mes "[尼德霍格]";
+		mes "终于打败了梦罗克，";
+		mes "请快去向司令官报告吧。";
+		close2;
+		cutin "",255;
+		end;		
+	}
+	if(!questprogress(7593)) { 
+		cutin "EP14_NYD01", 2;
+		mes "[尼德霍格]";
+		mes "对不起，冒险者";
+		mes "没有讨伐部队司令官的允许，我不能让你参加魔神梦罗克的讨伐";
+		next;
+		mes "[尼德霍格]";
+		mes "如果要申请参加讨伐队，就请去找司令官西帕 阿希夫吧。";
+		close2;
+		cutin "",255;
+		end;		
+	}
+	mes "- 将手放在树干上，你能感受到魔力充盈自己的身体 -";
+	next;
+	if(select("进入深层:放弃") == 2) {
+		cutin "ep14_nyd04", 2;
+		mes "[尼德霍格]";
+		mes "你们还没准备好进入么？";
+		mes "还有很多时间，不需要着急。";
+		mes "我会在这里等你们的。";
+		close2;
+		cutin "", 255;
+		end;
+	}
+	if (!.@party_id) {
+    cutin "ep14_nyd01", 2;
+		mes "[尼德霍格]";
+		mes "魔神的讨伐十分危险，先组成队伍再来吧。";
+		close2;
+		cutin "",255;
+		end;
+	}
+	.@map$ = has_instance("1@eom");
+	if (.@map$ == "") {
+		.@count = callfunc("MD_IPcheck",.@map$,getcharid(1),getcharip());
+		if(.@count > 3) {
+			mes "- 对不起，你已经有多个账号进入了副本。 -";
+			close2;
+			cutin "",255;
+			end;
+		}
+		cutin "ep14_nyd01", 2;
+    mes "[尼德霍格]";
+    mes "你们是讨伐队的成员？";
+    mes "先过来找我吧，我会为你们打开前往魔王梦罗克所在地的通路";
+    close2;
+    cutin "", 255;
+    end;
+	} else {
+		mapannounce "moro_cav",getpartyname(getcharid(1))+"小队成员 "+strcharinfo(0)+" 进入副本魔神殿。",bc_map,"0x00ff99"; //FW_NORMAL 12 0 0
+		if(!questprogress(56435)) setquest 56435; //state=1
+		if(!questprogress(7596)) setquest 7596;
+		warp "1@eom",101,16;
+		close;
+	}
+}
+
+//----------------------------------------------------------------------
+//	Inside instance, 1st part
+//----------------------------------------------------------------------
+1@eom,1,1,0	script	callmon#eom1	139,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("callmon#eom1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("callmon#eom1");
+	initnpctimer;
+	set .@mdmap$,instance_mapname("1@eom");
+	set .@event1$,instance_npcname("callmon#eom1")+"::OnKilled1";
+	set .@event2$,instance_npcname("callmon#eom1")+"::OnKilled2";
+	monster .@mdmap$,102,30,"魔神的使徒 阿哈特",3105,1,.@event1$;
+	specialeffect3 EF_REDLIGHTBODY,$@mobid[0];
+	monster .@mdmap$,98, 30,"魔神的分身",1922,1,.@event2$;
+	monster .@mdmap$,100, 30,"魔神的分身",1922,1,.@event2$;
+	monster .@mdmap$,104, 30,"魔神的分身",1922,1,.@event2$;
+	monster .@mdmap$,106, 30,"魔神的分身",1922,1,.@event2$;
+	monster .@mdmap$,102,40,"魔神的使徒 塞拉姆",3106,1,.@event1$;
+	specialeffect3 EF_REDLIGHTBODY,$@mobid[0];
+	monster .@mdmap$,98, 40,"魔神的分身",1925,1,.@event2$;
+	monster .@mdmap$,100, 40,"魔神的分身",1925,1,.@event2$;
+	monster .@mdmap$,104, 40,"魔神的分身",1925,1,.@event2$;
+	monster .@mdmap$,106, 40,"魔神的分身",1925,1,.@event2$;
+	end;
+OnTimer3000:
+	announce "阿哈特：想进入的话，先打倒我和塞拉姆吧。", 0x9, 0x00ff00;
+	end;
+OnTimer6000:
+	stopnpctimer;
+	announce "阿哈特：让我看看你们有没有见到我主人的实力！", 0x9, 0x00ff00;
+	end;
+OnKilled1:
+	.@map$ = instance_mapname("1@eom");
+	if(mobcount(.@map$,instance_npcname("callmon#eom1")+ "::OnKilled1") <= 0) {
+		announce "阿哈特：你...你赢了...", 0x9, 0x00ff00;
+		donpcevent instance_npcname("魔神的使徒 阿哈特#ah02")+"::OnEnable";
+	}
+	end;
+OnKilled2:
+	end;
+}
+
+1@eom,101,43,3	script	魔神的使徒 阿哈特#ahat	493,{/* 61682 */
+	.@party_id = getcharid(1);
+	if(Sex)
+		cutin "ep13_ahat_f", 2;
+	else
+		cutin "ep13_ahat_m", 2;
+	if (getcharid(0) != getpartyleader(.@party_id,2)) {
+				mes "[阿哈特]";
+				mes "你们这群人真的很烦人，还真的追到这里来了。";
+				next;
+				mes "[阿哈特]";
+				mes "你们的队长呢，魔王梦罗克派我来迎接他。";
+				close;
+	}
+	mes "[阿哈特]";
+	mes "你们这群人真的很烦人，还真的追到这里来了。";
+	npctalk "你们这群人真的很烦人，还真的追到这里来了。";
+	next;
+	mes "[阿哈特]";
+	mes "呵呵呵...";
+	mes "你们看起来很吃惊，一点都没预料到我会在这里吧？";
+	npctalk "呵呵呵...你们看起来很吃惊，一点都没预料到我会在这里吧？";
+	next;
+	mes "[阿哈特]";
+	mes "重新自我介绍一下吧。";
+	mes "我是魔神梦罗克最初的门徒，阿哈特。";
+	npctalk "重新自我介绍一下吧。我是魔神梦罗克最初的门徒，阿哈特。";
+	next;
+	mes "[阿哈特]";
+	mes "我的主人派我和塞拉姆过来，";
+	mes "检验客人们是否有觐见他的实力。";
+	npctalk "我的主人派我和塞拉姆过来，检验客人们是否有觐见他的实力。";
+	next;
+	mes "[阿哈特]";
+	mes "你们真觉得靠自己的力量能来到这？";
+	npctalk "你们真觉得靠自己的力量能来到这？";
+	next;
+	mes "[阿哈特]";
+	mes "这一切都是主人的安排，";
+	mes "首先来试试你们能不能过了我这关吧！";
+	npctalk "这一切都是主人的安排，首先来试试你们能不能过了我这关吧！";
+	close2;
+	cutin "", 255;
+	donpcevent instance_npcname("魔神的使徒 阿哈特#ahat")+"::OnDisable2";
+	end;
+	
+	OnInstanceInit:
+		donpcevent instance_npcname("魔神的使徒 阿哈特#ahat")+"::OnEnable";
+		end;
+	OnDisable:
+		hideonnpc instance_npcname("魔神的使徒 阿哈特#ahat");
+		end;
+	
+	OnDisable2:
+		mapwarp instance_mapname("1@eom"),instance_mapname("1@eom"),103,16;
+		hideonnpc instance_npcname("魔神的使徒 阿哈特#ahat");
+		donpcevent instance_npcname("callmon#eom1")+"::OnEnable";
+		end;
+	OnEnable:
+		hideoffnpc instance_npcname("魔神的使徒 阿哈特#ahat");
+		end;
+}
+
+1@eom,101,56,3	script	魔神的使徒 阿哈特#ah02	493,{/* 61684 */
+	.@party_id = getcharid(1);
+	if(Sex)
+		cutin "ep13_ahat_f", 2;
+	else
+		cutin "ep13_ahat_m", 2;
+		if (getcharid(0) != getpartyleader(.@party_id,2)) {
+				mes "[阿哈特]";
+				mes "呃...哈..哈哈...啊哈哈哈！";
+				mes "不愧是主人在意的家伙，我输了...";
+				next;
+				mes "[阿哈特]";
+				mes "让...你们的队长过来...";
+				close;
+	}
+	mes "[阿哈特]";
+	mes "呃...哈..哈哈...啊哈哈哈！";
+	mes "不愧是主人在意的家伙，我输了...";
+	npctalk "呃...哈..哈哈...啊哈哈哈！不愧是主人在意的家伙，我输了...";
+	next;
+	mes "[阿哈特]";
+	mes "看起来，我的任务也就到此结束了...";
+	npctalk "看起来，我的任务也就到此结束了...";
+	next;
+	mes "[阿哈特]";
+	mes "你们已经通过考验了，把我们的魂放入前面的容器内...";
+	mes "等待着你们的只是绝望...";
+	npctalk "你们已经通过考验了，把我们的魂放入前面的容器内...接下来就看主人的心情了...";
+	getitem 6713,1;
+	getitem 6714,1;
+	close2;
+	cutin "", 255;
+	donpcevent instance_npcname("魔神的使徒 阿哈特#ah02")+"::OnDisable";
+	donpcevent instance_npcname("空的灵魂容器#sh")+"::OnEnable";
+	donpcevent instance_npcname("空的灵魂容器#ah")+"::OnEnable";
+	end;
+	
+	OnInstanceInit:
+	OnDisable:
+		hideonnpc instance_npcname("魔神的使徒 阿哈特#ah02");
+		end;
+
+	OnEnable:
+		hideoffnpc instance_npcname("魔神的使徒 阿哈特#ah02");
+		end;
+}
+
+
+1@eom,98,56,0	script	空的灵魂容器#sh	844,{/* 61685 */
+	if(countitem(6714) < 1) {
+		mes "‐必须要注入塞拉姆的灵魂，才能打开中央大门。";
+		close;
+	}
+	mes "‐空的灵魂容器";
+	mes "　注入塞拉姆的灵魂 -";
+	next;
+	specialeffect 72;
+	progressbar "00ff00", 4;
+	delitem 6714, 1;
+	specialeffect 6;
+	donpcevent instance_npcname("空的灵魂容器#sh")+"::OnDisable"; 
+	donpcevent instance_npcname("满溢的灵魂容器#sh")+"::OnEnable"; 
+	specialeffect 6;
+	specialeffect 202;
+	donpcevent instance_npcname("#gate_to_center")+ "::OnStartSH";
+	mes "‐充满了灵魂容器‐";
+	close;
+
+	OnInstanceInit:
+	OnDisable:
+		hideonnpc instance_npcname("空的灵魂容器#sh");
+		end;
+
+	OnEnable:
+		hideoffnpc instance_npcname("空的灵魂容器#sh");
+		specialeffect 231;
+		end;
+
+}
+1@eom,98,56,0	script	满溢的灵魂容器#sh	844,{
+	end;
+	OnInstanceInit:
+	OnDisable:
+		hideonnpc instance_npcname("满溢的灵魂容器#sh");
+		end;
+	OnEnable:
+		hideoffnpc instance_npcname("满溢的灵魂容器#sh");
+		specialeffect 260;
+		end;
+}
+
+
+1@eom,104,56,0	script	空的灵魂容器#ah	844,{/* 61687 */
+	if(countitem(6713) < 1) {
+		mes "‐必须要注入阿哈特的灵魂，才能打开中央大门。";
+		close;
+	}
+	mes "‐空的灵魂容器";
+	mes "　注入阿哈特的灵魂 -";
+	next;
+	specialeffect 72;
+	progressbar "00ff00", 4;
+	delitem 6713, 1;
+	specialeffect 6;
+	donpcevent instance_npcname("空的灵魂容器#ah")+"::OnDisable";
+	donpcevent instance_npcname("满溢的灵魂容器#ah")+"::OnEnable";
+	specialeffect 6;
+	specialeffect 202;
+	donpcevent instance_npcname("#gate_to_center")+ "::OnStartAH";
+	mes "‐充满了灵魂容器‐";
+	close;
+	
+	OnInstanceInit:
+	OnDisable:
+		hideonnpc instance_npcname("空的灵魂容器#ah");
+		end;
+
+	OnEnable:
+		hideoffnpc instance_npcname("空的灵魂容器#ah");
+		specialeffect 231;
+		end;
+}
+1@eom,104,56,0	script	满溢的灵魂容器#ah	844,{
+	end;
+	OnInstanceInit:
+	OnDisable:
+		hideonnpc instance_npcname("满溢的灵魂容器#ah");
+		end;
+	OnEnable:
+		hideoffnpc instance_npcname("满溢的灵魂容器#ah");
+		specialeffect 260;
+		end;
+}
+
+
+
+1@eom,101,60,0	script	#gate_to_center	139,2,2,{
+  end;
+OnInstanceInit:
+	'flag = 0;
+OnDisable:
+	disablenpc instance_npcname("#gate_to_center");
+	end;
+OnEnable:
+	specialeffect 231;
+	specialeffect 202;
+	mapannounce instance_mapname("1@eom"), "当阿哈特和塞拉姆的灵魂都注入容器之后，魔神殿的入口打开了。",bc_map,"0xFFFFFF";
+	enablenpc instance_npcname("从未见过的少年#mockid01");
+	enablenpc instance_npcname("#gate_to_center");
+	end;
+OnTouch:
+	if(questprogress(7596)) erasequest 7596;
+	warp instance_mapname("1@eom"),98,115; //61689
+	end;
+OnStartSH:
+	if(!'flag) {
+		set 'flag,1;
+		end;
+	}
+	donpcevent instance_npcname(strnpcinfo(0))+"::OnEnable";
+	end;
+OnStartAH:
+	if(!'flag) {
+		set 'flag,1;
+		end;
+	}
+	donpcevent instance_npcname(strnpcinfo(0))+"::OnEnable";
+	end;
+}
+
+
+//----------------------------------------------------------------------
+//	Inside instance, 2nd part
+//----------------------------------------------------------------------
+
+1@eom,100,122,3	script	从未见过的少年#mockid01	10038,{
+	.@party_id = getcharid(1);
+	cutin "morocc_kid", 2;
+	if (getcharid(0) != getpartyleader(.@party_id,2)) {
+		mes "[少年]";
+		mes "你们的队长呢？";
+		close2;
+		cutin "", 255;
+		end;
+	}
+	mes "[少年]";
+	mes "欢迎来到...";
+	mes "呃，这是哪？这个房间是...";
+	mes "我也不知道...";
+	announce "少年 : 欢迎来到...呃，这是哪？这个房间是...我也不知道...", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	next;
+	mes "["+strcharinfo(0)+"]";
+	mes "你是谁？怎么会在这里？";
+	unittalk getcharid(3),"你是谁？怎么会在这里？";
+	next;
+	mes "[少年]";
+	mes "啊？我是谁...";
+	announce "少年 : 啊？我是谁...", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	next;
+	mes "[少年]";
+	mes "啊哈哈，对了！";
+	mes "你们知道我的过去吧。";
+	announce "少年 : 啊哈哈，对了！你们知道我的过去吧。", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	next;
+	mes "[少年]";
+	mes "对不起，让你们困惑了。";
+	mes "我就是你们追到这里来的理由哦。";
+	announce "少年 : 对不起，让你们困惑了。我就是你们追到这里来的理由哦。", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	next;
+	mes "[梦罗克]";
+	mes "...对，我就是梦罗克。";
+	announce "梦罗克 : ...对，我就是梦罗克。", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	next;
+	mes "[梦罗克]";
+	mes "真没想到，能打败那2个人，来到这里。";
+	mes "明明我很信赖他们两个的。";
+	announce "梦罗克 : 真没想到，能打败那2个人，来到这里。明明我很信赖他们两个的。", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	next;
+	mes "[梦罗克]";
+	mes "为什么你们这群实力低下的冒险者要追到这里来？";
+	mes "除了送命以外你们应该还有其他可以做的事吧？";
+	announce "梦罗克 : 为什么你们这群实力低下的冒险者要追到这里来？除了送命以外你们应该还有其他可以做的事吧？", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	close2;
+	cutin "", 255;
+	donpcevent instance_npcname("从未见过的少年#mockid01")+ "::OnStart";
+	end;
+OnStart:
+	initnpctimer;
+	hideonnpc instance_npcname("从未见过的少年#mockid01");
+	hideoffnpc instance_npcname("从未见过的少年#f");
+	hideoffnpc instance_npcname("洛奇#eomloki01"); 
+	hideoffnpc instance_npcname("尼德霍格#eomnyd01"); 
+	end;
+OnTimer1000:
+	donpcevent instance_npcname("洛奇#eomloki01")+ "::OnTalk1";
+	end;
+OnTimer5000:
+	donpcevent instance_npcname("洛奇#eomloki01")+ "::OnTalk2";
+	end;
+OnTimer9000:
+	donpcevent instance_npcname("洛奇#eomloki01")+ "::OnTalk3";
+	end;
+OnTimer13000:
+	donpcevent instance_npcname("洛奇#eomloki01")+ "::OnTalk4";
+	end;
+OnTimer17000:
+	donpcevent instance_npcname("洛奇#eomloki01")+ "::OnTalk5";
+	end;
+OnTimer21000:
+	donpcevent instance_npcname("尼德霍格#eomnyd01")+ "::OnTalk1";
+	end;
+OnTimer25000:
+	donpcevent instance_npcname("尼德霍格#eomnyd01")+ "::OnTalk2";
+	end;
+OnTimer29000:
+	donpcevent instance_npcname("尼德霍格#eomnyd01")+ "::OnTalk3";
+	end;
+OnTimer33000:
+	announce "梦罗克 : 怎么这么快就翻脸了？我和你关系不是很好么？尼德霍格。", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	end;
+OnTimer37000:
+	announce "梦罗克 : 难道你忘记了，你曾经被我所蛊惑的事情？", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	end;
+OnTimer41000:
+	donpcevent instance_npcname("洛奇#eomloki01")+ "::OnTalk6";
+	end;
+OnTimer41500:
+	donpcevent instance_npcname("从未见过的少年#f")+"::OnBeingAtk";
+	end;
+OnTimer44000:
+	donpcevent instance_npcname("洛奇#eomloki01")+ "::OnTalk7";
+	end;
+OnTimer48000:
+	announce "梦罗克 : 咦？难道我没说过么？这是我创造的幻像，所以伤害不到我哦。", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	end;
+OnTimer52000:
+	announce "梦罗克 : 好不容易来了客人，我也不想这么快就结束你们。", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	end;
+OnTimer56000:
+	announce "梦罗克 : 对了！再给阿哈特和塞拉姆一次机会吧，你们觉得怎么样？", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	end;
+OnTimer60000:
+	announce "梦罗克 : 我就稍微牺牲点力量，创造两只魔兽吧。", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	end;
+OnTimer64000:
+	announce "梦罗克 : 再把阿哈特和塞拉姆的灵魂移植进去！啊哈哈，有趣吧？！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	end;
+OnTimer68000:
+	announce "梦罗克 : 我期待着哦，这出余兴节目。", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	end;
+OnTimer72000:
+	specialeffect 6;
+	end;
+OnTimer72500:
+	hideonnpc instance_npcname("从未见过的少年#f"); //82797
+	donpcevent instance_npcname("洛奇#eomloki01")+ "::OnTalk8";
+	end;
+OnTimer76000:
+	hideonnpc instance_npcname("洛奇#eomloki01");
+	end;
+OnTimer76500:
+  donpcevent instance_npcname("#gate_to_ice")+"::OnEnable"; //82801
+	end;
+OnTimer77000:
+	stopnpctimer;
+	disablenpc instance_npcname("从未见过的少年#mockid01");
+  donpcevent instance_npcname("#gate_to_ice")+"::OnMyEffect"; //82801
+	end;
+
+OnInstanceInit:
+OnDisable:
+  disablenpc instance_npcname("从未见过的少年#mockid01");
+  end;
+OnEnable:
+  enablenpc instance_npcname("从未见过的少年#mockid01");
+  end;
+}
+
+1@eom,100,122,3	script	从未见过的少年#f	10038,{
+	end;
+	OnInstanceInit:
+	OnDisable:
+		hideonnpc instance_npcname("从未见过的少年#f");
+		end;
+	OnBeingAtk:
+		specialeffect 17;
+		end;
+}
+
+1@eom,95,122,5	script	洛奇#eomloki01	512,{/* 61692 (hide)*/
+	cutin "ep14_roki01", 2;
+	mes "[洛奇]";
+	mes "...哼";
+	mes "这样的闹剧，趁早收场吧。";
+	close2;
+	cutin "", 255;
+	end;
+OnTalk1:
+	npctalk "哼哼，别让我发笑了！";
+	end;
+OnTalk2:
+	npctalk "这群冒险者是凭自己的力量，自己的意志来到这里的。";
+	end;
+OnTalk3:
+	npctalk "别在这妄自尊大了！";
+	end;
+OnTalk4:
+	npctalk "我们来的目的就是讨伐你。";
+	end;
+OnTalk5:
+	npctalk "这个世界，没有你容身的地方！";
+	end;
+OnTalk6:
+	npctalk "别胡言乱语了！";
+	end;
+OnTalk7:
+	npctalk "切...果然是幻像么。";
+	end;
+OnTalk8:
+	npctalk "逃跑了？！";
+	end;
+OnInstanceInit:
+OnDisable:
+  hideonnpc instance_npcname("洛奇#eomloki01");
+  end;
+}
+
+1@eom,94,120,5	script	尼德霍格#eomnyd01	510,{/* 61693 (hide)*/
+	cutin "ep14_nyd01", 2;
+	mes "[尼德霍格]";
+	mes "你们没事实在太好了...";
+	mes "虽然力量微薄，但从这开始请让我助你们一臂之力。";
+	close2;
+	skilleffect 28, 9999;
+	percentheal 100, 100;
+	cutin "", 255;
+	end;
+		
+OnTalk1:
+	npctalk "是的，你不属于这个世界...";
+	end;
+OnTalk2:
+	npctalk "世界树本身也否定了你的存在。";
+	end;
+OnTalk3:
+	npctalk "以世界树守护者之名，我要把你从这个世界中驱逐！！";
+	end;
+OnInstanceInit:
+OnDisable:
+  hideonnpc instance_npcname("尼德霍格#eomnyd01");
+  end;
+}
+
+1@eom,91,120,0	script	#gate_to_ice	139,1,2,{
+  end;
+  OnInstanceInit:
+  OnDisable:
+    disablenpc instance_npcname("#gate_to_ice");
+    end;
+  OnEnable:
+   	enablenpc instance_npcname("#gate_to_ice");
+    specialeffect 135;
+		donpcevent instance_npcname("eom_3rd_boss_enter")+"::OnEnable";
+    end;
+  OnMyEffect:
+    specialeffect 231;
+    end;
+  OnTouch:
+    if(!questprogress(56436)) setquest 56436;
+    warp instance_mapname("1@eom"),56,88;
+    end;
+}
+
+//----------------------------------------------------------------------
+//	Inside instance, 3rd part
+//----------------------------------------------------------------------
+
+
+1@eom,59,147,3	script	尼德霍格#eomnyd02	510,{
+	mes "[尼德霍格]";
+	mes "前方是灼热熔岩地带。";
+	mes "你最好先在这里从冰冷魔力的结晶上采集一些^ff0000冰霜精华^000000";
+	mes "应该会对接下来的战斗有所帮助。";
+	next;
+	mes "[尼德霍格]";
+	mes "无论怎么说，接下来的战斗都很艰难。";
+	mes "勇敢的冒险者们，请加油...";
+	skilleffect 28, 9999;
+	percentheal 100, 100;
+	close;
+	OnInstanceInit:
+  OnDisable:
+    disablenpc instance_npcname("尼德霍格#eomnyd02");
+    end;
+  OnEnable:
+		enablenpc instance_npcname("尼德霍格#eomnyd02");
+		end;
+}
+
+1@eom,38,129,5	script	布里拉妮亚#boss03	3091,{
+		end;
+  OnInstanceInit:
+  OnDisable:
+    disablenpc instance_npcname("布里拉妮亚#boss03");
+    end;
+    
+  OnStart:
+    enablenpc instance_npcname("布里拉妮亚#boss03");
+		initnpctimer;
+	  announce "布里拉妮亚 : 呵呵，又见面了呢？是我哦，塞拉姆。", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		end;
+
+	OnTimer5000:
+	  announce "布里拉妮亚 : 梦罗克大人所创造的身体...这个感觉...力量实在太强了！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	  end;
+
+	OnTimer10000:
+	  announce "布里拉妮亚 : 我的力量已经完全不同了！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	  end;
+
+	OnTimer15000:
+	  announce "布里拉妮亚 : 呵呵呵...这次我不会再让梦罗克大人失望，这就送你们去地狱！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	  end;
+	  
+	OnTimer20000:
+		stopnpctimer;
+	  announce "布里拉妮亚 : 快上吧，你们还在等什么？！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		sleep 1000;
+		specialeffect 225;
+		hideonnpc instance_npcname("布里拉妮亚#boss03");
+		donpcevent instance_npcname("#eommonster03") + "::OnSummon";
+	  end;
+}
+
+1@eom,38,129,0	script	eom_3rd_boss_enter	-1,12,12,{
+		end;
+	OnTouch_:
+		donpcevent instance_npcname("布里拉妮亚#boss03")+"::OnStart";
+		disablenpc instance_npcname("eom_3rd_boss_enter");
+		end;
+
+  OnInstanceInit:
+  OnDisable:
+    disablenpc instance_npcname("eom_3rd_boss_enter"); //COMMENT for test
+    end;
+  OnEnable:
+    enablenpc instance_npcname("eom_3rd_boss_enter");
+    end;
+}
+
+1@eom,0,0,0	script	#eommonster03	-1,{
+  OnInstanceInit:
+  OnDisable:
+		stopnpctimer;
+    disablenpc instance_npcname("#eommonster03");
+    end;
+
+  OnSummon:
+   	enablenpc instance_npcname("#eommonster03");
+		initnpctimer;
+		.@map$ = instance_mapname("1@eom");
+		.@label$ = instance_npcname("#eommonster03");
+		'BossID = monster(.@map$, 39, 117, "布里拉妮亚", 3091, 1, .@label$ + "::OnGuardDead");
+		end;
+
+	OnGuardDead:
+		stopnpctimer;
+		donpcevent instance_npcname("尼德霍格#eomnyd02")+"::OnEnable";
+		donpcevent instance_npcname("#ice_to_fire")+"::OnEnable";		
+		disablenpc instance_npcname("#eommonster03");
+		if(mobcount(instance_mapname("1@eom"), instance_npcname("#eommonster03") + "::OnKidDead"))
+			killmonster instance_mapname("1@eom"), instance_npcname("#eommonster03") + "::OnKidDead";
+		end;
+		
+	OnTimer15000:
+		initnpctimer;
+		.@random = rand(100);
+		if(.@random > 70 && mobcount(instance_mapname("1@eom"),instance_npcname("#eommonster03")+"::OnKidDead") < 4) {
+			unittalk 'BossID,"让你见见我的孩子们~";
+			sleep 1000;
+			getunitdata 'BossID,.@bossdata;
+			if(.@bossdata[2] > 3*.@bossdata[3]/4)	.@number = 2;
+			else if(.@bossdata[2] > .@bossdata[3]/2) .@number = 4;
+			else .@number = 6;
+			.@x = .@bossdata[6];
+			.@y = .@bossdata[7];
+			areamonster instance_mapname("1@eom"), .@x-5, .@y-5, .@x+5, .@y+5, "--ja--", 3088, .@number, instance_npcname("#eommonster03")+"::OnKidDead";
+		} else {
+			getunitdata 'BossID,.@bossdata;
+			.@x = .@bossdata[6];
+			.@y = .@bossdata[7];
+			monster instance_mapname("1@eom"),.@x,.@y,"--ja--",3093,1,instance_npcname("#eommonster03")+"::OnSkillunit";
+			.@id = $@mobid[0];
+			setunitdata .@id, 29, 1;
+			unitskilluseid .@id, 353, 1;
+			if(rand(1,100) > 50) {//pattern 1
+					unittalk 'BossID,"感受我的力量吧~！";
+					sleep 1000;
+					unitskillusepos .@id,85,10,.@x,.@y,1;
+					for(.@i = 0; .@i < 6; .@i ++) {
+						sleep 700;
+						unitskillusepos .@id,21,10,.@x+.@i+3,.@y+.@i+3,1;
+						unitskillusepos .@id,21,10,.@x-.@i-3,.@y-.@i-3,1;
+						unitskillusepos .@id,21,10,.@x-.@i-3,.@y+.@i+3,1;
+						unitskillusepos .@id,21,10,.@x+.@i+3,.@y-.@i-3,1;
+					}
+			}
+			else { //pattern 2
+					sleep 1000;
+					unitskillusepos .@id,21,10,.@x+6,.@y+6,1;
+					sleep 700;
+					unitskillusepos .@id,21,10,.@x-6,.@y-6,1;
+					sleep 700;
+					unitskillusepos .@id,21,10,.@x-6,.@y+6,1;
+					sleep 700;
+					unitskillusepos .@id,21,10,.@x+6,.@y-6,1;
+			}
+			sleep 1000;
+			killmonster instance_mapname("1@eom"),instance_npcname("#eommonster03") + "::OnSkillunit";
+		}
+		end;
+			
+	OnSkillunit:
+	OnKidDead:
+		end;
+}
+
+1@eom,67,149,0	script	#ice_to_fire	45,2,2,{
+	if(!questprogress(56437)) setquest 56437; //state=1
+	warp instance_mapname("1@eom"),136,93; //61705
+	end;
+	OnInstanceInit:
+  OnDisable:
+    disablenpc instance_npcname("#ice_to_fire");
+    end;
+  OnEnable:
+		enablenpc instance_npcname("#ice_to_fire");
+    donpcevent instance_npcname("洛奇#flamewolf")+"::OnEnable";
+    donpcevent instance_npcname("eom_4th_boss_enter")+"::OnEnable";
+    donpcevent instance_npcname("#center_to_fire")+"::OnEnable";
+		end;
+}
+
+1@eom,48,88,0	script	冰冷魔力的结晶#eom01	10043,{	
+  specialeffect EF_LEVEL99_4;
+	disablenpc instance_npcname(strnpcinfo(0));
+	getitem 22566,1; 
+	end;
+}
+1@eom,51,103,0	duplicate(冰冷魔力的结晶#eom01)	冰冷魔力的结晶#eom02	10043
+1@eom,24,109,0	duplicate(冰冷魔力的结晶#eom01)	冰冷魔力的结晶#eom03	10043
+1@eom,26,128,0	duplicate(冰冷魔力的结晶#eom01)	冰冷魔力的结晶#eom04	10043
+1@eom,40,140,0	duplicate(冰冷魔力的结晶#eom01)	冰冷魔力的结晶#eom05	10043
+1@eom,38,139,0	duplicate(冰冷魔力的结晶#eom01)	冰冷魔力的结晶#eom06	10043
+1@eom,51,149,0	duplicate(冰冷魔力的结晶#eom01)	冰冷魔力的结晶#eom07	10043
+1@eom,49,148,0	duplicate(冰冷魔力的结晶#eom01)	冰冷魔力的结晶#eom08	10043
+1@eom,27,100,0	duplicate(冰冷魔力的结晶#eom01)	冰冷魔力的结晶#eom09	10043
+1@eom,32,94,0	duplicate(冰冷魔力的结晶#eom01)	冰冷魔力的结晶#eom10	10043
+1@eom,60,140,0	duplicate(冰冷魔力的结晶#eom01)	冰冷魔力的结晶#eom11	10043
+1@eom,54,97,0	duplicate(冰冷魔力的结晶#eom01)	冰冷魔力的结晶#eom12	10043
+
+//----------------------------------------------------------------------
+//	Inside instance, 4th part
+//----------------------------------------------------------------------
+
+1@eom,105,120,0	script	#center_to_fire	139,1,2,{
+	warp instance_mapname("1@eom"),136,93;
+	end;
+	OnInstanceInit:
+  OnDisable:
+    disablenpc instance_npcname("#center_to_fire");
+    end;
+  OnEnable:
+		enablenpc instance_npcname("#center_to_fire");
+		end;
+}
+
+1@eom,148,100,0	script	#lokitouch	139,5,5,{
+	OnTouch_:
+		initnpctimer;
+		disablenpc instance_npcname("#lokitouch");
+		announce "洛奇 : 这是何等的炎热啊...感觉体力都要被耗尽了！", 0x9, 0x00ff00; 
+		end;
+	OnTimer3000:
+		announce "洛奇 : 旁边的熔岩看起来不太对劲...", 0x9, 0x00ff00; 
+		end;
+	OnTimer6000:
+		stopnpctimer;
+		announce "洛奇 : 如果对熔岩使用永久冰霜的话，也许就能阻止它们流动了！", 0x9, 0x00ff00; 
+		end;
+		
+	OnInstanceInit:
+	OnDisable:
+		disablenpc instance_npcname("#lokitouch");
+		end;
+}
+
+1@eom,148,100,3	script	洛奇#flamewolf	512,{
+	cutin "ep14_roki01", 2;
+	mes "[洛奇]";
+	mes "小心，前面是梦罗克所创造出的怪物...";
+	next;
+	mes "[洛奇]";
+	mes "看起来这只怪物能吸收岩浆治愈自己，必须想个办法阻止岩浆的流动！"; 
+	percentheal 100,100;
+	skilleffect 28, 9999;
+	close2;
+	cutin "", 255;
+	end;
+	
+  OnInstanceInit:
+  OnDisable:
+    disablenpc instance_npcname("洛奇#flamewolf");
+    end;
+  OnEnable:
+		enablenpc instance_npcname("#lokitouch");
+    enablenpc instance_npcname("洛奇#flamewolf");
+    end;
+}
+
+1@eom,168,133,0	script	eom_4th_boss_enter	-1,12,12,{
+OnTouch_:
+		donpcevent instance_npcname("穆斯贝尔斯科尔#04")+"::OnStart";
+		donpcevent instance_npcname("流动的熔岩#lavapond01")+"::OnEnable";
+		donpcevent instance_npcname("流动的熔岩#lavapond02")+"::OnEnable";
+		donpcevent instance_npcname("洛奇#flamewolf")+"::OnDisable";
+		disablenpc instance_npcname("eom_4th_boss_enter");
+		end;
+
+  OnInstanceInit:
+  OnDisable:
+    disablenpc instance_npcname("eom_4th_boss_enter"); //COMMENT for test
+    end;
+  OnEnable:
+    enablenpc instance_npcname("eom_4th_boss_enter");
+    end;
+}
+
+1@eom,168,133,4	script	穆斯贝尔斯科尔#04	3092,{
+		end;
+  OnInstanceInit:
+  OnDisable:
+    disablenpc instance_npcname("穆斯贝尔斯科尔#04");
+    end;
+    
+  OnStart:
+    enablenpc instance_npcname("穆斯贝尔斯科尔#04");
+		initnpctimer;
+		announce "火焰狼 : 终于等到你们了，我就是阿哈特。", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		end;
+
+	OnTimer5000:
+	  announce "火焰狼 : 真是要感谢你们消灭了我原来的肉身，现在我才能以这个形态复活！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	  end;
+
+	OnTimer10000:
+	  announce "火焰狼 : 可惜，我的主人要求我将你们送往地狱！只能让你们见识我新的力量了！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	  end;
+
+	OnTimer15000:
+	  announce "火焰狼 : 快上吧，让我给你们的命运画上休止符！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	  end;
+	  
+	OnTimer20000:
+		stopnpctimer;
+	  announce "火焰狼 : 灼热的熔岩啊，把一切都燃烧殆尽吧！！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		specialeffect 225;
+		hideonnpc instance_npcname("穆斯贝尔斯科尔#04");
+		sleep 1000;
+		donpcevent instance_npcname("#eommonster04") + "::OnSummon";
+	  end;
+}
+
+1@eom,0,0,0	script	#eommonster04	-1,{
+  OnInstanceInit:
+  OnDisable:
+		stopnpctimer;
+    disablenpc instance_npcname("#eommonster04");
+    end;
+  
+	OnGuardDead:
+		stopnpctimer;
+		donpcevent instance_npcname("流动的熔岩#lavapond01")+"::OnDisable";
+		donpcevent instance_npcname("凝固的熔岩#01")+"::OnDisable";
+		donpcevent instance_npcname("流动的熔岩#lavapond02")+"::OnDisable";
+		donpcevent instance_npcname("凝固的熔岩#02")+"::OnDisable";
+		donpcevent instance_npcname("洛奇#flameend")+"::OnEnable";
+		donpcevent instance_npcname("#fire_to_center")+"::OnEnable";
+		disablenpc instance_npcname("#eommonster04");
+		if(mobcount(instance_mapname("1@eom"), instance_npcname("#eommonster04") + "::OnKidDead"))
+			killmonster instance_mapname("1@eom"), instance_npcname("#eommonster04") + "::OnKidDead";
+		end;
+  
+  OnSummon:
+   	enablenpc instance_npcname("#eommonster04");
+		initnpctimer;
+		.@map$ = instance_mapname("1@eom");
+		.@label$ = instance_npcname("#eommonster04");
+		'BossID = monster(.@map$, 166, 127, "--ja--", 3092, 1, .@label$ + "::OnGuardDead");
+	  monster .@map$, 168, 127, "--ja--", 3089, 1;
+	  monster .@map$, 168, 129, "--ja--", 3089, 1;
+	  monster .@map$, 170, 128, "--ja--", 3089, 1;
+	  monster .@map$, 170, 130, "--ja--", 3089, 1;
+	  monster .@map$, 164, 128, "--ja--", 3089, 1;
+	  monster .@map$, 164, 130, "--ja--", 3089, 1;
+	  monster .@map$, 161, 127, "--ja--", 3089, 1;
+	  monster .@map$, 161, 129, "--ja--", 3089, 1;
+	  end;
+
+
+			
+	OnTimer15000:
+		initnpctimer;
+		.@random = rand(100);
+		if(.@random > 60) {
+			getunitdata 'BossID, .@bossdata;
+			monster instance_mapname("1@eom"),.@bossdata[6],.@bossdata[7],"--ja--",3094,1;
+			unitskilluseid $@mobid[0],173,5;
+		}
+		else if(.@random > 30 && mobcount(instance_mapname("1@eom"),instance_npcname("#eommonster04")+"::OnKidDead") < 4) {
+			unittalk 'BossID, "出来吧，我忠实的随从们！";
+			getunitdata 'BossID,.@bossdata;
+			if(.@bossdata[2] > 3*.@bossdata[3]/4)	.@number = 1;
+			else if(.@bossdata[2] > .@bossdata[3]/2) .@number = 2;
+			else .@number = 3;
+			.@x = .@bossdata[6];
+			.@y = .@bossdata[7];
+			areamonster instance_mapname("1@eom"), .@x-5, .@y-5, .@x+5, .@y+5, "--ja--", 3089, .@number, instance_npcname("#eommonster04")+"::OnKidDead";
+			areamonster instance_mapname("1@eom"), .@x-5, .@y-5, .@x+5, .@y+5, "--ja--", 3090, .@number, instance_npcname("#eommonster04")+"::OnKidDead";
+		} else {
+			unittalk 'BossID, "尝一尝灼热熔岩的滋味吧！";
+			sleep 1000;
+			getunitdata 'BossID, .@bossdata;
+			.@map$ = instance_mapname("1@eom");
+			.@label$ =instance_npcname("#eommonster04") + "::OnSkillunit";
+			setarray .@xarray[0], .@bossdata[6]+8, .@bossdata[6]-8, .@bossdata[6], .@bossdata[6];
+			setarray .@yarray[0], .@bossdata[7], .@bossdata[7], .@bossdata[7]+8, .@bossdata[7]-8;
+			monster .@map$,.@xarray[0],.@yarray[0],"--ja--",3094,1,.@label$;
+			.@id[0] = $@mobid[0];
+			setunitdata .@id[0],29,1;
+			unitskilluseid .@id[0], 353, 1;
+			monster .@map$,.@xarray[1],.@yarray[1],"--ja--",3094,1,.@label$;
+			.@id[1] = $@mobid[0];
+			setunitdata .@id[1],29,1;
+			unitskilluseid .@id[1], 353, 1;
+			monster .@map$,.@xarray[2],.@yarray[2],"--ja--",3094,1,.@label$;
+			.@id[2] = $@mobid[0];
+			setunitdata .@id[2],29,1;
+			unitskilluseid .@id[2], 353, 1;
+			monster .@map$,.@xarray[3],.@yarray[3],"--ja--",3094,1,.@label$;
+			.@id[3] = $@mobid[0];
+			setunitdata .@id[3],29,1;
+			unitskilluseid .@id[3], 353, 1;
+			monster instance_mapname("1@eom"),.@bossdata[6],.@bossdata[7],"--ja--",3094,1;
+			unitskilluseid $@mobid[0],173,5;
+					for(.@i = 0; .@i < 8; .@i ++) {
+						.@step = (.@i -2)*2;
+						sleep 300;
+						unitskillusepos .@id[0],18,10,.@xarray[0]+.@step,.@yarray[0],1;
+						unitskillusepos .@id[1],18,10,.@xarray[1]-.@step,.@yarray[1],1;
+						unitskillusepos .@id[2],18,10,.@xarray[2],.@yarray[2]+.@step,1;
+						unitskillusepos .@id[3],18,10,.@xarray[3],.@yarray[3]-.@step,1;
+					}
+			sleep 5000;
+			killmonster .@map$,.@label$;
+		}
+		end;
+				
+	OnSkillunit:
+	OnKidDead:
+		end;		
+}
+
+
+1@eom,154,119,0	script	流动的熔岩#lavapond01	844,{
+	if(countitem(22566) < 1) {
+		mes "- ^ff0000流动着的熔岩^000000 -";
+		mes "如果有^0000ff永久冰霜^000000的话，也许能够凝结这些岩浆。";
+		close;
+	}
+	else {
+		mes "- ^ff0000流动着的熔岩^000000 -";
+		mes "可以用^0000ff永久冰霜^000000凝结这些岩浆，要使用么？";
+		next;
+		if(select("使用:算了")==2)
+			close;
+			
+		close2;
+		donpcevent instance_npcname("流动的熔岩#lavapond01")+"::OnFreeze";
+		end;
+	}
+  OnInstanceInit:
+  OnDisable:
+		stopnpctimer;
+    disablenpc instance_npcname("流动的熔岩#lavapond01");
+    end;
+  OnEnable:
+		'lava01 = 0;
+		initnpctimer;
+    enablenpc instance_npcname("流动的熔岩#lavapond01");
+    end;
+  
+  OnTimer2000:
+		initnpctimer;
+		++ 'lava01;
+		if('lava01 > 30) {
+			'lava01 = 0;
+			specialeffect3 225,'BossID;
+			sleep 1000;
+			unitwarp 'BossID,instance_mapname("1@eom"),157,119;
+			getunitdata 'BossID, .@bossdata;
+			.@hp = .@bossdata[2] + .@bossdata[3]/10;
+			if(.@hp > .@bossdata[3])
+				setunitdata 'BossID, 2, .@bossdata[3];
+			else
+				setunitdata 'BossID, 2, .@hp;
+			specialeffect3 313, 'BossID;
+			announce "洛奇: 它吸收了岩浆的能量，恢复了生命值，快阻止岩浆的流动！！", 0x9, 0xffff00;
+		}
+		specialeffect 97;
+		end;
+		
+	OnFreeze:
+		stopnpctimer;
+		announce "岩浆凝结了！", 0x9, 0x00ff00;
+    disablenpc instance_npcname("流动的熔岩#lavapond01");
+    donpcevent instance_npcname("凝固的熔岩#01")+"::OnEnable";
+		end;
+}
+
+1@eom,154,119,0	script	凝固的熔岩#01	844,{
+	end;
+  OnInstanceInit:
+  OnDisable:
+		stopnpctimer;
+    disablenpc instance_npcname("凝固的熔岩#01");
+    end;
+  OnEnable:
+		initnpctimer;
+    enablenpc instance_npcname("凝固的熔岩#01");
+		specialeffect EF_ICECRASH;
+    end;
+  OnTimer120000:
+		stopnpctimer;
+    disablenpc instance_npcname("凝固的熔岩#01");
+    donpcevent instance_npcname("流动的熔岩#lavapond01")+"::OnEnable";
+		announce "洛奇: 岩浆又重新开始流动了！", 0x9, 0xffff00;
+		end;    
+}
+
+//1@eom,161,122,0	script	#lavazone11	139,{/* 61716 */}
+//1@eom,161,102,0	script	#lavazone12	139,{/* 61717 */}
+
+1@eom,183,128,0	script	流动的熔岩#lavapond02	844,{
+	if(countitem(22566) < 1) {
+		mes "- ^ff0000流动着的熔岩^000000 -";
+		mes "如果有^0000ff永久冰霜^000000的话，也许能够凝结这些岩浆。";
+		close;
+	}
+	else {
+		mes "- ^ff0000流动着的熔岩^000000 -";
+		mes "可以用^0000ff永久冰霜^000000凝结这些岩浆，要使用么？";
+		next;
+		if(select("使用:算了")==2)
+			close;
+			
+		close2;
+		donpcevent instance_npcname("流动的熔岩#lavapond02")+"::OnFreeze";
+		end;
+	}
+	
+  OnInstanceInit:
+  OnDisable:
+		stopnpctimer;
+    disablenpc instance_npcname("流动的熔岩#lavapond02");
+    end;
+  OnEnable:
+		'lava02 = 0;
+		initnpctimer;
+    enablenpc instance_npcname("流动的熔岩#lavapond02");
+    end;
+  
+  OnTimer2000:
+		initnpctimer;
+		++ 'lava02;
+		if('lava02 > 48) {
+			'lava02 = 19;
+			specialeffect3 225,'BossID;
+			sleep 1000;
+			unitwarp 'BossID,instance_mapname("1@eom"),181,126;
+			getunitdata 'BossID, .@bossdata;
+			.@hp = .@bossdata[2] + .@bossdata[3]/10;
+			if(.@hp > .@bossdata[3])
+				setunitdata 'BossID, 2, .@bossdata[3];
+			else
+				setunitdata 'BossID, 2, .@hp;
+			specialeffect3 313, 'BossID;
+			announce "洛奇: 它吸收了岩浆的能量，恢复了生命值，快阻止岩浆的流动！！", 0x9, 0xffff00;
+		}
+		specialeffect 97;
+		end;
+		
+	OnFreeze:
+		stopnpctimer;
+		announce "岩浆凝结了！", 0x9, 0x00ff00;
+    disablenpc instance_npcname("流动的熔岩#lavapond02");
+    donpcevent instance_npcname("凝固的熔岩#02")+"::OnEnable";
+		end;
+}
+
+1@eom,183,128,0	script	凝固的熔岩#02	844,{
+	end;
+  OnInstanceInit:
+  OnDisable:
+		stopnpctimer;
+    disablenpc instance_npcname("凝固的熔岩#02");
+    end;
+  OnEnable:
+		initnpctimer;
+    enablenpc instance_npcname("凝固的熔岩#02");
+		specialeffect EF_ICECRASH;
+    end;
+  OnTimer120000:
+		stopnpctimer;
+    disablenpc instance_npcname("凝固的熔岩#02");
+    donpcevent instance_npcname("流动的熔岩#lavapond02")+"::OnEnable";
+		announce "洛奇: 岩浆又重新开始流动了！", 0x9, 0xffff00;
+		end;  
+}
+
+1@eom,163,150,0	script	#lavazone21	139,{/* 61720 (hide)*/}
+1@eom,163,150,0	script	#lavazone22	139,{/* 61721 (hide)*/}
+
+1@eom,151,155,3	script	洛奇#flameend	512,{
+	cutin "ep14_roki01", 2;
+	mes "[洛奇]";
+	mes "...那个恶魔，还真是创造出了不得了的怪物...";
+	next;
+	mes "[洛奇]";
+	mes "接下来就要直面梦罗克了，相信这会是最为艰难的一场战斗...";
+	skilleffect 28, 9999;
+	percentheal 100,100;
+	close2;
+	cutin "", 255;
+	end;
+	
+	OnInstanceInit:
+  OnDisable:
+    disablenpc instance_npcname("洛奇#flameend");
+    end;
+  OnEnable:
+		enablenpc instance_npcname("洛奇#flameend");
+    end;
+}
+
+1@eom,147,156,0	script	#fire_to_center	45,2,2,{
+	warp instance_mapname("1@eom"),98,115;
+	end;
+	OnInstanceInit:
+  OnDisable:
+    disablenpc instance_npcname("#fire_to_center");
+    end;
+  OnEnable:
+		enablenpc instance_npcname("#fire_to_center");
+		donpcevent instance_npcname("eom_5th_enter")+"::OnEnable";
+		end;
+}
+
+
+//----------------------------------------------------------------------
+//	Inside instance, 5th part
+//----------------------------------------------------------------------
+
+1@eom,98,115,0	script	eom_5th_enter	-1,2,2,{
+OnTouch_:
+		donpcevent instance_npcname("梦罗克#eomnyd05")+"::OnEnable"; 
+		donpcevent instance_npcname("洛奇#flameend")+"::OnDisable"; 
+		donpcevent instance_npcname("尼德霍格#eomnyd02")+"::OnDisable";
+		disablenpc instance_npcname("eom_5th_enter");
+		end;
+
+  OnInstanceInit:
+  OnDisable:
+    disablenpc instance_npcname("eom_5th_enter");
+    end;
+  OnEnable:
+    enablenpc instance_npcname("eom_5th_enter");
+    end;
+}
+
+1@eom,98,123,4	script	梦罗克#eomnyd05	10038,{
+	cutin "morocc_kid", 2;
+	mes "[梦罗克]";
+	mes "让你们见识真正的绝望！";
+	close2;
+	cutin "", 255;
+	end;
+	OnInstanceInit:
+  OnDisable:
+    disablenpc instance_npcname("梦罗克#eomnyd05");
+    end;
+  OnEnable:
+		initnpctimer;
+		enablenpc instance_npcname("梦罗克#eomnyd05");
+		end;
+	OnTimer3000:
+		announce "梦罗克 : 想不到你们居然击败了我的创造物。", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		end;
+	OnTimer8000:
+		announce "梦罗克 : 很好，跟我过来吧。", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		end;
+	OnTimer13000:
+		announce "梦罗克 : 我会让你们尝一尝绝望的真正滋味！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+	OnTimer16000:
+		specialeffect 6;
+		stopnpctimer;
+		sleep 1000;
+		donpcevent instance_npcname("尼德霍格#eomnyd05")+"::OnEnable";
+		donpcevent instance_npcname("#center_to_final")+"::OnEnable";
+		donpcevent instance_npcname("梦罗克#eomnyd05")+"::OnDisable";
+		end;
+		
+}
+
+1@eom,94,120,5	script	尼德霍格#eomnyd05	510,{
+	cutin "ep14_nyd01", 2;
+	.@party_id = getcharid(1);
+	if (getcharid(0) != getpartyleader(.@party_id,2)) {
+		mes "[尼德霍格]";
+		mes "你们的队长呢？";
+		mes "就要最终决战了...";
+		close2;
+		cutin "", 255;
+		end;
+	}
+	mes "[尼德霍格]";
+	mes "这次的决战请让我帮助你们。";
+	mes "如果你们不介意的话，就让我一起同行吧。";
+	npctalk "这次的决战请让我帮助你们。如果不介意的话，就让我的分身与你们一起同行吧。";
+	next;
+	switch(select("一起同行","没关系，我们自己可以解决","^ff0000查看操作方法^000000")) {
+	case 1:
+		mes "[尼德霍格]";
+		mes "从现在开始，我要履行作为守护者的职责。";
+		next;
+		specialeffect 72;
+		cutin "", 255;
+		mes " ‐ ^4d4dff守护者尼德霍格的分身作为同伴参战^000000 ‐ ";
+		close2;
+		mercenary_create 3087, 1800000;
+    stopnpctimer;
+		disablenpc instance_npcname("尼德霍格#eomnyd05"); 
+		end;
+	case 2:
+		mes "[尼德霍格]";
+		mes "这样啊......";
+		mes "如果需要我的话，请随时来找我。";
+		close2;
+		cutin "", 255;
+		end;
+	case 3:
+		mes "- 同行的守护者会与玩家一同战斗";
+		mes "　30分钟后或HP为0时，则会消失。-";
+		next;
+		mes "[操作方法]";
+		mes " - 按住^ff0000[Alt]^000000键同时对目标点左键，守护者就会去攻击对应目标。";
+    mes "　按住^ff0000[Alt]^000000键同时点击地面，守护者就会往对应地点移动。 - ";
+		next;
+		mes "[显示状态]";
+		mes " ‐ 右键点击守护者，可以查看^0000ff[显示状态]^000000，或者选择^0000ff[待机]^000000。";
+		mes "　^0000ff[显示状态]^000000选项中，可以使用守护者的技能，或者解散守护者。‐ ";
+		close2;
+		cutin "", 255;
+		end;
+	}
+	OnInstanceInit:
+  OnDisable:
+    disablenpc instance_npcname("尼德霍格#eomnyd05");
+    end;
+  OnEnable:
+		hideonnpc instance_npcname("尼德霍格#eomnyd01");
+		enablenpc instance_npcname("尼德霍格#eomnyd05");
+		initnpctimer;
+		emotion 9;
+		end;
+	OnTimer3000:
+    emotion 9;
+    initnpctimer;
+    end;
+}
+
+
+1@eom,98,127,0	script	#center_to_final	139,2,2,{
+  if(!questprogress(56438)) setquest 56438;
+	warp instance_mapname("1@eom"),101,178;
+	end;
+	OnInstanceInit:
+  OnDisable:
+    disablenpc instance_npcname("#center_to_final");
+    end;
+  OnEnable:
+		enablenpc instance_npcname("#center_to_final");
+		enablenpc instance_npcname("#ice_to_gate");
+		enablenpc instance_npcname("#fire_to_gate");
+		end;
+}
+
+//----------------------------------------------------------------------
+//	Inside instance, final fight
+//----------------------------------------------------------------------
+
+1@eom,61,88,0	script	#ice_to_gate	139,2,2,{
+  end;
+  OnInstanceInit:
+  OnDisable:
+    disablenpc instance_npcname("#ice_to_gate");
+    end;
+  OnTouch:
+    warp instance_mapname("1@eom"),94,119;
+    end;
+}
+
+1@eom,132,93,0	script	#fire_to_gate	139,2,2,{
+  end;
+  OnInstanceInit:
+  OnDisable:
+    disablenpc instance_npcname("#fire_to_gate");
+    end;
+  OnTouch:
+    warp instance_mapname("1@eom"),102,120;
+    end;
+}
+
+1@eom,101,209,0	script	#finaltrigger	139,8,8,{
+      end;
+    OnTouch_:
+      cutin "morocc_kid", 2;
+      mes "[半魔神 梦罗克]";
+      mes "你们终于过来了？";
+      close2;
+      cutin "", 255;
+      disablenpc instance_npcname("#finaltrigger");
+      donpcevent instance_npcname("ChangeBGM#eom") + "::OnBGM158";
+      donpcevent instance_npcname("半魔神 梦罗克#eomnydf") + "::OnEnable";
+      end;
+}
+
+1@eom,101,209,5	script	半魔神 梦罗克#eomnydf	10038,{
+  end;
+	
+	OnInstanceInit:
+	end;
+  OnDisable:
+    stopnpctimer;
+    disablenpc instance_npcname("半魔神 梦罗克#eomnydf");
+    end;
+    
+  OnEnable:
+    initnpctimer;
+		enablenpc instance_npcname("半魔神 梦罗克#eomnydf");
+		end;
+		
+	OnTimer2000:
+		announce "梦罗克 : 呵呵，你们对我的目的不好奇么？", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		end;
+		
+	OnTimer7000:
+		announce "梦罗克 : 我要代替尤米尔，改造整个世界！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		end;
+    
+	OnTimer12000:
+    specialeffect 90;
+    specialeffect 1032;
+		announce "梦罗克 : 弱小的生物就应该与旧世界一同殉葬，我要成为新世界的创造神！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		end;
+		
+	OnTimer13000:
+    specialeffect 1032;
+    end;
+    
+	OnTimer17000:
+		announce "梦罗克 : 哈哈哈！没用的，你连我一根手指都无法碰到。", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		end;
+		
+	OnTimer22000:
+		announce "梦罗克 : 看不见眼前的障壁么？凭你们的力量是无法突破的。", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		end;
+		
+	OnTimer27000:
+		announce "梦罗克 : 你们不觉得荣幸么？能够见证旧世界的灭亡。", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		end;
+		
+	OnTimer32000:
+		announce "梦罗克 : 这样吧，重建的第一步就从扫除你们这些垃圾开始。", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		end;
+		
+	OnTimer37000:
+		announce "梦罗克 : 你们就尽情看着自己同伴一个一个的死去吧！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		end;
+		
+	OnTimer42000:
+		announce "梦罗克 : 而我，将成为新世界的神！魔神 梦罗克！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		end;
+
+	OnTimer47000:
+   	specialeffect 59;
+    specialeffect 90;
+    specialeffect 135;
+		end;
+		
+	OnTimer52000:
+		announce "梦罗克 : 什么？！障壁被打碎了？！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		end;
+		
+	OnTimer55000:
+    hideoffnpc instance_npcname("洛奇#eomnydf");
+    hideoffnpc instance_npcname("尼德霍格#eomnydf");
+    end;
+    
+	OnTimer58000:
+		announce "梦罗克 : 啊啊，原来是你们两个，把你们两个忘记了真是个失误。", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		end;
+		
+	OnTimer63000:
+    donpcevent instance_npcname("洛奇#eomnydf")+"::OnTalk1";
+    end;
+    
+  OnTimer65000:
+    donpcevent instance_npcname("尼德霍格#eomnydf")+"::OnTalk1";
+    end;
+    
+	OnTimer70000:
+		announce "梦罗克 : 打倒我？打倒作为半神的我？哈哈，真敢说啊...", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		end;
+		
+	OnTimer75000:
+    donpcevent instance_npcname("洛奇#eomnydf")+"::OnEffect";
+    donpcevent instance_npcname("尼德霍格#eomnydf")+"::OnEffect";
+    end;
+	OnTimer76000:
+    donpcevent instance_npcname("洛奇#eomnydf")+"::OnEffect";
+    donpcevent instance_npcname("尼德霍格#eomnydf")+"::OnEffect";
+    end;
+   
+  OnTimer77000:
+    donpcevent instance_npcname("洛奇#eomnydf")+"::OnTalk2";
+    donpcevent instance_npcname("尼德霍格#eomnydf")+"::OnTalk2";
+    end;
+    
+	OnTimer82000:
+		announce "梦罗克 : 才这么几下就撑不住了？刚刚不是还说要打倒我么？", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		end;
+		
+	OnTimer85000:
+    donpcevent instance_npcname("洛奇#eomnydf")+"::OnTalk3";
+		end;
+		
+	OnTimer88000:
+		announce "梦罗克 : 有什么好笑的？！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		end;
+		
+	OnTimer91000:
+    donpcevent instance_npcname("洛奇#eomnydf")+"::OnTalk4";
+		end;
+		
+	OnTimer94000:
+		announce "梦罗克 : 就凭你们这满身疮痍的样子，怎么和我继续战斗？", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		end;
+		
+	OnTimer97000:
+    donpcevent instance_npcname("洛奇#eomnydf")+"::OnTalk5";
+		end;
+		
+	OnTimer102000:
+    donpcevent instance_npcname("洛奇#eomnydf")+"::OnTalk6";
+		end;
+		
+	OnTimer104000:
+    donpcevent instance_npcname("尼德霍格#eomnydf")+"::OnTalk3";
+		end;		
+
+	OnTimer107000:
+		announce "梦罗克 : 哈哈哈！也好，就让我先扫除这帮垃圾！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+    hideonnpc instance_npcname("洛奇#eomnydf");
+    hideonnpc instance_npcname("尼德霍格#eomnydf");
+		end;
+		
+	OnTimer108000:
+		specialeffect 225;
+    end;
+	
+	OnTimer111000:
+    stopnpctimer;
+		donpcevent instance_npcname("#eommonsterf_1")+"::OnEnable";
+		donpcevent instance_npcname("半魔神 梦罗克#eomnydf")+"::OnDisable";
+		end;
+}
+
+1@eom,104,204,1	script	洛奇#eomnydf	512,{
+  end;
+
+	OnInstanceInit:
+  OnDisable:
+    hideonnpc instance_npcname("洛奇#eomnydf");
+    end;
+    
+  OnEnable:
+		hideoffnpc instance_npcname("洛奇#eomnydf");
+		end;
+	
+	OnTalk1:
+    npctalk "不要以为一切都能像你计划一样进行！";
+    end;
+
+	OnEffect:
+    specialeffect 30;
+    end;
+    
+	OnTalk2:
+    npctalk "呃...！";
+    end;
+
+	OnTalk3:
+    npctalk "呵呵......";
+    end;
+    
+	OnTalk4:
+    npctalk "别得意，梦罗克。我们还没输！";
+    end;
+    
+	OnTalk5:
+    npctalk "确实我和妮迪是没有力量继续战斗了...";
+    end;
+    
+	OnTalk6:
+    npctalk "但是，和我们同行的冒险者们会打败你！";
+    end;
+}
+
+1@eom,99,204,7	script	尼德霍格#eomnydf	510,{
+  end;
+
+	OnInstanceInit:
+  OnDisable:
+    hideonnpc instance_npcname("尼德霍格#eomnydf");
+    end;
+    
+  OnEnable:
+		hideoffnpc instance_npcname("尼德霍格#eomnydf");
+		end;
+		
+	OnTalk1:
+    npctalk "障壁已经打碎了，接下来要做的就是打倒你！";
+    end;
+
+	OnEffect:
+    specialeffect 30;
+    end;
+
+	OnTalk2:
+    npctalk "呜......";
+    end;
+    
+  OnTalk3:
+    npctalk "这个世界的未来...就拜托你们了！";
+    end;
+
+}
+
+
+1@eom,0,0,0	script	#eommonsterf_1	-1,{
+  OnInstanceInit:
+  OnDisable:
+		stopnpctimer;
+    disablenpc instance_npcname("#eommonsterf_1");
+    end;
+    
+  OnEnable:
+		.@map$ = instance_mapname("1@eom");
+		.@label$ = instance_npcname("#eommonsterf_1");
+		enablenpc .@label$;
+		'bossf1 = 0;
+		initnpctimer;
+		announce "梦罗克 : 不要浪费时间了，我们这就开始吧！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		'BossID = monster(.@map$, 101, 209, "再生的半魔神", 3096, 1, .@label$ + "::OnBossDead");
+	  'summon = 0;
+		end;
+
+	OnContinue:
+		'summon = 1;
+		initnpctimer;
+		setunitdata 'BossID, 29, 0;
+		setunitdata 'BossID, 9, 'moroccdata[9];
+		end;
+
+	OnTimer10000:
+			getunitdata 'BossID,'moroccdata;
+			if(!'summon && 'moroccdata[2] < 'moroccdata[3]/2) {
+					stopnpctimer;
+					unittalk 'BossID, "这样下去可没完没了...";
+					sleep 1000;
+					specialeffect3 225, 'BossID;
+					unitwarp 'BossID, instance_mapname("1@eom"), 101, 209;
+					setunitdata 'BossID, 29, 1;
+					setunitdata 'BossID, 9, 0x0000;
+					donpcevent instance_npcname("#eommonsterf_2") + "::OnSummon";
+					end;
+			}
+			.@x = 'moroccdata[6];
+			.@y = 'moroccdata[7];
+			.@map$ = instance_mapname("1@eom");
+			.@label$ = instance_npcname("#eommonsterf_1") + "::OnSkillunit";
+			switch(rand(1,4)) {
+			case 1:
+					unittalk 'BossID, "这是送给你们的安魂曲！";
+					monster .@map$,.@x+9,.@y+3,"--ja--",3095,1,.@label$;
+					.@id[0] = $@mobid[0];
+					monster .@map$,.@x-9,.@y-3,"--ja--",3095,1,.@label$;
+					.@id[1] = $@mobid[0];
+					monster .@map$,.@x-3,.@y+9,"--ja--",3095,1,.@label$;
+					.@id[2] = $@mobid[0];
+					monster .@map$,.@x+3,.@y-9,"--ja--",3095,1,.@label$;
+					.@id[3] = $@mobid[0];
+					for(.@i = 0; .@i < 4; .@i++) {
+						setunitdata .@id[.@i], 29, 1;
+						unitskilluseid .@id[.@i], 353, 1;
+					}
+					sleep 500;
+						unitskillusepos .@id[0],21,10,.@x+2,.@y,1;
+						unitskillusepos .@id[1],21,10,.@x-2,.@y,1;
+						unitskillusepos .@id[2],21,10,.@x,.@y+2,1;
+						unitskillusepos .@id[3],21,10,.@x,.@y-2,1;
+					sleep 700;
+						unitskillusepos .@id[0],21,10,.@x+6,.@y,1;
+						unitskillusepos .@id[1],21,10,.@x-6,.@y,1;
+						unitskillusepos .@id[2],21,10,.@x,.@y+6,1;
+						unitskillusepos .@id[3],21,10,.@x,.@y-6,1;
+						unitskillusepos .@id[0],21,10,.@x+4,.@y+4,1;
+						unitskillusepos .@id[1],21,10,.@x-4,.@y-4,1;
+						unitskillusepos .@id[2],21,10,.@x-4,.@y+4,1;
+						unitskillusepos .@id[3],21,10,.@x+4,.@y-4,1;
+					sleep 700;
+						unitskillusepos .@id[0],21,10,.@x+9,.@y,1;
+						unitskillusepos .@id[1],21,10,.@x-9,.@y,1;
+						unitskillusepos .@id[2],21,10,.@x,.@y+9,1;
+						unitskillusepos .@id[3],21,10,.@x,.@y-9,1;
+						unitskillusepos .@id[0],21,10,.@x+7,.@y+7,1;
+						unitskillusepos .@id[1],21,10,.@x-7,.@y-7,1;
+						unitskillusepos .@id[2],21,10,.@x-7,.@y+7,1;
+						unitskillusepos .@id[3],21,10,.@x+7,.@y-7,1;
+					sleep 700;
+						unitskillusepos .@id[0],21,10,.@x+13,.@y,1;
+						unitskillusepos .@id[1],21,10,.@x-13,.@y,1;
+						unitskillusepos .@id[2],21,10,.@x,.@y+13,1;
+						unitskillusepos .@id[3],21,10,.@x,.@y-13,1;
+						unitskillusepos .@id[0],21,10,.@x+10,.@y+10,1;
+						unitskillusepos .@id[1],21,10,.@x-10,.@y-10,1;
+						unitskillusepos .@id[2],21,10,.@x-10,.@y+10,1;
+						unitskillusepos .@id[3],21,10,.@x+10,.@y-10,1;
+					sleep 1000;
+						break;
+			case 2:
+						unittalk 'BossID, "呵呵呵，看看你有多少能耐！？";
+						monster .@map$,.@x,.@y,"--ja--",3095,1,.@label$;
+						unitskilluseid $@mobid[0],173,5;
+						sleep 1000;
+						break;
+			case 3:
+						monster .@map$,.@x,.@y,"--ja--",3095,1,.@label$;
+						.@id[0] = $@mobid[0];
+						setunitdata .@id[0], 29, 1;
+						unitskilluseid .@id[0], 353, 1;
+						sleep 500;
+						unitskillusepos .@id[0],85,10,.@x,.@y,1;
+						sleep 6000;
+						break;
+			case 4:
+						unittalk 'BossID, "呵呵呵，还算开心么？";
+						monster .@map$,.@x,.@y,"--ja--",3095,1,.@label$;
+						.@id[0] = $@mobid[0];
+						setunitdata .@id[0], 29, 1;
+						unitskilluseid .@id[0], 353, 1;
+						sleep 500;
+						unitskillusepos .@id[0],83,11,.@x+6,.@y,1;
+						unitskillusepos .@id[0],83,11,.@x-6,.@y,1;
+						unitskillusepos .@id[0],83,11,.@x,.@y+6,1;
+						unitskillusepos .@id[0],83,11,.@x,.@y-6,1;
+						unitskillusepos .@id[0],83,11,.@x+4,.@y+4,1;
+						unitskillusepos .@id[0],83,11,.@x-4,.@y-4,1;
+						unitskillusepos .@id[0],83,11,.@x-4,.@y+4,1;
+						unitskillusepos .@id[0],83,11,.@x+4,.@y-4,1;
+						sleep 6000;
+						break;
+			}
+			sleep 1000;
+			killmonster .@map$,.@label$;
+			if(!'bossf1)
+				initnpctimer;
+			end;
+
+	OnBossDead:
+		stopnpctimer;
+		'bossf1 = 1;
+    disablenpc instance_npcname("#eommonsterf_1");
+    sleep 2000;
+    donpcevent instance_npcname("#finaleffect") + "::OnStart";
+		end;
+
+	OnSkillunit:
+		end;
+}
+
+1@eom,0,0,0	script	#eommonsterf_2	-1,{
+	end;
+	OnInstanceInit:
+		disablenpc instance_npcname("#eommonsterf_2");
+		end;
+
+	OnSummon:
+		initnpctimer;
+		enablenpc instance_npcname("#eommonsterf_2");
+		monster instance_mapname("1@eom"),86,198,"--ja--",3099,1,instance_npcname("#eommonsterf_2") + "::OnMobDead";
+		monster instance_mapname("1@eom"),116,198,"--ja--",3098,1,instance_npcname("#eommonsterf_2") + "::OnMobDead";
+		end;
+		
+	OnTimer300:
+		unitskilluseid 'BossID, 28, 20;
+		initnpctimer;
+		end;
+			
+	OnMobDead:
+		if(!mobcount(instance_mapname("1@eom"),instance_npcname("#eommonsterf_2") + "::OnMobDead")) {
+				stopnpctimer;
+				disablenpc instance_npcname("#eommonsterf_2");
+				donpcevent instance_npcname("#eommonsterf_1") + "::OnContinue";
+		}
+		end;
+}
+
+1@eom,101,194,0	script	#finaleffect	139,{
+		end;
+	OnStart:
+		enablenpc instance_npcname("#finaleffect");
+		specialeffect 897;
+		sleep 1500;
+		specialeffect 882;
+		sleep 500;
+		specialeffect 701;
+		sleep 4000;
+		specialeffect 796;
+		sleep 2000;
+		specialeffect 934;
+		donpcevent instance_npcname("#eommonsterf_3") + "::OnSummon";
+		disablenpc instance_npcname("#finaleffect");
+		end;
+
+	OnInstanceInit:
+		disablenpc instance_npcname("#finaleffect");
+		end;
+}
+
+1@eom,0,0,0	script	#eommonsterf_3	-1,{
+	end;
+	OnInstanceInit:
+		disablenpc instance_npcname("#eommonsterf_3");
+		end;
+
+	OnBossDead:
+		stopnpctimer;
+		'bossf2 = 1;
+    disablenpc instance_npcname("#eommonsterf_3");
+    donpcevent instance_npcname("#finalevent") + "::OnStart";
+		end;
+	
+	OnSummon:
+			.@map$ = instance_mapname("1@eom");
+			.@label$ = instance_npcname("#eommonsterf_3");
+			enablenpc .@label$;
+			'bossf2 = 0;
+			initnpctimer;
+			announce "梦罗克 : 呵呵呵，在神的力量面前颤抖吧！！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+			'BossID = monster(.@map$, 101, 194, "绝望之神 梦罗克", 3097, 1, .@label$ + "::OnBossDead");
+			end;
+
+	OnTimer5000:
+			getunitdata 'BossID,'moroccdata;
+			.@x = 'moroccdata[6];
+			.@y = 'moroccdata[7];
+			if('moroccdata[2] > 'moroccdata[3]/2)	{
+				.@skill = rand(1,6);
+			}
+			else if('moroccdata[2] > 3*'moroccdata[3]/10) {
+				.@skill = rand(5,10);
+				if('moroccdata[30] > 300) {
+					setunitdata 'BossID,30,300;
+					setunitdata 'BossID,31,300;
+				}
+			}
+			else {
+				.@skill = rand(9,13);
+				if('moroccdata[30] > 150) {
+					setunitdata 'BossID,30,150;
+					setunitdata 'BossID,31,150;
+				}
+			}
+			.@map$ = instance_mapname("1@eom");
+			.@label$ = instance_npcname("#eommonsterf_3") + "::OnSkillunit";
+			switch(.@skill) {
+			case 1:  //火柱
+					unittalk 'BossID, "呵呵呵，全部都破坏掉哦。";
+					sleep 1500;
+					monster .@map$,.@x+9,.@y+3,"--ja--",3095,1,.@label$;
+					.@id[0] = $@mobid[0];
+					monster .@map$,.@x-9,.@y-3,"--ja--",3095,1,.@label$;
+					.@id[1] = $@mobid[0];
+					monster .@map$,.@x-3,.@y+9,"--ja--",3095,1,.@label$;
+					.@id[2] = $@mobid[0];
+					monster .@map$,.@x+3,.@y-9,"--ja--",3095,1,.@label$;
+					.@id[3] = $@mobid[0];
+					for(.@i = 0; .@i < 4; .@i++) {
+						setunitdata .@id[.@i], 29, 1;
+						unitskilluseid .@id[.@i], 353, 1;
+					}
+					sleep 500;
+						unitskillusepos .@id[0],80,10,.@x+2,.@y,1;
+						unitskillusepos .@id[1],80,10,.@x-2,.@y,1;
+						unitskillusepos .@id[2],80,10,.@x,.@y+2,1;
+						unitskillusepos .@id[3],80,10,.@x,.@y-2,1;
+					sleep 500;
+						unitskillusepos .@id[0],80,10,.@x+6,.@y,1;
+						unitskillusepos .@id[1],80,10,.@x-6,.@y,1;
+						unitskillusepos .@id[2],80,10,.@x,.@y+6,1;
+						unitskillusepos .@id[3],80,10,.@x,.@y-6,1;
+						unitskillusepos .@id[0],80,10,.@x+4,.@y+4,1;
+						unitskillusepos .@id[1],80,10,.@x-4,.@y-4,1;
+						unitskillusepos .@id[2],80,10,.@x-4,.@y+4,1;
+						unitskillusepos .@id[3],80,10,.@x+4,.@y-4,1;
+					sleep 500;
+						unitskillusepos .@id[0],80,10,.@x+9,.@y,1;
+						unitskillusepos .@id[1],80,10,.@x-9,.@y,1;
+						unitskillusepos .@id[2],80,10,.@x,.@y+9,1;
+						unitskillusepos .@id[3],80,10,.@x,.@y-9,1;
+						unitskillusepos .@id[0],80,10,.@x+7,.@y+7,1;
+						unitskillusepos .@id[1],80,10,.@x-7,.@y-7,1;
+						unitskillusepos .@id[2],80,10,.@x-7,.@y+7,1;
+						unitskillusepos .@id[3],80,10,.@x+7,.@y-7,1;
+					sleep 500;
+						unitskillusepos .@id[0],80,10,.@x+13,.@y,1;
+						unitskillusepos .@id[1],80,10,.@x-13,.@y,1;
+						unitskillusepos .@id[2],80,10,.@x,.@y+13,1;
+						unitskillusepos .@id[3],80,10,.@x,.@y-13,1;
+						unitskillusepos .@id[0],80,10,.@x+10,.@y+10,1;
+						unitskillusepos .@id[1],80,10,.@x-10,.@y-10,1;
+						unitskillusepos .@id[2],80,10,.@x-10,.@y+10,1;
+						unitskillusepos .@id[3],80,10,.@x+10,.@y-10,1;
+					sleep 10000;
+						break;
+			case 2: //自爆
+						unittalk 'BossID, "你们的灵魂，我就在这里收下了！";
+						monster instance_mapname("1@eom"),.@x,.@y,"--ja--",3095,1,.@label$;
+						unitskilluseid $@mobid[0],173,5;
+						sleep 1000;
+						break;
+			case 3: //怒雷
+						monster instance_mapname("1@eom"),.@x,.@y,"--ja--",3095,1,.@label$;
+						.@id[0] = $@mobid[0];
+						setunitdata .@id[0], 29, 1;
+						unitskilluseid .@id[0], 353, 1;
+						sleep 500;
+						unitskillusepos .@id[0],85,30,.@x,.@y,1;
+						sleep 6000;
+						break;
+			case 4: //群怒雷
+						unittalk 'BossID, "让你见识一下，什么是压倒性的力量。";
+						sleep 1500;
+						monster .@map$,.@x+9,.@y+3,"--ja--",3095,1,.@label$;
+						.@id[0] = $@mobid[0];
+						monster .@map$,.@x-9,.@y-3,"--ja--",3095,1,.@label$;
+						.@id[1] = $@mobid[0];
+						monster .@map$,.@x-3,.@y+9,"--ja--",3095,1,.@label$;
+						.@id[2] = $@mobid[0];
+						monster .@map$,.@x+3,.@y-9,"--ja--",3095,1,.@label$;
+						.@id[3] = $@mobid[0];
+						for(.@i = 0; .@i < 4; .@i++) {
+							setunitdata .@id[.@i], 29, 1;
+							unitskilluseid .@id[.@i], 353, 1;
+						}
+						sleep 500;
+							unitskillusepos .@id[0],85,20,.@x,.@y,1;
+						sleep 2000;
+							unitskillusepos .@id[0],85,20,.@x+8,.@y,1;
+							unitskillusepos .@id[1],85,20,.@x-8,.@y,1;
+							unitskillusepos .@id[2],85,20,.@x,.@y+8,1;
+							unitskillusepos .@id[3],85,20,.@x,.@y-8,1;
+							unitskillusepos .@id[0],85,20,.@x+6,.@y+6,1;
+							unitskillusepos .@id[1],85,20,.@x-6,.@y-6,1;
+							unitskillusepos .@id[2],85,20,.@x-6,.@y+6,1;
+							unitskillusepos .@id[3],85,20,.@x+6,.@y-6,1;
+						sleep 2000;
+							unitskillusepos .@id[0],85,20,.@x+16,.@y,1;
+							unitskillusepos .@id[1],85,20,.@x-16,.@y,1;
+							unitskillusepos .@id[2],85,20,.@x,.@y+16,1;
+							unitskillusepos .@id[3],85,20,.@x,.@y-16,1;
+							unitskillusepos .@id[0],85,20,.@x+12,.@y+12,1;
+							unitskillusepos .@id[1],85,20,.@x-12,.@y-12,1;
+							unitskillusepos .@id[2],85,20,.@x-12,.@y+12,1;
+							unitskillusepos .@id[3],85,20,.@x+12,.@y-12,1;
+						sleep 6000;
+						unittalk 'BossID, "哈哈，灵魂碎裂的滋味不好受吧？";
+							break;
+				case 5: //召唤
+						unittalk 'BossID, "哦？挺厉害嘛，那这样呢？";
+						sleep 1500;
+						monster .@map$, .@x, .@y, "--ja--", 3091, 1, .@label$;
+						monster .@map$, .@x, .@y, "--ja--", 3092, 1, .@label$;
+						monster .@map$, .@x, .@y, "--ja--", 3105, 1, .@label$;
+						monster .@map$, .@x, .@y, "--ja--", 3106, 1, .@label$;
+						sleep 15000;
+						break;
+				case 6:  //火墙+陨石
+						unittalk 'BossID, "痛苦的话，全部焚烧殆尽就好啦。";
+						sleep 1500;
+						monster .@map$,.@x+9,.@y+3,"--ja--",3095,1,.@label$;
+						.@id[0] = $@mobid[0];
+						monster .@map$,.@x-9,.@y-3,"--ja--",3095,1,.@label$;
+						.@id[1] = $@mobid[0];
+						monster .@map$,.@x-3,.@y+9,"--ja--",3095,1,.@label$;
+						.@id[2] = $@mobid[0];
+						monster .@map$,.@x+3,.@y-9,"--ja--",3095,1,.@label$;
+						.@id[3] = $@mobid[0];
+						for(.@i = 0; .@i < 4; .@i++) {
+							setunitdata .@id[.@i], 29, 1;
+							unitskilluseid .@id[.@i], 353, 1;
+						}
+						sleep 500;
+							unitskillusepos .@id[0],18,10,.@x+2,.@y,1;
+							unitskillusepos .@id[1],18,10,.@x-2,.@y,1;
+							unitskillusepos .@id[2],18,10,.@x,.@y+2,1;
+							unitskillusepos .@id[3],18,10,.@x,.@y-2,1;
+						sleep 700;
+							unitskillusepos .@id[0],18,10,.@x+6,.@y,1;
+							unitskillusepos .@id[1],18,10,.@x-6,.@y,1;
+							unitskillusepos .@id[2],18,10,.@x,.@y+6,1;
+							unitskillusepos .@id[3],18,10,.@x,.@y-6,1;
+							unitskillusepos .@id[0],18,10,.@x+4,.@y+4,1;
+							unitskillusepos .@id[1],18,10,.@x-4,.@y-4,1;
+							unitskillusepos .@id[2],18,10,.@x-4,.@y+4,1;
+							unitskillusepos .@id[3],18,10,.@x+4,.@y-4,1;
+						sleep 700;
+							unitskillusepos .@id[0],18,10,.@x+9,.@y,1;
+							unitskillusepos .@id[1],18,10,.@x-9,.@y,1;
+							unitskillusepos .@id[2],18,10,.@x,.@y+9,1;
+							unitskillusepos .@id[3],18,10,.@x,.@y-9,1;
+							unitskillusepos .@id[0],18,10,.@x+7,.@y+7,1;
+							unitskillusepos .@id[1],18,10,.@x-7,.@y-7,1;
+							unitskillusepos .@id[2],18,10,.@x-7,.@y+7,1;
+							unitskillusepos .@id[3],18,10,.@x+7,.@y-7,1;
+						sleep 700;
+							unitskillusepos .@id[0],18,10,.@x+13,.@y,1;
+							unitskillusepos .@id[1],18,10,.@x-13,.@y,1;
+							unitskillusepos .@id[2],18,10,.@x,.@y+13,1;
+							unitskillusepos .@id[3],18,10,.@x,.@y-13,1;
+							unitskillusepos .@id[0],18,10,.@x+10,.@y+10,1;
+							unitskillusepos .@id[1],18,10,.@x-10,.@y-10,1;
+							unitskillusepos .@id[2],18,10,.@x-10,.@y+10,1;
+							unitskillusepos .@id[3],18,10,.@x+10,.@y-10,1;
+						sleep 1000;
+							unitskillusepos .@id[0],83,11,.@x+8,.@y,1;
+							unitskillusepos .@id[1],83,11,.@x-8,.@y,1;
+							unitskillusepos .@id[2],83,11,.@x,.@y+8,1;
+							unitskillusepos .@id[3],83,11,.@x,.@y-8,1;
+						sleep 10000;
+							break;
+				case 7:  //雷暴
+						unittalk 'BossID, "审判之雷！";
+						sleep 1500;
+						monster .@map$,.@x+9,.@y+3,"--ja--",3095,1,.@label$;
+						.@id[0] = $@mobid[0];
+						monster .@map$,.@x-9,.@y-3,"--ja--",3095,1,.@label$;
+						.@id[1] = $@mobid[0];
+						monster .@map$,.@x-3,.@y+9,"--ja--",3095,1,.@label$;
+						.@id[2] = $@mobid[0];
+						monster .@map$,.@x+3,.@y-9,"--ja--",3095,1,.@label$;
+						.@id[3] = $@mobid[0];
+						for(.@i = 0; .@i < 4; .@i++) {
+							setunitdata .@id[.@i], 29, 1;
+							unitskilluseid .@id[.@i], 353, 1;
+						}
+						sleep 500;
+							unitskillusepos .@id[0],21,10,.@x+2,.@y,1;
+							unitskillusepos .@id[1],21,10,.@x-2,.@y,1;
+							unitskillusepos .@id[2],21,10,.@x,.@y+2,1;
+							unitskillusepos .@id[3],21,10,.@x,.@y-2,1;
+						sleep 700;
+							unitskillusepos .@id[0],21,10,.@x+6,.@y,1;
+							unitskillusepos .@id[1],21,10,.@x-6,.@y,1;
+							unitskillusepos .@id[2],21,10,.@x,.@y+6,1;
+							unitskillusepos .@id[3],21,10,.@x,.@y-6,1;
+							unitskillusepos .@id[0],21,10,.@x+4,.@y+4,1;
+							unitskillusepos .@id[1],21,10,.@x-4,.@y-4,1;
+							unitskillusepos .@id[2],21,10,.@x-4,.@y+4,1;
+							unitskillusepos .@id[3],21,10,.@x+4,.@y-4,1;
+						sleep 700;
+							unitskillusepos .@id[0],21,10,.@x+9,.@y,1;
+							unitskillusepos .@id[1],21,10,.@x-9,.@y,1;
+							unitskillusepos .@id[2],21,10,.@x,.@y+9,1;
+							unitskillusepos .@id[3],21,10,.@x,.@y-9,1;
+							unitskillusepos .@id[0],21,10,.@x+7,.@y+7,1;
+							unitskillusepos .@id[1],21,10,.@x-7,.@y-7,1;
+							unitskillusepos .@id[2],21,10,.@x-7,.@y+7,1;
+							unitskillusepos .@id[3],21,10,.@x+7,.@y-7,1;
+						sleep 700;
+							unitskillusepos .@id[0],21,10,.@x+13,.@y,1;
+							unitskillusepos .@id[1],21,10,.@x-13,.@y,1;
+							unitskillusepos .@id[2],21,10,.@x,.@y+13,1;
+							unitskillusepos .@id[3],21,10,.@x,.@y-13,1;
+							unitskillusepos .@id[0],21,10,.@x+10,.@y+10,1;
+							unitskillusepos .@id[1],21,10,.@x-10,.@y-10,1;
+							unitskillusepos .@id[2],21,10,.@x-10,.@y+10,1;
+							unitskillusepos .@id[3],21,10,.@x+10,.@y-10,1;
+						sleep 1000;
+							break;
+				case 8: //地震
+						unittalk 'BossID, "你很顽强嘛？那来点更硬的看看！";
+						sleep 1500;
+						monster .@map$,.@x+9,.@y+3,"--ja--",3095,1,.@label$;
+						.@id[0] = $@mobid[0];
+						monster .@map$,.@x-9,.@y-3,"--ja--",3095,1,.@label$;
+						.@id[1] = $@mobid[0];
+						monster .@map$,.@x-3,.@y+9,"--ja--",3095,1,.@label$;
+						.@id[2] = $@mobid[0];
+						monster .@map$,.@x+3,.@y-9,"--ja--",3095,1,.@label$;
+						.@id[3] = $@mobid[0];
+						for(.@i = 0; .@i < 4; .@i++) {
+							setunitdata .@id[.@i], 29, 1;
+							unitskilluseid .@id[.@i], 353, 1;
+						}
+						sleep 500;
+							unitskillusepos .@id[0],91,5,.@x+2,.@y,1;
+							unitskillusepos .@id[1],91,5,.@x-2,.@y,1;
+							unitskillusepos .@id[2],91,5,.@x,.@y+2,1;
+							unitskillusepos .@id[3],91,5,.@x,.@y-2,1;
+						sleep 700;
+							unitskillusepos .@id[0],91,5,.@x+6,.@y,1;
+							unitskillusepos .@id[1],91,5,.@x-6,.@y,1;
+							unitskillusepos .@id[2],91,5,.@x,.@y+6,1;
+							unitskillusepos .@id[3],91,5,.@x,.@y-6,1;
+							unitskillusepos .@id[0],91,5,.@x+4,.@y+4,1;
+							unitskillusepos .@id[1],91,5,.@x-4,.@y-4,1;
+							unitskillusepos .@id[2],91,5,.@x-4,.@y+4,1;
+							unitskillusepos .@id[3],91,5,.@x+4,.@y-4,1;
+						sleep 700;
+							unitskillusepos .@id[0],91,5,.@x+9,.@y,1;
+							unitskillusepos .@id[1],91,5,.@x-9,.@y,1;
+							unitskillusepos .@id[2],91,5,.@x,.@y+9,1;
+							unitskillusepos .@id[3],91,5,.@x,.@y-9,1;
+							unitskillusepos .@id[0],91,5,.@x+7,.@y+7,1;
+							unitskillusepos .@id[1],91,5,.@x-7,.@y-7,1;
+							unitskillusepos .@id[2],91,5,.@x-7,.@y+7,1;
+							unitskillusepos .@id[3],91,5,.@x+7,.@y-7,1;
+						sleep 700;
+							unitskillusepos .@id[0],91,5,.@x+13,.@y,1;
+							unitskillusepos .@id[1],91,5,.@x-13,.@y,1;
+							unitskillusepos .@id[2],91,5,.@x,.@y+13,1;
+							unitskillusepos .@id[3],91,5,.@x,.@y-13,1;
+							unitskillusepos .@id[0],91,5,.@x+10,.@y+10,1;
+							unitskillusepos .@id[1],91,5,.@x-10,.@y-10,1;
+							unitskillusepos .@id[2],91,5,.@x-10,.@y+10,1;
+							unitskillusepos .@id[3],91,5,.@x+10,.@y-10,1;
+						sleep 1000;
+							break;
+				case 9:  //jackfrost + 暴雪
+						unittalk 'BossID, "在永久的冰冻中，迎接你的死亡！";
+						sleep 1500;
+						monster .@map$,.@x+9,.@y+3,"--ja--",3095,1,.@label$;
+						.@id[0] = $@mobid[0];
+						monster .@map$,.@x-9,.@y-3,"--ja--",3095,1,.@label$;
+						.@id[1] = $@mobid[0];
+						monster .@map$,.@x-3,.@y+9,"--ja--",3095,1,.@label$;
+						.@id[2] = $@mobid[0];
+						monster .@map$,.@x+3,.@y-9,"--ja--",3095,1,.@label$;
+						.@id[3] = $@mobid[0];
+						monster .@map$,.@x,.@y,"--ja--",3095,1,.@label$;
+						.@id[4] = $@mobid[0];
+						for(.@i = 0; .@i < 4; .@i++) {
+							setunitdata .@id[.@i], 29, 1;
+							unitskilluseid .@id[.@i], 353, 1;
+						}
+						sleep 500;
+							unitskilluseid2 .@id[4],2204,5,0,0;
+							unitskilluseid .@id[4], 353, 1;
+						sleep 1500;
+							unitskillusepos .@id[0],89,5,.@x+6,.@y,1;
+							unitskillusepos .@id[1],89,5,.@x-6,.@y,1;
+							unitskillusepos .@id[2],89,5,.@x,.@y+6,1;
+							unitskillusepos .@id[3],89,5,.@x,.@y-6,1;
+							unitskillusepos .@id[0],89,5,.@x+4,.@y+4,1;
+							unitskillusepos .@id[1],89,5,.@x-4,.@y-4,1;
+							unitskillusepos .@id[2],89,5,.@x-4,.@y+4,1;
+							unitskillusepos .@id[3],89,5,.@x+4,.@y-4,1;
+						sleep 700;
+							unitskillusepos .@id[0],89,5,.@x+13,.@y,1;
+							unitskillusepos .@id[1],89,5,.@x-13,.@y,1;
+							unitskillusepos .@id[2],89,5,.@x,.@y+13,1;
+							unitskillusepos .@id[3],89,5,.@x,.@y-13,1;
+							unitskillusepos .@id[0],89,5,.@x+10,.@y+10,1;
+							unitskillusepos .@id[1],89,5,.@x-10,.@y-10,1;
+							unitskillusepos .@id[2],89,5,.@x-10,.@y+10,1;
+							unitskillusepos .@id[3],89,5,.@x+10,.@y-10,1;
+						sleep 5000;
+							break;
+				case 10:  //终焉
+						unittalk 'BossID, "这就是终焉的时刻！";
+						sleep 1500;
+						monster .@map$,.@x+9,.@y+3,"--ja--",3095,1,.@label$;
+						.@id[0] = $@mobid[0];
+						monster .@map$,.@x-9,.@y-3,"--ja--",3095,1,.@label$;
+						.@id[1] = $@mobid[0];
+						monster .@map$,.@x-3,.@y+9,"--ja--",3095,1,.@label$;
+						.@id[2] = $@mobid[0];
+						monster .@map$,.@x+3,.@y-9,"--ja--",3095,1,.@label$;
+						.@id[3] = $@mobid[0];
+						for(.@i = 0; .@i < 4; .@i++) {
+							setunitdata .@id[.@i], 29, 1;
+							unitskilluseid .@id[.@i], 353, 1;
+						}
+						sleep 500;
+							unitskillusepos .@id[0],91,5,.@x+2,.@y,1;
+							unitskillusepos .@id[1],91,5,.@x-2,.@y,1;
+							unitskillusepos .@id[2],91,5,.@x,.@y+2,1;
+							unitskillusepos .@id[3],91,5,.@x,.@y-2,1;
+						sleep 1000;
+							unitskillusepos .@id[0],83,11,.@x+8,.@y,1;
+							unitskillusepos .@id[1],83,11,.@x-8,.@y,1;
+							unitskillusepos .@id[2],83,11,.@x,.@y+8,1;
+							unitskillusepos .@id[3],83,11,.@x,.@y-8,1;
+							unitskillusepos .@id[0],85,20,.@x+6,.@y+6,1;
+							unitskillusepos .@id[1],85,20,.@x-6,.@y-6,1;
+							unitskillusepos .@id[2],85,20,.@x-6,.@y+6,1;
+							unitskillusepos .@id[3],85,20,.@x+6,.@y-6,1;
+						sleep 1000;
+							unitskillusepos .@id[0],89,10,.@x+16,.@y,1;
+							unitskillusepos .@id[1],89,10,.@x-16,.@y,1;
+							unitskillusepos .@id[2],89,10,.@x,.@y+16,1;
+							unitskillusepos .@id[3],89,10,.@x,.@y-16,1;
+							unitskillusepos .@id[0],85,20,.@x+12,.@y+12,1;
+							unitskillusepos .@id[1],85,20,.@x-12,.@y-12,1;
+							unitskillusepos .@id[2],83,11,.@x-12,.@y+12,1;
+							unitskillusepos .@id[3],83,11,.@x+12,.@y-12,1;
+						sleep 5000;
+							break;
+
+				case 11: //召唤分身
+						unittalk 'BossID, "竟敢违逆神？！愚蠢！";
+						sleep 1500;
+						monster .@map$, .@x+1, .@y, "--ja--", 3096, 1, .@label$;
+						monster .@map$, .@x-1, .@y, "--ja--", 3096, 1, .@label$;
+						sleep 10000;
+						break;
+				case 12:
+						unittalk 'BossID, "让你见识一下真正的地狱！";
+						sleep 1500;
+						monster instance_mapname("1@eom"),.@x,.@y,"--ja--",3095,1,.@label$;
+						.@id[0] = $@mobid[0];
+						monster instance_mapname("1@eom"),.@x+6,.@y,"--ja--",3095,1,.@label$;
+						.@id[1] = $@mobid[0];
+						monster instance_mapname("1@eom"),.@x-6,.@y,"--ja--",3095,1,.@label$;
+						.@id[2] = $@mobid[0];
+						monster instance_mapname("1@eom"),.@x,.@y+6,"--ja--",3095,1,.@label$;
+						.@id[3] = $@mobid[0];
+						monster instance_mapname("1@eom"),.@x,.@y-6,"--ja--",3095,1,.@label$;
+						.@id[4] = $@mobid[0];
+						
+						for(.@i = 0; .@i < 5; ++.@i) {
+              setunitdata .@id[.@i], 29, 1;
+              unitskilluseid .@id[.@i], 353, 1;
+              specialeffect3 225, .@id[.@i];
+            }
+						sleep 2000;
+						unitskillusepos .@id[0],2213,5,.@x,.@y,1;
+						unitskillusepos .@id[1],2213,5,.@x+8,.@y,1;
+						unitskillusepos .@id[2],2213,5,.@x-8,.@y,1;
+						unitskillusepos .@id[3],2213,5,.@x,.@y+8,1;
+						unitskillusepos .@id[4],2213,5,.@x,.@y-8,1;
+						sleep 500;
+						unitskillusepos .@id[0],2213,5,.@x,.@y,1;
+						unitskillusepos .@id[1],2213,5,.@x+8,.@y,1;
+						unitskillusepos .@id[2],2213,5,.@x-8,.@y,1;
+						unitskillusepos .@id[3],2213,5,.@x,.@y+8,1;
+						unitskillusepos .@id[4],2213,5,.@x,.@y-8,1;
+						sleep 500;
+						unitskillusepos .@id[0],2213,5,.@x,.@y,1;
+						unitskillusepos .@id[1],2213,5,.@x+8,.@y,1;
+						unitskillusepos .@id[2],2213,5,.@x-8,.@y,1;
+						unitskillusepos .@id[3],2213,5,.@x,.@y+8,1;
+						unitskillusepos .@id[4],2213,5,.@x,.@y-8,1;
+						sleep 500;
+						unitskillusepos .@id[0],2213,5,.@x,.@y,1;
+						unitskillusepos .@id[1],2213,5,.@x+8,.@y,1;
+						unitskillusepos .@id[2],2213,5,.@x-8,.@y,1;
+						unitskillusepos .@id[3],2213,5,.@x,.@y+8,1;
+						unitskillusepos .@id[4],2213,5,.@x,.@y-8,1;
+						sleep 3000;
+						break;
+				case 13:
+						unittalk 'BossID, "你这家伙！不要太得意忘形了！";
+						sleep 1500;
+						monster instance_mapname("1@eom"),.@x+1,.@y,"--ja--",3095,1,.@label$;
+						.@id[0] = $@mobid[0];
+						monster instance_mapname("1@eom"),.@x-1,.@y,"--ja--",3095,1,.@label$;
+						.@id[1] = $@mobid[0];
+						monster instance_mapname("1@eom"),.@x,.@y+1,"--ja--",3095,1,.@label$;
+						.@id[2] = $@mobid[0];
+						monster instance_mapname("1@eom"),.@x,.@y-1,"--ja--",3095,1,.@label$;
+						.@id[3] = $@mobid[0];
+
+						for(.@i = 0; .@i < 4; ++.@i) {
+              setunitdata .@id[.@i], 29, 1;
+              unitskilluseid .@id[.@i], 353, 1;
+            }
+						specialeffect3 261, .@id[0];
+						sleep 2000;
+						unitskillusepos .@id[0],2216,5,.@x-2,.@y,1;
+						unitskillusepos .@id[1],2216,5,.@x+2,.@y,1;
+						sleep 1000;						
+						unitskillusepos .@id[2],2216,5,.@x,.@y-2,1;
+						unitskillusepos .@id[3],2216,5,.@x,.@y+2,1;
+						sleep 1000;
+						unitskillusepos .@id[0],2216,5,.@x+4,.@y,1;
+						unitskillusepos .@id[1],2216,5,.@x-4,.@y,1;
+						sleep 1000;						
+						unitskillusepos .@id[2],2216,5,.@x,.@y+4,1;
+						unitskillusepos .@id[3],2216,5,.@x,.@y-4,1;
+						sleep 2000;
+						break;
+
+			}
+			sleep 1000;
+			killmonster .@map$,.@label$;
+			if(!'bossf2)
+				initnpctimer;
+			end;
+}
+
+//Final earsequest 7593, setquest 7597
+1@eom,102,193,0	script	#questclear	139,15,15,{
+		end;
+	OnTouch:
+		if(questprogress(7593)) changequest 7593,7597;
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("#questclear");
+		end;
+}
+
+
+1@eom,1,1,0	script	#finalevent	CLEAR_NPC,{
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("#finalevent");
+		end;
+		
+	OnStart:
+		enablenpc instance_npcname("#finalevent");
+		enablenpc instance_npcname("#questclear");
+		enablenpc instance_npcname("绝望之神 梦罗克#end");
+		enablenpc instance_npcname("洛奇#end");
+		enablenpc instance_npcname("尼德霍格#end");
+		announce "梦罗克 : 我可是神，怎么会被人类...怎么会...！！", 0x9, 0xff0000, 0x190, 14, 0, 0;
+		initnpctimer;
+		end;
+	OnTimer6000:
+		donpcevent instance_npcname("绝望之神 梦罗克#end") + "::OnTalk1";
+		end;
+	OnTimer9000:
+		donpcevent instance_npcname("绝望之神 梦罗克#end") + "::OnTalk2";
+		end;
+	OnTimer12000:
+		donpcevent instance_npcname("绝望之神 梦罗克#end") + "::OnTalk3";
+		end;
+	OnTimer15000:
+		donpcevent instance_npcname("洛奇#end") + "::OnTalk4";
+		end;
+	OnTimer18000:
+		donpcevent instance_npcname("洛奇#end") + "::OnTalk5";
+		end;
+	OnTimer21000:
+		donpcevent instance_npcname("洛奇#end") + "::OnTalk6";
+		end;
+	OnTimer24000:
+		donpcevent instance_npcname("绝望之神 梦罗克#end") + "::OnTalk7";
+		end;
+	OnTimer27000:
+		donpcevent instance_npcname("绝望之神 梦罗克#end") + "::OnTalk8";
+		end;
+	OnTimer30000:
+		donpcevent instance_npcname("尼德霍格#end") + "::OnTalk9";
+		end;
+	OnTimer33000:
+		donpcevent instance_npcname("尼德霍格#end") + "::OnTalk10";
+		end;
+	OnTimer36000:
+		donpcevent instance_npcname("尼德霍格#end") + "::OnTalk11";
+		end;
+	OnTimer39000:
+		donpcevent instance_npcname("绝望之神 梦罗克#end") + "::OnTalk12";
+		end;
+	OnTimer42000:
+		donpcevent instance_npcname("尼德霍格#end") + "::OnTalk13";
+		end;
+	OnTimer45000:
+		donpcevent instance_npcname("尼德霍格#end") + "::OnTalk14";
+		end;
+	OnTimer48000:
+		donpcevent instance_npcname("尼德霍格#end") + "::OnTalk15";
+		end;
+	OnTimer51000:
+		donpcevent instance_npcname("尼德霍格#end") + "::OnTalk16";
+		end;
+	OnTimer54000:
+		donpcevent instance_npcname("尼德霍格#end") + "::OnTalk17";
+		end;
+	OnTimer57000:
+		donpcevent instance_npcname("绝望之神 梦罗克#end") + "::OnTalk18";
+		end;
+	OnTimer60000:
+		donpcevent instance_npcname("洛奇#end") + "::OnTalk19";
+		end;
+	OnTimer63000:
+		donpcevent instance_npcname("洛奇#end") + "::OnTalk20";
+		end;
+	OnTimer66000:
+		donpcevent instance_npcname("绝望之神 梦罗克#end") + "::OnTalk21";
+		end;
+	OnTimer69000:
+		donpcevent instance_npcname("尼德霍格#end") + "::OnTalk22";
+		end;
+	OnTimer72000:
+		donpcevent instance_npcname("尼德霍格#end") + "::OnTalk23";
+		end;
+	OnTimer75000:
+		donpcevent instance_npcname("尼德霍格#end") + "::OnTalk24";
+		end;
+	OnTimer78000:
+		donpcevent instance_npcname("绝望之神 梦罗克#end") + "::OnTalk25";
+		end;
+	OnTimer81000:
+		donpcevent instance_npcname("绝望之神 梦罗克#end") + "::OnTalk26";
+		end;
+	OnTimer84000:
+		donpcevent instance_npcname("尼德霍格#end") + "::OnTalk27";
+		end;
+	OnTimer87000:
+		donpcevent instance_npcname("尼德霍格#end") + "::OnTalk28";
+		end;
+	OnTimer90000:
+		donpcevent instance_npcname("洛奇#end") + "::OnTalk29";
+		end;
+	OnTimer93000:
+		stopnpctimer;
+		donpcevent instance_npcname("尼德霍格#end") + "::OnTalk30";
+		end;
+
+}
+
+1@eom,102,197,3	script	绝望之神 梦罗克#end	3097,{
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("绝望之神 梦罗克#end");
+		end;
+	OnTalk1:
+		npctalk "我居然...神居然失败了...";
+		end;
+	OnTalk2:
+		npctalk "撕裂次元空间，改造大地，操控新的生命，拥有创世之力的我...";
+		end;
+	OnTalk3:
+		npctalk "为什么！拥有创世之力的我居然会败给你们...";
+		end;
+	OnTalk7:
+		npctalk "哼，创世神的力量能支配万物，也能毁灭世界！";
+		end;
+	OnTalk8:
+		npctalk "支配区区人类也不在话下！";
+		end;
+	OnTalk12:
+		npctalk "你说什么！？";
+		end;
+	OnTalk18:
+		npctalk "这不可能，脆弱的人类在神的面前就应该是蝼蚁般的存在！";
+		end;
+	OnTalk21:
+		npctalk "闭嘴，你想对神指手划脚么！";
+		end;
+	OnTalk23:
+		npctalk "不可能...我！";
+		end;
+	OnTalk25:
+		npctalk "哼，即便我消失了，我对世界留下的伤痕也不会消失...";
+		end;
+	OnTalk26:
+		npctalk "在你们的记忆中，我会永远存在！";
+		sleep 1000;
+		specialeffect 183;
+		sleep 500;
+		specialeffect 183;
+		specialeffect 62;
+		sleep 500;
+		specialeffect 183;
+		specialeffect 62;
+		hideonnpc instance_npcname("绝望之神 梦罗克#end");
+		setarray .@item[0], 4559, 20430, 6715,  8522, 8522, 8523, 18526, 21019, 22537;
+		setarray .@rate[0],   20,   100,  500, 10000, 2000, 5000,  1000,   500, 10000;
+		for(.@i = 0; .@i < getarraysize(.@item); ++.@i) {
+			if(rand(10000)<.@rate[.@i]) {
+				makeitem .@item[.@i],1,instance_mapname("1@eom"),100+rand(5),195+rand(5);
+			}
+		}
+		if(rand(1000) < 300)
+			makeitem rand(15093,15098),1,instance_mapname("1@eom"),100+rand(5),195+rand(5);
+		if(rand(1000) < 100)
+			makeitem rand(22035,22037),1,instance_mapname("1@eom"),100+rand(5),195+rand(5);
+		end;
+}
+
+1@eom,104,194,1	script	洛奇#end	512,{
+		cutin "EP14_ROKI01", 2;
+		mes "[洛奇]";
+		mes "这就是梦罗克的终结之刻了。";
+		mes "真是一段相当长的孽缘啊。";
+		close2;
+		cutin "",255;
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("洛奇#end");
+		end;
+	OnTalk4:
+		npctalk "愚蠢呐，梦罗克！";
+		end;
+	OnTalk5:
+		npctalk "万物虽为神造，但创造完成的世界却是靠自我运转的。";
+		end;
+	OnTalk6:
+		npctalk "这个世界，所有的生物都是以自我的意志行事，不需要神的支配！";
+		end;
+	OnTalk19:
+		npctalk "梦罗克，你以人类的样子重生，其实是憧憬成为人类吧！";
+		end;
+	OnTalk20:
+		npctalk "憧憬人类，但无法成为人类，于是便要毁掉人类。";
+		end;
+	OnTalk29:
+		npctalk "哼！也许再也不会碰见像他那样强大的对手了。";
+		end;
+}
+
+1@eom,99,194,7	script	尼德霍格#end	510,{
+		if(!'final) {
+			cutin "EP14_NYD03", 2;
+			mes "[尼德霍格]";
+			mes "魔王梦罗克...";
+			mes "一直想成为神么...";
+			close2;
+			cutin "",255;
+			end;
+		}
+		if(!questprogress(51730)){
+			cutin "EP14_NYD03", 2;
+			mes "[尼德霍格]";
+			mes "这一次终于从真正意义上阻止了魔王梦罗克...";
+			mes "真是太感谢了...";
+			next;
+			cutin "EP14_NYD02", 2;
+			mes "[尼德霍格]";
+			mes "这里是梦罗克的精神空间。";
+			mes "躯体被消灭的他，只能在这里永远徘徊了...";
+			next;
+			mes "[尼德霍格]";
+			mes "正因为如此，";
+			mes "如果还有其他人进入这个空间，";
+			mes "今天的事情将会重复发生...";
+			next;
+			mes "[尼德霍格]";
+			mes "今日的绝望会延续到明日...";
+			mes "而明日的绝望又会延续到后日...";
+			mes "循环往复，无限的绝望...";
+			next;
+			cutin "EP14_NYD04", 2;
+			mes "[尼德霍格]";
+			mes "虽然知道这一点，";
+			mes "但我们仍会不断地阻止这个悲剧...";
+			mes "希望到时也能作为守护者，伴随在你们身边...";
+			setquest 51730;
+			completequest 51730;
+			next;
+		}
+		cutin "EP14_NYD04", 2;
+		mes "[尼德霍格]";
+		mes "不再多说了，司令官等着我们呢，";
+		mes "请回去向他报告这次的战果。";
+		mes "真的非常感谢！";
+		close2;
+		getitem 6684,1;
+		if(questprogress(40021)) completequest(40021);
+		warp "moro_cav",42,69;
+		cutin "",255;
+		end;
+
+
+	OnInstanceInit:
+		'final = 0;
+		disablenpc instance_npcname("尼德霍格#end");
+		end;
+	OnTalk9:
+		npctalk "支配？不要再说笑话了！";
+		end;
+	OnTalk10:
+		npctalk "你追求的并不是成为神，而是成为人类。";
+		end;
+	OnTalk11:
+		npctalk "看看你重生之后的样子吧，变成人类的模样是为了什么？";
+		end;
+	OnTalk13:
+		npctalk "但是...无论在怎么样相似，都没有意义。";
+		end;
+	OnTalk14:
+		npctalk "你根本不理解人类究竟是什么。";
+		end;
+	OnTalk15:
+		npctalk "看看驻扎在火焰盆地的那些人吧...";
+		end;
+	OnTalk16:
+		npctalk "米德加尔特，阿鲁纳菲兹，秀发兹发德...";
+		end;
+	OnTalk17:
+		npctalk "虽然互相之间差异不小，但为了一个共同的目标能够聚到一起，联合起来甚至能对抗你的力量...";
+		end;
+	OnTalk22:
+		npctalk "其实是你自己没有察觉吧！";
+		end;
+	OnTalk23:
+		npctalk "憧憬人类，羡慕这个世界...正是有着这样的想法你才会以现在的姿态重生。";
+		end;
+	OnTalk24:
+		npctalk "永远的沉睡吧，这里不是你的世界！";
+		end;
+	OnTalk27:
+		npctalk "确实，魔王梦罗克的影响会残留在所有人的记忆之中...";
+		end;
+	OnTalk28:
+		npctalk "也许，会成为所有人意识里永远的魔王...";
+		end;
+	OnTalk30:
+		npctalk "好了，也该回去了，各位冒险者请过来找我。";
+		'final = 1;
+		end;
+}
+
+1@eom,0,0,0	script	#eommana	-1,{
+    end;
+  OnInstanceInit:
+    'mana01 = 0;
+    'mana02 = 0;
+    'mana03 = 0;
+		.@map$ = instance_mapname("1@eom");
+		.@label$ = instance_npcname("#eommana");
+   	for (.@i = 0; .@i < 3; .@i ++) {
+			.@mana = 3100 + rand(0,3);
+			areamonster .@map$,90, 15, 114, 46, "--ja--", .@mana, 1, .@label$+"::OnMana01";
+		}
+		for (.@i = 0; .@i < 6; .@i ++) {
+			.@mana = 3100 + rand(0,3);
+			areamonster .@map$,53, 148, 22, 93, "--ja--", .@mana, 1, .@label$+"::OnMana02";
+		}
+  	for (.@i = 0; .@i < 6; .@i ++) {
+			.@mana = 3100 + rand(0,3);
+			areamonster .@map$, 181, 154, 139, 101, "--ja--", .@mana, 1, .@label$+"::OnMana03";
+		}
+		// other mobs
+		areamonster .@map$,50, 86, 38, 110, "--ja--", 3088, 8;
+//		areamonster .@map$,181, 117, 147, 89, "--ja--", 3089, 4;
+//		areamonster .@map$,181, 117, 147, 89, "--ja--", 3090, 4;
+    end;
+
+	OnMana01:
+    if('mana01 < 3) {
+      ++ 'mana01;
+      .@mana = 3100 + rand(0,3);
+      areamonster instance_mapname("1@eom"), 90, 15, 114, 46, "--ja--", .@mana, 1, instance_npcname("#eommana")+"::OnMana01";
+		}
+		end;
+		
+	OnMana02:
+    if('mana02 < 6) {
+      ++ 'mana02;
+      .@mana = 3100 + rand(0,3);
+      areamonster instance_mapname("1@eom"), 53, 148, 22, 93, "--ja--", .@mana, 1, instance_npcname("#eommana")+"::OnMana02";
+		}
+		end;
+		
+ 	OnMana03:
+    if('mana03 < 9) {
+        ++ 'mana03; 
+        .@mana = 3100 + rand(0,3);
+        areamonster instance_mapname("1@eom"), 181, 154, 139, 101, "--ja--", .@mana, 1, instance_npcname("#eommana")+"::OnMana03";
+		}
+		end;
+}
+
+1@eom,0,0,0	script	ChangeBGM#eom	CLEAR_NPC,{
+  end;
+OnBGM158:
+		initnpctimer;
+		'BGM$ = "158";
+		'BGMTimer = 131;
+		setnpctimer 300000-('BGMTimer+1)*1000;
+		playbgmall 'BGM$,instance_mapname("1@eom");
+		end;
+		
+OnTimer300000:
+		setnpctimer 300000-('BGMTimer+1)*1000;
+		playbgmall 'BGM$,instance_mapname("1@eom");
+		end;
+		
+OnDisable:
+		stopnpctimer;
+		disablenpc("#ChangeBGM");
+		end;
+}

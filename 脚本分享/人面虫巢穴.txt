@@ -1,0 +1,1672 @@
+//===== Hercules Script ====================================== 
+//= Faceworm Nest Instance 'Episode 14.3'  (jRO Servers)
+//===== By: ================================================== 
+//= pengc2010
+//===== Current Version: ===================================== 
+//= 1.2 (Chinese version)
+//===== Compatible With: ===================================== 
+//= Hercules
+//===== Additional Comments: ================================= 
+//= [jRO Playing Conversion]
+//= Translated to Chinese [pengc2010]
+//= 1.0 First Version [pengc2010]
+//= 1.1 Implemented special skills for MVPs [pengc2010]
+//= 1.2 Added jRO quests, translation is not completed [pengc2010]
+//============================================================
+1@eom	mapflag	src4instance
+
+payon,157,54,5	script	年老的女性#pa0829	103,{
+	if(questprogress(54655)) {
+		mes "‐年老的女性今天也是独自在这...‐";
+		next;
+		if(countitem(6650) < 1) {
+			mes "‐女性的丈夫可能已经被人面虫袭击了。-";
+			close;
+		}
+		if(select("默默走开","打招呼") == 1) {
+			mes "‐离开了‐";
+			close;
+		}
+		mes "‐将戒指交给了年老的女性。‐";
+		next;
+		mes "‐非常古旧的指环，也没有多少装饰，但可以感受到其所蕴含的爱意。‐";
+		next;
+		mes "^0000ff‐指环内刻着细小的文字。";
+		mes "[给重要的你]‐^000000";
+		next;
+		mes "[年老的女性]";
+		mes "这是...!";
+		mes "他送给我的戒指...";
+		mes "虽然没有写名字，但这是我最喜欢的宝石...";
+		next;
+		mes "[年老的女性]";
+		mes "他还在的时候，问了我喜欢的宝石是什么，";
+		mes "想为我打造一枚戒指...";
+		next;
+		mes "[年老的女性]";
+		mes "但是之后就...";
+		mes "经过这么长时间，我都已经快放弃寻找了。";
+		next;
+		mes "‐你默默地听着‐";
+		next;
+		mes "[年老的女性]";
+		mes "谢谢你帮我找回戒指。";
+		next;
+		mes "[年老的女性]";
+		mes "回忆起来，遇见那个人真是我人生中最幸福的事...";
+		next;
+		mes "‐^0000ff可以感觉到温暖的气息^000000‐";
+		specialeffect 72;
+		next;
+		mes "[年老的女性]";
+		mes "这里是一些谢礼，请你收下。";
+		delitem 6650,1;
+		getitem 532,1;
+		getitem 538,1;
+		getitem 518,1;
+		completequest 54655;
+		close;
+	}
+	mes "[年老的女性]";
+	mes "你，你是冒险者么？";
+	mes "我有一些事情想要拜托你，可以么？";
+	next;
+	mes "[年老的女性]";
+	mes "在我年幼的时候，";
+	mes "大概14，15岁的样子吧...";
+	mes "喜欢上了一名男孩。";
+	next;
+	mes "[年老的女性]";
+	mes "当时年轻的我，也不知道怎么与他相处。";
+	mes "只是默默地怀着这份心情。";
+	next;
+	mes "[年老的女性]";
+	mes "那个男孩非常活泼，";
+	mes "走到哪都能引起其他人注意。";
+	next;
+	mes "[年老的女性]";
+	mes "后来因为巧合，我们有了一些接触，";
+	mes "发现原来彼此互相喜欢...";
+	mes "当时真的特别开心...";
+	next;
+	mes "[年老的女性]";
+	mes "但是到了谈婚论嫁的程度时，";
+	mes "却因为年龄还小，没有收入，也没钱举办婚礼...";
+	next;
+	mes "[年老的女性]";
+	mes "其实只要在一起就行了，结婚可以等等再说...";
+	mes "呵呵呵，你说是么？";
+	next;
+	mes "[年老的女性]";
+	mes "...";
+	next;
+	mes "[年老的女性]";
+	mes "...";
+	mes "......";
+	next;
+	mes "[年老的女性]";
+	mes "...";
+	mes "......";
+	mes ".........";
+	next;
+	mes "[年老的女性]";
+	mes "但有一天，他突然说，";
+	mes "已经为我准备了结婚的^0000ff戒指^000000，但为了凑足其他的费用。";
+	mes "要出去闯荡...";
+	next;
+	mes "[年老的女性]";
+	mes "无论我如何劝他，都一定要出去...";
+	next;
+	mes "[年老的女性]";
+	mes "结果，他再也没有回来...";
+	mes "后来听有些冒险者说，";
+	mes "看到了相似的男性被一条很大的蛇追逐...";
+	next;
+	mes "[年老的女性]";
+	mes "啊...那个时候要是阻止了他就好了...";
+	mes "呜呜呜...";
+	next;
+	select("......");
+	mes "[年老的女性]";
+	mes "至少能找到那枚戒指的话...";
+	mes "也算是那个人留下的回忆...";
+	next;
+	mes "‐如果找到了年老的女性所说的戒指，可以交还给她‐";
+	setquest 54655;
+	close;
+}
+
+payon,161,54,3	script	异国商人#pa0829	99,{
+	if(questprogress(54660)) {
+		mes "‐为了寻找家人的线索，这个男人今天也在这里徘徊‐";
+		next;
+		if(countitem(6652) < 1) {
+			mes "‐人面虫巢穴中应该会有什么线索...‐";
+			close;
+		}
+		if(select("默默走开","打招呼") == 1) {
+			mes "‐离开了‐";
+			close;
+		}
+		mes "[塞尔迪欧]";
+		mes "这个相簿，难道是我父亲的...";
+		next;
+		mes "[塞尔迪欧]";
+		mes "啊，想起来了...";
+		mes "这还是和父亲在一起时的事了。";
+		next;
+		mes "[塞尔迪欧]";
+		mes "太感谢你了，这个对我来说非常重要。";
+		next;
+		mes "[塞尔迪欧]";
+		mes "也许从这个相簿中，能找到以前父亲的朋友，或者其他亲人的线索...";
+		next;
+		mes "‐^0000ff打开相簿，塞尔迪欧的脸上混合着寂寞与开心的神情^000000‐";
+		next;
+		mes "‐^0000ff感受到了温柔的气氛^000000‐";
+		specialeffect 72; //60052
+		next;
+		mes "[塞尔迪欧]";
+		mes "真的十分感谢...作为帮我找回相簿的回礼，这些请你收下。";
+		delitem 6652,1;
+		getitem 522,1;
+		getitem 532,1;
+		getitem 559,1;
+		completequest 54660;
+		close;
+	}
+	mes "[塞尔迪欧]";
+	mes "小的时候，只记得父亲因为工作走后，就再也没有回来。";
+	next;
+	mes "[塞尔迪欧]";
+	mes "虽然不知道是不是真的，但听说就在这附近抄近路时，被巨大的蛇形生物袭击了...";
+	next;
+	mes "[塞尔迪欧]";
+	mes "自从那以后，整个家庭就破裂了。";
+	mes "我也开始了流浪。";
+	next;
+	mes "[塞尔迪欧]";
+	mes "虽然现在的我已经比较富裕，";
+	mes "但还是放不下父亲失踪这件事。";
+	next;
+	mes "[塞尔迪欧]";
+	mes "不断在这个地方徘徊，也是想找到一些有关父亲的线索。";
+	next;
+	mes "‐如果找到有关异国商人家人的线索，比如相簿之类，可以再来与他交谈‐";
+	setquest 54660; //state=1
+	close;
+}
+
+payon,161,50,1	script	看起来强大的男性#pa0829	88,{
+	if(questprogress(54665)) {
+		mes "‐这个看起来强大的男性似乎想要探索人面虫巢穴‐";
+		next;
+		if(countitem(6653) < 1) {
+			mes "‐他说的药物说不定能在人面虫巢穴内得到。‐";
+			close;
+		}
+		if(select("默默走开","打招呼") == 1) {
+			mes "‐离开了‐";
+			close;
+		}
+		if(questprogress(54665) == 2) {
+			mes "‐把刚入手的药袋交给了看起来强大的男性に";
+			next;
+			mes "[看起来强大的男性]";
+			mes "谢谢你，消灭了这些巨蛇，我也多少得到了慰藉。";
+			next;
+			mes "[看起来强大的男性]";
+			mes "这些药物还没有完成，为了主人的遗愿，我一定要将新的特效药开发出来。";
+			next;
+			mes "[看起来强大的男性]";
+			mes "这些谢礼请你收下。";
+			delitem 6653,1;
+			getitem 512,1;
+			getitem 544,1;
+			getitem 566,1;
+			close;
+		}
+		mes "‐少し袋がくたびれた";
+		mes "　薬袋を看起来强大的男性に";
+		mes "　錠剤がこぼれないように";
+		mes "　気をつけながら渡した‐";
+		next;
+		mes "[看起来强大的男性]";
+		mes "これはまさか……!?";
+		mes "間違いない。";
+		mes "薬袋に見覚えのある字で";
+		mes "メモが書かれている……。";
+		mes "これをどうやって";
+		mes "入手したのですか？";
+		next;
+		mes "‐あなたは事情を伝えた‐";
+		next;
+		mes "[看起来强大的男性]";
+		mes "この薬……この薬さえあったら……。";
+		next;
+		mes "‐^0000ff薬袋を握ったまま悲しんでいる。";
+		mes "　主従の関係を超えた何かが";
+		mes "　彼から感じ取られる^000000‐";
+		next;
+		mes "[看起来强大的男性]";
+		mes "もし、また薬袋を手に入れたら";
+		mes "私の元に持ってきてください。";
+		mes "薬袋が届けば、あの蛇の数が";
+		mes "少しでも減った証になります。";
+		next;
+		mes "[看起来强大的男性]";
+		mes "死んだあの方はもう戻りません。";
+		mes "ですが蛇が減れば、私と同じ";
+		mes "気持ちの方が減るかもしれない。";
+		mes "きっとそれがあの方への";
+		mes "供養にもなると思うのです。";
+		next;
+		mes "[看起来强大的男性]";
+		mes "……そう考えたら少し";
+		mes "気持ちが楽になりました。";
+		mes "本当に、この薬袋をわざわざ";
+		mes "届けていただき、";
+		mes "ありがとうございました。";
+		next;
+		mes "‐^0000ff穏やかな気が感じられる^000000‐";
+		specialeffect 72; //60053
+		next;
+		mes "[看起来强大的男性]";
+		mes "それと……こんなものしかありませんが";
+		mes "ぜひ、憎き蛇を倒す為に";
+		mes "お役立てください。";
+		delitem 6653,1;
+		getitem 526,1;
+		getitem 550,1;
+		getitem 663,1;
+		completequest 54665;
+		close;
+	}
+	mes "[看起来强大的男性]";
+	mes "私には仕えている人がいました。";
+	mes "その方は体が弱く常に咳をしていたので";
+	mes "いつも薬を飲んでいたんです。";
+	mes "その薬は毎月、決められた日に";
+	mes "届けられていました。";
+	next;
+	mes "[看起来强大的男性]";
+	mes "ところがある日、到着する予定の薬が";
+	mes "来なかったんです。";
+	mes "聞いた話では薬を運んでいた人が";
+	mes "大きな蛇に襲撃されたそうで……。";
+	next;
+	mes "[看起来强大的男性]";
+	mes "その結果、私が仕えている方は";
+	mes "亡くなりました。";
+	mes "……";
+	mes "私はその蛇を見つけて殺すために";
+	mes "何年も探し回っています。";
+	next;
+	menu "復讐でもするつもりですか？",-;
+	mes "[看起来强大的男性]";
+	mes "そ、それは……。";
+	next;
+	mes "[看起来强大的男性]";
+	mes "そう、どうせあの蛇は";
+	mes "私と関係がない。";
+	mes "私はあの方のただの部下だ……。";
+	next;
+	mes "‐^0000ff彼の顔からは";
+	mes "　複雑な思いが見られた^000000‐";
+	next;
+	mes "‐この男の気持ちを少しでも";
+	mes "　救えるものの手がかりは";
+	mes "　フェイスワームの巣にありそうだ‐";
+	setquest 54665;
+	close;
+}
+
+payon,139,68,4	script	阴暗的男人#pa0829	795,{
+	if(questprogress(54670)) {
+		mes "‐想找到手镯的幽灵科顿今天也在这‐";
+		next;
+		if(countitem(6651) < 1) {
+			mes "‐科顿的手镯说不定能在人面虫巢穴内找到。‐";
+			close;
+		}
+		if(select("默默走开","打招呼") == 1) {
+			mes "‐离开了‐";
+			close;
+		}
+		mes "‐小さなイニシャルが彫られた";
+		mes "　少し古ぼけた腕輪を";
+		mes "　科顿に見せてみた";
+		next;
+		mes "^999999[科顿]";
+		mes "科顿の腕輪！^000000";
+		next;
+		mes "^999999[科顿]";
+		mes "嬉しい。腕輪戻った！";
+		mes "嬉しい!!^000000";
+		next;
+		mes "^999999[科顿]";
+		mes "でも友達。昔言った。";
+		mes "科顿好きな装飾。";
+		mes "わからない。";
+		mes "だからいっぱい作った。";
+		mes "腕輪いっぱい。^000000";
+		next;
+		mes "^999999[科顿]";
+		mes "だからもし。";
+		mes "腕輪。新しいの。";
+		mes "あなた見つけた。";
+		mes "科顿に届ける。";
+		mes "科顿腕輪増える。嬉しい。";
+		mes "お願い。^000000";
+		next;
+		mes "^0000ff‐科顿の魂がまぶしく光る‐^000000";
+		specialeffect 247; 
+		next;
+		mes "^999999[科顿]";
+		mes "科顿嬉しい。";
+		mes "だからこれあげる。";
+		mes "あなたも嬉しい？";
+		mes "あなたが嬉しいと";
+		mes "科顿もっと嬉しい。^000000";
+		delitem 6651,1;
+		completequest 54670;
+		getitem 555,1;
+		getitem 551,1;
+		getitem 520,1;
+		close;
+	}
+	mes "‐^0000ffすでに死んだ人の魂が、";
+	mes "　何かを伝えようとしている^000000‐";
+	next;
+	mes "^999999[科顿]";
+	mes "俺……科顿。";
+	mes "話、うまくない。^000000";
+	next;
+	mes "^999999[科顿]";
+	mes "科顿、昔死んだ。";
+	mes "でも、恨みない。";
+	mes "科顿悪い存在ではない。^000000";
+	next;
+	mes "^999999[科顿]";
+	mes "科顿……腕輪が必要。";
+	mes "とても。とても大事な物。";
+	mes "友達がくれた大切な腕輪。^000000";
+	next;
+	mes "^999999[科顿]";
+	mes "科顿その腕輪を探す。";
+	mes "悪い蛇倒す。";
+	mes "悪い蛇科顿を殺した。^000000";
+	next;
+	mes "‐この幽霊が安心できるよう";
+	mes "　フェイスワームの巣で";
+	mes "　腕輪を見つけたら";
+	mes "　声をかけてみよう‐";
+	setquest 54670; 
+	close;
+}
+
+
+//===========================================================================================
+// Instance part
+//===========================================================================================
+
+1@face	mapflag	src4instance
+
+dali,83,67,5	script	竞速记录板#1	857,{
+	mes "‐人面虫巢穴 竞速记录‐";
+  for(.@i = 1; .@i <= 5; ++.@i) {
+    mes "================================";
+    mes "第 " + .@i + " 名: " + (($facewormparty$[.@i] == "")?"^ff0044无记录^000000":("队伍 ^ff0044"+$facewormparty$[.@i]+"^000000"));
+    mes "通关时间: ^0000ff" + $facewormtime[.@i]/60 + "分 "+$facewormtime[.@i]%60 + "秒^000000";
+    mes "队伍成员: ^ff9900" + $facewormmember$[.@i] +"^000000";
+	}
+	mes "================================";
+	if(getgmlevel()<.GMAccess || !getgmlevel())
+    close;
+  next;
+  switch(select("重置记录","删除特定记录","取消")) {
+    case 1:
+      for(.@i = 1; .@i <= 5; ++.@i) {
+          $facewormparty$[.@i] = "";
+          $facewormtime[.@i] = 0;
+          $facewormmember$[.@i] = "";      
+      }
+      mes "‐记录已经全部重置‐";
+      close;
+    case 2:
+      .@menu$ = "";
+      for(.@i = 1; .@i <= 5; ++.@i) {
+         .@menu$ += $facewormparty$[.@i] + ":";
+      }
+      .@menu$ += "取消";
+      mes "‐要删除哪支队伍的记录？‐";
+      .@select = select(.@menu$);
+      if(.@select > 5 || .@select < 1)
+          close;
+      for(.@i = .@select; .@i < 5; ++.@i) {
+          $facewormparty$[.@i] = $facewormparty$[.@i+1];
+          $facewormtime[.@i] = $facewormtime[.@i+1];
+          $facewormmember$[.@i] = $facewormmember$[.@i+1];
+      }
+      $facewormparty$[5] = "";
+      $facewormtime[5] = 0;
+      $facewormmember$[5] = "";
+      mes "‐所选记录已删除‐";
+      close;
+    case 3:
+      mes "‐取消操作‐";
+      close;
+  }
+}
+
+
+dali,80,60,4	script	魔法学者	755,{
+  if(questprogress(12325, PLAYTIME) == 2) {
+    mes "‐^0000ff次元移动的痕迹已经消失了，可以再次使用次元装置。^000000‐";
+    erasequest 12325;
+    close;
+  }
+	mes "[魔法学者]";
+	mes "你好，有什么事么？";
+	next;
+	switch(select("开启次元装置","在这里干什么？","有关人面虫巢穴","没什么事")) {
+	case 1:
+    if(BaseLevel < 140) {
+      mes "[魔法学者]";
+      mes "使用次元装置对你来说还太早了。";
+      mes "至少到140级再来吧。";
+      close;
+    }
+    .@party_id = getcharid(1);
+    .@md_name$ = "人面虫巢穴";
+		if(questprogress(12325)) {
+			mes "[魔法学者]";
+			mes "次元移动对身体的负担很大，";
+			mes "你需要休息一会才能再次使用。";
+			next;
+			mes "[魔法学者]";
+			mes "从上次使用次元装置开始，至少休息23小时吧。";
+			close;
+		}
+    if (!.@party_id) {
+      mes "[魔法学者]";
+      mes "人面虫巢穴很危险，先组成一支队伍吧。";
+      close;
+    }
+    if (getcharid(0) != getpartyleader(.@party_id,2)) {
+      mes "[魔法学者]";
+      mes "让你们队长来申请使用次元装置。";
+      close;
+    }
+    mes "[魔法学者]";
+    mes "队伍名称 "+getpartyname(.@party_id)+"...";
+    mes "队    长 "+strcharinfo(0)+"...";
+    .@instance = instance_create(.@md_name$, .@party_id);
+    if (.@instance < 0) {
+        mes "嗯...？有些奇怪。";
+        next;
+        mes "[魔法学者]";
+        mes "目前次元装置在超负荷运转，请稍后再来吧。";
+        close;
+    }
+    if (instance_attachmap("1@face",.@instance) != "") {
+      instance_set_timeout 5400,300,.@instance;
+      instance_init(.@instance);
+      mes "好了，我已经为你们打开次元装置了。";
+      next;
+    } else {
+      instance_destroy(.@instance);
+      mes "副本创建失败！";
+      close;
+    }
+		mes "[魔法学者]";
+		mes "现在直接使用里面的次元装置就可以进入人面虫巢穴了。";
+		close;
+	case 2:
+		mes "[魔法学者]";
+		mes "我是研究次元裂缝现象的学者。";
+		mes "看起来旁边这个次元装置可以自由前往过去的时间。";
+		next;
+		mes "[魔法学者]";
+		mes "不过这不是我的研究成果...";
+		next;
+		mes "[魔法学者]";
+		mes "我曾经试图干涉这里自然产生的次元裂缝。";
+		mes "但大多都失败了。";
+		next;
+		mes "[魔法学者]";
+		mes "裂缝所涉及的能量太过于庞大，";
+		mes "完全无法驾驭，很长时间之内研究都毫无进展。";
+		next;
+		mes "[魔法学者]";
+		mes "但是最近出现了一名研究者，";
+		mes "还有一名历史学者。";
+		mes "在他们的研究之下，控制裂缝的能量也成为了可行的事情。";
+		next;
+		mes "[魔法学者]";
+		mes "他们的研究成果，就是旁边这个次元装置。";
+		next;
+		mes "[魔法学者]";
+		mes "我负责的这个次元装置，";
+		mes "连接着距离现在不近也不远的过去。";
+		mes "那时的斐扬，还栖息着一种叫做人面虫的奇异生物。";
+		next;
+		mes "[魔法学者]";
+		mes "通过这个次元装置狩猎人面虫的冒险者非常多。";
+		next;
+		mes "[魔法学者]";
+		mes "他们甚至还为此设立了竞速比赛，";
+		mes "旁边的记录板就记载着排名最靠前的冒险者，和他们的记录。";
+		next;
+		mes "[魔法学者]";
+		mes "啊，不好意思。";
+		mes "一不小心说了这么多。";
+		mes "你来也是想进入人面虫巢穴的么？";
+		next;
+		mes "[魔法学者]";
+		mes "巢穴中的怪物非常强力。";
+		mes "先做好充分的准备比较好。";
+		mes "　";
+		mes "‐^ff0000只有140级以上才能进入^000000‐";
+		close;
+	case 3:
+		mes "[魔法学者]";
+		mes "以前，斐扬附近常有路人被巨大怪物袭击的事件，";
+		mes "而这些，大多是人面虫干的好事。";
+		next;
+		mes "[魔法学者]";
+		mes "你在人面虫巢穴中，可能会发现很多被害人的遗物。";
+		mes "如果把这些遗物交还给被害人家属的话，他们可能也会得到一些慰藉吧。";
+		next;
+		mes "[魔法学者]";
+		mes "如果需要的话，我可以把你传送至斐扬。";
+		next;
+		if(select("取消","拜托了") == 2) {
+			mes "[魔法学者]";
+			mes "是么，如果有需要可以再找我。";
+			close;
+		}
+		mes "[魔法学者]";
+		mes "那这就开始了。";
+		close2;
+		warp "payon",150,58;
+		end;
+	case 4:
+		mes "[魔法学者]";
+		mes "是么，如果有需要可以再找我。";
+		close;
+	}
+}
+
+
+dali,77,58,4	script	次元装置	10007,{
+	.@party_id = getcharid(1);
+	if (!.@party_id) {
+		mes "[次元装置]";
+		mes "次元装置只有在组成队伍的情况下才能够使用。";
+		close;
+	}
+	mes "[次元装置]";
+	mes "认证中...";
+	next;
+	if(questprogress(12325)) {
+		mes "[次元装置]";
+		mes "移动不可，移动不可。";
+		mes "次元移动的痕迹仍然残留。请等待一定时间再次使用。";
+		close;
+	}
+	mes "‐次元装置正常运作中‐";
+	next;
+	if(select("进入人面虫巢穴","取消") == 2) {
+		mes "‐远离了次元装置‐";
+		close;
+	}
+	if (has_instance("1@face") == "") {
+		mes "[次元装置]";
+		mes "认证失败，请与魔法学者对话取得使用资格。";
+		close;
+  }
+  mapannounce "dali",getpartyname(getcharid(1))+"小队成员 "+strcharinfo(0)+" 进入副本人面虫巢穴。",bc_map,"0x00ff99"; //FW_NORMAL 12 0 0
+	setquest 12325; //state=1
+	warp "1@face",112,353;
+	close;
+}
+
+1@face,109,348,5	script	卡奥斯#face	683,{
+	if(getpartyleader(getcharid(1),2) != getcharid(0)) {
+			cutin "H_CHAOS01", 2;
+			mes "[卡奥斯]";
+			mes "你们也是来狩猎人面虫的？";
+			mes "让我见见你们队长吧";
+			close2;
+			cutin "", 255;
+			end;
+	}
+	switch('progress) {
+		case 0:
+        .@partyid = getcharid(1);
+        getpartymember .@partyid,0;
+        'members = $@partymembercount;
+        'partyname$ = getpartyname(.@partyid);
+        'membername$ = $@partymembername$[0];
+        for(.@i = 1; .@i < 'members; ++.@i) {
+          'membername$ += "  " + $@partymembername$[.@i];
+        }
+        cutin "H_CHAOS01", 2;
+        mes "[卡奥斯]";
+        mes "嗯？我可没听说过其他赏金猎人会来这。";
+        npctalk "嗯？我可没听说过其他赏金猎人会来这。";
+        next;
+        unittalk getcharid(3),"这一定是有什么误会，我们不是赏金猎人。";
+        select("这一定是有什么误会，我们不是赏金猎人。");
+        mes "[卡奥斯]";
+        mes "没什么好辩解的，人面虫属于所有人。";
+        npctalk "没什么好辩解的，人面虫属于所有人。";
+        next;
+        unittalk getcharid(3),"人面虫？这是什么？我可是第一次听到。";
+        select("人面虫？这是什么？我可是第一次听到。");
+        mes "[卡奥斯]";
+        mes "哈哈!你看你，傻傻的就跑进来了啊?人面虫是这附近出没的怪物啊!";
+        npctalk "哈哈!你看你，傻傻的就跑进来了啊?人面虫是这附近出没的怪物啊!";
+        next;
+        mes "[卡奥斯]";
+        mes "算了，不管了，只要你不妨碍到我们，我们也不会管你的。";
+        npctalk "算了，不管了，只要你不妨碍到我们，我们也不会管你的。";
+        next;
+        cutin "H_IRIS02", 2;
+        mes "[艾瑞丝]";
+        mes "啊~真是秋高气爽!";
+        donpcevent instance_npcname("艾瑞丝#face")+"::OnTalk1";
+        next;
+        mes "[艾瑞丝]";
+        mes "嘿嘿!最近天气真好，艾瑞丝的心情也好棒哟~";
+        donpcevent instance_npcname("艾瑞丝#face")+"::OnTalk2";
+        next;
+        mes "[艾瑞丝]";
+        mes "卡奥斯你不觉得吗?";
+        donpcevent instance_npcname("艾瑞丝#face")+"::OnTalk3";
+        next;
+        cutin "H_CHAOS01", 2;
+        mes "[卡奥斯]";
+        mes "那应该也只是现在而已";
+        npctalk "那应该也只是现在而已";
+        next;
+        cutin "H_CHAOS02", 2;
+        mes "[卡奥斯]";
+        mes "我感到一阵黑色的风吹过来";
+        npctalk "我感到一阵黑色的风吹过来";
+        next;
+        cutin "H_CHAOS03", 2;	
+        mes "[卡奥斯]";
+        mes "艾瑞丝!附近似乎有人面虫的动静，皇后的巢穴大概就在这森林里!";
+        npctalk "艾瑞丝!附近似乎有人面虫的动静，皇后的巢穴大概就在这森林里!";
+        next;
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞丝]";
+        mes "啊!只要像以前那样处理就对了吧?";
+        donpcevent instance_npcname("艾瑞丝#face")+"::OnTalk4";
+        next;
+        cutin "H_CHAOS02", 2;
+        mes "[卡奥斯]";
+        mes "嗯!我们快去把他们解决吧!那边的冒险家们，你们要小心了，人面虫群已经开始活动了!";
+        npctalk "嗯!我们快去把他们解决吧!那边的冒险家们，你们要小心了，因为人面虫现在正在排山倒海涌过来呢!";
+        close2;
+        cutin "", 255;
+        hideonnpc instance_npcname("卡奥斯#face");
+        hideonnpc instance_npcname("艾瑞丝#face");
+        sleep2 2000;
+        donpcevent instance_npcname("#faceworm") + "::OnStart";
+        end;	
+		case 1:
+        cutin "H_CHAOS01", 2;
+        mes "[卡奥斯]";
+        mes  "哇~你解决的真快!果然厉害!";
+        npctalk "哇~你解决的真快!果然厉害!";
+        next;
+        unittalk getcharid(3),"刚刚那隻怪物是这边的首领吗?";
+        select("刚刚那只怪物是它们的首领吗?");
+        mes "[卡奥斯]";
+        mes  "不不~ 人面虫国王才没那么简单";
+        npctalk "不不~ 人面虫国王才没那么简单";
+        next;
+        mes "[卡奥斯]";
+        mes  "刚刚的只是人面虫的突变种，但可不能因此就小看它们";
+        npctalk "刚刚的只是人面虫的突变种，但可不能因此就小看它们";
+        next;
+        mes "[卡奥斯]";
+        mes "对了!杀了突变种之后不是拿到了它的皮吗?那个可是非常有用的东西";
+        npctalk "对了!杀了突变种之后不是拿到了它的皮吗?那个可是非常有用的东西";
+        next;
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞丝]";
+        mes "不过如果战斗时间太长，鳞片就会受损，也就变成一件没用的古董了";
+        donpcevent instance_npcname("艾瑞丝#face")+"::OnTalk5";
+        next;
+        mes "[艾瑞丝]";
+        mes "听说厉害的猎人们能够迅速正确地把价值不斐的鳞片剥下来呢!";
+        donpcevent instance_npcname("艾瑞丝#face")+"::OnTalk6";
+        next;
+        cutin "H_IRIS02", 2;
+        mes "[艾瑞丝]";
+        mes "卡奥斯你有信心吗?";
+        donpcevent instance_npcname("艾瑞丝#face")+"::OnTalk7";
+        next;
+        cutin "H_CHAOS01", 2;
+        mes "[卡奥斯]";
+        mes "太勉强了!实在强人所难!而且我只会用怒爆! 我想那些鳞片应该都被烧毁了…";
+        npctalk "太勉强了!实在强人所难!而且我只会用怒爆! 我想那些鳞片应该都被烧毁了…";
+        next;
+        cutin "H_IRIS02", 2;
+        mes "[艾瑞丝]";
+        mes "真没用耶~卡奥斯";
+        donpcevent instance_npcname("艾瑞丝#face")+"::OnTalk8";
+        next;
+        cutin "H_CHAOS01", 2;
+        mes "[卡奥斯]";
+        mes "总之这里看来并没有我们想狩猎的怪物，所以我们先走一步了，你就在这里处理这些小不点吧!";
+        npctalk "总之这里看来并没有我们想狩猎的怪物，所以我们先走一步了，你就在这里处理这些小不点吧!";
+        next;
+        cutin "",255;
+        mes "-卡奥斯离开了。-";
+        hideonnpc instance_npcname("卡奥斯#face");
+        next;
+        cutin "H_IRIS02",2;
+        mes "[艾瑞丝]";
+        mes "卡奥斯!你又要自己先走了吗?";
+        donpcevent instance_npcname("艾瑞丝#face")+"::OnTalk9";
+        close2;
+        cutin "",255;
+        hideonnpc instance_npcname("艾瑞丝#face");
+        // 第二区域小怪
+        sleep2 2000;
+        donpcevent instance_npcname("#faceworm") + "::OnStart";
+        end;
+		case 2:
+        cutin "H_CHAOS01", 2;
+        mes "[卡奥斯]";
+        mes "你们的实力真不错~不过现在开始可要小心了!这狭窄的峡谷可是处处暗藏危机的!?";
+        npctalk "你们的实力真不错~不过现在开始可要小心了!这狭窄的峡谷可是处处暗藏危机的!?";
+        close2;
+        cutin "",255;
+        hideonnpc instance_npcname("卡奥斯#face");
+        hideonnpc instance_npcname("艾瑞丝#face");
+        sleep2 2000;
+        donpcevent instance_npcname("#faceworm") + "::OnStart";
+        end;
+		case 3:	end;
+		case 4:
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞丝]";
+        mes "这个嘛…说是人面虫巢穴好像又太大了点";
+        donpcevent instance_npcname("艾瑞丝#face")+"::OnTalk10";
+        next;
+        cutin "H_CHAOS01", 2;
+        mes "[卡奥斯]";
+        mes "哼，既然来了我就下去看看吧!";
+        npctalk "哼，既然来了我就下去看看吧!";
+        next;
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞丝]";
+        mes "卡奥斯!别再开玩笑了!";
+        donpcevent instance_npcname("艾瑞丝#face")+"::OnTalk11";
+        next;
+        cutin "H_CHAOS01", 2;
+        mes "[卡奥斯]";
+        mes "不会怎样的啦!看起来根本不危险，我一下就回来了，这里就交给你啦!";
+        npctalk "不会怎样的啦!看起来根本不危险，我一下就回来了，这里就交给你啦!";
+        next;
+        hideonnpc instance_npcname("卡奥斯#face");
+        movenpc instance_npcname("卡奥斯#face"),213,157;
+        next;
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞丝]";
+        mes "啊啊!卡奥斯这个冒失鬼，又这么莽撞!";
+        donpcevent instance_npcname("艾瑞丝#face")+"::OnTalk12";
+        next;
+        cutin "", 255;
+        mes "[卡奥斯]";
+        mes "啊!哎哟喂呀!这是什么啊!?";
+        mapannounce instance_mapname("1@face"),"卡奥斯 : 啊!哎哟喂呀!这是什么啊!?",bc_map,0xFF1493;
+        next;
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞丝]";
+        mes "卡奥斯!发生什么事了?";
+        donpcevent instance_npcname("艾瑞丝#face")+"::OnTalk13";
+        next;
+        cutin "", 255;
+        mes "[卡奥斯]";
+        mes "啊…";
+        mapannounce instance_mapname("1@face"),"卡奥斯 : 啊…",bc_map,0xFF1493;
+        sleep2 300;
+        mes "啊啊…";
+        mapannounce instance_mapname("1@face"),"卡奥斯 : 啊啊…",bc_map,0xFF1493;
+        sleep2 400;
+        mes "啊啊啊…";
+        mapannounce instance_mapname("1@face"),"卡奥斯 : 啊啊啊…",bc_map,0xFF1493;
+        sleep2 500;
+        mes "啊啊啊啊…";
+        mapannounce instance_mapname("1@face"),"卡奥斯 : 啊啊啊啊…",bc_map,0xFF1493;
+        sleep2 600;
+        mes "啊啊啊啊啊…";
+        mapannounce instance_mapname("1@face"),"卡奥斯 : 啊啊啊啊啊…",bc_map,0xFF1493;
+        sleep2 700;
+        mes "啊啊啊啊啊啊…";
+        mapannounce instance_mapname("1@face"),"卡奥斯 : 啊啊啊啊啊啊…",bc_map,0xFF1493;
+        sleep2 800;
+        mes "啊啊啊啊啊啊啊!!";
+        mapannounce instance_mapname("1@face"),"卡奥斯 : 啊啊啊啊啊啊啊!!",bc_map,0xFF1493;
+        next;
+        movenpc instance_npcname("卡奥斯#face"),208,149;
+        hideoffnpc instance_npcname("卡奥斯#face");
+        cutin "H_CHAOS03", 2;
+        mes "[卡奥斯]";
+        mes "可恶，差一点我就成为活人大餐了";
+        npctalk "可恶，差一点我就成为活人大餐了";
+        next;
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞丝]";
+        mes "我问你到底发生了什么事!?";
+        donpcevent instance_npcname("艾瑞丝#face")+"::OnTalk14";
+        next;
+        cutin "H_CHAOS01", 2;
+        mes "[卡奥斯]";
+        mes "嘿嘿~人面虫皇后发怒了，正往咱们这边来呢!看起来很恐怖，我们暂时找地方躲起来吧!";
+        npctalk "嘿嘿~人面虫皇后发怒了，正往咱们这边来呢!看起来很恐怖，我们暂时找地方躲起来吧!";
+        next;
+        cutin "",255;
+        mes "-卡奥斯隐藏起来了。-";
+        hideonnpc instance_npcname("卡奥斯#face");
+        next;
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞丝]";
+        mes "卡奥斯你这笨蛋!!";
+        donpcevent instance_npcname("艾瑞丝#face")+"::OnTalk15";
+        close2;
+        cutin "", 255;
+        hideonnpc instance_npcname("艾瑞丝#face");
+        movenpc instance_npcname("卡奥斯#face"),213,157;
+        specialeffect 1021;
+        sleep2 9000;
+        specialeffect 247;
+        sleep2 10000;
+        movenpc instance_npcname("卡奥斯#face"),208,149;
+        donpcevent instance_npcname("卡奥斯#facehelp") + "::OnEnable";
+        // 人面虫皇后
+        donpcevent instance_npcname("#faceworm") + "::OnQueen";
+        end;
+		case 5:
+        cutin "H_CHAOS01", 2;
+        mes "[卡奥斯]";
+        mes "呼…真是艰难啊…";
+				npctalk "呼…真是艰难啊…";
+				next;
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞丝]";
+        mes "不过这好像不是我们想打的怪物耶~";
+				donpcevent instance_npcname("艾瑞丝#face")+"::OnTalk16";
+        cutin "H_CHAOS01", 2;
+        next;
+        mes "[卡奥斯]";
+        mes "也没办法了，装备都耗损了，看来今天差不多要撤退了";
+				npctalk "也没办法了，装备都耗损了，看来今天差不多要撤退了";
+				next;
+        cutin "H_IRIS02", 2;
+        mes "[艾瑞丝]";
+        mes "虽然没遇到人面虫国王有点可惜，但还好我们没有受伤";
+				donpcevent instance_npcname("艾瑞丝#face")+"::OnTalk17";
+				next;
+        cutin "H_CHAOS01", 2;
+        mes "[卡奥斯]";
+        mes "啊!对了，你…你的实力还挺不错的!";
+				npctalk "啊!对了，你…你的实力还挺不错的!";
+				next;
+        cutin "H_CHAOS01", 2;
+        mes "[卡奥斯]";
+        mes "今天的战斗你们功不可没，我不会再小看你们了";
+				npctalk "今天的战斗你们功不可没，我不会再小看你们了";
+				next;
+        mes "[卡奥斯]";
+        mes "啊啊~我还在想能不能消灭国王什么的，真是可惜了";
+				npctalk "啊啊~我还在想能不能消灭国王什么的，真是可惜了";
+				next;
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞丝]";
+        mes "卡奥斯，我累了，我们还是快回村里吧!?";
+				donpcevent instance_npcname("艾瑞丝#face")+"::OnTalk18";
+				next;
+        cutin "H_CHAOS01", 2;
+        mes "[卡奥斯]";
+        mes "啊!抱歉抱歉~我们走吧!";
+				npctalk "啊!抱歉抱歉~我们走吧!";
+				close2;
+				cutin "",255;
+				hideonnpc instance_npcname("卡奥斯#face");
+				hideonnpc instance_npcname("艾瑞丝#face");
+				enablenpc instance_npcname("次元装置#face");
+				end;
+
+	}
+	end;
+	
+	OnInstanceInit:
+		'progress = 0;
+		.@map$ = instance_mapname("1@face");
+		disablenpc instance_npcname("区域一传送点#face");
+		disablenpc instance_npcname("区域二传送点#face");
+		disablenpc instance_npcname("区域三传送点#face");
+		disablenpc instance_npcname("区域四传送点#face");
+		monster .@map$,0,0,"--ja--",1166,20;
+		monster .@map$,0,0,"--ja--",1277,20;
+		monster .@map$,0,0,"--ja--",1494,20;
+		end;
+		end;
+}
+
+1@face,115,347,4	script	艾瑞丝#face	666,{
+		end;
+	OnTalk1:
+		npctalk "啊~真是秋高气爽!";
+		end;
+	OnTalk2:
+		npctalk "嘿嘿!最近天气真好，艾瑞丝的心情也好棒哟~";
+		end;
+	OnTalk3:
+		npctalk "卡奥斯你不觉得吗?";
+		end;
+	OnTalk4:
+		npctalk "啊!只要像以前那样处理就对了吧?";
+		end;
+	OnTalk5:
+		npctalk "不过如果战斗时间太长，鳞片就会受损，也就变成一件没用的古董了";
+		end;
+	OnTalk6:
+		npctalk "听说厉害的猎人们能够快速、正确的把价值不斐的鳞片剥下来呢!";
+		end;
+	OnTalk7:
+		npctalk "卡奥斯你有信心吗?";
+		end;
+	OnTalk8:
+		npctalk "真没用耶~卡奥斯";
+		end;
+	OnTalk9:
+		npctalk "卡奥斯!你又要自己先走了吗?";
+		end;
+	OnTalk10:
+		npctalk "这个嘛…说是人面虫巢穴好像又太大了点";
+		end;
+	OnTalk11:
+		npctalk "卡奥斯!别再开玩笑了!";
+		end;
+	OnTalk12:
+		npctalk "啊啊!卡奥斯这个冒失鬼，又这么莽撞!";
+		end;
+	OnTalk13:
+		npctalk "卡奥斯!发生什么事了?";
+		end;
+	OnTalk14:
+		npctalk "我问你到底发生了什么事!?";
+		end;
+	OnTalk15:
+		npctalk "卡奥斯你这笨蛋!!";
+		end;
+	OnTalk16:
+		npctalk "不过这好像不是我们想打的怪物耶~";
+		end;
+	OnTalk17:
+		npctalk "也好，虽然没遇到人面虫国王有点可惜，但还好我们没有人员伤亡";
+		end;
+	OnTalk18:
+		npctalk "卡奥斯，我累了，我们回去村子里!?";
+		end;
+}
+
+1@face,0,0,0	script	卡奥斯#facehelp	683,3,3,{
+		end;
+	OnEnable:
+		enablenpc instance_npcname("卡奥斯#facehelp");
+		initnpctimer;
+		end;
+		
+	OnTouch_:
+    if(!'trigger) {
+      sleep2 2000;
+      getmapxy(.@map$,.@x,.@y,1);
+      if(!'BossID) {
+				end;
+			}
+      getunitdata 'BossID,.@array;
+      if(distance(.@x,.@y,.@array[6],.@array[7]) < 7){
+        specialeffect3 90,'BossID;
+        set .@num,rand(60,200)*10000;
+        mapannounce .@map$,"卡奥斯必杀伤害命中！，造成了"+.@num+"伤害",bc_map,0x00ff99;
+        setunitdata 'BossID,2,.@array[2]-.@num;
+      } 
+      else 
+        mapannounce .@map$,"卡奥斯的呐喊 : 怎么那么不中用，连引诱都不会!",bc_map,0xFF1493;
+      disablenpc instance_npcname("卡奥斯#facehelp");
+      initnpctimer;
+		}
+		end;
+		
+	OnTimer30000:
+		enablenpc instance_npcname("卡奥斯#facehelp");
+		'trigger = 0;
+		.@map$ = instance_mapname("1@face");
+		set .@dec,rand(1,4);
+		switch(.@dec){
+			case 1:
+				movenpc instance_npcname("卡奥斯#facehelp"),228,159;
+				break;
+			case 2:
+				movenpc instance_npcname("卡奥斯#facehelp"),212,143;
+				break;
+			case 3:
+				movenpc instance_npcname("卡奥斯#facehelp"),202,163;
+				break;
+			case 4:
+				movenpc instance_npcname("卡奥斯#facehelp"),215,172;
+				break;
+		}
+		mapannounce .@map$,"卡奥斯的呐喊 : 啊!快去引诱怪物来"+(.@dec==1?"东":.@dec==2?"南":.@dec==3?"西":"北")+"边!由我来送它一拳!",bc_map,0x00FFFF;
+		end;
+		
+	OnDisable:
+    stopnpctimer;
+	OnInstanceInit:
+		disablenpc instance_npcname("卡奥斯#facehelp");
+		end;
+}
+
+1@face,0,0,0	script	#BlackLogic	-1,{
+  end;
+  OnInstanceInit:
+    disablenpc instance_npcname("#BlackLogic");
+    end;
+    
+  OnStart:
+    enablenpc instance_npcname("#BlackLogic");
+    initnpctimer;
+    end;
+  
+  OnEnd:
+    stopnpctimer;
+    .@map$ = instance_mapname("1@face");
+    .@label = instance_npcname("#BlackLogic") + "::OnSkillunit";
+    killmonster .@map$, .@label$;
+    disablenpc instance_npcname("#BlackLogic");
+    end;
+    
+  OnTimer10000:
+    initnpctimer;
+    .@map$ = instance_mapname("1@face");
+    .@label = instance_npcname("#BlackLogic") + "::OnSkillunit";
+    getunitdata 'BossID,.@bossdata;
+    .@x = .@bossdata[6];
+    .@y = .@bossdata[7];
+    switch('progress) {
+        case 0:
+          if(mobcount(.@map$,.@label$) < 10)
+            areamonster .@map$, .@x-3,.@y-3,.@x+3,.@y+3,"--ja--",2540,4,.@label$;
+          break;
+        case 1:
+          killmonster .@map$, .@label$;
+          monster .@map$, .@x,.@y,"--ja--",2537,4,.@label$;
+          for(.@i = 0; .@i < 4; ++.@i)
+            setunitdata $@mobid[.@i],29,1;
+          break;
+        case 2:
+          if(mobcount(.@map$,.@label$) < 100) {
+              for(.@i = 0; .@i < 6; ++.@i)
+                for(.@j = 0; .@j < 6; ++.@j)
+                    monster(.@map$, .@x-5+.@i*2,.@y-5+.@j*2,"--ja--",2531,1,.@label$);
+          }
+          break;        
+        case 3:
+          movenpc instance_npcname("#Blackpoison"),.@x,.@y;
+          break;    
+    }
+    end;
+}
+
+
+1@face,0,0,0	script	#QueenLogic	-1,{
+  end;
+  OnInstanceInit:
+    disablenpc instance_npcname("#QueenLogic");
+    end;
+    
+  OnStart:
+    enablenpc instance_npcname("#QueenLogic");
+    initnpctimer;
+    end;
+  
+  OnEnd:
+    stopnpctimer;
+    .@map$ = instance_mapname("1@face");
+    .@label = instance_npcname("#QueenLogic") + "::OnSkillunit";
+    killmonster .@map$, .@label$;
+    donpcevent instance_npcname("#Queenpoison") + "::OnDisable";
+    disablenpc instance_npcname("#QueenLogic");
+    end;
+    
+  OnTimer15000:
+    initnpctimer;
+    'SkillLv = rand(0,1);
+    .@map$ = instance_mapname("1@face");
+    .@label = instance_npcname("#QueenLogic") + "::OnSkillunit";
+    getunitdata 'BossID,.@bossdata;
+    .@x = .@bossdata[6];
+    .@y = .@bossdata[7];
+    switch(rand(1,3)) {
+        case 1:
+          if(mobcount(.@map$,.@label$) < 10)
+            areamonster .@map$, .@x-3,.@y-3,.@x+3,.@y+3,"--ja--",2540,('SkillLv)?4:2,.@label$;
+          break;
+        case 2:
+          if(mobcount(.@map$,.@label$) < 100) {
+              if(!'SkillLv) {
+                    for(.@i = 0; .@i < 6; ++.@i)
+                      for(.@j = 0; .@j < 6; ++.@j)
+                          monster(.@map$, .@x-5+.@i*2,.@y-5+.@j*2,"--ja--",2531,1,.@label$);
+                }
+              else {
+                    for(.@i = 0; .@i < 8; ++.@i)
+                      for(.@j = 0; .@j < 8; ++.@j)
+                          monster(.@map$, .@x-7+.@i*2,.@y-7+.@j*2,"--ja--",2531,1,.@label$);
+              }
+          }
+          break;        
+        case 3:
+          movenpc instance_npcname("#Queenpoison"),.@x,.@y;
+          break;    
+    }
+    end;
+}
+
+
+1@face,0,0,0	script	#faceworm	-1,{
+		end;
+	OnStart:
+			.@map$ = instance_mapname("1@face");
+			switch('progress) {
+				case 0:
+					mapannounce .@map$,"人面虫竞速战斗开始，作战速度越快，越有机会拿到高级奖励!",bc_map,0xFFFF90;
+					// 第一区域小怪
+					monster .@map$,76,332,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,70,279,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,73,215,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,71,129,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,86,68,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,146,68,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					break;
+				case 1:
+					monster .@map$,119,290,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,196,277,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,144,225,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,111,175,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,107,126,"--ja--",2528,4 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					break;
+				case 2:
+					monster .@map$,227,336,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,314,317,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,231,213,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,169,190,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,161,132,"--ja--",2528,4 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+			}
+			'time = gettimetick(2);
+			end;
+
+	OnMyMobDead:
+		.@map$ = instance_mapname("1@face");
+		.@mob = mobcount(.@map$,instance_npcname("#faceworm")+"::OnMyMobDead");
+		if(!.@mob){
+			switch('progress){
+				case 0:
+					mapannounce .@map$,"人面虫已经纷纷退却，有更巨大的家伙出现了！",bc_map,0xFFFF90;
+					'BossID = monster(.@map$,140,72,"--ja--",2530,1,instance_npcname("#faceworm")+"::OnBlackFace");
+					break;
+				case 1:
+					mapannounce .@map$,"人面虫已经纷纷退却，有更巨大的家伙出现了！",bc_map,0xFFFF90;
+					'BossID = monster(.@map$,161,274,"--ja--",2530,1,instance_npcname("#faceworm")+"::OnBlackFace");
+					break;
+				case 2:
+					mapannounce .@map$,"人面虫已经纷纷退却，有更巨大的家伙出现了！",bc_map,0xFFFF90;
+					'BossID = monster(.@map$,276,308,"--ja--",2530,1,instance_npcname("#faceworm")+"::OnBlackFace");
+					break;
+				case 3:
+					mapannounce .@map$,"西边突然传来嚎啕大哭的声音",bc_map,0xFFFF90;
+					'BossID = monster(.@map$,214,105,"--ja--",2530,1,instance_npcname("#faceworm")+"::OnBlackFace");
+					donpcevent instance_npcname("#Blackpoison") + "::OnEnable";
+					break;
+			}
+			donpcevent instance_npcname("#BlackLogic") + "::OnStart";
+		}
+		else 
+			mapannounce .@map$,.@mob+"只人面虫还活著",bc_map,0xFFFF90;
+		end;
+		
+	OnQueen:
+			.@map$ = instance_mapname("1@face");
+			'BossID = monster(.@map$,213,157,"--ja--",2529,1,instance_npcname("#faceworm")+"::OnQueenDead");
+			setunitdata 'BossID,3,26000000 + 'members*2000000;
+			setunitdata 'BossID,2,26000000 + 'members*2000000;
+			monster .@map$,226,143,"--ja--",2536,1,instance_npcname("#faceworm") + "::OnTrap";
+			setunitdata $@mobid[0],29,1;
+			monster .@map$,226,169,"--ja--",2536,1,instance_npcname("#faceworm") + "::OnTrap";
+			setunitdata $@mobid[0],29,1;
+			monster .@map$,204,169,"--ja--",2536,1,instance_npcname("#faceworm") + "::OnTrap";
+			setunitdata $@mobid[0],29,1;
+			monster .@map$,203,143,"--ja--",2536,1,instance_npcname("#faceworm") + "::OnTrap";
+			setunitdata $@mobid[0],29,1;
+			monster .@map$,213,149,"--ja--",2536,1,instance_npcname("#faceworm") + "::OnTrap";
+			setunitdata $@mobid[0],29,1;
+			monster .@map$,213,165,"--ja--",2536,1,instance_npcname("#faceworm") + "::OnTrap";
+			setunitdata $@mobid[0],29,1;
+			monster .@map$,220,157,"--ja--",2536,1,instance_npcname("#faceworm") + "::OnTrap";
+			setunitdata $@mobid[0],29,1;
+			monster .@map$,206,157,"--ja--",2536,1,instance_npcname("#faceworm") + "::OnTrap";
+			setunitdata $@mobid[0],29,1;
+			initnpctimer;
+			'time = gettimetick(2);
+			donpcevent instance_npcname("#QueenLogic") + "::OnStart";
+			donpcevent instance_npcname("#Queenpoison") + "::OnEnable";
+			end;	
+
+	OnBlackFace:
+		++'progress;
+		donpcevent instance_npcname("#BlackLogic") + "::OnEnd";
+		.@map$ = instance_mapname("1@face");
+		.@time2 = gettimetick(2)-'time;
+		.@hour = .@time2/3600;
+		.@min = .@time2/60;
+		.@sec = .@time2%60;
+		mapannounce .@map$,"[人面虫巢穴]，第"+'progress+"区域通关花费时间是「"+(.@hour<10?"0"+.@hour:.@hour)+":"+(.@min<10?"0"+.@min:.@min)+":"+(.@sec<10?"0"+.@sec:.@sec)+"」",bc_map,0x0fff8c;
+		// 纪录 1-4 关通过时间
+		'time['progress]=.@time2;
+		switch('progress){
+			case 1:
+				mapannounce .@map$,"打败巨大躯干的怪物后，发现了它出入的洞口，这真是一个大到足以通往另一个地区的巨大地穴呢!",bc_map,0xFFFF00;
+				enablenpc instance_npcname("人面虫宝箱#1");
+				enablenpc instance_npcname("区域一传送点#face");
+				movenpc instance_npcname("卡奥斯#face"),120,97;
+				movenpc instance_npcname("艾瑞丝#face"),127,99;
+				hideoffnpc instance_npcname("卡奥斯#face");
+				hideoffnpc instance_npcname("艾瑞丝#face");
+				break;
+			case 2:
+				mapannounce .@map$,"从南方传来很大的声响，可能是刚才被杀怪物的巢穴",bc_map,0xFFFF00;
+				enablenpc instance_npcname("人面虫宝箱#2");
+				enablenpc instance_npcname("区域二传送点#face");
+				movenpc instance_npcname("卡奥斯#face"),153,113;
+				movenpc instance_npcname("艾瑞丝#face"),160,113;
+				hideoffnpc instance_npcname("卡奥斯#face");
+				hideoffnpc instance_npcname("艾瑞丝#face");
+				break;
+			case 3:
+				mapannounce .@map$,"南方传来了石堆崩解的声音，或许是条连结其他地方的通道呢!",bc_map,0xFFFF00;
+				enablenpc instance_npcname("人面虫宝箱#3");
+				enablenpc instance_npcname("区域三传送点#face");
+				sleep 5000;
+				mapannounce .@map$,"卡奥斯的呐喊 : 育!冒险家们!到那边要小心一点，到处都是剧毒呢",bc_map,0x00FFFF;
+				sleep 3000;
+				mapannounce .@map$,"卡奥斯的呐喊 : 我们正在找其他巢穴，如果有什么发现再告诉我们吧!",bc_map,0x00FFFF;
+				// 第四区域小怪
+				areamonster .@map$,252,165,304,57,"--ja--",2528,11*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+				areamonster .@map$,211,114,272,60,"--ja--",2528,11*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+				break;
+			case 4:
+				mapannounce .@map$,"听到石堆崩解的声音，好像发现了其他条通道",bc_map,0xFFFF00;
+        donpcevent instance_npcname("#Blackpoison") + "::OnDisable";
+				enablenpc instance_npcname("人面虫宝箱#4");
+				enablenpc instance_npcname("区域四传送点#face");
+				movenpc instance_npcname("卡奥斯#face"),208,149;
+				movenpc instance_npcname("艾瑞丝#face"),220,149;
+				hideoffnpc instance_npcname("卡奥斯#face");
+				hideoffnpc instance_npcname("艾瑞丝#face");
+				break;
+			}
+		end;
+
+	OnQueenDead:
+		stopnpctimer;
+		'BossID = 0;
+		donpcevent instance_npcname("#QueenLogic") + "::OnEnd";
+    ++ 'progress;
+		.@time2 = gettimetick(2)-'time;
+		donpcevent instance_npcname("卡奥斯#facehelp") + "::OnDisable";
+    killmonster instance_mapname("1@face"),instance_npcname("#faceworm") + "::OnTrap";
+		.@hour = .@time2/3600;
+		.@min = .@time2/60;
+		.@sec = .@time2%60;
+		mapannounce instance_mapname("1@face"),"[人面虫巢穴] 副本完成！最后区域通关花费时间是「"+(.@hour<10?"0"+.@hour:.@hour)+":"+(.@min<10?"0"+.@min:.@min)+":"+(.@sec<10?"0"+.@sec:.@sec)+"」",bc_map,0x0fff8c;
+		// 纪录 1-4 关通过时间
+		'time[5]=.@time2;
+		.@totaltime = 0;
+		for(.@i = 0; .@i < 5; ++.@i)
+      .@totaltime += 'time[.@i+1];
+    .@rank = 0;
+    for(.@i = 1; .@i <= 5; ++.@i) {
+      if(.@totaltime < $facewormtime[.@i] || !$facewormtime[.@i]) {
+         .@rank = .@i;
+         break;
+      }
+    }
+    if(.@rank) {
+        for(.@i = 5; .@i > rank; .@i -= 1) {
+          if($facewormtime[.@i]) {
+              $facewormtime[.@i+1] = $facewormtime[.@i];
+              $facewormparty$[.@i+1] = $facewormparty$[.@i];
+              $facewormmember$[.@i+1] = $facewommember$[.@i];
+          }
+        }
+        $facewormtime[.@rank] = .@totaltime;
+        $facewormparty$[.@rank] = 'partyname$;
+        $facewormmember$[.@rank] = 'membername$;
+        .@hour = .@totaltime/3600;
+        .@min = .@totaltime/60;
+        .@sec = .@totaltime%60;
+        announce "恭喜队伍"+'partyname$+"在[人面虫巢穴]竞速中获得了第"+.@rank+"名！总花费时间是「"+(.@hour<10?"0"+.@hour:.@hour)+":"+(.@min<10?"0"+.@min:.@min)+":"+(.@sec<10?"0"+.@sec:.@sec)+"」",bc_all,0xFFFF00;
+    }
+		enablenpc instance_npcname("人面虫宝箱#5");
+		movenpc instance_npcname("卡奥斯#face"),208,161;
+		movenpc instance_npcname("艾瑞丝#face"),221,158;
+		hideoffnpc instance_npcname("卡奥斯#face");
+		hideoffnpc instance_npcname("艾瑞丝#face");
+		end;
+	
+	OnTimer65000:
+    initnpctimer;
+    if('progress < 5 && 'BossID) {
+      stopnpctimer instance_npcname("#QueenLogic");
+      getunitdata 'BossID,.@bossdata;
+      mobremove 'BossID;
+      .@hp = .@bossdata[2];
+      .@mhp = .@bossdata[3];
+      .@x = .@bossdata[6];
+      .@y = .@bossdata[7];
+      .@mob = rand(2532,2535);
+      'BossID = monster(instance_mapname("1@face"),.@x,.@y,"--ja--",.@mob,1,instance_npcname("#faceworm")+"::OnQueenDead");
+      setunitdata 'BossID,3,.@mhp;
+      setunitdata 'BossID,2,.@hp;
+      initnpctimer instance_npcname("#QueenLogic");
+      switch(.@mob) {
+        case 2532: .@element$ = "火"; break;
+        case 2533: .@element$ = "地"; break;
+        case 2534: .@element$ = "水"; break;
+        case 2535: .@element$ = "风"; break;
+      }
+      mapannounce instance_mapname("1@face"),"人面虫女皇试图用"+.@element$+"属性外壳包裹住自己！",bc_map,0xffff90;
+		} else
+      stopnpctimer;
+		end;
+		
+
+
+}
+
+
+1@face,0,0,0	script	人面虫宝箱::Facebox	10005,{
+	specialeffect 10;
+	specialeffect2 10;
+	getmapxy (.@map$,.@x,.@y,1);
+	switch(atoi(strnpcinfo(2))){
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+			setarray .@card,4700,4710,4720,4730,4740,4750,4701,4711,4721,4731,4741,4751,4702,4712,4722,4732,4742,4752,4703,4713,4723,4733,4743,4753,4704,4714,4724,4734,4744,4754;
+			if('time[atoi(strnpcinfo(2))]<121){
+				if(rand(1,100) <= 70) makeitem2 20717,1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(2,5),0,0,0,.@card[rand(getarraysize(.@card))],.@card[rand(getarraysize(.@card))];
+				else makeitem2 rand(20717,20718),1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(4,6),0,0,rand(4853,4858),.@card[rand(getarraysize(.@card))],.@card[rand(getarraysize(.@card))];
+			} else {
+				if(rand(1,100) <= 70) makeitem2 20717,1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(0,3),0,0,0,0,.@card[rand(getarraysize(.@card))];
+				else makeitem2 rand(20717,20718),1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(2,4),0,0,0,.@card[rand(getarraysize(.@card))],.@card[rand(getarraysize(.@card))];
+			}
+			break;
+		// 皇后的宝箱
+		case 5:
+			setarray .@card,4700,4710,4720,4730,4740,4750,4701,4711,4721,4731,4741,4751,4702,4712,4722,4732,4742,4752,4703,4713,4723,4733,4743,4753,4704,4714,4724,4734,4744,4754,4705,4715,4725,4735,4745,4755,4706,4716,4726,4736,4746,4756;
+			if('time[atoi(strnpcinfo(2))]<271){
+				set .@rate,rand(1,100);
+				set .@amount,rand(1,100)<=20?2:1;
+				if(.@rate <= 20){
+					for(set .@i,0; .@i<.@amount; set .@i,.@i+1) makeitem2 rand(20717,20718),1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(9,11),0,0,rand(4853,4858),.@card[rand(getarraysize(.@card))],.@card[rand(getarraysize(.@card))];
+				} else if(.@rate <= 50){
+					for(set .@i,0; .@i<.@amount; set .@i,.@i+1) makeitem2 rand(20717,20718),1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(5,9),0,0,0,.@card[rand(getarraysize(.@card))],.@card[rand(getarraysize(.@card))];
+				} else {
+					for(set .@i,0; .@i<.@amount; set .@i,.@i+1) makeitem2 rand(20717,20718),1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(3,7),0,0,0,0,.@card[rand(getarraysize(.@card))];
+				}
+			} else {
+				set .@rate,rand(1,100);
+				if(.@rate <= 5)	makeitem2 rand(20717,20718),1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(9,11),0,0,rand(4853,4858),.@card[rand(getarraysize(.@card))],.@card[rand(getarraysize(.@card))];
+				 else if(.@rate <= 25) makeitem2 rand(20717,20718),1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(5,9),0,0,0,.@card[rand(getarraysize(.@card))],.@card[rand(getarraysize(.@card))];
+				 else makeitem2 rand(20717,20718),1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(3,7),0,0,0,0,.@card[rand(getarraysize(.@card))];
+			}
+			break;
+	}
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	if(atoi(strnpcinfo(2))) disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@face,154,82,5	duplicate(Facebox)	人面虫宝箱#1	10005
+1@face,160,271,5	duplicate(Facebox)	人面虫宝箱#2	10005
+1@face,276,308,5	duplicate(Facebox)	人面虫宝箱#3	10005
+1@face,215,107,5	duplicate(Facebox)	人面虫宝箱#4	10005
+1@face,211,159,5	duplicate(Facebox)	人面虫宝箱#5	10005
+
+1@face,216,160,0	script	次元装置#face	10007,{
+	mes "[次元装置]";
+	mes "人面虫巢穴已通关，请选择离开或是留下";
+	next;
+	if(select("留下","离开")==2) {
+    if(questprogress(40018)) completequest 40018;
+    warp "dali",84,62;
+    end;
+	}
+	mes "-没有使用次元装置-";
+	close;
+OnInstanceInit:
+	disablenpc instance_npcname("次元装置#face");
+	end;
+}
+
+1@face,149,92,0	warp	区域一传送点#face	1,1,1@face,127,95
+1@face,131,86,0	warp	回区域一传送点#face	1,1,1@face,155,87
+1@face,139,100,0	warp	区域二传送点#face	1,1,1@face,156,115
+1@face,148,107,0	warp	回区域二传送点1#face	1,1,1@face,127,95
+1@face,249,186,0	warp	区域三传送点#face	1,1,1@face,260,170;
+1@face,254,175,0	warp	回区域三传送点1#face	1,1,1@face,246,192
+1@face,204,122,0	warp	区域四传送点#face	1,1,1@face,210,145
+
+// 第一区域陷阱
+1@face,0,0,0	script	人面虫幼虫的洞穴::Facewormhole	557,4,4,{
+	end;
+OnTouch:
+	getmapxy (.@map$,.@x,.@y,1);
+	monster .@map$,.@x,.@y,"--ja--",2541,rand(2,5);
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+// 第一区域 人面虫幼虫
+1@face,68,240,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#1	557,4,4
+1@face,81,263,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#2	557,4,4
+1@face,67,284,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#3	557,4,4
+1@face,76,315,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#4	557,4,4
+1@face,91,333,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#5	557,4,4
+1@face,75,208,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#6	557,4,4
+1@face,60,186,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#7	557,4,4
+1@face,74,160,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#8	557,4,4
+1@face,65,130,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#9	557,4,4
+1@face,69,107,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#10	557,4,4
+1@face,86,77,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#11	557,4,4
+1@face,100,74,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#12	557,4,4
+1@face,127,69,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#13	557,4,4
+1@face,145,79,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#14	557,4,4
+
+// 第二区域陷阱
+1@face,0,0,0	script	毒囊袋::VenomBug	139,4,4,{
+	end;
+OnTouch:
+	getmapxy (.@map$,.@x,.@y,1);
+	for(.@i = 0; .@i< 3; ++.@i) monster .@map$,rand(.@x-5,.@x+5),rand(.@y-5,.@y+5),"--ja--",2531,1;
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+// 第二区域 人面虫幼虫
+1@face,110,300,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#15	557,4,4
+1@face,116,286,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#16	557,4,4
+1@face,120,273,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#17	557,4,4
+1@face,122,255,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#18	557,4,4
+1@face,136,236,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#19	557,4,4
+1@face,125,218,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#20	557,4,4
+1@face,123,201,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#21	557,4,4
+1@face,110,183,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#22	557,4,4
+1@face,123,157,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#23	557,4,4
+1@face,100,131,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#24	557,4,4
+1@face,128,86,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#25	557,4,4
+1@face,130,191,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#26	557,4,4
+1@face,142,214,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#27	557,4,4
+1@face,147,235,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#28	557,4,4
+1@face,173,266,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#29	557,4,4
+1@face,195,275,0	duplicate(Facewormhole)	人面虫幼虫的洞穴#30	557,4,4
+
+// 第三区域陷阱
+1@face,0,0,0	script	毒雾沼泽::Poisonsmoke	139,{
+	end;
+OnInstanceInit:
+	if(!atoi(strnpcinfo(2))) end;
+	initnpctimer instance_npcname("毒雾沼泽#"+strnpcinfo(2));
+	end;
+OnTimer700:
+	initnpctimer instance_npcname("毒雾沼泽#"+strnpcinfo(2));
+	getmapxy (.@map$,.@x,.@y,1);
+	areapercentheal .@map$,.@x-3,.@y+3,.@x+3,.@y-3,-1,0;
+	for(set .@i,0; .@i<20; set .@i,.@i+1){
+		specialeffect 1020;
+		movenpc instance_npcname(strnpcinfo(0)),rand(.@x-3,.@x+3),rand(.@y-3,.@y+3);
+	}
+	movenpc instance_npcname(strnpcinfo(0)),.@x,.@y;
+	end;
+}
+
+1@face,0,0,0	script	#Blackpoison	139,{
+    end;
+  OnDisable:
+    stopnpctimer;
+  OnInstanceInit:
+    disablenpc instance_npcname("#Blackpoison");
+    end;
+    
+  OnEnable:
+    enablenpc instance_npcname("#Blackpoison");
+    initnpctimer;
+    end;
+    
+  OnTimer700:
+    initnpctimer;
+    getmapxy (.@map$,.@x,.@y,1);
+    areapercentheal .@map$,.@x-7,.@y+7,.@x+7,.@y-7,-2,0;
+    for(.@i = 0; .@i < 50; ++.@i){
+      specialeffect 1020;
+      movenpc instance_npcname(strnpcinfo(0)),rand(.@x-7,.@x+7),rand(.@y-7,.@y+7);
+    }
+    movenpc instance_npcname(strnpcinfo(0)),.@x,.@y;
+    end;
+}
+
+
+1@face,0,0,0	script	#Queenpoison	139,{
+    end;
+  OnDisable:
+    stopnpctimer;
+  OnInstanceInit:
+    disablenpc instance_npcname("#Queenpoison");
+    end;
+    
+  OnEnable:
+    enablenpc instance_npcname("#Queenpoison");
+    initnpctimer;
+    end;
+    
+  OnTimer700:
+    initnpctimer;
+    getmapxy (.@map$,.@x,.@y,1);
+    if('SkillLv) {
+        .@range = 7;
+        .@damage = -3;
+        .@numbers = 60;
+    }
+    else {
+        .@range = 5;
+        .@damage = -1;
+        .@numbers = 30;
+    }
+    areapercentheal .@map$,.@x-.@range,.@y+.@range,.@x+.@range,.@y-.@range,.@damage,0;
+    for(.@i = 0; .@i < .@numbers; ++.@i){
+      specialeffect 1020;
+      movenpc instance_npcname(strnpcinfo(0)),rand(.@x-.@range,.@x+.@range),rand(.@y-.@range,.@y+.@range);
+    }
+    movenpc instance_npcname(strnpcinfo(0)),.@x,.@y;
+    end;
+}
+
+// 第三区域毒囊袋 毒囊袋
+1@face,154,132,0	duplicate(VenomBug)	毒囊袋#1	139,4,4
+1@face,167,137,0	duplicate(VenomBug)	毒囊袋#2	139,4,4
+1@face,162,149,0	duplicate(VenomBug)	毒囊袋#3	139,4,4
+1@face,168,162,0	duplicate(VenomBug)	毒囊袋#4	139,4,4
+1@face,165,175,0	duplicate(VenomBug)	毒囊袋#5	139,4,4
+1@face,178,189,0	duplicate(VenomBug)	毒囊袋#6	139,4,4
+1@face,183,204,0	duplicate(VenomBug)	毒囊袋#7	139,4,4
+1@face,203,205,0	duplicate(VenomBug)	毒囊袋#8	139,4,4
+1@face,220,206,0	duplicate(VenomBug)	毒囊袋#9	139,4,4
+1@face,234,208,0	duplicate(VenomBug)	毒囊袋#10	139,4,4
+1@face,246,218,0	duplicate(VenomBug)	毒囊袋#11	139,4,4
+1@face,244,230,0	duplicate(VenomBug)	毒囊袋#12	139,4,4
+1@face,246,245,0	duplicate(VenomBug)	毒囊袋#13	139,4,4
+1@face,240,262,0	duplicate(VenomBug)	毒囊袋#14	139,4,4
+1@face,238,276,0	duplicate(VenomBug)	毒囊袋#15	139,4,4
+1@face,244,287,0	duplicate(VenomBug)	毒囊袋#16	139,4,4
+1@face,259,292,0	duplicate(VenomBug)	毒囊袋#17	139,4,4
+1@face,269,299,0	duplicate(VenomBug)	毒囊袋#18	139,4,4
+1@face,276,309,0	duplicate(VenomBug)	毒囊袋#19	139,4,4
+1@face,294,316,0	duplicate(VenomBug)	毒囊袋#20	139,4,4
+1@face,305,322,0	duplicate(VenomBug)	毒囊袋#21	139,4,4
+1@face,300,335,0	duplicate(VenomBug)	毒囊袋#22	139,4,4
+1@face,288,339,0	duplicate(VenomBug)	毒囊袋#23	139,4,4
+1@face,274,339,0	duplicate(VenomBug)	毒囊袋#24	139,4,4
+1@face,262,330,0	duplicate(VenomBug)	毒囊袋#25	139,4,4
+1@face,244,343,0	duplicate(VenomBug)	毒囊袋#26	139,4,4
+1@face,225,348,0	duplicate(VenomBug)	毒囊袋#27	139,4,4
+1@face,222,326,0	duplicate(VenomBug)	毒囊袋#28	139,4,4
+1@face,226,303,0	duplicate(VenomBug)	毒囊袋#29	139,4,4
+1@face,237,297,0	duplicate(VenomBug)	毒囊袋#30	139,4,4
+
+// 第四区域 毒雾沼泽
+1@face,265,161,0	duplicate(Poisonsmoke)	毒雾沼泽#1	139
+1@face,290,159,0	duplicate(Poisonsmoke)	毒雾沼泽#2	139
+1@face,306,145,0	duplicate(Poisonsmoke)	毒雾沼泽#3	139
+1@face,311,119,0	duplicate(Poisonsmoke)	毒雾沼泽#4	139
+1@face,281,117,0	duplicate(Poisonsmoke)	毒雾沼泽#5	139
+1@face,253,118,0	duplicate(Poisonsmoke)	毒雾沼泽#6	139
+1@face,245,98,0	duplicate(Poisonsmoke)	毒雾沼泽#7	139
+1@face,265,93,0	duplicate(Poisonsmoke)	毒雾沼泽#8	139
+1@face,287,87,0	duplicate(Poisonsmoke)	毒雾沼泽#9	139
+1@face,301,74,0	duplicate(Poisonsmoke)	毒雾沼泽#10	139
+1@face,308,59,0	duplicate(Poisonsmoke)	毒雾沼泽#11	139
+1@face,284,60,0	duplicate(Poisonsmoke)	毒雾沼泽#12	139
+1@face,262,69,0	duplicate(Poisonsmoke)	毒雾沼泽#13	139
+1@face,235,73,0	duplicate(Poisonsmoke)	毒雾沼泽#14	139
+1@face,221,90,0	duplicate(Poisonsmoke)	毒雾沼泽#15	139
+1@face,211,106,0	duplicate(Poisonsmoke)	毒雾沼泽#16	139
+1@face,216,117,0	duplicate(Poisonsmoke)	毒雾沼泽#17	139
+1@face,230,105,0	duplicate(Poisonsmoke)	毒雾沼泽#18	139
+1@face,251,103,0	duplicate(Poisonsmoke)	毒雾沼泽#19	139
+1@face,272,108,0	duplicate(Poisonsmoke)	毒雾沼泽#20	139
+
+

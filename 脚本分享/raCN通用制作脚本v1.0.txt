@@ -1,0 +1,123 @@
+//===== rAthena Script ======================================= 
+//= 通用制作脚本
+//========= By: ================================================== 
+//= RO研究手记 李小狼
+//========= 版本号: ===================================== 
+//= 1.0
+//===== 备注: =================================
+//=可以任意添加制作物品
+//=非物品变量必须添加在最后 
+//============================================================ 
+-	shop	mission_shop	-1,512:100
+prontera,143,113,5	script	制作	686,{
+	mes "hello world";
+	close2;
+	callshop "mission_shop",1;
+	npcshopattach "mission_shop";
+	end;
+	
+OnBuyItem:
+	set .@itemname$,getitemname(@bought_nameid);
+	//debugmes getarraysize(getd(".item" + @bought_nameid));
+	set .@successcount,1;
+	mes "[道具制作]";
+	mes "制作 ^1111FF"+.@itemname$+" ^000000需要以下道具";
+	mes "^FF0000==============================^000000";
+	for(set .@j,0;getelementofarray(getd(".item" + @bought_nameid),.@j)>500; .@j+=2) {
+		set .@itemid,getelementofarray(getd(".item" + @bought_nameid),.@j);
+		set .@name$,getitemname(.@itemid);
+		set .@count,getelementofarray(getd(".item" + @bought_nameid),.@j+1);
+		if(countitem(.@itemid) >= .@count)
+		{
+			mes "需要^0000FF" + .@name$ + " ^FF0000" + .@count +"^000000个^00FF00 [已完成]^000000";
+			.@successcount++;
+		}
+		else
+		{
+			mes "需要^0000FF" + .@name$ + " ^FF0000" + .@count +"^000000个 [缺少^FF0000" + (.@count - countitem(.@itemid)) + "^000000个]^000000";
+			.@successcount-= 99;
+		}
+	}
+	//debugmes ".@j : " + .@j;
+	for(set .@j,.@j;.@j < getarraysize(getd(".item" + @bought_nameid)); .@j+=2) {
+		set .@itemid,getelementofarray(getd(".item" + @bought_nameid),.@j);
+		set .@count,getelementofarray(getd(".item" + @bought_nameid),.@j+1);
+		if(getd(.cashs$[.@itemid]) >= .@count)
+		{
+			mes "需要^0000FF" + .cashsname$[.@itemid] + " ^FF0000" + .@count +"^000000^00FF00 [已完成]^000000";
+			.@successcount++;
+		}
+		else
+		{
+			mes "需要^0000FF" + .cashsname$[.@itemid] + " ^FF0000" + .@count +"^000000 [缺少^FF0000" + (.@count - getd(.cashs$[.@itemid])) + "^000000]^000000";
+			.@successcount-= 99;
+		}
+	}
+	if(.@successcount > 0)
+	{
+		next;
+		menu "--制作" + .@itemname$ +"--",L_OK,"--取消--",L_CANEL;
+	}
+	else
+	{
+		mes "请将所需物品收集齐，再来找我吧！";
+		close;
+	}
+		
+	
+	end;
+	
+L_OK:
+	for(set .@k,0;.@k < getarraysize(getd(".item" + @bought_nameid)); .@k+=2) {
+		set .@itemid,getelementofarray(getd(".item" + @bought_nameid),.@k);
+		set .@count,getelementofarray(getd(".item" + @bought_nameid),.@k+1);
+		if(.@itemid > 500)
+		{
+			if(countitem(.@itemid) >= .@count)
+			{
+				delitem .@itemid,.@count;
+			}
+			else{
+				goto L_ERROR;
+			}
+		}
+		else
+		{
+			if(getd(.cashs$[.@itemid]) >= .@count)
+			{
+				setd .cashs$[.@itemid],getd(.cashs$[.@itemid])-.@count;
+			}
+			else{
+				goto L_ERROR;
+			}
+		}
+	}
+	specialeffect2 154;
+	getitem @bought_nameid,1;
+	mes "恭喜你获得了 ^0000FF" + .@itemname$ + "^000000";
+	goto L_LEAVE;
+
+L_CANEL:
+	goto L_LEAVE;
+L_LEAVE:
+	set .@itemname$,0;
+	set .@successcount,0;
+	close2;
+	end;
+L_ERROR:
+	mes "出错了";
+	goto L_LEAVE;
+	
+OnInit:
+//添加商品
+	setarray .item30001[0],512,10,513,10,514,10,0,100000,1,100;
+	setarray .cashs$[0],"Zeny","#CASHPOINTS";
+	setarray .cashsname$[0],"金币","P点";
+	setarray .Shop[0],30001,30002;
+	npcshopitem "mission_shop",512,-1;
+	npcshopdelitem "mission_shop",512;
+	for(set .@i,0; .@i < getarraysize(.Shop); .@i++)
+		npcshopadditem "mission_shop", .Shop[.@i], 1;
+	end;
+
+}

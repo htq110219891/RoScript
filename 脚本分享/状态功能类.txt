@@ -1,0 +1,167 @@
+function	script	OXZTY	{
+		sc_start SC_VITFOOD,600000,10;
+		sc_start SC_STRFOOD,600000,10;
+		sc_start SC_AGIFOOD,600000,10;
+		sc_start SC_DEXFOOD,600000,10;
+		sc_start SC_INTFOOD,600000,10;
+		sc_start SC_LUKFOOD,600000,10;
+		sc_start SC_ENDURE,600000,10;                   //霸体
+		sc_start SC_WEAPONPERFECTION,600000,10;         //无视体型攻击
+		sc_start SC_MAXIMIZEPOWER,600000,10;            //武器值最大化
+		sc_start SC_ATKPOTION,600000,10;                //增加ATK
+		sc_start SC_ASSUMPTIO,600000,10;                //圣母之祈福
+		sc_start SC_ADRENALINE2,600000,10;              //所有速度激发
+		sc_start SC_KAIZEL,600000,10;                   //凯易哲
+		sc_start SC_KAUPE,600000,10;                    //凯诬仆
+		sc_start SC_KAAHI,600000,10;                    //凯阿希
+		sc_start SC_UTSUSEMI,600000,5;                  //金蝉脱壳
+		sc_start SC_BUNSINJYUTSU,600000,10;             //幻影化身
+		sc_start SC_TWOHANDQUICKEN,600000,10;           //双手剑攻击速度增加
+		sc_start SC_ONEHAND,600000,1;                   //单手剑攻击速度增加
+		sc_start SC_AUTOGUARD,600000,10;                //自动防御
+		sc_start SC_REFLECTSHIELD,600000,10;            //反射盾
+		sc_start SC_SPEARQUICKEN,600000,10;             //长矛加速术
+		sc_start SC_WINDWALK,600000,10;                 //风之步
+		sc_start SC_SECRAMENT,600000,10;                //圣礼
+		sc_start SC_MELTDOWN,600000,10;                 //野蛮凶砍
+		sc_start SC_EDP,600000,5;                       //致命涂毒
+		sc_start SC_POISONINGWEAPON,600000,5;           //剧毒武器
+		sc_start SC_REJECTSWORD,600000,5;               //霸王魂
+		sc_start SC_CONCENTRATE,600000,10;              //心神
+		sc_start SC_LOUD,600000,10;                     //大声呐喊		
+		sc_start SC_ENERGYCOAT,600000,10;               //能量外套
+		sc_start SC_MATKPOTION,600000,10;               //增加MATK
+		sc_start SC_ANGELUS,600000,10;                  //天使之障壁
+		sc_start SC_BLESSING,600000,10;                 //天使之赐福
+		sc_start SC_INCREASEAGI,600000,10;              //加速
+		sc_start SC_IMPOSITIO,600000,10;                //神威
+		sc_start SC_SUFFRAGIUM,600000,10;               //牺牲祈福
+		sc_start SC_MAGNIFICAT,600000,10;               //圣母之颂歌	
+		sc_start SC_GLORIA,600000,10;                   //幸运之歌
+		sc_start SC_KYRIE,600000,10;                    //霸邪
+		sc_start SC_CP_WEAPON,600000,10;                //化学武器保护
+		sc_start SC_CP_SHIELD,600000,10;                //化学盾牌保护
+		sc_start SC_CP_ARMOR,600000,10;                 //化学铠甲保护
+		sc_start SC_CP_HELM,600000,10;                  //化学头盔保护
+		sc_start SC_DUPLELIGHT,600000,10;               //双重圣光
+		sc_start SC_TELEKINESIS_INTENSE,600000,5;       //强念传动
+		sc_start SC_ASPDPOTION2,600000,10;              //菠色克药水
+		sc_start SC_MIRACLE,600000,10;                  //魂
+		return;
+}
+function	script	vipbf	{
+		sc_start SC_VITFOOD,600000,10;
+		sc_start SC_STRFOOD,600000,10;
+		sc_start SC_AGIFOOD,600000,10;
+		sc_start SC_DEXFOOD,600000,10;
+		sc_start SC_INTFOOD,600000,10;
+		sc_start SC_LUKFOOD,600000,10;
+		sc_start SC_ENDURE,600000,10;                   //霸体
+		sc_start SC_WEAPONPERFECTION,600000,10;         //无视体型攻击
+		sc_start SC_MAXIMIZEPOWER,600000,10;            //武器值最大化
+		sc_start SC_ASSUMPTIO,600000,10;                //圣母之祈福
+		sc_start SC_AUTOGUARD,600000,10;                //自动防御
+		sc_start SC_WINDWALK,600000,10;                 //风之步
+		sc_start SC_MELTDOWN,600000,10;                 //野蛮凶砍
+		sc_start SC_CONCENTRATE,600000,10;              //心神
+		sc_start SC_LOUD,600000,10;                     //大声呐喊		
+		sc_start SC_ANGELUS,600000,10;                  //天使之障壁
+		sc_start SC_BLESSING,600000,10;                 //天使之赐福
+		sc_start SC_KAIZEL,600000,1;                   	//凯易哲
+		sc_start SC_INCREASEAGI,600000,10;              //加速
+		sc_start SC_IMPOSITIO,600000,10;                //神威
+		sc_start SC_SUFFRAGIUM,600000,10;               //牺牲祈福
+		sc_start SC_MAGNIFICAT,600000,10;               //圣母之颂歌	
+		sc_start SC_GLORIA,600000,10;                   //幸运之歌
+		sc_start SC_CP_WEAPON,600000,10;                //化学武器保护
+		sc_start SC_CP_SHIELD,600000,10;                //化学盾牌保护
+		sc_start SC_CP_ARMOR,600000,10;                 //化学铠甲保护
+		sc_start SC_CP_HELM,600000,10;                  //化学头盔保护
+	}
+function	script	MonHD	{
+		sc_start SC_VITFOOD,600000,13;
+		sc_start SC_STRFOOD,600000,13;
+		sc_start SC_AGIFOOD,600000,13;
+		sc_start SC_DEXFOOD,600000,13;
+		sc_start SC_INTFOOD,600000,13;
+		sc_start SC_LUKFOOD,600000,13;
+		sc_start SC_ENDURE,600000,10;                   //霸体
+		sc_start SC_WEAPONPERFECTION,600000,10;         //无视体型攻击
+		sc_start SC_MAXIMIZEPOWER,600000,10;            //武器值最大化
+		sc_start SC_ATKPOTION,600000,10;                //增加ATK
+		sc_start SC_ASSUMPTIO,600000,10;                //圣母之祈福
+		sc_start SC_KAIZEL,600000,10;                   //凯易哲
+		sc_start SC_REFLECTSHIELD,600000,10;            //反射盾
+		sc_start SC_SPEARQUICKEN,600000,10;             //长矛加速术
+		sc_start SC_WINDWALK,600000,10;                 //风之步
+		sc_start SC_MELTDOWN,600000,10;                 //野蛮凶砍
+		sc_start SC_CONCENTRATE,600000,10;              //心神
+		sc_start SC_LOUD,600000,10;                     //大声呐喊		
+		sc_start SC_ENERGYCOAT,600000,10;               //能量外套
+		sc_start SC_MATKPOTION,600000,10;               //增加MATK
+		sc_start SC_ANGELUS,600000,10;                  //天使之障壁
+		sc_start SC_BLESSING,600000,10;                 //天使之赐福
+		sc_start SC_INCREASEAGI,600000,10;              //加速
+		sc_start SC_IMPOSITIO,600000,10;                //神威
+		sc_start SC_SUFFRAGIUM,600000,10;               //牺牲祈福
+		sc_start SC_MAGNIFICAT,600000,10;               //圣母之颂歌	
+		sc_start SC_GLORIA,600000,10;                   //幸运之歌
+		sc_start SC_KYRIE,600000,10;                    //霸邪
+		sc_start SC_CP_WEAPON,600000,10;                //化学武器保护
+		sc_start SC_CP_SHIELD,600000,10;                //化学盾牌保护
+		sc_start SC_CP_ARMOR,600000,10;                 //化学铠甲保护
+		sc_start SC_CP_HELM,600000,10;                  //化学头盔保护
+		sc_start SC_DUPLELIGHT,600000,10;               //双重圣光
+		return;
+}
+function	script	ThuHD	{
+		sc_start SC_VITFOOD,600000,15;
+		sc_start SC_STRFOOD,600000,15;
+		sc_start SC_AGIFOOD,600000,15;
+		sc_start SC_DEXFOOD,600000,15;
+		sc_start SC_INTFOOD,600000,15;
+		sc_start SC_LUKFOOD,600000,15;
+		sc_start SC_ENDURE,600000,10;                   //霸体
+		sc_start SC_WEAPONPERFECTION,600000,10;         //无视体型攻击
+		sc_start SC_MAXIMIZEPOWER,600000,10;            //武器值最大化
+		sc_start SC_ATKPOTION,600000,10;                //增加ATK
+		sc_start SC_ASSUMPTIO,600000,10;                //圣母之祈福
+		sc_start SC_ADRENALINE2,600000,10;              //所有速度激发
+		sc_start SC_KAIZEL,600000,10;                   //凯易哲
+		sc_start SC_KAUPE,600000,10;                    //凯诬仆
+		sc_start SC_KAAHI,600000,10;                    //凯阿希
+		sc_start SC_UTSUSEMI,600000,5;                  //金蝉脱壳
+		sc_start SC_BUNSINJYUTSU,600000,10;             //幻影化身
+		sc_start SC_AUTOGUARD,600000,10;                //自动防御
+		sc_start SC_REFLECTSHIELD,600000,10;            //反射盾
+		sc_start SC_SPEARQUICKEN,600000,10;             //长矛加速术
+		sc_start SC_WINDWALK,600000,10;                 //风之步
+		sc_start SC_SECRAMENT,600000,10;                //圣礼
+		sc_start SC_MELTDOWN,600000,10;                 //野蛮凶砍
+		sc_start SC_EDP,600000,5;                       //致命涂毒
+		sc_start SC_CONCENTRATE,600000,10;              //心神
+		sc_start SC_LOUD,600000,10;                     //大声呐喊
+		sc_start SC_MATKPOTION,600000,10;               //增加MATK
+		sc_start SC_ANGELUS,600000,10;                  //天使之障壁
+		sc_start SC_BLESSING,600000,10;                 //天使之赐福
+		sc_start SC_INCREASEAGI,600000,10;              //加速
+		sc_start SC_IMPOSITIO,600000,10;                //神威
+		sc_start SC_SUFFRAGIUM,600000,10;               //牺牲祈福
+		sc_start SC_MAGNIFICAT,600000,10;               //圣母之颂歌	
+		sc_start SC_GLORIA,600000,10;                   //幸运之歌
+		sc_start SC_KYRIE,600000,10;                    //霸邪
+		sc_start SC_CP_WEAPON,600000,10;                //化学武器保护
+		sc_start SC_CP_SHIELD,600000,10;                //化学盾牌保护
+		sc_start SC_CP_ARMOR,600000,10;                 //化学铠甲保护
+		sc_start SC_CP_HELM,600000,10;                  //化学头盔保护
+		sc_start SC_DUPLELIGHT,600000,10;               //双重圣光
+		sc_start SC_TELEKINESIS_INTENSE,600000,5;       //强念传动
+		sc_start SC_MIRACLE,600000,10;                  //魂
+		return;
+}
+prontera,146,98,6	script	状态	-1,10,10,{
+OnTouch:
+	sleep2 1000;
+	percentheal 100,100;
+	end;
+}

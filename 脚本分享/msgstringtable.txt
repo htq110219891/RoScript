@@ -1,0 +1,2970 @@
+请问是否同意？#
+与服务器连接失败，请稍候重试...#
+与服务器失去连接，请确认服务器是否正在进行维护...#
+与服务器中断连接#
+服务器已经关闭，有可能进入维护状态#
+已经有其他人使用此账号登录游戏#
+尚未注册的游戏帐号，请重新确认帐号#
+密码错误，请重新确认密码#
+此帐号已超过使用期限#
+服务器拒绝连接#
+这个角色名称已经有人使用了#
+创建角色失败！可能是角色名不合法。#
+删除角色失败#
+请输入聊天室的名称#
+内容含有不雅的言词#
+请输入密码#
+请输入密码。密码至少要输入四个字以上。#
+请问是否要结束游戏？#
+账号或密码至少要输入四个字以上。 请仔细确认后，再试一次。#
+确认要删除这个角色吗？#
+内容含有不雅的言词#
+请输入角色名称，名称至少要输入两个汉字或者四个英文字母。#
+如需命令帮助，请在聊天栏输入: /h 并按回车#
+开启技能效果#
+关闭技能效果#
+效果音量#
+背景音量#
+开启效果音#
+关闭效果音#
+开启画面同步更新功能#
+关闭画面同步更新功能#
+开启背景音乐#
+关闭背景音乐#
+/h or /help: 指令浏览#
+/w or /who or /player or /who : 显示现在在线的玩家数量#
+/music: 开启或关闭背景音乐#
+/sound: 开启或关闭效果音#
+/effect: 开启或关闭技能效果#
+/where：显示目前所在的地图和座标#
+/skip: 开启或关闭画面同步更新#
+/v (0~127): 调整效果音的音量大小 #
+/bv (0~127): 调整背景音乐的音量大小#
+/ex [角色名称]: 拒绝接收某指定角色的密语#
+/ex: 查看被您拒绝密语的角色列表#
+/in [角色名称]: 接受某指定角色的密语#
+/inall: 接受所有角色的密语#
+/exall: 拒绝所有角色的密语#
+Right click on a character and select [Register as a Friend] to add a person to your Friend List.#
+F12 Brings up a Hotkey Window which allows you to drag and drop Recovery Items, Equipment and Skills into it for faster access.#
+同一句话不能连续发送超过三次#
+内容含有不雅的词语，将其发送出去将有碍和谐...#
+You cannot overlap items on a window.#
+超过最大负重量，无法取得物品#
+您无法取得物品#
+已经成功完成交易#
+金钱不足，交易失败#
+您的负重量不足以带动这些东西，交易失败#
+很遗憾，交易失败了#
+拒绝接收所有密语讯息#
+拒绝接收所有密语讯息失败#
+开启接收所有密语功能#
+开启接收所有密语功能失败#
+没有接收/拒绝密语讯息的角色名单#
+─拒绝密语的角色名单─#
+已成功创建聊天室#
+聊天室人数已超过上限#
+这个聊天室名称已有其他人使用#
+此聊天室人满为患，无法进入#
+您被聊天室管理员踢出聊天室了#
+交易请求被对方狠狠的拒绝了#
+超过可交易的距离，请与目标玩家保持2格以内的距离#
+您所指定的玩家目前并不在线，无法完成操作#
+指定的玩家正在和其他玩家交易（或者开启仓库中...）#
+悲剧啊！交易失败了，对方可能拿不动您即将交易给他的物品，或者存在禁止交易的物品#
+很遗憾，交易被取消了#
+交易物品成功#
+交易物品失败#
+队伍已经成功建立#
+这个队伍名称已经有人使用啦#
+您指定的玩家已经在队伍中啦#
+您指定的玩家已经加入了其他队伍啦#
+拒绝加入队伍#
+接受加入队伍的邀请#
+超过队伍所能承载的人数上限，无法组队#
+您已经离开了队伍#
+公开发言频道#
+组队发言频道#
+Request a deal with %s#
+Ask %s to join your party#
+私有:#
+公开:#
+Click ''Restart'' to go back to your save point or click ''Exit'' to select another character.#
+请选择交易选项#
+询问您愿不愿意进行交易？#
+的队长送来了组队邀请，请问您同意加入这个队伍吗？#
+错误或者无效的指令，如需帮助请输入 /h 或者 /help 来查看指令说明#
+离开队伍#
+踢出队伍#
+发送消息#
+1:1 对话#
+信息#
+组队设置#
+好友#
+队伍#
+装备栏#
+角色能力#
+物品栏#
+/organize ''Party Name'' To organize a party. Type /leave To leave a Party.#
+If you are the party master, you can invite someone into your party by right-clicking on a Character.#
+回复#
+攻击#
+辅助#
+全部#
+武器#
+防御#
+水属性#
+地属性#
+火属性#
+风属性#
+相同种类的装备道具，一次只能购买一个#
+Please change your desktop Color Depth to 16-bit when running Ragnarok in windowed mode.#
+连接地图服务器中，请等待初始化完成...#
+连接地图服务器中，请等待初始化完成...#
+处理中，请稍候...#
+处理中，请稍候...#
+创建聊天室#
+聊天室设置#
+强制踢出聊天室#
+给予聊天室管理员的权限#
+显示信息#
+聊天室#
+人#
+/sit: 用于让角色坐下的命令，如果您已经坐下了，那么使用本命令会让角色站起#
+/stand: 用于让角色站起的命令，如果您已经站起，那么使用本命令会让角色坐下#
+/chat: 打开聊天室创建窗口#
+/q: 离开聊天室#
+/deal [角色名称]: 邀请与某位角色进行交易#
+/organize [队伍名称]: 创建一个新队伍#
+/leave: 离开目前所在的队伍#
+/expel [角色名称]: 从队伍中踢掉指定角色#
+[Alt] + [End]: 开启或关闭自己角色的 HP/SP 血量条#
+[Alt] + [Home]: Turns Ground Cursor On or Off#
+[Insert]: 让您坐下或者站立（您可以使用 /sit 或者 /stand 指令实现类似功能）#
+恭喜您杀死了强大的魔物，成为了荣耀的MVP！获得额外奖励物品为 #
+ ！#
+恭喜您杀死了强大的魔物，成为了荣耀的MVP！获得额外奖励 #
+ 点经验值！#
+虽然您成为了荣耀的MVP，但是由于您的负重量不足，所以无法获得额外的奖励！！#
+找不到这位玩家，有可能是TA没在线#
+ 不想收到您发送的信息#
+ 不想收到任何人发送的信息#
+已经将目标玩家强制下线#
+由于各种原因，强制下线失败了#
+您取得了 %s (%d个)#
+[Alt] + [=]: Fix the interval error between letters.#
+[F10]: 调整聊天窗口大小; [Alt] + [F10]: 开启或关闭聊天窗口#
+How to Whisper: Enter a Character's Name on the left side of chat window and type your message on the right side. The Tab key helps you move between these boxes.#
+/!,/?,/ho,/lv,/lv2,/swt,/ic,/an,/ag,/$,/….,/thx,/wah,/sry,/heh,/swt2,/hmm,/no1,/??,/omg,/oh,/X,/hp,/go,/sob,/gg,/kis,/kis2,/pif,/ok: Emotion icons corresponding to Alt + (1~9) Ctrl + (-=\\)#
+How to Speak to Party: Add % in front of every message.(Example: \%Hello\)#
+您的“基本技能”等级不足，无法使用交易！请先修练“基本技能”至1级#
+您的“基本技能”等级不足，无法使用表情符号！请先修练“基本技能”至2级#
+您的“基本技能”等级不足，无法坐到地上！请先修练“基本技能”至3级#
+您的“基本技能”等级不足，无法开启聊天室！请先修练“基本技能”至4级#
+您的“基本技能”等级不足，无法创建队伍！请先修练“基本技能”至7级#
+您的“基本技能”等级不足，无法使用仓库！请先修练“基本技能”至6级#
+您的“基本技能”等级不足，无法与其他玩家进行OK！请先修练“基本技能”至8级#
+想跟商人购买的道具#
+道具商店#
+想出售的道具#
+仓库物品清单#
+ 穿戴完成#
+ 卸下完成#
+To add names on the Whispering List#
+How to Take Screen Shots: Press [Print Screen] or [Scroll Lock]#
+每日提示#
+^3850a0您知道吗...^709fed#
+启动游戏时打开#
+/tip: 打开 '每日提示'#
+目前共有 %d 名玩家正在玩游戏#
+(%s)进入聊天室#
+(%s)退出聊天室#
+(%s)被踢出聊天室#
+%d 个#
+%s: %d 个#
+%s %s: %d#
+可出售的物品#
+商店出售的物品#
+不知名的区域#
+您的游戏和客户端语言和服务端设置的语言不一致#
+要丢弃道具，请先关闭装备栏窗口#
+本服务器只能使用英文#
+本功能尚未实装#
+No Whisper List.#
+: Whispering Blocked.#
+: Whispering Block has failed.#
+: Whispering Block has failed. Block List is full.#
+: Whispering accepted.#
+: Command has failed.#
+: Command has failed. Block List is full.#
+名字第一个字和最后一个字不能留空白#
+私有#
+公开#
+SP不足，无法使用技能#
+HP不足，无法使用技能#
+很抱歉，技能使用失败！可能是技能使用条件不满足、对方不能被攻击或者被沉默#
+偷窃失败#
+交易窗口#
+指定目标未陷入[中毒]状态#
+您无法在本服务器上使用此账号#
+已变成[ 速度提升 ]状态，移动速度会上升#
+已解除[ 速度提升 ]状态，移动速度回到原始状态#
+/memo: 记忆空间移动场所(有此记忆技能时才可使用)#
+随机位置#
+请选择空间移动的位置#
+技能等级不足#
+There are no memorized locations (Memo Points).#
+您尚未学习瞬间移动或传送之阵技能，无法记录空间移动场所#
+已记录空间移动场所#
+取消#
+技能使用后延迟时间尚未解除#
+You can't have this item because you will exceed the weight limit.#
+Out of the maximum capacity#
+手推车物品栏#
+放弃手推车#
+开设露天商店#
+请输入商店名称！#
+我的商店#
+露天商店#
+想跟商人购买的道具#
+%s Purchase Failed %s#
+Out of Stock#
+%s %d sold.#
+在商店里可以卖的物品#
+很抱歉，由于您的金钱不足，导致技能使用失败#
+请选择想要施展技能的目标或区域#
+/pk on: Turns PK On. /pk off: Turns PK Off.#
+Shop#
+查看手推车内的物品 [Alt+W]#
+基本信息#
+使用当前装备的武器无法释放此技能#
+Buying %s has been failed. Out of Stock. Current Stock %d.#
+You've been disconnected due to a time gap between you and the server.#
+请先装备箭矢、子弹、飞镖、飞刀、加农炮弹#
+由于您的负重量过大，无法攻击和使用技能#
+由于您的负重量过大，无法使用技能#
+已装备箭矢、子弹、飞镖、飞刀、加农炮弹#
+需要红色魔力矿石才可以发动技能#
+需要蓝色魔力矿石才可以发动技能#
+力量#
+敏捷#
+体力#
+智力#
+灵巧#
+幸运#
+攻击力#
+物理防御#
+命中#
+爆击率#
+所属公会#
+可用素质点数#
+魔法攻击力#
+魔法防御#
+回避#
+攻击速度#
+Server is jammed due to over population. Please try again shortly.#
+Option#
+Login is currently unavailable. Please try again shortly.#
+很抱歉，您输入的账号或者密码有误！ 请仔细确认后，再试一次。#
+选择发型#
+攻击力#
+防御力#
+攻击时自动锁定游标[开启]#
+攻击时自动锁定游标[关闭]#
+使用技能时自动锁定游标[开启]#
+使用技能时自动锁定游标[关闭]#
+/snap: Turns snap On | Off for fights, /skillsnap: Turns snap On | Off for skills. /itemsnap: Turns snap On | Off for items on the grounds.#
+捡拾道具时自动锁定游标[开启]#
+捡拾道具时自动锁定游标[关闭]#
+游标#
+同一种道具最多只能取得或者存放30000个#
+You cannot delete a Character with a level greater than 30. If you want to delete the character please contact a Game Master.#
+You cannot use an NPC shop while in a trade.#
+店名#
+技能列表#
+可用技能点: %d#
+使用技能失败#
+被动技能#
+各自取得#
+均等分配#
+各自取得#
+均可捡取#
+组队设置#
+经验分配方式#
+道具取得方式#
+只有组队队长可以改变此设置#
+不询问道具数量，默认全部#
+Character will be deleted after ^ff0000%d^000000 seconds. Press Cancel to quit.#
+每次交易您不能交换超过10种道具#
+You are underaged.#
+请输入您的生日（格式:YYMMDD，如:910213）#
+E-mail Address (Case Sensitive).#
+Character Deletion has failed because you have entered an incorrect e-mail address.#
+Enter Second Serial Cord of your Social Security number.#
+Character Deletion has failed because you have entered an incorrect SSN.#
+单次交易您最多只能卖出 15 种道具...#
+You are underaged and cannot join this server.#
+您的负重量已达到50%以上了，HP与SP无法自动回复#
+您的负重量已达到90%以上了，无法攻击和使用技能#
+现在负重量已经低于50%，HP与SP可以自然恢复了#
+现在负重量已经低于90%，可以攻击或使用技能了#
+您的游戏客户端程序已经太旧啦，请更新至最新版本。#
+太好啦~道具已全部卖出，收摊咯~#
+把聊天内容存档成文件#
+/savechat: Save a Chat Log#
+注册游戏账号#
+拒绝他对我发送密语#
+准许他对我发送密语#
+打怪没命中，或者怪物打自己没命中时，显示 Miss 标示#
+打怪没命中，或者怪物打自己没命中时，关闭 Miss 标示#
+Camera Zooming On#
+Camera Zooming Off#
+/camera: Camera Zooming On or Off. /miss: Toggle ''Miss'' display#
+查看技能说明#
+Change Skill#
+角色画质#
+背景画质#
+Arrange Detail#
+取得 %s 金币#
+公会名称#
+公会等级#
+会长名称#
+公会人数#
+公会成员平均等级#
+占领城池(未实装)#
+公会类型(未实装)#
+公会经验值#
+公会标志#
+公会缴纳点数(未实装)#
+同盟公会#
+敌对公会#
+公会信息#
+成员信息#
+职位设置#
+公会技能#
+驱逐历史#
+公告事项#
+Entire Guild List#
+Whispering List#
+Open Whispering Window#
+How to Open Whispering List: Press [Alt] + [H]#
+Open Whispering List Automatically#
+删除#
+Close since next#
+Last Log-in Time#
+Last Log-in IP#
+好友设置#
+确定要将此角色从好友名单中删除吗?#
+确认要退出队伍吗？#
+加为好友#
+对方为好友时使用 1:1 对话窗口#
+打开 1:1 对话窗口#
+对方不是好友时使用 1:1 对话窗口#
+当收到 1:1 对话时，用声音提示我#
+确认要将选中角色踢出队伍吗？#
+%s 已经退出公会了#
+退出原因 : %s#
+公会解散失败#
+公会解散原因: %s#
+这个帐号已经被删除了#
+售价: #
+%s 遭到公会管理层驱逐#
+驱逐原因 : %s#
+无法装备道具，请检查职业和等级是否符合要求，或装备是否已经损坏#
+无法更改组队设定，请确认全体组队成员等级是否相差30级以内#
+恭喜您，公会已经创建完毕！#
+您已是公会的一员#
+此公会名称已有人使用#
+公会送来了邀请函， 请问您是否愿意加入此公会？#
+He/She is already in a Guild.#
+很遗憾，对方拒绝加入公会#
+太好啦，对方接受邀请，加入了公会#
+已达公会人数上限，无法再接收新成员了#
+邀请 (%s) 加入公会#
+You haven't learned enough skills for aligning.#
+Alignning completed.#
+You already spent your point for today.#
+Hasn't been a month yet since you aligned this person.#
+请记住，被禁言不是什么好事情，因为这代表您没礼貌，或者对他人造成了困扰！#
+Please refrain from ill-mannered conduct, thank you.#
+缩短禁止聊天时间#
+延长禁止聊天时间#
+邀请 (%s) 进行交易#
+邀请 (%s) 加入队伍#
+ 公会送来了邀请同盟的消息，请问您是否愿意结成公会同盟？#
+已成为公会同盟#
+您拒绝与对方结成公会同盟#
+您接受与对方结成公会同盟#
+对方的同盟公会数量超过上限#
+您的同盟公会数量超过上限#
+邀请成为同盟公会#
+已成功解散公会#
+You have failed to disorganize the guild due to your incorrect SSN.#
+You have failed to disorganize the guild because there are guildsmen still present.#
+加入敌对公会列表#
+选择发色#
+您需要拥有1个华丽金属才能创建公会#
+魔物信息#
+名称#
+等级#
+生命值#
+体型#
+种族#
+魔防#
+属性#
+无#
+水#
+地#
+火#
+风#
+毒#
+圣#
+暗#
+念#
+不死#
+很抱歉，材料或技能不足，无法制造道具#
+您能制造的物品清单#
+ Create#
+'s materials#
+ item creation failed.#
+ item created sucessfully.#
+ item creation failed.#
+ item created sucessfully.#
+You are not the required lvl.#
+Too high lvl for this job.#
+Not the suitable job for this type of work.#
+Record a message in the Talkie Box#
+Please type a message for the Talkie Box#
+公会发言频道#
+You didn't pay for this ID. Would you like to pay for it now?#
+Server is jammed due to overpopulation. Please try again after few minutes.#
+很抱歉，服务器还保留着您上一次的连接，请等待一会儿再尝试进行登录吧。#
+解散猎鹰#
+放弃坐骑#
+小型#
+中型#
+大型#
+两倍#
+三倍#
+四倍#
+You are prohibited to log in until %s.#
+ 制造的 #
+的火属性 #
+的水属性 #
+的风属性 #
+的地属性 #
+38.144.194.2#
+6900#
+http://bbs.nomiro.net#
+强制 (%s) 下线#
+一级强悍 #
+二级强悍 #
+三级强悍 #
+逐出公会的原因#
+已变成[ 攻速提升 ]状态#
+已解除[ 攻速提升 ]状态#
+已变成[ 武器攻击力提升 ]状态#
+已解除[ 攻击力提升 ]状态#
+已变成[ 变动咏唱时间减少 ]状态#
+已解除[ 变动咏唱时间减少 ]状态#
+赋予武器[ 毒属性 ]#
+赋予武器[ 圣属性 ]#
+已解除武器所附加的属性#
+赋予铠甲[ 圣属性 ]#
+已解除铠甲所附加的属性#
+已变成[ 霸邪之阵 ]状态#
+已解除[ 霸邪之阵 ]状态#
+已变成[ 无视体型攻击 ]状态，攻击伤害不受对象体型影响#
+已解除[ 无视体型攻击 ]状态，攻击伤害将受对象体型影响#
+已变成[ 凶砍 ]状态，攻击力增加，(0.1%%)机率破坏自己的武器#
+已解除[ 凶砍 ]状态#
+已变成[ 武器值最大化 ]状态，攻击伤害将持续最大值#
+已解除[ 武器值最大化 ]状态，攻击伤害将会恢复浮动#
+New#
+ 目前在线 %d 人#
+(On the maintenance)#
+公会成员 %s 上线#
+公会成员 %s 离线#
+取得 %s 基础经验值#
+取得 %s 职业经验值#
+您已经退出公会了#
+退出原因：被公会管理层驱逐，此处不留爷，自有留爷处#
+已成功完成物品鉴定#
+很遗憾，物品鉴定失败#
+已成功将卡片插入装备#
+很遗憾，卡片插入失败#
+已经将对方公会加入敌对公会列表#
+敌对公会数量超过上限#
+对方公会已经是您的敌对公会#
+恭喜您，精炼成功啦 (^_^)#
+很抱歉，精炼失败了 (T_T)#
+此地图无法使用[ 瞬间移动 ]#
+此地图无法[ 记录为传送点 ]，无法使用结婚召唤#
+攻击、受伤、使用技能或进入地图后，请等待 10 秒后才能够离线#
+职位#
+职业#
+备忘#
+贡献#
+贡献经验#
+退出公会#
+逐出公会#
+级别#
+职位名称#
+加入权限#
+驱逐权限#
+贡献%比#
+标题#
+内容#
+Guild Name#
+Guild lvl#
+Guildsmen#
+Ranking#
+可鉴定的物品清单#
+插入卡片#
+请输入退出公会的原因#
+请输入逐出公会的原因#
+请关闭商店窗口#
+技能名称#
+道具名称#
+https://pay.ragnarok.co.kr (Billing Web)#
+IP capacity of this Internet Cafe is full. Would you like to pay the personal base?#
+You are out of available paid playing time. Game will be shut down automatically.#
+Name is too long. Please enter a name no greater than 23 english characters.#
+deleted#
+You paid with the personal regular base.#
+You paid with the personal regular base. Available time is xx hrs xx mins xx secs.#
+You are free!#
+You are free for the test, your available time is xx hrs xx mins xx secs.#
+You paid with the Internet Cafe regular base. Available time is xx hrs xx mins xx secs.#
+You paid with the Time Limit for Internet Cafe. Availabe time is xx hrs xx mins xx secs.#
+You are free for the test of Internet Cafe version .#
+You are free for the Internet Cafe version.#
+You paid on the Time Limit Website.#
+表情符号#
+/表情符号#
+/！#
+/？#
+/高兴#
+/爱心#
+/大爱心#
+/流冷汗#
+/灵感#
+/生气#
+/郁闷#
+/金钱#
+/无言#
+/感谢#
+/无奈#
+/抱歉#
+/欢笑#
+/喷汗#
+/迷惑#
+/一级棒#
+/寻找#
+/天哪！#
+/O#
+/X#
+/救命#
+/出发#
+/哭泣#
+/奸笑#
+/接吻#
+/轻吻#
+/呼#
+/嗯#
+表情符号快捷键设置#
+Your account was postponed#
+Will be disconnected temporarily due to a change of payment policy. please connect again#
+Will be terminated because do not match between your IP address and approved IP in account server#
+Will be terminated to prevent overpayment of the meter-rate system in PC cafe. Please connect with unapproved IP to use personal meter-rate system#
+您已经被游戏管理员强制结束游戏#
+您的负重量已经超过90%，无法使用技能了，将暂时不用的物品存到仓库吧#
+Nameless#
+Congratulations! %s ranking has gone up to %d.#
+What a pity! %s ranking has gone down to %d.#
+宠物情报#
+饱足感#
+亲密度#
+很抱歉，无法同时开启商店与聊天室#
+个#
+You have knocked down %s.#
+You have been knocked down by %s.#
+喂食失败 - 您的身上没有 %s 这款饲料#
+喂食饲料#
+宠物表演#
+变回宠物蛋#
+移除装饰#
+查看信息#
+装饰品#
+已经佩戴装饰品#
+宠物清单#
+尚未装备#
+您确定要喂养您的宠物吗？#
+Only the numbers (0~9) are available.#
+很抱歉, 您不能出售未鉴定的物品.#
+有售价为0元的物品存在，请问您确定要以这个价格开设商店吗？#
+[New Emotion List]#
+A message to the BETA users in Japan-> Let's rejoin Kung-Ho#
+A message to users terminated in payment from Japan -> Pay bills. Pay twice#
+Character in the same account already joined.#
+ - over the age 18#
+已变成[ 挑衅 ]状态，攻击力上升，减算防御下降#
+已解除[ 挑衅 ]状态#
+已变成[ 霸体 ]状态，受到攻击时不会有移动停顿的情况#
+已解除[ 霸体 ]状态#
+已变成[ 命中提升 ]状态#
+已解除[ 命中提升 ]状态#
+已变成[ 隐匿 ]状态，HP、SP不会自然恢复#
+已解除[ 隐匿 ]状态，HP、SP将会自然恢复#
+已变成[ 伪装 ]状态#
+已解除[ 伪装 ]状态#
+已变成[ 毒性反弹 ]状态#
+已解除[ 毒性反弹 ]状态#
+已变成[ 泥沼地 ]状态，移动速度减少50%%，AGI、DEX减少25%%#
+已解除[ 泥沼地 ]状态#
+已变成[ 天使之障壁 ]状态，减算防御会上升#
+已解除[ 天使之障壁 ]状态#
+已变成[ 天使之赐福 ]状态，STR、DEX、INT会上升#
+已解除[ 天使之赐福 ]状态#
+Signum Crusis initiated.#
+Signum Crusis canceled.#
+Slow Poison initiated.#
+Slow Poison Canceled.#
+已变成[ 圣母之颂歌 ]状态，SP自然恢复速度增加100%%，HP自然恢复速度减少50%%#
+已解除[ 圣母之颂歌 ]状态#
+已变成[ 幸运之颂歌 ]状态，LUK会上升#
+已解除[ 幸运之颂歌 ]状态#
+已变成[ 天使之怒 ]状态，下次受到的伤害将变成两倍#
+已解除[ 天使之怒 ]状态#
+已变成[ 速度激发 ]状态，钝器、斧头的攻速+30%%#
+已解除[ 速度激发 ]状态#
+已骑上大嘴鸟#
+已从大嘴鸟上下来了#
+已携带猎鹰#
+已解放猎鹰#
+已变成[ 装死 ]状态#
+已解除[ 装死 ]状态#
+已变成[ 大声呐喊 ]状态，STR增加4#
+已解除[ 大声呐喊 ]状态#
+已变成[ 能量外套 ]状态，依SP剩余量降低物理、魔法伤害#
+已解除[ 能量外套 ]状态#
+防具被破坏#
+防具破坏状态已解除#
+武器被破坏#
+武器破坏状态已解除#
+Invisibility initiated.#
+Invisibility canceled.#
+Sorry. It is delayed due to the process of payment. Please re-connect in a minute #
+需要卸下使用中的箭矢、子弹、飞镖、飞刀、加农炮弹#
+制作箭材料一览#
+手推车改造清单#
+您必须拥有手推车后才能使用这个技能，请去找卡普拉职员租用手推车吧！#
+You cannot open a Chat Window.#
+Please visit the Raganrok Homepage and make a user account. It's free for the three days of user account#
+You cannot use this item while sitting.#
+您已被禁言。在接下来的 %d 分钟内，将被禁止聊天、释放技能！#
+您的禁言已经被解除，现在您可以聊天和释放技能啦~#
+- [尚未装备]#
+非常饥饿#
+饥饿#
+普通#
+吃饱#
+非常饱#
+非常陌生#
+稍微陌生#
+有点亲密#
+非常亲密#
+不知道#
+You are available for %day % hour %minute fron now on#
+You alreay have been connected another account server.#
+You are available for %d hour %d minute from now on#
+You are free user#
+You cannot access in Sakrai with this user account#
+Your pet name must be 23 characters or less.#
+名称只能换一次，即将把宠物的名称变更为^0000ff%s^000000，请问您要继续吗？#
+/font#
+Your guild lacks the funds to pay for this venture.#
+Your guild zeny limit prevents you from peforming this action.#
+Simplified effects have been activated.#
+Simplified effects have been deactivated.#
+Required Fee#
+If you wish to drop an item, you must first open your Item Window (alt+e).#
+Open the item window, if yo want to throw out items#
+#
+#
+Your lack of zeny or your zeny limit have prevented you from performing this action.#
+Your character has fainted.  Push the ESC key to restart.#
+ 取得 %d 个#
+Spell List#
+/minimize#
+This item has been damaged.#
+/noshift: You may use your ''force heal'' ability without the Shift key. On | Off#
+向敌方使用辅助技能时，不用按Shift键#
+向敌方使用辅助技能时，需要按Shift键#
+MSI_REFUSE_BAN_BY_DBA#
+MSI_REFUSE_EMAIL_NOT_CONFIRMED#
+MSI_REFUSE_BAN_BY_GM#
+MSI_REFUSE_TEMP_BAN_FOR_DBWORK#
+MSI_REFUSE_SELF_LOCK#
+MSI_REFUSE_NOT_PERMITTED_GROUP#
+MSI_REFUSE_WAIT_FOR_SAKRAY_ACTIVE#
+/aura: 开启或关闭简单的满级光环效果#
+显示简单的满级光环效果[关闭] - 可能需要过图或者小退后才生效#
+显示简单的满级光环效果[开启] - 可能需要过图或者小退后才生效#
+此玩家已被禁止聊天 %d 次#
+被禁止聊天的玩家列表#
+/showname: Change the name font type.#
+/noctrl | /nc: Auto attack without pressing ctrl key. On | Off#
+不用按Ctrl键，也可以自动连续攻击魔物[自动攻击已启用]#
+需要按Ctrl键，才可以自动连续攻击魔物[自动攻击已禁用]#
+Mute this player.#
+Unmute player & Erase mute time.#
+Decrease Player Mute time.#
+Normal Font Displayed. [showname type 1]#
+Font will be thin and party name will be shown [showname type 2]#
+/doridori: Shake head#
+Internet room is paying now.#
+Prepaid voucher validate untill %ddays %d hours %dminutes later.\nTime limit voucher validate untill %d hours %dminutes later.#
+/bingbing: Rotates player counter clockwise.#
+/bangbang: Rotates player clockwise.#
+/skillfail: Display red font message when skill fails. On | Off#
+Skill fail messages will be displayed. [Display On]#
+Skill fail messages will not be displayed. [Display OFF]#
+/notalkmsg: Chat will not be displayed in chat window. On | Off#
+Chat content will be displayed in the chat window. [Display ON]#
+Chat content will not be displayed in the chat window. [Display OFF]#
+/set1: /noctrl + /showname + /skillfail#
+/fog: Fog effect. On | Off#
+You have received a marriage proposal. Do you accept?#
+物品分配方式#
+各自取得#
+均等分配#
+nProtect KeyCrypt#
+nomsg#
+Set up has completed Reboot \n\n system #
+Set up failure!#
+Continue without adjusting keyboard secure#
+Do not exist files need in Keyboard secure  \n\n(npkeyc.vxd, npkeyc.sys, npkeycs.sys)#
+Detected USB keyboard Do you want to install addtional function to insert \n\n keyboard secure? \n\n(after installing addtional function, must reboot system)#
+ftp://ragnarok.nefficient.co.kr/pub/ragnarok/ragnarok0526.exe#
+FindHack system has not installed normally. Please download ragnarok0226.exe and set up in the installed folder of Ragnarok.(%d)#
+althogh there exists the Hacking tool,the vaccine process didn't operate normally. Ragnarok do not run#
+Hacking tool didn't download normally. Please download ragnarok0226.exe and set up in the installed folder of Ragnarok.#
+there is registration error on NPX.DLL or has not file that need to drive FindHack.Please download ragnarok0226.exe and set up in the installed folder of Ragnarok.#
+Exceptional situation happened. Please call (02-3281-0361) . Return value(%d)#
+You have pressed the off button #
+Fail to access on Findhack update server. Please retry again in a minute or contact Gravity operation department#
+已取名的 #
+/report: Save a chat log file.#
+Chat logs are not accepted as evidence for any ill-mannered violation on account of possible file modifications. However this feature is provided for players' personal reference.#
+I love you.#
+Please adjust your monitor/video brightness if effects appear too bright.#
+If full screen mode fails to work, it is suggested you alt+tab [or ctrl+esc] to inactivate and reactivate the Ragnarok Client.#
+(%d number) - charged server#
+(%d number) - free server#
+Free account member cannot acced charging account server#
+Right click menu skills for F9 are Enabled.[/q1 ON]#
+Right click menu skills for F9 are Disabled.[/q1 OFF]#
+/quickspell: Right-click menu enables you to use skills assigned to the F9 hotkey. On | Off#
+Mouse wheel skills for F7 and F8 are Enabled.[/q2 ON]#
+Mouse wheel skills for F7 and F8 are Disabled.[/q2 OFF]#
+/quickspell2: By rolling the mouse wheel up and down, you are able to use skills registered on F7 and F8 hotkeys. On | Off#
+/q3: /quickspell (/q1) + /quickspell2 (/q2)#
+/bzz#
+/rice#
+/awsm#
+/meh#
+/shy#
+/pat#
+/mp#
+/slur#
+/com#
+/yawn#
+/grat#
+/hp#
+/emotion: views the emoticon list.#
+Skills assigned to shortcut windows 1, 2, 3 are Enabled. [/bm ON]#
+Skills assigned to shortcut windows 1, 2, 3 are Disabled. [/bm OFF]#
+/battlemode: allows you to use skills assigned to Shortcut Window 2 by pressing Q ~ O keys.#
+A ~ L keys allow you to use skills assigned to Shortcut Window 3.#
+Please remember, programs running in the background while playing may affect the game's performance.#
+Dear angel, can you hear my voice?#
+I am#
+Super Novice~#
+Help me out~ Please~ T_T#
+ wishes to adopt you. Do you accept?#
+Z ~ > keys allow you to use skills assigned on shortcut window 1. On | Off#
+Press the space bar to Chat when in Battle mode [/battlemode | /bm].#
+There is not a file or tampered on game guard. Install game guard set up file  #
+A part of Window system has damaged. Please re-intall internet explorer.#
+Fail to run game guard.nstall game guard set up file again#
+There detected illegal program. Quit unnecessary program and run again #
+you have cancled updating game guard. If still can't access, please chect the internet or firewall #
+Fail to access update server. Retry in a minute or please chect the internet or firewall #
+fail to complete game guard update. check the virus or run the game after setting ip the PC management program #
+/notrade: Declines trade offers automatically. On | Off#
+Auto decline trade offers has been Enabled. [/nt ON]#
+Auto decline trade offers has been Disabled. [/nt OFF]#
+You cannot buy more than 30,000ea items at once.#
+You do not have enough ingredients.#
+Login information remains at %s.#
+Account has been locked for a hacking investigation. Please contact the GM Team for more information.#
+This account has been temporarily prohibited from login due to a bug-related investigation.#
+武防修理#
+您选择的物品已经修理好了.#
+您无法修理这个物品. 请检查您和要[修理道具的玩家]之间的距离.#
+System process enabled [GM mode] [/sc ON]#
+System process disabled [GM mode] [/sc OFF]#
+/systemcheck: Check the system process [GM mode] On | Off#
+(%s) 想要和您成为好友. 您想要接受吗?#
+很抱歉, 您的好友列表已经满了.#
+很抱歉, (%s)的好友列表已经满了.#
+好开心, 您已经和(%s)成为了好友.#
+真遗憾, (%s) 不想成为您的好友.#
+This character will be blocked to use until %s.#
+Price will be fixed at 10,000,000 zeny, even if you enter higher price.#
+(little)#
+(less)#
+(usual)#
+(many)#
+(so much)#
+You have been blocked from using chat and skills for %d minutes by the GM Team.#
+%d minutes remain until release from the GM penalty.#
+You have been released from the GM penalty.#
+You have been blocked from using chat and skills for %d as an automatic penalty.#
+%d minutes remain until release from auto penalty.#
+You have been released from the auto penalty. Please refrain from spamming in-game.#
+%s and %s have divorced from each other.#
+%s has been designated as Gravity %s's Solar Space.#
+%s has been designated as Gravity %s's Luna Space.#
+%s has been designated as Gravity %s's Stellar Space.#
+Gravity %s's Solar Space: %s#
+Gravity %s's Luna Space: %s#
+Gravity %s's Stellar Space: %s#
+%s has been designated as Gravity %s's Solar Monster.#
+%s has been designated as Gravity %s's Luna Monster.#
+%s has been designated as Gravity %s's Stellar Monster.#
+Gravity %s's Solar Monster: %s#
+Gravity %s's Luna Monster: %s#
+Gravity %s's Stellar Monster: %s#
+/window: Display windows will snap/dock together. On | Off#
+Display window docking enabled. [/wi ON]#
+Display window docking disabled. [/wi OFF]#
+/pvpinfo: shows your PVP result and PVP points.#
+You have won %d times and have lost %d times in PVP. Current points %d.#
+已经成功更改目标的禁言状态#
+You are in a PK area. Please beware of sudden attack.#
+Fail to update game guard with virus or crash into with spyware. Run again after using Vaccine program or sprware program #
+Program has encountered an error related to Windows compatibility. Please start the game again.#
+You have been blocked from chatting, using skills and items.#
+Login is temporarily unavailable while this character is being deleted.#
+Login is temporarily unavailable while your spouse character is being deleted.#
+初心者#
+剑士#
+魔法师#
+弓箭手#
+服事#
+商人#
+盗贼#
+骑士#
+祭司#
+巫师#
+铁匠#
+猎人#
+刺客#
+初心者#
+剑士#
+魔法师#
+弓箭手#
+服事#
+商人#
+盗贼#
+骑士#
+祭司#
+巫师#
+铁匠#
+猎人#
+刺客#
+Send an adoption request to %s#
+When you become a child, you will be unable to become a Transcendent Class character, all stats will be limited to a maximum of 80, and Max HP/SP will be reduced. Are you sure that you want to be adopted?#
+All abnormal status effects have been removed.#
+You will be immune to abnormal status effects for the next minute.#
+Your Max HP will stay increased for the next minute.#
+Your Max SP will stay increased for the next minute.#
+All of your Stats will stay increased for the next minute.#
+Your weapon will remain blessed with Holy power for the next minute.#
+Your armor will remain blessed with Holy power for the next minute.#
+Your Defense will stay increased for the next 10 seconds.#
+Your Attack strength will be increased for the next minute.#
+Your Accuracy and Flee Rate will be increased for the next minute.#
+You cannot adopt more than 1 child.#
+You must be at least character level 70 in order to adopt someone.#
+[Point] You have been rewarded with %d Blacksmith rank points. Your point total is %d.#
+[Point] You have been rewarded with %d Alchemist rank points. Your point total is %d.#
+X#
+X#
+X#
+X#
+/notalkmsg2: Hides chat messages(including guild chat). On Off#
+Show chat messages. [/nm2 ON]#
+Hide chat messages(including guild chat) [/nm2 OFF]#
+可以精炼的物品#
+Weapons upgraded: %s#
+Weapons upgraded: %s#
+You cannot upgrade %s until you level up your Upgrade Weapon skill.#
+You lack a necessary item %s to upgrade this weapon.#
+Full Divestment cannot pierce the target. The target is fully shielded.#
+You cannot adopt a married person.#
+This name is not registered in your Friend List. Please check the name again.#
+/hi or /hi message: Send greetings to people who are online and registered on your Friend List.#
+This character is not your guildsman. Please check the name again.#
+Please be aware that the maximum selling price is fixed as 9,999. You cannot sell an item higher than that.#
+好友的密语以[ Friend ]表示，同公会里的成员以[ Member ]来表示#
+( From 角色名称: ) 以这样表示的密语，即不是好友也不是公会成员的意思#
+/blacksmith: Shows top 10 Blacksmiths in the server.#
+/alchemist: Shows top 10 Alchemists in the server.#
+ALT+Y: Opens a window which allows you to use various commands with ease.#
+[POINT] You have been rewarded with %d Tae-Kwon Mission rank points. Your point total is %d.#
+[Taekwon Mission] Target Monster: %s (%d%%)#
+Error on initializing game guard :%lu #
+detected speedhack#
+detected illegal copy of program(%s)#
+tampered on game or game guard#
+running on game guard. please run in a minute#
+running overlap or already on game guard. Re-try after quit game#
+Error on initializing game guard. retry after rebooting or run again after closing  crashable program. #
+fail to loading virus and hacking toolc\ check module. might be lack of memory storage or infected  on virus #
+生命体信息#
+生命体技能列表#
+生命体名称英文不超过23字，中文不超过11字！#
+名称只能换一次，即将把生命体的名称变更为^0000ff%s^000000，请问您要继续吗？#
+(Away)#
+[Automated Message]#
+Send an automated message while you are away.#
+Cancel automated away message.#
+Please enter Away Message.#
+/想到一个点子#
+/头晕#
+/哈啊#
+/无表情#
+/吵闹#
+/挫折#
+/骰子#
+/pk: Shows top 10 Slayers in the server.#
+[POINT] You have been rewarded with %d Slayer rank points. Your point total is %d.#
+Evolution Available#
+如果删除生命体，^ff0000那么到目前所饲养的生命体记录都会被删除，请问您要继续吗^000000？#
+Save Homunculus status as a file.#
+Do not save Homunculus status as a file.#
+Crusader#
+Monk#
+Sage#
+Rouge#
+Alchemist#
+Bard#
+Crusader_W#
+Monk_W#
+Sage_W#
+Rouge_W#
+Alchemist_W#
+Dancer#
+High Novice#
+High Swordman#
+High Mage#
+High Archer#
+High Acolyte#
+High Merchant#
+High Thief#
+High_W Novice#
+High_W Swordman#
+High_W Mage#
+High_W Archer#
+High_W Acolyte#
+High_W Merchant#
+High_W Thief#
+Lord Knight#
+High Priest#
+High Wizard#
+MasterSmith#
+Sniper#
+Assassin Cross#
+Lord Knight_W#
+High Priest_W#
+High Wizard_W#
+MasterSmith_W#
+Sniper_W#
+Assassin Cross_W#
+Paladin#
+Champion#
+Scholar#
+Stalker#
+Biochemist#
+Minstrel#
+Paladin_W#
+Champion_W#
+Scholar_W#
+Stalker_W#
+Biochemist_W#
+Gypsy#
+You have not set a password yet. Would you like to create one now?#
+You have incorrectly entered the password 3 times. Please try again later.#
+Password creation has failed.#
+Password must be 4~8 letters long.#
+请输入二级密码#
+输入新的二级密码#
+再次确认二级密码#
+密码变更完成#
+两次输入的二级密码不一致，请重新输入#
+Enter Password#
+Your Homunculus is starving. Please feed it, otherwise it will leave you.#
+EXP#
+[EVENT] You have won an event prize. Please claim your prize in game.#
+不喜欢#
+非常不喜欢#
+生命体将使用[玩家自定义AI]来行动#
+生命体将使用[官方原始AI]来行动#
+邮件列表#
+写邮件#
+读邮件#
+You cannot change a map's designation once it is designated. Are you sure that you want to designate this map?#
+已从信件取得物品或金钱#
+未从信件取得物品或金钱#
+您已经成功发送了一封邮件#
+很抱歉，邮件发送失败，请确认收件人的角色名是否正确#
+[Solar, Lunar and Stellar Angel] Designated places and monsters have been reset.#
+The minimum starting bid for auctions is 10,000,000 zeny.#
+[拍卖系统] 您已经成功在拍卖行出价，并参与了物品的竞拍#
+[拍卖系统] 您参与的拍卖已经被取消了#
+An auction with at least one bidder cannot be canceled.#
+搞定，信件删除成功#
+郁闷，信件删除失败#
+You have equipped throwing daggers.#
+好友 %s 已经上线#
+好友 %s 已经离线#
+/loginout: Shows guildsmen and friends online status. On Off#
+Display online status of friends in Chat Window. [/li ON]#
+Do not display online status of friends in Chat Window.  [/li OFF]#
+It is already running.#
+Use of Macro program has been detected.#
+Use of Speed hack has been detected.#
+API Hooking has been detected.#
+Message Hooking has been detected.#
+Module has been modified or damaged or its version does not match.#
+(Thailand) You have logged in game with PC cafe payment.#
+前一页#
+下一页#
+拍卖系统#
+查看物品#
+登记物品#
+正在拍卖的物品#
+参与竞拍的物品#
+图标#
+名称#
+竞拍价 / 直购价#
+卖家#
+买家#
+结束时间#
+%m/%d, %H00 PST#
+持续 (小时)#
+手续费#
+No items found in auction search.#
+Your Sale List is empty.#
+Your Purchase List is empty.#
+Auction Information is incorrect or incomplete.#
+You must drag and drop an item from your Inventory into the Register Window to begin a new auction.#
+The auction has already been registered.#
+起拍价#
+竞拍价#
+直购价#
+您的金币数量#
+Highest Bid#
+Previous Bid#
+Next Bid#
+确认购买？#
+Would you like to sell this item?#
+参与竞拍#
+立即购买#
+End the Auction#
+Place another Bid#
+您已经给出了一个新的价格#
+[拍卖系统] 很抱歉，您无法在此时给出新的价格#
+[拍卖系统] 您抱歉，您没有足够的金币#
+防具#
+卡片#
+其他#
+Bid Number#
+搜索#
+You have ended the auction.#
+You cannot end the auction.#
+Bid Number is incorrect.#
+发送给#
+ 标题#
+您收到了一封新的邮件，快去查看邮件筒吧！#
+Searching...#
+[拍卖系统] 您不能同时拍卖超过 5 个以上的物品#
+[拍卖系统] 您不能同时参与超过 5 个物品的竞拍#
+在删除信件之前，请先接收信件中的全部物品吧#
+您必须输入邮件标题，才能发送邮件#
+/shopping: Enables you to open a shop with a single left-click and close your shop with a single right-click. On Off#
+You can now open a shop with a single left-click and close your shop with a single right-click. [sh ON].#
+You can open a shop by double-clicking. [/sh OFF]#
+Please enter zeny amount before sending mail.#
+You do not have enough zeny to pay the Auction Fee.#
+查看信息#
+喂食#
+等候#
+超级初学者(男)#
+超级初学者(女)#
+跆拳少年#
+跆拳少女#
+拳圣(男)#
+拳圣(女)#
+悟灵士(男)#
+悟灵士(女)#
+There are more than 2 account connected to PC Cafe payment system. Please check this matter.#
+You are using flat-rate payment system. (Days left : %d)#
+You are using fixed-rate payment system.(Days left: %dhour %min %sec)#
+很抱歉，这件物品不能被邮寄#
+You cannot accept any more items. Please again try later.#
+男性#
+女性#
+New User.#
+E-mail address is required to delete a character.#
+Please enter the correct information.#
+Please use this key.#
+Please enter the correct card password.#
+PT Info#
+PT_ID is %s#
+NUM_ID is %s#
+Please don't forget this information.#
+1001#
+1002#
+1003#
+1004#
+1006#
+1007#
+1008#
+1009#
+1012#
+1013#
+1014#
+1015#
+1019#
+1020#
+1021#
+1023#
+1024#
+1025#
+1027#
+1028#
+10#
+20#
+40#
+50#
+60#
+70#
+80#
+90#
+100#
+110#
+Do you want to receive 30 points?#
+30 points (5 hours) have been added.#
+You cannot register Unidentified Items in auctions.#
+You cannot register this Consumable Item in an auction.#
+Please close the Cart Window to open the Mail Window.#
+Please close the Mail Window to open the Cart Window.#
+Bullets have been equipped.#
+The mail has been returned to sender.#
+The mail no longer exists.#
+More than 30 players sharing the same IP have logged into the game for an hour. Please check this matter.#
+More than 10 connections sharing the same IP have logged into the game for an hour. Please check this matter.#
+Please restart the game.#
+佣兵情报-弓手型#
+佣兵情报-剑士型#
+佣兵情报-枪兵型#
+到期时间#
+信赖值#
+召唤次数#
+杀敌数#
+You can feel hatred from your pet for neglecting to feed it.#
+[POINT] You earned %d Taming Mission Ranking Points, giving you a total of %d points.#
+[Taming Mission] Target Monster: %s#
+/hunting: You can check the your hunting list.#
+[Angel's Question] Please tell me, how many %s skills do you have?#
+[Angel's Question] Please tell me, how much zeny you'll have if you divide it by 100,000?#
+[Angel's Question] Please tell me, what is today's date?#
+[Angel's Question] Please tell me, how many %s do you have?#
+[Angel's Question] If A is 1, B is 2, and so on, and if Z is 26, what number do you get if you add the letters in SiYeon's name?#
+[Angel's Question] If A is 1, B is 2, and so on, and if Z is 26, what number do you get if you add the letters in Munak's name?#
+[Angel's Question] If A is 1, B is 2, and so on, and if Z is 26, what number do you get if you add the letters in Bongun's name?#
+[Angel's Question] If A is 1, B is 2, and so on, and if Z is 26, what number do you get if you add the letters in the word, Ragnarok?#
+[Angel's Question] If A is 1, B is 2, and so on, and if Z is 26, what number do you get if you add the letters in the word, online?#
+[Angel's Question] If A is 1, B is 2, and so on, and if Z is 26, what number do you get if you add the letters in the word, death?#
+[Angel's Question] If A is 1, B is 2, and so on, and if Z is 26, what number do you get if you add the letters in the word, knight?#
+[Angel's Question] If A is 1, B is 2, and so on, and if Z is 26, what number do you get if you add the letters in the word, gravity?#
+[Angel's Question] If A is 1, B is 2, and so on, and if Z is 26, what number do you get if you add the letters in the word, dark?#
+[Angel's Question] If A is 1, B is 2, and so on, and if Z is 26, what number do you get if you add the letters in the word, collecter?#
+[Angel's Answer] Thank you for letting me know~#
+[Angel's Answer] I'm very pleased with your answer. You are a splendid adventurer.#
+[Angel's Answer] You've disappointed me...#
+[Point] You earned %d Ranking Points, giving you a total of %d Ranking Points.#
+%s 拥有商城点券: %d P#
+Unselected Characters will be deleted. Continue?#
+You cannot select more than 8.#
+请问您要把角色名更改为'%s'吗？#
+恭喜您，角色更名成功啦#
+很抱歉，角色更名失败了#
+You can purchase only one kind of item at a time.#
+No characters were selected. You must select at least one character.#
+This character's name has already been changed. You cannot change a character's name more than once.#
+User Information is not correct.#
+Another user is using this character name, so please select another one.#
+The party member was not summoned because you are not the party leader.#
+There is no party member to summon in the current map.#
+[BOSS雷达] 没有检测到MVP魔物(无法检测死都、研三、魔剑士、以及玩家召唤出来的MVP魔物)#
+[BOSS雷达] %s 将在 %02d 小时 %02d 分后刷新#
+[BOSS雷达] %s 的位置已显示在您的小地图上了#
+确定打开“^FF0000%s^000000”吗？当您打开它后，里面的道具有可能和您的角色或账号绑定，无法再被交易！#
+The Purchase has failed because the NPC does not exist.#
+The Purchase has failed because the Kafra Shop System is not working correctly.#
+You cannot purchase items while you are in a trade.#
+The Purchase has failed because the Item Information was incorrect.#
+力量有所提升#
+力量已恢复到正常状态#
+敏捷有所提升#
+敏捷已恢复到正常状态#
+体力有所提升#
+体力已恢复到正常状态#
+智力有所提升#
+智力已恢复到正常状态#
+灵巧有所提升#
+灵巧已恢复到正常状态#
+幸运有所提升#
+幸运已恢复到正常状态#
+回避率有所提升#
+回避率已恢复到正常状态#
+命中率有所提升#
+命中率已恢复到正常状态#
+暴击率有所提升#
+暴击率已恢复到正常状态#
+持续30分钟，狩猎获得的Base和Job经验值增加为1.5倍#
+在30分钟内死亡时，有 1 次机会不会损失经验值#
+持续30分钟，无视等级差异影响，击倒魔物时战利品掉率变成2倍#
+[BOSS雷达] 持续10分钟，您能看到本地图MVP魔物的位置及时间情报，重登及过地图效果消失#
+您确定要购买购物车中的所有物品吗？ 确认后将扣除 ^FF0000%d^000000 点商城点券#
+很抱歉，您没有足够的点券，请尝试赞助获得点券#
+^ff0000到期时间: %s --------------------------^000000#
+%s 的使用期限还剩余 %d 分钟#
+1分钟后，%s 的使用期限将结束，届时物品会被删除#
+%s 已经到达使用期限，已被执行删除#
+输入数字#
+%m/%d %H:%M#
+[BOSS雷达] %s 将在 1 分钟内刷新重生#
+佣兵技能列表#
+Do you agree to cast the magic spell that consumes 1 Black Gemstone and 1,000,000 Zeny?#
+[Point] You have gained %d Collector Rank Points; you now have a total of %d Collector Rank Points.#
+[Collector Rank] Target Item: %s#
+佣兵使用时间已到期，增加 1 点信赖值#
+佣兵已经死亡了，扣除 1 点信赖值#
+佣兵已经被解雇了，不扣除信赖值#
+佣兵已经逃跑了，不扣除信赖值#
+The '%s' item will disappear in %d seconds.#
+VIP Bonus: EXP/JEXP + %d%%, Death Penalty %d%%, Item Drop + %d%%#
+Please try again after 24 hours.#
+佣兵将使用[玩家自定义AI]来行动#
+佣兵将使用[官方原始AI]来行动#
+%s #
+%s 获得了 %s#
+显示公开聊天讯息#
+显示密频聊天讯息#
+显示组队聊天讯息#
+显示公会聊天讯息#
+显示自己的获得物品讯息#
+显示自己的装备变更讯息#
+显示自己的状态变化讯息#
+显示队员的获得物品讯息#
+显示队员的状态变化讯息#
+显示技能使用失败讯息#
+显示组队设定讯息#
+显示装备损坏讯息#
+Battle Message Window Display#
+[%s]'s Han Coin: %d Han Coin#
+显示一般讯息#
+显示战斗讯息#
+Mobile Authentication#
+阅读#
+自动朗读#
+书签#
+前一页#
+下一页#
+关闭#
+%s 的装备已经损坏了#
+%s 的 %s 已经损坏了#
+武器#
+铠甲#
+您的“基本技能”等级不足5级，不能加入组队#
+%s 拥有免费点券: %d P#
+使用免费点券: #
+颗#
+http://payment.ro.hangame.com/index.asp#
+You need to accept the Privacy Policy from Gravity in order to use the service.#
+You need to accept the User Agreement in order to use the service.#
+Incorrect or nonexistent ID.#
+您确定要购买所选择的物品吗？ 将会扣除^FF0000%d^000000点商城点券和^0000FF%d^000000点免费点券！#
+%d hour(s) has passed.#
+%d hour(s) %d minute(s) has passed.#
+Please stop playing the game, and take a break. Exp and other features will be reduced to 50%.#
+Please stop playing the game since you'll need to rest. Exp and other features will be fixed to 0%.#
+Quest List#
+RO Shop#
+Memorial Dungeon, '%s' is booked.#
+Failed to book Memorial Dungeon, '%s'.#
+Memorial Dungeon, '%s' is already booked.#
+Memorial Dungeon, '%s' is already in progress.#
+Failed to create Memorial Dungeon, '%s'.\n Please try again.#
+对方不希望加入任何队伍#
+拒绝所有加入队伍的邀请#
+询问所有加入队伍的邀请#
+This item will be permanently bound to this character once it is equipped. Do you really want to equip this item?#
+%s is now permanently bound to this character.#
+您没有足够的商城点券，请输入您想使用的免费点券来凑数#
+申请加入队伍#
+显示攻城情报相关信息#
+%s 副本的预约已取消#
+%s 副本创建失败，请再试一次#
+此技能无法在这张地图施展#
+此物品无法在这张地图使用#
+副本情报#
+%s 副本正在建立#
+%s 副本开放进场#
+%s 副本正在进行#
+由于在规定时间没有人进入副本，因此副本被销毁了#
+Please apply for dungeon entry again to play in this dungeon.#
+Your Standby Priority: ^ff0000%d^000000#
+若在 ^ff0000%s^000000 前还没进场，那么此副本将被销毁#
+副本终止时间：#
+副本的预约已被取消#
+副本因超过保留时间限制而被销毁了#
+副本因超过进场时间限制而被销毁了#
+副本已被删除#
+副本系统发生错误，请您重新登录游戏！#
+This slot is not usable.#
+Your Base Level is over 15.#
+Your Job Level is over 15.#
+You cannot play the Merchant class character in this slot.#
+此功能尚未被实装，敬请期待~#
+You are not eligible to open the Character Slot.#
+该角色不允许被删除#
+对方尚未公开自己的装备栏信息，您无法进行查看#
+拒绝其他玩家查看自己的装备信息#
+准许其他玩家查看自己的装备信息#
+查看 (%s) 的装备信息#
+%s 的装备#
+公开装备栏#
+This service is only available for premium users.#
+Free Trial users can only hold up to 50,000 zeny.#
+Battlefield Chat has been activated.#
+Battlefield Chat has been deactivated.#
+佣兵情报－魔物类型#
+World Map#
+The Memorial Dungeon is now closed.#
+^ff0000解散雇佣兵^000000会删除他的成长记录，请问您要继续吗？#
+The Memorial Dungeon is now open.#
+This account has not been confirmed by connecting to the safe communication key. Please connect to the key first, and then log into the game.#
+The number of accounts connected to this IP has exceeded the limit.#
+您已经接到了一个新的任务#
+^777777Acquirement conditions : #
+显示技能说明#
+您确认要进行技能点分配吗？确认后这些技能点就无法再恢复了。#
+初心者&一转技能#
+二转&转生技能#
+This account has been used for illegal program or hacking program.Block Time : %s#
+The possibility of exposure to illegal program, PC virus infection or Hacking Tool has been detected. Please execute licensed client. Our team is trying to make a best environment for Ro players.#
+您目前处于健康游戏时间，祝您游戏愉快#
+接下来的30分钟内，狩猎魔物所得到的职业经验值将会增加为150%%#
+接下来的30分钟内，狩猎魔物所得到的基础经验值和职业经验值将会增加为125%%#
+接下来的30分钟内，狩猎魔物所得到的基础经验值和职业经验值将会增加为200%%#
+接下来的60分钟内，狩猎魔物所得到的基础经验值和职业经验值将会增加为150%%#
+此地图无法建立队伍#
+(%s) are currently in restricted map to join a party.#
+Simple Item Shop#
+Han Coin : %d Han Coin#
+RoK Point : %d RoK Point#
+Free Cash : %d Cash#
+An user of this server cannot connect to free server#
+Your password has expired. Please log in again#
+三转技能#
+很抱歉，无法对您选中的目标使用此技能#
+You can't use skill because you have exceeded the number Ansila possession limit#
+需要圣水#
+need Ancilla to cast skill#
+Can't be duplicated with certain distance#
+In order to use this skill, you need other skill#
+此地图无法使用聊天功能#
+3 hours have passed#
+5 hours have passed#
+Game guard initialization error or previous version game guard file is installed. Please re-install the setup file and try again#
+Either ini file is missing or altered. Install game guard setup file to fix the problem#
+There is a program found that conflicts with game guard#
+Incorrect client. Please run a normal client#
+Please run a mobile verification#
+Verification failed#
+This skill can't be used alone#
+This skill can be used to certain direction only#
+Can't summon anymore#
+There is no summoned sphere#
+There exists no usable imitaion skill#
+You can't reuse this skill#
+当前状态下不能使用此技能，请检查是否符合技能使用要求#
+You can't possess items over its maximum limitation of each#
+You are not an administrator. First run of program should be done in administrator account#
+incompatible version of nProtect KeyCrypt driver. Please reboot the system and rerun#
+You are using WindowXP compatible mode. Current program removed compatible mode. Please restart the program#
+PS/2 key logger is existing#
+USB keyboard driver hacking attempt is detected#
+HHD monitoring tool is detected#
+需要涂料笔#
+需要表面涂料#
+无法在指定位置施展技能#
+Assistant SP is not enough#
+if number of characters exceed %d on selecting window, connection to game can't not be made#
+Need throat pastilles#
+需要伤心泪水#
+Need throat protective pastilles#
+Can only be used for linked to weapon blocking#
+Need a weapon coated with poison of a guillotine cross v#
+只能在[ 魔导战甲 ]状态下使用#
+需要火神弹#
+需要魔导战甲燃料#
+需要液体冷却弹#
+需要加农炮弹#
+需要魔导战甲加速器#
+需要悬停助推器#
+赋予武器[ 麻醉之毒 ]#
+赋予武器[ 麻痹之毒 ]#
+赋予武器[ 衰弱之毒 ]#
+赋予武器[ 狂笑之毒 ]#
+赋予武器[ 污染之毒 ]#
+赋予武器[ 热病之毒 ]#
+赋予武器[ 失忆之毒 ]#
+赋予武器[ 吸血之毒 ]#
+只能在[ 悬停 ]状态下使用#
+需要自爆器#
+需要形态转换器#
+需要十字斩首者的毒#
+需要冷却器#
+需要磁场生成器#
+需要防护罩生成器#
+需要伪装生成器#
+需要修复工具组#
+需要活动扳手#
+[%s] Skill can't be cast#
+Deletion is impossible for over level %d#
+Can't be used while on Magic Gear#
+解除骑龙状态#
+解除魔导战甲状态#
+消耗#
+商城#
+防具#
+武器#
+箭矢、子弹、飞镖、飞刀、加农炮弹#
+卡片#
+其它#
+Client response time has passed so connection is terminated#
+Incorrect version of hack shield file. Please reinstall the client#
+Need a Magic Book#
+Feel sleepy since Magic Book is too difficult to understand#
+Not enough saved point#
+Can't read a Magic Book anymore#
+Need a Face Paint#
+Need a Makeover Brush#
+Waiting time has passed. Please log in again#
+Watch out! Same account is already logged in. Stop mobile verification and log in again after changing your password#
+Watch out! Same account is waiting for mobile verification. Stop mobile verification and log in again after changing your password#
+游戏设置#
+界面选项#
+声音选项#
+请直接按下想要设定的快捷键#
+Key is not possible to be designated as a single key#
+That key can't be designated#
+您想设置的快捷键和“%s”重复了. 是否要继续设置?#
+Stored shortcut key combination will be initialized. Do you want to initialize?#
+技能#
+界面#
+表情#
+快捷键选项#
+背景音#
+效果音#
+皮肤#
+只播放进入聊天室的音效[已启用]#
+只播放进入聊天室的音效[已禁用]#
+/tingonly : 只播放进入聊天室的音效，禁用其他效果音#
+/石头#
+/剪刀#
+/布#
+/爱#
+/mobile#
+/mail#
+/antenna0#
+/antenna1#
+/antenna2#
+/antenna3#
+/hum#
+/abs#
+/oops#
+/spit#
+/ene#
+/panic#
+/whisp#
+--#
+只能在[ 装备手推车 ]状态下使用#
+需要荆棘种子#
+需要吸血肿子#
+已变成[ 无法咏唱 ]状态#
+需要炸弹香菇帽#
+需要火烟瓶#
+需要油瓶#
+需要炸药粉#
+需要烟幕粉#
+需要催泪瓦斯#
+需要盐酸瓶#
+需要噬人植物瓶#
+需要曼陀罗魔花盆#
+将TA设为队长#
+将TA设为队长后，您将失去队长职务，确定要继续吗？#
+Can't delegate party represent.#
+uneditable#
+[%s] need %d#
+悲剧啊，装备的精炼值降低了#
+need to put on [%s] in order to use#
+进入战场#
+% you are in a state that doesn't allow you to move to battle field, therefore battle field request has been canceled#
+#
+% Battlefield entrance is postponed. Waiting for other players#
+#
+click on Ok button to cancel battle field request. Click on a button below#
+Battle field entrace has been canceled#
+You will move to %s battle field a little later. Maintain stable state for teleport.(Transaction and move will stop for a monent)#
+Battle field name#
+您确定要回到角色复活点吗？#
+显示招募队伍成员的相关信息#
+Finding party member message is disabled#
+10 seconds delay of party support is in effect#
+队长变更为 '%s'#
+You can't enter due to a system error#
+You can't enter due to excessive queue#
+Request has already been made#
+Registration has been canceled due to excessive waiting time#
+Registration has been canceled due to insatiable entrance condition#
+Registration has been canceled due to an error#
+Skill is tied of [%s]#
+Skill is tied of certain skill#
+需要 %d 个气弹#
+需要气弹#
+You can't create Rune stone more than its maximum possessive quantityy#
+Not able to receive battle field list. Please check and try again#
+Level is not high enough to enter#
+Please increase as many as %d for 1st job skill#
+Please increase as many as %d for 1st job or 2nd job skill#
+可变换的物品#
+将要变换之物#
+不能变换的物品组合#
+Inventory weight is too much#
+Please secure some room in the inventory#
+缺少材料#
+成功#
+失败#
+很遗憾，因为制作失败，所有材料消失了！#
+Because designated name of tab is too long, unable to change#
+unable to add more#
+failed to recognize #
+check bot#
+unable to use unchecked item as materials #
+unavailable to access in your conncted IP #
+Unable to acces for a while due to errors on password 6 times#
+进行合成后“将要变换之物”窗口中被使用的物品将会消失，您确定继续吗？#
+please insert letter and number on your left#
+information on battle field#
+stand by before entering#
+help information applying enter the battle field#
+Sorry. Do not access selected character for the test#
+强制解除目标所有装备#
+mini icon#
+battle A:  battle B#
+queue line#
+alert cancel in applying battle field#
+the number of people need in the battle field#
+stand by people in battle field A#
+stand by people in battle field B#
+be on call situation of myself: %d(battle field A)#
+be on call situation of myself: %d(battle field b)#
+Show battle field icon.#
+Do not Show battle filed icon.#
+notice moving battle field#
+notice postoning entering battle field#
+Someone#
+[%s] 对您造成 %d 点伤害#
+[%s] 从 [%s] 那受到 %d 点伤害#
+[%s] 受到 %d 点伤害#
+[%s] 对 [%s] 造成了 %d 点伤害#
+您丢弃了 %s (%d个)#
+[%s] 任务的目标 [%s] 已消灭了 %d 只，共需消灭 %d 只#
+[%s] 任务已经完成#
+[%s] #
+获得 %d 点基础经验值#
+获得 %d 点职业经验值#
+#
+lost#
+[%s] has stolen '%d' coins from you.#
+显示自己的战斗信息#
+显示队伍成员的战斗信息#
+显示自己的经验值获得信息#
+显示队伍成员的经验值获得信息#
+显示任务相关信息#
+显示战场相关信息#
+对 [%s] #
+施展 [%s] 技能#
+Function disabled#
+Function enabled#
+[%s] gave [%s] '%s'.#
+剑士#
+魔法师#
+弓箭手#
+服事#
+商人#
+盗贼#
+骑士#
+祭司#
+巫师#
+铁匠#
+猎人#
+刺客#
+十字军#
+武道家#
+贤者#
+流氓#
+炼金术师#
+吟游诗人#
+舞娘#
+卢恩骑士#
+咒术士#
+游侠#
+大主教#
+机械工匠#
+十字斩首者#
+皇家禁卫军#
+妖术师#
+宫廷乐师#
+浪姬舞者#
+修罗#
+基因学者#
+魅影追踪者#
+进阶剑士#
+进阶魔法师#
+进阶弓箭手#
+进阶服事#
+进阶商人#
+进阶盗贼#
+骑士领主#
+神官#
+超魔导师#
+神工匠#
+神射手#
+十字刺客#
+圣殿十字军#
+武术宗师#
+智者#
+神行太保#
+创造者#
+搞笑艺人#
+冷艳舞姬#
+初心者#
+进阶初心者#
+超级初心者#
+神枪手#
+忍者#
+跆拳少年&少女#
+拳圣#
+悟灵士#
+招募队员#
+组队招募列表#
+Recruiting Party#
+You have to equipped a [Bow] item.#
+You have to equipped a [Musical instrument/Whip] item.#
+Only alphabet and numbers are available.#
+提醒#
+Item purchase failed due to incorrect shop information.#
+Can drop from inventory window.#
+小时#
+地图#
+You can't use, equip or disarm items when you're trading.#
+Unidentified value#
+/stateinfo : Shows explanation of status icon. On Off#
+State Info On : Shows explanation of status icon #
+State Info Off : Do not show explanation of status icon #
+同样的物品不能同时购买超过 %d 个#
+同样的物品不能同时贩卖超过 %d 个#
+The total purchasable quantity of corresponding item are %d ea.#
+配置将会在退出游戏时更新到 [%s\%s] 文件里面#
+[%s] can't accept exchange request at the moment.#
+RO_HELP.#
+There is no Anvil#
+Unable to whisper below level 10.#
+attack#
+defense#
+support#
+assist#
+command list advertising party member#
+无法申请公会同盟#
+无法申请公会敌对#
+unable to add friend in Azit map#
+开设采购商店#
+单价#
+持有金币：#
+采购上限：#
+尚未登记想要采购的物品，请从“可采购的物品清单”中拖拽物品到“开设采购商店”窗口进行物品登记！#
+请输入采购“^0000FF%s^000000”的单价！#
+很抱歉，采购“^0000FF%s^000000”的单价不允许超过9999万！#
+请输入您想采购“^0000FF%s^000000”的数量！#
+sum of belonged  and purchase items is over 9999. enter the number of sum below 9999#
+there are duplicate items#
+请在“采购上限”中，输入您想花费在本次采购上的最大金币限额！#
+您输入的“采购上限”金额，超过了您身上拥有的最大金币数量，请再仔细确认一下。#
+%s 以 %s Zeny 的单价采购 => %s 个#
+可以采购的物品清单#
+我的采购商店#
+限制金额：%s Zeny#
+Buying %s for %s Zeny looking for %d units.#
+采购商店#
+可以出售的物品清单#
+the max number of items you can sell is %d#
+unable to sell due to exceeding limited price of purchase stall#
+商店开设失败#
+you exceed the total amount of item. please correct#
+you have purchased all items within the limited price#
+已购买了所有物品#
+对方的钱已经不足，已经无法采购您的道具啦#
+出售了名为 %s 的道具 %d 个，得到 %d 金币#
+想卖出的 %s 超过了对方的采购数量，无法出售#
+没有召唤的精灵#
+This is restriction server unite war#
+OPT has 6 passcode#
+there is no OTP information. contact administrator#
+fail to recognizing OTP#
+Someone is advertising for a party#
+searching for party members#
+role#
+职业类型#
+1st job classes#
+2nd job classes#
+3-1 job classes#
+3-2 job classes#
+2-1 job classes #
+2-2 job classes#
+etc job field#
+Invite#
+create party invitation#
+搜索中#
+全选#
+you must invite one job #
+you must select one job#
+you have selected %d job. You can choose up to 6 jobs#
+You must enter a number value #
+enter a level number from 1 to 150#
+unable to see in selected map#
+you are unable to have item in this level#
+you are unable to use item in this level#
+准许玩家关闭聊天打字栏#
+cannot add due to excess of tap size #
+ 聊天窗口显示内容#
+贩卖#
+采购#
+商店搜索#
+商店名称#
+数量#
+价格#
+搜寻到的结果太过多，请您输入详细一点的关键字#
+Open Shop?#
+fail to recognize SSO#
+unable to move applied area#
+部分搜索#
+dropped user#
+you do not agree on using game#
+it is not exiting game account#
+it is available only over 12 on the game#
+now is blocked situation for investigation on illegal use of game account#
+now is blocked situation for investigation on bug#
+will increase base, jop exp level up 75% for 30 minute through monster hunting#
+will increase base, jop exp level up 50% for 30 minute through monster hunting#
+no sale information is available#
+unable to search#
+很抱歉，无法找到此关键字的相关结果#
+Unable to search#
+Enter card name or prefix or suffix#
+搜索剩余次数 : %d#
+找不到符合条件的商店#
+it is out of the item price#
+常规装备#
+时装装备#
+分#
+秒#
+please enter the item name#
+item name doesn't exist#
+there is no available ma #
+selected name or prefix-suffix does not exist#
+you can purchase up to 10#
+you failed to purchase some items#
+enter the birth date(ex:801122)#
+与服务器断开连接！ 这有可能是服务器正在维护，或者您已成功启用离线挂店功能！#
+a database error has occurred#
+you should withdraw in guild to remove character#
+you should withdraw in party to remove character#
+unable to delete due to system set#
+unable to delete now #
+很抱歉，您输入的生日错误！若注册的时候填写的是19910213，那么输入的时候要^0000FF去掉年份^000000，变成910213！或者试试输入000000！#
+need to increase the level of closeness #
+只能在转换型态[战士模式]状态使用#
+只能在转换型态[斗士模式]状态使用#
+Party registration failed#
+No list has been found from searching#
+Deletion of advertisement has failed#
+There is no qualified advertisement, therefore searching has failed#
+You don't have any issued payment information#
+交换物品时，自动拍照#
+[Trade_%s]#
+New insurance certificate has been comsumed automatically due to death#
+conversation#
+unable to use due to overlapping using#
+there is a limited use#
+there's not a limited use at this moment#
+failed to connect due to unexpected reason. Contact the GM Team#
+failed to confirm connection info#
+unresistered account.#
+unable to connect due to age limit#
+付款购买#
+清空购物车#
+第一页#
+最后一页#
+热销 - 新上线或卖得最好的东西#
+时装 - 萌呆可爱的时装#
+头饰 - 各具特色的可爱头饰#
+抓宠 - 用来抓宠物的道具#
+饲料 - 用来喂养宠物的食物#
+增益 - 可以增加自身能力的物品#
+技能 - 各个职业的技能卷轴#
+强化 - 可强化武器或个人能力的东西#
+道具单价#
+购买数量#
+个#
+拥有免费点券: %s P#
+拥有商城点券: %s P#
+此地区无法召唤魔物#
+使用的免费点券数量不允许超过物品总价（但可以等于物品总价）#
+will save set info  at [SaveData_ExMacro%d]#
+able to use %d sec later#
+只能在[ 装备长枪|长矛 ]状态下使用#
+只能在[ 骑乘龙 ]状态下使用#
+unable to proceed due to exceeding capacity#
+need to identify real name. move to certification site#
+select slot you are going to save#
+Congratulation %s,  Acquired '%s' !#
+unable to use in gloomy state#
+exceeded total price of purchased products#
+cannot subscribe the party at this map#
+cannot withdraw the party at this map#
+cannot banish the party at this map#
+真实姓名#
+身份证号码#
+Email#
+incorrected input#
+failed to pay the zeny #
+this is not a relevant job#
+this is not a relevant gender#
+succeeded identifying  user's information#
+unmatched name , please retry#
+unmatched identification number, please retry#
+there's something wrong in this service, please retry after a while#
+当您处于“商城坐骑”状态下时，无法进行攻击，想攻击请先解除“商城坐骑”状态#
+当您处于“商城坐骑”状态下时，无法使用技能，想用技能请先解除“商城坐骑”状态#
+二级密码必须是4位数#
+succeeded in  log-in #
+succeeded in making 2nd password#
+deleted 2nd password#
+corrected 2nd password#
+二级密码错误，登入失败，请重试！#
+failed to make 2nd password#
+failed to delete 2nd password#
+failed to correct 2nd password#
+unable to use restricted number in 2nd password#
+unable to use resident registration number#
+security code#
+二级密码#
+????? ??? ???? ???? ??? ?????.#
+?? ???? ??? ?? ????.#
+?? ???? ????? ??????.#
+?? ????? ?????. ??????? ?????.#
+?? ???? ?? ??? ??????.#
+欢迎使用二级密码系统#
+温馨提示您：定期更换二级密码确保帐号安全！#
+连续输错3次二级密码，游戏结束！#
+ITEM#
+SKILL#
+TACTIC#
+ETC#
+COMBAT#
+NON-COMBAT#
+BUFF#
+AUTO EQUIPED#
+1st. ATTACK#
+ATTACK#
+Next attack time : #
+When died#
+When invited to a party#
+Pickup Item#
+Over 85% Weight#
+any work in progress (NPC dialog, manufacturing...)quit and try again.#
+ Monster job hunting experience received by doubling %d is %.2f minutes.#
+SaveData_ExMacro%d#
+ Set contents [%s] stored.#
+Security Level#
+The current character is in a party or the guild cannot be deleted.#
+只能在靠近墙壁或者障碍物的时候才能使用#
+%s : obtain %d %s to level party.#
+The reins of the status board items that are not available.#
+施展此技能至少需要有1%的基础经验值#
+经验值 : #
+掉宝率 : #
+死亡处罚 : #
+%d%% (PC room %d%% + TPLUS %d%% + Premium %d%% + %s server %d%%)#
+ Amount of SP to cast the skill Chorus is too low.#
+the transaction exceeds your item limit.#
+the item requirement exceeds your item limit.#
+the item purchase exceeds your item limit.#
+Waiting for an advertisement.#
+??? ??? ?????? ??\r\n????? ?????? -> ???? -> ?????\r\n???? ????? ????.#
+There was an error in the billing system(%d)#
+failed purchases exceeds the rune items.#
+The number of individual items purchased exceeds the limit#
+An unknown error has occurred and the purchase failed.#
+Please try again later.#
+ this mounting item is only available in one status.#
+Please enter the value of the minimum level of recruit.#
+will not be receiving the item to the NPC. Open up inventory space.#
+This skill is only available during WoE.#
+This skill is only available to players.#
+您目前无法装备此物品，可能是您不符合物品的装备要求#
+您目前所处的位置无法开设露天商店或者聊天室#
+Elapsed time: %d:%d:%d / %d:%d:%d#
+Speed : X 1/4 #
+Speed : X 1/2 #
+Speed : X 1   #
+Speed : X 2   #
+Speed : X 4   #
+Speed : X 8   #
+Speed : X 16  #
+Speed : unknown#
+Service Info : %s#
+Character Name : %s#
+Map Name : %s#
+Record Time: %d-%01d-%01d %d: %02d: %02d#
+Play Time: %02d: %02d: %02d#
+No Replay File.#
+Server No Matching#
+Replay Option Setting#
+Enter the file name.#
+Set Replay Save Data#
+Set Rec Option#
+%.1f %% Pos->:%d:%d:%d#
+%.1f %% Pos->:cannot move#
+Start#
+Stop#
+Input FileName -> Start#
+Open Option#
+Close Option#
+End#
+Time#
+Party & Friends#
+Chat#
+Shortcuts#
+Automatic filename generation#
+Checking for file duplication#
+The same file exists#
+Record Start#
+ is Saved.#
+负重量 : %3d / %3d#
+Total : %s C#
+Must be equipped with [Shuriken].#
+Base Lv. %d#
+Job Lv. %d#
+Zeny : %s#
+三线性画面扫描#
+攻击#
+技能#
+物品#
+NoCtrl#
+Battlefield#
+(Character/Total Slot)#
+Premium Service#
+Premium #
+Service#
+Billing Service#
+Billing #
+Command List#
+LEVEL#
+MAP#
+JOB#
+Not Available#
+[Guardian Angel of Protection] is not available.#
+您确定要移动角色栏位吗？若此处已经有角色，则会和选中的角色位置做交换！#
+很抱歉，角色栏位变更失败#
+Character name is incorrect.#
+追踪任务进度#
+ access is restricted between the hours of midnight to 6:00am.#
+ access is restricted between the hours of ^ff0000midnight to 6:00am.^000000#
+You must leave your current guild to change character name.#
+You must leave your current party to change character name.#
+An unknown error has occurred. Name change failed.#
+Is ready to change character slots.(%d)#
+Is ready to change character name.(%d)#
+Name has reached character limit.#
+The chosen name contains characters that cannot be used.#
+Chosen name is forbidden to use.#
+已完成#
+接下来的 %d 分钟内，狩猎魔物所得到的基础经验值和职业经验值将会增加 %d%%！#
+???? %02d??????.#
+Party name %s (%s) summoned. Consumed %d zeny.#
+Summon the target#
+Block List#
+Registering a party advertisement costs %d zeny.#
+Not enough zeny to register for a party advertisement.#
+)Join the party approved#
+)Join the party denied#
+)Equipment Window View#
+只能输入10个汉字，或者36个英文字母#
+To support#
+1:1 Conversation#
+To block#
+Not enough zeny to summon the party.#
+Write to the party advertising notes section.#
+Ads can be registered with the party.#
+Is already funding a party advertisement.#
+内容#
+装备#
+收藏#
+ 禁止丢弃物品#
+组队搜索提醒#
+创建队伍#
+退出队伍#
+Party invitation#
+要创建的队伍名称#
+Invite the characters names#
+ 已经收到您的组队邀请，等待他做出选择#
+ 很感动，但还是拒绝了您的组队邀请#
+ 接受了您的组队邀请#
+Recruited player is already in a party.#
+Are the same conditions as the previous search.#
+After leaving the guild is available.#
+Withdrawal is available after the party.#
+The user should not have summon recall.#
+Do not recall the party with the current maps.#
+summon has been denied.#
+Cannot be summoned.#
+will be invited to a party.#
+填写要搜索的物品名称 :#
+You must enter a character name.#
+You must enter the name of the party.#
+公会指南#
+尚未加入任何公会#
+创建公会#
+请输入公会名称#
+Help organize a guild#
+What is the guild system?#
+您必须输入公会名称才能正常进行操作#
+Support class for the party was rejected.#
+选择线路#
+Possible escape area.#
+Replay File List#
+File info#
+File List#
+%s items are not the deal.#
+解散公会#
+请输入公会名称进行确认#
+Not connected or non-existant character.#
+Failed to call Falcon.#
+%d%% ( premium %d%% + %s server %d%% )#
+That user is currently participating in WoE.#
+It is possible to change the same map only within the party.#
+Party cannot be changed in the current region.#
+Gryphon making#
+%d月%d日 %d:%d:%d 可删#
+Cannot invite participate in the guild.#
+您已申请等候进入战场#
+人数已满#
+该战场名称不存在#
+该申请类型不存在#
+已超过人数上限#
+进场等级不符#
+已重复申请#
+请重登后再次进行申请#
+职业不符#
+仅限组队长或公会长才可申请#
+目前有队员正在使用战场导致无法申请#
+取消等候进入战场#
+错误的战场名称#
+没有排入等候进入战场顺序#
+您选择的战场目前因不能使用而取消了等候#
+进入战场已取消#
+您要进入战场吗?#
+申请进入战场系统#
+目前无法申请进入和前往战场#
+1.不能同时申请各类战场#
+2.不能同时申请个人/队伍/公会战场#
+3.限队长才能申请队伍战场#
+已离线的队员不会排入行列中#
+4.虽然申请战场除了战场地图以外的地方皆可申请#
+不过进入的位置不是村落、原野、一般密穴而若要返城时会移动至角色储存的地点#
+5.有关战场的奖励和其他服务请透过位于各村落的战场募兵官到战场等候室使用吧!#
+申请进入战场小帮手#
+%s战场要开始了#
+您要返回战场吗?#
+[注意]#
+目前的位置若非村落、原野或一般密穴时#
+战场结束后会返回#
+储存的地点#
+正在等候其他人的邀请结果#
+申请进入战场#
+同意等候时间：%d秒#
+等候进入状态#
+战场名称：%s#
+战场规定人数：%d#
+我的等候顺序：%d#
+名称：#
+目标：#
+战场人数架构：#
+参与条件：#
+奖励(胜)：#
+奖励(平手)：#
+奖励(败)：#
+请问您是以个人名义申请战场的吗?#
+请问您是以组队名义申请战场的吗?#
+请问您是以公会名义申请战场的吗?#
+战场目录#
+%d VS %d#
+Base Lv %d 以下#
+Base Lv %d 以上#
+Base Lv %d ～ %d#
+无限制#
+[不能在该地图上申请]#
+[到重新申请战场还剩1分钟的等候时间]#
+[请先加入组队]#
+[仅限组队长才能申请]#
+[登入的队员数量已超过上限]#
+[请先加入公会]#
+[仅限公会长才能申请]#
+[登入的公会会员数已超额]#
+开始移动#
+移动到此#
+改变角色名#
+创建角色#
+http://ro.gameflier.com/#
+(%s) 服务器#
+物品合并(全选Ctrl+点击)#
+请选择2个以上相同种类的物品#
+物品合并已成功#
+物品合并每次限一种#
+物品的数量已超过30000个了#
+左转#
+右转#
+查阅(%s)玩家先前服务器的资讯#
+现有服务器资讯#
+现有服务器：#
+现有角色名称：#
+会显示所攻击魔物的HP#
+不显示所攻击魔物的HP#
+可合并之物品不存在#
+可合并之物品不存在#
+进行中#
+保留中#
+推荐#
+海外#
+本地#
+活动#
+最新#
+猎物#
+奖励物品#
+必须物品#
+限时#
+结束时间#
+搜寻#
+目标导航#
+路径资讯#
+搜寻资讯#
+变更浏览模式#
+变更导航色彩#
+结束#
+变更为基本界面#
+变更为简易界面#
+求助#
+所有#
+地图#
+NPC#
+魔物#
+设定搜寻关键字(例如：波利)#
+卷轴#
+使用洞穴瞬间移动卷轴#
+卡普拉#
+使用卡普拉移动服务#
+飞空艇#
+使用飞空艇移动#
+>> 目标资讯无法阅览!#
+<< 导航中 >>#
+<< 搜寻中... >>#
+-----------#
+导航系统#
+== 搜寻结果(%d)==#
+ Npc > %s：%s#
+魔物 > %s：%s#
+地图 > %s#
+======== 搜寻资讯 ==========#
+距离：%d Sell %d WarpMove#
+目标地图：%s(%s)#
+目标：%s(%d, %d)#
+BOSS#
+一般#
+目标：%s(%s)#
+目标：(%d, %d)#
+======= 路径导航资讯 =======#
+%2d) Item:%s => %s 使用!#
+%2d) %s(%d,%d)=>(%d,%d)#
+E%2d) %s(%d,%d)=>(%d,%d)#
+E%2d) %s#
+正在进行导航，您确定要结束吗？#
+导航求助#
+------------------- 指令 -------------------#
+1./navigation		/navi#
+  ex)/navi prontera 100 100 -> 地图名称, 100, 100#
+2./navigation2		/navi2#
+  ex) /navi2 prontera 100 90 111#
+-> 地图名称、位置(100 90), scrool/ zeny/ plane (1:使用 0:不使用)#
+※/navi2的情况时务必要贴上位置座标并输入3个字#
+3./$$all	显示全部项目 (以Type区分项目显示，且可分类)#
+4./$$lv30	显示该等级之怪物#
+5./$$lv20~30	显示该等级范围内之怪物#
+------------------- 说明 -------------------#
+1.搜寻种类分为全部、地图、NPC、怪物#
+2.请用指令搜寻。规则是想要搜寻的包含字串的所有资讯都会显示#
+  ex) 搜寻结果为普隆德拉的卡普拉#
+3.在清单里选择项目时会显示资讯#
+  若有显示目标时，只要点击导航键就会引导至目标的路线#
+4.scrool/ zeny/ plane 确认箱子可快速导航路径#
+5.按下导航键时，结果视窗就会变为导航路径视窗#
+6.利用搜寻视窗下方的按键#
+[结果视窗] <-> [导航路径视窗]，两者可切换#
+等级：%d (BOSS)#
+等级：%d (一般)#
+水属性%d#
+地属性%d#
+火属性%d#
+风属性%d#
+毒属性%d#
+圣属性%d#
+暗属性%d#
+念属性%d#
+不死属性%d#
+无属性%d#
+中型#
+大型#
+小型#
+不死系#
+动物系#
+植物系#
+昆虫系#
+鱼贝系#
+恶魔系#
+人型系#
+天使系#
+龙族系#
+无形系#
+%s 点击移动#
+NPC 使用移动服务#
+NPC 点击#
+%s 前往#
+前往飞空艇#
+使用传送#
+目的地：( %d %d )#
+该区域不支援导航#
+搜寻的目标不明确#
+不符的地图#
+设定出发地的资讯失败!#
+设定目的地的资讯失败!#
+搜寻路经失败#
+搜寻玩家位置失败#
+搜寻目前地图移动路径失败#
+该地图不支援搜寻路径#
+请指定目标#
+已到达目的地（目标就在您视野范围内）#
+路径导航已开始#
+该地图上有所搜寻的魔物#
+该地图为所搜寻的地图#
+请使用道具来移动#
+请前往导航系统所指引的位置#
+已到达目标地图#
+已到达所搜寻NPC的地图，请按地面上红色箭头的指示去找NPC吧#
+已到达所搜寻魔物的地图#
+与先前的目标相同#
+请按地面上红色箭头的指标方向移动#
+已指定为目标#
+导航系统 > %s#
+导航系统 > 请与传送人员 %s 对话#
+导航系统 > 请前往地图(%s)#
+导航系统 > 选择前往地图(%s)#
+导航系统 > 请搭乘飞空艇前往#
+导航系统 > 请利用传送前往其他地区#
+物品：#
+$$#
+$$lv#
+~#
+$$all#
+购买收据#
+欲购买的物品总价格为#
+ zeny#
+是否要进行购买？#
+%.1f%% (PCRoom %.1f%% + TPLUS %.1f%% + Premium %.1f%% + %Server %.1f%%)#
+Card Book#
+%d%% [ ( Basic 100%% + %sServer %d%% ) * Active %.1f ]#
+%d%% [ Basic 100%% + %sServer %d%% ]#
+This is PK region. Minors,Please leave immediately.#
+Fatigue#
+Health and gaming revenue is 100%.#
+Fatigue because it is now a guest of the gaming revenue is down 50 percent.Hope for the proper health#
+Now because it is a non-health to the health of the guests want to offline games.? If you still are online gaming revenue because the damage to the health of the game falls to 0% again after 5 hours will be restored offline.#
+Online since %d minutes#
+Online Time: %d#
+Online since %d hours and %d minutes#
+/monsterhp : Show the hp of attacked monster. On off#
+Skills points : #
+There is no response from the authentification server. Please try again#
+此帐号可能因为久未登入、密码久未修改或密码组合太过简单，被归列于被盗高风险群。为了确保帐号安全，系统自动启用安全性防护机制，请先进行密码重置动作#
+http://www.gameflier.com/FindID/RO/phone.htm#
+Guest access is prohibited#
+Your System is been Shutdown, %1.2d-%1.2d-%1.2d %1.2d:%1.2d:%1.2d is the end time.#
+Selected System Shutdown is activated in your account,Time Left: %1.2d hours %1.2d minutes.#
+Replay#
+Macro#
+Webbrowser#
+Navigation#
+UAEURL#
+Clan Information#
+Clan Level#
+Clan Name#
+Clan Mark#
+Ally Clan#
+Antagonist Clan#
+同盟发言频道#
+ClanMaster Name#
+Number of Members#
+Castles Owned#
+Clan Chat Messages#
+请问要前往储值网页吗?#
+https://gfb.gameflier.com/Billing/ingame/index_new.asp#
+创造角色#
+Name does not match#
+Enter the name of character#
+Sex Selection Window#
+Editing of the File Detected#
+Items obtained by opening the item is character bounded (can not move to storage). Do you want to open the box?#
+Game Settings#
+Game System#
+Game Commands#
+Game Command ON/OFF#
+Macro#
+Trading is prohibited in this Map#
+Vending is prohibited in this Map#
+In this Map,Effect of Mirace of Sun and Moon is nullified.#
+Ranking Board#
+Rank#
+Name#
+Points#
+BlackSmith#
+Alchemist#
+Taekwon#
+Killer#
+7 vs 7#
+RuneKnight#
+Warlock#
+Ranger#
+Mechanic#
+GuillotineCross#
+Archbishop#
+RoyalGuard#
+Sorcerer#
+Minstrel#
+Wanderer#
+Genetic#
+ShadowChaser#
+Sura#
+Kagerou#
+Oboro#
+Select Ranking Type#
+Ranking Type#
+Currently,Server is full.           ^0000ffPeople Currently Waiting : %d                    Expected Waiting Time : %dSeconds#
+Currently,Server is full.           ^0000ffPeople Currently Waiting : %d                    Expected Waiting Time : %dMinutes %d Seconds#
+CBT is not an invited user#
+------------------- Instruction --------------------#
+1) /Navigation or /navi ex) /navi prontera 100 100 -> /navi "MAPNAME", 100, 100#
+2) /Navigation2 or /navi2 ex) /navi2 prontera 100 111 -> MAPNAME location (100 90), Scroll | Zeny | Plane (1: Enable or 0: Disable)#
+-> /navi2 goes with the case with location coordinates. They must be no less than 3 characters #
+3) $$all Output all the items (Can take a while...) #
+4) $$lv30 monsters are placed in the output #
+5) $$lv20~30 monsters in that level range are placed in the output #
+1 vs 1#
+时装装备#
+%d First character of the profession is more than information. Please contact the Customer Care Center. ErrorCode(%d)#
+(%s) %d / %d#
+%s-%s(%d/%d)#
+Server Exceeded the maximum number of users,Cannot Connect anymore users.#
+Server Connection Failed (%d)#
+Login Timeout Permitted#
+Login Authentication Failed from Authentication Server.#
+Guild Cannot use Space in the name.#
+Hey,Hello There#
+Available Time will End on %d month %d hour %d:%d#
+You've lot of time,Play in Peace.#
+Your hours will be terminated within this week. Please Charge before termination.#
+Your hours will be terminated within 24 hours.Please Charge Quickly.#
+Current Time Left:%d hours.Charge the game for uninterrupted play.#
+Current Time Left:%d minutes.Charge the game for uninterrupted play.#
+Time Left: %d hours %d minutes#
+%d%% ( Basic 100%% + PCRoom %d%% + Premium %d%% + %sServer %d%% )#
+After %d hours %d minutes, your game will be terminated.#
+This Account is permanently Banned.#
+This Account is banned.\nTermination Time:%04d-%02d-%02d %02d:%02d #
+Monster(Tab)#
+Map(Alt)#
+Product Information#
+Find Information#
+Non-Process#
+Kafra#
+(Arrival)#
+Mob)%s:%s(%s)#
+Distribution:%s#
+Very Plenty#
+Plenty#
+Normal#
+Low#
+Very Low#
+The bank is not avaible. Please try again in a few minutes.#
+Bank balance is low.#
+You don't have enough zeny#
+Minimum Deposit Amount: 1 zeny#
+Minimum Withdrawal Amount: 1 zeny#
+You cannot hold more than 2,147,483,647 billion#
+your account is lock by mobil otp#
+MOTP auth fail#
+For %d minutes,Job Experience obtained from monster is increased by %d%%#
+您身上目前有 %s Zeny#
+Zeny#
+选择您的存取款操作：#
+Your bullet is not enough#
+You may enter more than 10 inhibition Jenny is sold in the price 1000000000.#
+AuthTicket is Not Valid#
+ErrorCategory : %d, ErrorCode : %d (%d,%d,%d,%d)#
+%d%% ( Basic 100%% + Premium %d%% + PCCafe %d%% + %s Server %d%% )#
+接下来的 %d 分钟内，魔物的基础掉落机率将会增加为% d%%！#
+%d%.2d minutes when monsters of basic items that can be obtained through the drop rates increased to% d%%.#
+The price of %s#
+100000000#
+ ^ff0000%d^0000ffbillion#
+10000000#
+ ^ff0000%d^0000ffmillion#
+^0000ffZeny ^000000Over.\nEnter the Amount?#
+当物品定价异常时提示#
+https://www.warpportal.com/account/login.aspx?ReturnUrl=%2faccount%2fpayment.aspx#
+https://kepler.warpportal.com/steam/purchase/?step=1&steamid=76561198071003044&game=rose&accountname=khanhtest111&lang=en#
+A giant crevice appeared in Bifrost, the bridge between Splendide, the end of the world, and the floating continent of Alfheim., and you do not know the source of the labyrinth forest.#
+This is a marker indicating the end of the trip, a new world is opening indicators! Guardian, such as the lyrics to the temptation was gradually losing the soul.#
+For thousands of years, a mysterious melody has mesmerized the guardian for thousands of years. After a millennia of slumber, the guardian became confused about what he had been protecting all these years, and began to suspect that he might be the one who has been sealed and hidden away.#
+When the melody reached its peak, a giant crevice appeared in Bifrost, the bridge between Splendide, the end of the world, and the floating continent of Alfheim. As a result, the two worlds were cut off from each other, causing a big problem for the people.#
+Now, the only way to get to Bifrost is through the Labyrinth Forest. Nobody knows how the forest came to exist, and nobody has ever come out of it alive...#
+Swallowed countless adventurers to put a hell of confusion, wandering in the forest labyrinth of nowhere, like the heart of a woman was being extend deeper confusion.#
+You can enter only numbers.#
+Exchange or store window is active and can not register the withdrawal.#
+Go to#
+装备对比#
+Now you are trying to mount the gun equipped with bullet does not meet#
+Now you are trying to mount the guns and bullets will not fit mounted#
+Has not registered to sell the item. Please register to sell the item#
+ITEM#
+Guild storage is not available.#
+Guild is not subscribed to. After signing up, please use #
+Two other guild members are in use. Please use it after a while.#
+Storage Permission#
+Guild Storage#
+You do not have permission to use guild storage.#
+Limited Sale Registration Window#
+Item DB Name#
+Item DB Number#
+Number of Sale#
+Sale Start Time#
+Time to sell#
+Please enter number you want to sell#
+Enter start time of sale#
+Start time does not match the scope of sales.#
+Please enter the time#
+Please enter the Item DB Name#
+Item ID lookup failed. Please try again later#
+>> ItemName : %s / Price : %dc / Quantity : %d / TimeOfSale : %dMonth:%dDay:%dMinute:%dSecond ~ %dMonth:%dDay:%dMinute:%Second#
+Registration successful#
+Registration failure. Please try again later.#
+Item has already been registered. Please try again later.#
+Failed to delete the item. Please try again later.#
+%s item has been deleted.#
+Special#
+Sales limited sale item update# 
+Discontinued#
+Quantity update is required #
+The% d is out of stock or to buy as much as#
+%s Items are on sale#
+% s time-out or sale of the items sold has been shut down due to the limited sales #
+/limitedsale#
+http://www.ragnarokeurope.com/news/home-r70.html#
+http://www.ragnarokeurope.com/index.php?rubrique=70&Steam#
+No Msg 2532#
+No Msg 2533#
+No Msg 2534#
+No Msg 2535#
+No Msg 2536#
+No Msg 2537#
+No Msg 2538#
+No Msg 2539#
+No Msg 2540#
+No Msg 2541#
+No Msg 2542#
+No Msg 2543#
+No Msg 2544#
+No Msg 2545#
+No Msg 2546#
+No Msg 2547#
+No Msg 2548#
+No Msg 2549#
+No Msg 2550#
+No Msg 2551#
+No Msg 2552#
+No Msg 2553#
+No Msg 2554#
+No Msg 2555#
+No Msg 2556#
+No Msg 2557#
+No Msg 2558#
+No Msg 2559#
+No Msg 2560#
+No Msg 2561#
+No Msg 2562#
+No Msg 2563#
+No Msg 2564#
+No Msg 2565#
+No Msg 2566#
+No Msg 2567#
+No Msg 2568#
+No Msg 2569#
+No Msg 2570#
+No Msg 2571#
+No Msg 2572#
+No Msg 2573#
+No Msg 2574#
+No Msg 2575#
+No Msg 2576#
+No Msg 2577#
+No Msg 2578#
+No Msg 2579#
+No Msg 2580#
+No Msg 2581#
+No Msg 2582#
+No Msg 2583#
+No Msg 2584#
+No Msg 2585#
+No Msg 2586#
+No Msg 2587#
+No Msg 2588#
+No Msg 2589#
+No Msg 2590#
+No Msg 2591#
+No Msg 2592#
+No Msg 2593#
+No Msg 2594#
+No Msg 2595#
+No Msg 2596#
+No Msg 2597#
+No Msg 2598#
+No Msg 2599#
+No Msg 2600#
+No Msg 2601#
+No Msg 2602#
+No Msg 2603#
+No Msg 2604#
+No Msg 2605#
+No Msg 2606#
+No Msg 2607#
+No Msg 2608#
+No Msg 2609#
+No Msg 2610#
+No Msg 2611#
+No Msg 2612#
+No Msg 2613#
+No Msg 2614#
+No Msg 2615#
+No Msg 2616#
+No Msg 2617#
+No Msg 2618#
+No Msg 2619#
+No Msg 2620#
+No Msg 2621#
+No Msg 2622#
+No Msg 2623#
+No Msg 2624#
+No Msg 2625#
+No Msg 2626#
+No Msg 2627#
+No Msg 2628#
+No Msg 2629#
+No Msg 2630#
+No Msg 2631#
+No Msg 2632#
+No Msg 2633#
+No Msg 2634#
+No Msg 2635#
+No Msg 2636#
+No Msg 2637#
+No Msg 2638#
+No Msg 2639#
+No Msg 2640#
+No Msg 2641#
+No Msg 2642#
+No Msg 2643#
+No Msg 2644#
+No Msg 2645#
+No Msg 2646#
+No Msg 2647#
+No Msg 2648#
+No Msg 2649#
+No Msg 2650#
+No Msg 2651#
+No Msg 2652#
+No Msg 2653#
+No Msg 2654#
+No Msg 2655#
+No Msg 2656#
+No Msg 2657#
+No Msg 2658#
+No Msg 2659#
+No Msg 2660#
+No Msg 2661#
+No Msg 2662#
+No Msg 2663#
+No Msg 2664#
+No Msg 2665#
+No Msg 2666#
+No Msg 2667#
+No Msg 2668#
+No Msg 2669#
+No Msg 2670#
+No Msg 2671#
+No Msg 2672#
+No Msg 2673#
+No Msg 2674#
+No Msg 2675#
+No Msg 2676#
+No Msg 2677#
+No Msg 2678#
+No Msg 2679#
+No Msg 2680#
+No Msg 2681#
+No Msg 2682#
+No Msg 2683#
+No Msg 2684#
+No Msg 2685#
+No Msg 2686#
+No Msg 2687#
+No Msg 2688#
+No Msg 2689#
+No Msg 2690#
+No Msg 2691#
+No Msg 2692#
+No Msg 2693#
+No Msg 2694#
+No Msg 2695#
+No Msg 2696#
+No Msg 2697#
+No Msg 2698#
+No Msg 2699#
+No Msg 2700#
+No Msg 2701#
+No Msg 2702#
+No Msg 2703#
+No Msg 2704#
+No Msg 2705#
+No Msg 2706#
+No Msg 2707#
+No Msg 2708#
+No Msg 2709#
+No Msg 2710#
+No Msg 2711#
+No Msg 2712#
+No Msg 2713#
+No Msg 2714#
+No Msg 2715#
+No Msg 2716#
+No Msg 2717#
+No Msg 2718#
+No Msg 2719#
+No Msg 2720#
+No Msg 2721#
+No Msg 2722#
+No Msg 2723#
+No Msg 2724#
+No Msg 2725#
+No Msg 2726#
+No Msg 2727#
+No Msg 2728#
+No Msg 2729#
+No Msg 2730#
+No Msg 2731#
+No Msg 2732#
+No Msg 2733#
+No Msg 2734#
+No Msg 2735#
+No Msg 2736#
+No Msg 2737#
+No Msg 2738#
+No Msg 2739#
+No Msg 2740#
+No Msg 2741#
+No Msg 2742#
+No Msg 2743#
+No Msg 2744#
+No Msg 2745#
+No Msg 2746#
+No Msg 2747#
+No Msg 2748#
+No Msg 2749#
+No Msg 2750#
+No Msg 2751#
+No Msg 2752#
+No Msg 2753#
+No Msg 2754#
+No Msg 2755#
+No Msg 2756#
+No Msg 2757#
+No Msg 2758#
+No Msg 2759#
+No Msg 2760#
+No Msg 2761#
+No Msg 2762#
+No Msg 2763#
+No Msg 2764#
+No Msg 2765#
+No Msg 2766#
+No Msg 2767#
+No Msg 2768#
+No Msg 2769#
+No Msg 2770#
+No Msg 2771#
+No Msg 2772#
+No Msg 2773#
+No Msg 2774#
+No Msg 2775#
+No Msg 2776#
+No Msg 2777#
+No Msg 2778#
+No Msg 2779#
+No Msg 2780#
+No Msg 2781#
+No Msg 2782#
+No Msg 2783#
+No Msg 2784#
+No Msg 2785#
+No Msg 2786#
+No Msg 2787#
+No Msg 2788#
+No Msg 2789#
+No Msg 2790#
+No Msg 2791#
+No Msg 2792#
+No Msg 2793#
+No Msg 2794#
+No Msg 2795#
+No Msg 2796#
+No Msg 2797#
+No Msg 2798#
+No Msg 2799#
+No Msg 2800#
+No Msg 2801#
+No Msg 2802#
+No Msg 2803#
+No Msg 2804#
+No Msg 2805#
+No Msg 2806#
+No Msg 2807#
+No Msg 2808#
+No Msg 2809#
+No Msg 2810#
+No Msg 2811#
+No Msg 2812#
+No Msg 2813#
+No Msg 2814#
+No Msg 2815#
+No Msg 2816#
+No Msg 2817#
+No Msg 2818#
+No Msg 2819#
+No Msg 2820#
+No Msg 2821#
+No Msg 2822#
+No Msg 2823#
+No Msg 2824#
+No Msg 2825#
+No Msg 2826#
+No Msg 2827#
+No Msg 2828#
+No Msg 2829#
+No Msg 2830#
+No Msg 2831#
+No Msg 2832#
+No Msg 2833#
+No Msg 2834#
+No Msg 2835#
+No Msg 2836#
+No Msg 2837#
+No Msg 2838#
+No Msg 2839#
+No Msg 2840#
+No Msg 2841#
+No Msg 2842#
+No Msg 2843#
+No Msg 2844#
+No Msg 2845#
+No Msg 2846#
+No Msg 2847#
+No Msg 2848#
+No Msg 2849#
+No Msg 2850#
+No Msg 2851#
+No Msg 2852#
+No Msg 2853#
+No Msg 2854#
+No Msg 2855#
+No Msg 2856#
+No Msg 2857#
+No Msg 2858#
+No Msg 2859#
+No Msg 2860#
+No Msg 2861#
+No Msg 2862#
+No Msg 2863#
+No Msg 2864#
+No Msg 2865#
+No Msg 2866#
+No Msg 2867#
+No Msg 2868#
+No Msg 2869#
+No Msg 2870#
+No Msg 2871#
+No Msg 2872#
+No Msg 2873#
+No Msg 2874#
+No Msg 2875#
+No Msg 2876#
+No Msg 2877#
+No Msg 2878#
+No Msg 2879#
+No Msg 2880#
+No Msg 2881#
+No Msg 2882#
+No Msg 2883#
+No Msg 2884#
+No Msg 2885#
+No Msg 2886#
+No Msg 2887#
+No Msg 2888#
+No Msg 2889#
+No Msg 2890#
+No Msg 2891#
+No Msg 2892#
+No Msg 2893#
+No Msg 2894#
+No Msg 2895#
+No Msg 2896#
+No Msg 2897#
+No Msg 2898#
+No Msg 2899#
+No Msg 2900#
+No Msg 2901#
+No Msg 2902#
+No Msg 2903#
+No Msg 2904#
+No Msg 2905#
+No Msg 2906#
+No Msg 2907#
+No Msg 2908#
+No Msg 2909#
+No Msg 2910#
+No Msg 2911#
+No Msg 2912#
+No Msg 2913#
+No Msg 2914#
+No Msg 2915#
+No Msg 2916#
+No Msg 2917#
+No Msg 2918#
+No Msg 2919#
+No Msg 2920#
+No Msg 2921#
+No Msg 2922#
+No Msg 2923#
+No Msg 2924#
+No Msg 2925#
+No Msg 2926#
+No Msg 2927#
+No Msg 2928#
+No Msg 2929#
+No Msg 2930#
+No Msg 2931#
+No Msg 2932#
+No Msg 2933#
+No Msg 2934#
+No Msg 2935#
+No Msg 2936#
+No Msg 2937#
+No Msg 2938#
+No Msg 2939#
+No Msg 2940#
+No Msg 2941#
+No Msg 2942#
+No Msg 2943#
+No Msg 2944#
+No Msg 2945#
+No Msg 2946#
+No Msg 2947#
+No Msg 2948#
+No Msg 2949#
+No Msg 2950#
+No Msg 2951#
+No Msg 2952#
+No Msg 2953#
+No Msg 2954#
+No Msg 2955#
+No Msg 2956#
+No Msg 2957#
+No Msg 2958#
+No Msg 2959#
+No Msg 2960#
+No Msg 2961#
+No Msg 2962#
+No Msg 2963#
+No Msg 2964#
+No Msg 2965#
+No Msg 2966#
+No Msg 2967#
+No Msg 2968#
+No Msg 2969#
+No Msg 2970#

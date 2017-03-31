@@ -1,0 +1,820 @@
+//===== rAthena Script ======================================= 
+//= Infinity Space Instance 'Episode 16'  (kRO Servers)
+//===== By: ================================================== 
+//= pengc2010
+//===== Current Version: ===================================== 
+//= 0.8 (Chinese version)
+//===== Compatible With: ===================================== 
+//= Hercules
+//===== Additional Comments: ================================= 
+//= [AEGIS Playing Conversion]
+//= Translated Korean Texts [pengc2010]
+//= 0.8 First Version [pengc2010]
+//= Not all related NPCs are implemented
+//= Mobs spawn number and type are custom
+//============================================================
+1@infi	mapflag	src4instance
+
+// 12364 quest
+// 12365 cd 10800 s
+// 12366 10
+// 12367 30
+
+-	trader	无限空间装备兑换	-,{
+	OnInit:
+	tradertype(NST_CUSTOM);
+	sellitem 1938,50;
+	sellitem 1994,50;
+	sellitem 2024,50;
+	sellitem 13126,50;
+	sellitem 13323,50;
+	sellitem 16038,50;
+	sellitem 18128,50;
+	sellitem 21014,50;
+	sellitem 28105,50;
+	sellitem 28703,50;
+	sellitem 19033,50;
+	sellitem 15141,50;
+	sellitem 20779,50;
+	sellitem 22075,50;
+	end;
+
+OnCountFunds:
+	setcurrency(countitem(6905));
+	end;
+
+OnPayFunds:
+	dispbottom "总价格为"+@price+"颗破损的魔法石。";
+	if( countitem(6905) < @price)
+    end;
+	delitem 6905,@price;
+	purchaseok();
+	end;
+}
+
+cmd_fild07,54,280,0	script	次元装置#infi	PORTAL,{
+				.@cdtime = questprogress(12365,PLAYTIME);
+				if(.@cdtime == 1) {
+					mes "[遗迹探险家]";
+					mes "你不是刚刚探险过么？";
+					mes "你看起来非常疲惫，还是休息一会吧。";
+					mes "";
+					mes "无限空间需要等待3小时才能再次进入。";
+					close;
+				}
+				else if(.@cdtime == 2) {
+					erasequest 12365;
+					//Fall through
+				}
+				.@party_id = getcharid(1);
+				if(!.@party_id) {
+					mes "[遗迹探险家]";
+					mes "进入遗迹之前先组成一支队伍吧。";
+					close;
+				}
+				.@map$ = has_instance("1@infi");
+				if (.@map$ == "") {
+					mes "[遗迹探险家]";
+					mes "进入遗迹探险之前请先过来注册~";
+					close;
+				}
+				mes "-这是无限空间入口的次元装置，要进入无限空间么？-";
+				next;
+				if(select("进入","离开") == 2)
+					close;
+				mapannounce "cmd_fild07",getpartyname(.@party_id)+"小队成员 "+strcharinfo(0)+" 进入副本无限空间。",bc_map,"0x00ff99";
+				setquest 12365;
+				warp "1@infi",30,6;
+				end;
+}
+
+cmd_fild07,60,279,3	script	遗迹探险家#infi	4_F_GON,{
+	if(BaseLevel < 100) {
+		mes "[遗迹探险家]";
+		mes "这里是新发掘的遗迹，对你来说可能还太危险了。";
+		close;
+	}
+	.@cdtime = questprogress(12365,PLAYTIME);
+	if(.@cdtime == 1) {
+		mes "[遗迹探险家]";
+		mes "你不是刚刚探险过么？";
+		mes "你看起来非常疲惫，还是休息一会吧。";
+		mes "";
+		mes "无限空间需要等待3小时才能再次进入。";
+		close2;
+	}
+	else if(.@cdtime == 2) {
+		erasequest 12365;
+		//Fall through
+	}
+	mes "[遗迹探险家]";
+	mes "这里是新发掘的遗迹，";
+	mes "里面的空间，怎么说呢，非常奇妙...";
+	next;
+	switch(select("注册探险","不感兴趣")) {
+			case 1:
+				.@party_id = getcharid(1);
+				if(!.@party_id) {
+					mes "[遗迹探险家]";
+					mes "进入遗迹之前先组成一支队伍吧。";
+					close;
+				}
+				if(getpartyleader(.@party_id) != strcharinfo(0)) {
+					mes "[遗迹探险家]";
+					mes "对不起，进入前请让队长过来登记一下。";
+					close;
+				}
+				if (has_instance("1@infi") != "") {
+					mes "[遗迹探险家]";
+					mes "使用遗迹入口的次元装置就可以进去了。";
+					close;
+				}
+				.@md_name$ = "无限空间";
+				.@instance = instance_create(.@md_name$, .@party_id);
+				if (instance_attachmap("1@infi",.@instance) != "") {
+					instance_set_timeout 5400,300,.@instance;
+					instance_init(.@instance);
+					mes "[遗迹探险家]";
+					mes "已经注册完毕。";
+					mes "使用遗迹入口的次元装置就可以进去了。";
+				} else {
+					mes "[遗迹探险家]";
+					mes "现在次元装置无法使用，晚点再来吧。";
+					instance_destroy(.@instance);
+				}
+				close;
+
+			case 2:
+				mes "[遗迹探险家]";
+				mes "嗯，有兴趣可以再过来看看。";
+				close;
+	}
+}
+
+cmd_fild07,58,275,3	script	遗迹强化师#infi	4_F_JOB_BLACKSMITH,{
+	disable_items;
+	mes "[遗迹强化师]";
+	mes "我可以为你强化这个神秘遗迹中发掘出来的装备。";
+	mes "当然你需要花费一些^0000FF破损的魔法石^000000。";
+	mes "怎么样？";
+	next;
+	switch(select("兑换无限空间装备","附魔","重置附魔","取消")) {
+			case 1:
+				mes "-------------------";
+				mes "| ^ff00001P = 1颗破损的魔法石^000000 |";
+				mes "--------------------";
+				openshop("无限空间装备兑换");
+				end;	
+			case 2:
+				.@select = 1;
+				break;
+			case 3:
+				.@select = 2;
+				break;
+			case 4:
+				mes "[遗迹强化师]";
+				mes "欢迎随时再来。";
+				close;
+	}
+	mes "[遗迹强化师]";
+	mes "选择要附魔的装备吧。";
+	next;
+	setarray .@parts[0], EQI_HAND_R, EQI_HEAD_TOP, EQI_ARMOR, EQI_GARMENT, EQI_SHOES;
+	.@part = .@parts[select("武器","头饰","盔甲","披肩","鞋子")-1];
+	.@id = getequipid(.@part);
+	switch(.@id) {
+			case 1938:
+			case 1994:
+			case 2024:
+			case 13126:
+			case 13323:
+			case 16038:
+			case 18128:
+			case 21014:
+			case 28105:
+			case 28703:
+			case 19033:
+			case 15141:
+			case 20779:
+			case 22075:
+				break;
+			default:
+				mes "[遗迹强化师]";
+				mes "只有这个遗迹中获得的无限武器或者龟裂的装备，我才可以附魔。";
+				close;	
+	}
+	.@equip_refine = getequiprefinerycnt(.@part);
+	setarray .@equip_card[0], getequipcardid(.@part,0),getequipcardid(.@part,1),getequipcardid(.@part,2),getequipcardid(.@part,3);
+	for(.@slot = 3; .@slot > 0; .@slot -= 1) {
+		if(!.@equip_card[.@slot])
+			break;
+	}
+	if(.@select == 1) {
+		if(.@slot < 2) {
+			mes "[遗迹强化师]";
+			mes "这件装备已经不能再附魔了。";
+			mes "如果不满意的话，你可以考虑重置附魔。";
+			close;
+		}
+		mes "[遗迹强化师]";
+		mes "附魔需花费20颗^0000FF破损的魔法石^000000。";
+		mes "附魔不会失败，请选择附魔种类。";
+		next;
+		.@category = select("物理类型","魔法类型","远程类型");
+		if(countitem(6905) < 20) {
+			mes "[遗迹强化师]";
+			mes "你没有足够的材料。";
+			mes "附魔需花费20颗^0000FF破损的魔法石^000000。";
+			close;
+		}
+		delitem 6905,20;
+		switch(.@part) {
+			case EQI_HAND_R:
+				.@totalrate = 140;
+				switch(.@category) {
+					case 1:
+						setarray .@enchants[0],4700,4701,4811,4810,4809,4808,4820,4821,4822,4823;
+						setarray .@rate[0],      10,  10,  15,  15,  20,  20,  15,  15,  10,  10;
+						break;
+					case 2:
+						setarray .@enchants[0],4710,4711,4815,4814,4813,4812,4826,4827,4828,4829;
+						setarray .@rate[0],      10,  10,  15,  15,  20,  20,  15,  15,  10,  10;
+						break;					
+					case 3:
+						setarray .@enchants[0],4720,4721,4832,4833,4834,4835,4836,4837,4838,4839;
+						setarray .@rate[0],      10,  10,  15,  15,  20,  20,  15,  15,  10,  10;
+						break;							
+				}
+				break;
+			case EQI_ARMOR:
+			case EQI_SHOES:
+				.@totalrate = 85;
+				switch(.@category) {
+					case 1:
+						setarray .@enchants[0],4700,4701,4702,4703,4795,4796,4797;
+						setarray .@rate[0],      10,  15,  15,  10,  10,  15,  10;
+						break;
+					case 2:
+						setarray .@enchants[0],4710,4711,4712,4713,4870,4800,4871;
+						setarray .@rate[0],      10,  15,  15,  10,  10,  15,  10;
+						break;
+					case 3:
+						setarray .@enchants[0],4720,4721,4722,4723,4870,4800,4871;
+						setarray .@rate[0],      10,  15,  15,  10,  10,  15,  10;
+						break;
+				}
+				break;
+			case EQI_HEAD_TOP:
+			case EQI_GARMENT:
+				.@totalrate = 110;
+				switch(.@category) {
+					case 1:
+						setarray .@enchants[0],4700,4701,4702,4703,4861,4862,4867,4868,4900;
+						setarray .@rate[0],      10,  15,  15,  10,  10,  15,  15,  10,  10;
+						break;
+					case 2:
+						setarray .@enchants[0],4710,4711,4712,4713,4861,4862,4867,4868,4900;
+						setarray .@rate[0],      10,  15,  15,  10,  10,  15,  15,  10,  10;
+						break;
+					case 3:
+						setarray .@enchants[0],4720,4721,4722,4723,4861,4862,4867,4868,4900;
+						setarray .@rate[0],      10,  15,  15,  10,  10,  15,  15,  10,  10;
+						break;				
+				}
+				break;
+		}
+		.@random = rand(.@totalrate);
+		for(.@i = 0; .@i < getarraysize(.@rate); ++.@i) {
+			if(.@random < .@rate[.@i]){
+				.@equip_card[.@slot] = .@enchants[.@i];
+				break;
+			}
+			else
+				.@random -= .@rate[.@i];
+		}
+		delequip .@part;
+		getitem2 .@id,1,1,.@equip_refine,0,.@equip_card[0],.@equip_card[1],.@equip_card[2],.@equip_card[3];
+		mes "[遗迹强化师]";
+		mes "附魔完成了！";
+		close;
+	}
+	else if(.@select == 2) {
+		if(.@slot == 3) {
+			mes "[遗迹强化师]";
+			mes "你的装备没有任何附魔。";
+			close;
+		}
+		mes "[遗迹强化师]";
+		mes "重置需花费30颗^0000FF破损的魔法石^000000。";
+		mes "^FF0000重置有30%几率失败，会导致装备消失^000000。";
+		next;
+		if(select("继续","还是算了") == 2)
+			close;
+		if(countitem(6905) < 30) {
+			mes "[遗迹强化师]";
+			mes "你没有足够的材料。";
+			mes "重置需花费30颗^0000FF破损的魔法石^000000。";
+			close;
+		}
+		delitem 6905,30;
+		delequip .@part;
+		if(rand(100) < 30) {
+			specialeffect2 EF_SUI_EXPLOSION;
+			mes "[遗迹强化师]";
+			mes "啊！";
+			mes "对... 对不起，失败了...";
+		} else {
+			specialeffect2 EF_REPAIRWEAPON;
+			mes "[遗迹强化师]";
+			mes "重置完成，你的装备可以再次附魔了。";
+			getitem2 .@id,1,1,.@equip_refine,0,.@equip_card[0],.@equip_card[1],0,0;
+		}
+		close;
+	}
+}
+
+
+//==========================================================
+// Instance Start
+//==========================================================
+//warps
+1@infi,30,31,0	warp	infiwarp1	1,1,1@infi,30,38
+1@infi,30,63,0	warp	infiwarp2	1,1,1@infi,30,70
+1@infi,30,95,0	warp	infiwarp3	1,1,1@infi,30,102
+1@infi,30,127,0	warp	infiwarp4	1,1,1@infi,30,134
+1@infi,30,167,0	warp	infiwarp5	1,1,1@infi,30,218
+1@infi,30,243,0	warp	infiwarp6	1,1,1@infi,30,250
+1@infi,30,275,0	warp	infiwarp7	1,1,1@infi,30,282
+1@infi,30,307,0	warp	infiwarp8	1,1,1@infi,30,314
+1@infi,30,339,0	warp	infiwarp9	1,1,1@infi,30,346
+1@infi,30,379,0	warp	infiwarp10	1,1,1@infi,112,6
+
+1@infi,112,31,0	warp	infiwarp11	1,1,1@infi,112,38
+1@infi,112,63,0	warp	infiwarp12	1,1,1@infi,112,70
+1@infi,112,95,0	warp	infiwarp13	1,1,1@infi,112,102
+1@infi,112,127,0	warp	infiwarp14	1,1,1@infi,112,134
+1@infi,112,167,0	warp	infiwarp15	1,1,1@infi,112,218
+1@infi,112,243,0	warp	infiwarp16	1,1,1@infi,112,250
+1@infi,112,275,0	warp	infiwarp17	1,1,1@infi,112,282
+1@infi,112,307,0	warp	infiwarp18	1,1,1@infi,112,314
+1@infi,112,339,0	warp	infiwarp19	1,1,1@infi,112,346
+1@infi,112,379,0	warp	infiwarp20	1,1,1@infi,198,6
+
+1@infi,198,31,0	warp	infiwarp21	1,1,1@infi,198,38
+1@infi,198,63,0	warp	infiwarp22	1,1,1@infi,198,70
+1@infi,198,95,0	warp	infiwarp23	1,1,1@infi,198,102
+1@infi,198,127,0	warp	infiwarp24	1,1,1@infi,198,134
+1@infi,198,167,0	warp	infiwarp25	1,1,1@infi,194,210
+1@infi,194,235,0	warp	infiwarp26	1,1,1@infi,194,250
+1@infi,194,267,0	warp	infiwarp27	1,1,1@infi,194,282
+1@infi,194,299,0	warp	infiwarp28	1,1,1@infi,194,314
+1@infi,194,331,0	warp	infiwarp29	1,1,1@infi,194,346
+1@infi,194,391,0	warp	infiwarp30	1,1,1@infi,280,6
+
+1@infi,280,31,0	warp	infiwarp31	1,1,1@infi,280,38
+1@infi,280,63,0	warp	infiwarp32	1,1,1@infi,280,70
+1@infi,280,95,0	warp	infiwarp33	1,1,1@infi,280,102
+1@infi,280,127,0	warp	infiwarp34	1,1,1@infi,280,134
+1@infi,280,167,0	warp	infiwarp35	1,1,1@infi,280,210
+1@infi,280,235,0	warp	infiwarp36	1,1,1@infi,280,250
+1@infi,280,267,0	warp	infiwarp37	1,1,1@infi,280,282
+1@infi,280,299,0	warp	infiwarp38	1,1,1@infi,280,314
+1@infi,280,331,0	warp	infiwarp39	1,1,1@infi,280,346
+1@infi,280,391,0	warp	infiwarp40	1,1,1@infi,362,6
+
+1@infi,362,31,0	warp	infiwarp41	1,1,1@infi,362,38
+1@infi,362,63,0	warp	infiwarp42	1,1,1@infi,362,70
+1@infi,362,95,0	warp	infiwarp43	1,1,1@infi,362,102
+1@infi,362,127,0	warp	infiwarp44	1,1,1@infi,362,134
+1@infi,362,167,0	warp	infiwarp45	1,1,1@infi,366,210
+1@infi,366,235,0	warp	infiwarp46	1,1,1@infi,366,250
+1@infi,366,267,0	warp	infiwarp47	1,1,1@infi,366,282
+1@infi,366,299,0	warp	infiwarp48	1,1,1@infi,366,314
+1@infi,366,331,0	warp	infiwarp49	1,1,1@infi,366,346
+
+1@infi,366,391,0	script	#infiexit	WARPNPC,1,1,{
+	OnTouch:
+		if(questprogress(40031)) completequest 40031;
+		warp "cmd_fild07",54,275;
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("#infiexit");
+		for(.@i = 1; .@i < 50; ++.@i) {
+			disablenpc instance_npcname("infiwarp"+.@i);
+		}
+		end;
+}
+
+1@infi,0,0,0	script	#infimobcontrol	-1,{
+	OnSpawn:
+		.@map$ = instance_mapname("1@infi");
+		.@label$ = instance_npcname("#infimobcontrol")+"::OnMyMobDead";
+		.@label2$ = instance_npcname("#infimobcontrol")+"::OnMyMVPDead";
+		switch('INFI_ROOM) {
+			case 0:
+				setarray .@x[0],16,5,43,30;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3385,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3386,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3387,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3388,5,.@label$;
+				break;
+			case 1:
+				setarray .@x[0],16,37,43,62;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3387,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3388,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3385,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3386,5,.@label$;
+				break;
+			case 2:
+				setarray .@x[0],16,69,43,94;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3386,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3387,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3388,10,.@label$;
+				break;
+			case 3:
+				setarray .@x[0],16,101,43,126;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3386,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3387,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3388,15,.@label$;
+				break;
+			case 4:
+				setarray .@x[0],10,134,49,168;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3385,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3386,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3387,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3388,10,.@label$;
+				break;
+
+			case 5:
+				setarray .@x[0],16,217,43,242;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3387,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3388,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3389,15,.@label$;
+				break;
+			case 6:
+				setarray .@x[0],16,249,43,274;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3388,15,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3389,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3390,5,.@label$;
+				break;
+			case 7:
+				setarray .@x[0],16,281,43,306;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3388,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3389,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3390,10,.@label$;
+				break;
+			case 8:
+				setarray .@x[0],16,313,43,338;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3389,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3390,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3391,10,.@label$;
+				break;
+			case 9:
+				setarray .@x[0],10,346,49,380;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3388,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3389,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3390,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3391,15,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3426,1,.@label2$;
+				'INFI_BOSS = 1;
+				break;
+				
+
+			case 10:
+				setarray .@x[0],98,5,125,30;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3392,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3393,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3394,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3395,5,.@label$;
+				break;
+			case 11:
+				setarray .@x[0],98,37,125,62;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3394,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3395,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3392,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3393,5,.@label$;
+				break;
+			case 12:
+				setarray .@x[0],98,69,125,94;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3393,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3394,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3395,10,.@label$;
+				break;
+			case 13:
+				setarray .@x[0],98,101,125,126;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3393,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3394,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3395,15,.@label$;
+				break;
+			case 14:
+				setarray .@x[0],92,134,131,168;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3393,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3394,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3395,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3396,10,.@label$;
+				break;
+
+			case 15:
+				setarray .@x[0],98,217,125,242;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3394,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3395,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3396,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3397,5,.@label$;
+				break;
+			case 16:
+				setarray .@x[0],98,249,125,274;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3395,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3396,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3397,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3398,5,.@label$;
+				break;
+			case 17:
+				setarray .@x[0],98,281,125,306;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3397,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3398,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3399,10,.@label$;
+				break;
+			case 18:
+				setarray .@x[0],98,313,125,338;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3397,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3398,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3399,15,.@label$;
+				break;
+			case 19:
+				setarray .@x[0],92,346,131,380;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3396,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3397,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3398,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3399,15,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3427,1,.@label2$;
+				'INFI_BOSS = 1;
+				break;
+
+
+			case 20:
+				setarray .@x[0],184,5,211,30;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3398,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3399,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3400,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3401,5,.@label$;
+				break;
+			case 21:
+				setarray .@x[0],184,37,211,62;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3399,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3400,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3401,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3402,5,.@label$;
+				break;
+			case 22:
+				setarray .@x[0],184,69,211,94;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3401,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3402,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3400,10,.@label$;
+				break;
+			case 23:
+				setarray .@x[0],184,101,211,126;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3400,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3401,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3402,15,.@label$;
+				break;
+			case 24:
+				setarray .@x[0],178,134,217,168;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3400,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3401,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3402,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3403,10,.@label$;
+				break;
+
+			case 25:
+				setarray .@x[0],180,209,207,234;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3401,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3402,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3403,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3404,5,.@label$;
+				break;
+			case 26:
+				setarray .@x[0],180,241,207,266;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3404,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3403,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3402,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3401,5,.@label$;
+				break;
+			case 27:
+				setarray .@x[0],180,273,207,298;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3403,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3404,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3402,10,.@label$;
+				break;
+			case 28:
+				setarray .@x[0],180,305,207,330;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3402,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3403,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3404,15,.@label$;
+				break;
+			case 29:
+				setarray .@x[0],164,337,223,394;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3400,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3401,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3404,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3403,15,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3428,1,.@label2$;
+				'INFI_BOSS = 1;
+				break;
+
+
+			case 30:
+				setarray .@x[0],266,5,293,30;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3403,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3404,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3405,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3406,5,.@label$;
+				break;
+			case 31:
+				setarray .@x[0],266,37,293,62;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3405,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3406,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3403,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3404,5,.@label$;
+				break;
+			case 32:
+				setarray .@x[0],266,69,293,94;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3404,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3405,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3406,10,.@label$;
+				break;
+			case 33:
+				setarray .@x[0],266,101,293,126;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3404,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3405,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3406,15,.@label$;
+				break;
+			case 34:
+				setarray .@x[0],260,134,299,168;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3404,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3405,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3406,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3407,10,.@label$;
+				break;
+
+			case 35:
+				setarray .@x[0],266,209,293,234;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3406,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3407,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3405,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3408,5,.@label$;
+				break;
+			case 36:
+				setarray .@x[0],266,241,293,266;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3406,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3407,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3408,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3409,5,.@label$;
+				break;
+			case 37:
+				setarray .@x[0],266,273,293,298;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3407,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3408,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3409,10,.@label$;
+				break;
+			case 38:
+				setarray .@x[0],266,305,293,330;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3410,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3409,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3408,15,.@label$;
+				break;
+			case 39:
+				setarray .@x[0],250,337,309,394;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3407,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3408,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3409,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3410,15,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3429,1,.@label2$;
+				'INFI_BOSS = 1;
+				break;
+
+
+			case 40:
+				setarray .@x[0],348,5,375,30;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3411,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3412,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3413,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3414,5,.@label$;
+				break;
+			case 41:
+				setarray .@x[0],348,37,375,62;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3413,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3414,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3411,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3412,5,.@label$;
+				break;
+			case 42:
+				setarray .@x[0],348,69,375,94;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3411,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3413,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3414,10,.@label$;
+				break;
+			case 43:
+				setarray .@x[0],348,101,375,126;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3412,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3413,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3414,15,.@label$;
+				break;
+			case 44:
+				setarray .@x[0],342,134,381,168;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3412,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3413,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3414,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3415,10,.@label$;
+				break;
+
+			case 45:
+				setarray .@x[0],352,209,379,234;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3415,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3416,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3417,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3418,5,.@label$;
+				break;
+			case 46:
+				setarray .@x[0],352,241,379,266;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3417,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3418,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3415,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3416,5,.@label$;
+				break;
+			case 47:
+				setarray .@x[0],352,273,379,298;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3417,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3418,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3419,10,.@label$;
+				break;
+			case 48:
+				setarray .@x[0],352,305,379,330;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3418,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3419,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3420,15,.@label$;
+				break;
+			case 49:
+				setarray .@x[0],336,337,395,394;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3417,5,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3418,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3419,10,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3420,15,.@label$;
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3430,1,.@label2$;
+				'INFI_BOSS = 1;
+				break;
+		}
+		if(rand(5) == 3) {
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",(3421+'INFI_ROOM/10),1,.@label$;
+		}
+		if(rand(5) == 2) {
+				areamonster .@map$,.@x[0],.@x[1],.@x[2],.@x[3],"--ja--",3384,1,.@label$;
+		}
+		end;
+		
+	OnMyMVPDead:
+		enablenpc instance_npcname("无限宝箱#infi"+(('INFI_ROOM/10)+1));
+		'INFI_BOSS = 0;
+	OnMyMobDead:
+		.@label$ = instance_npcname("#infimobcontrol")+"::OnMyMobDead";
+		.@number = mobcount(instance_mapname("1@infi"),.@label$);
+		if(.@number) {
+			mapannounce instance_mapname("1@infi"),"当前区域剩余怪物数量 - "+.@number+" 只。", bc_map, 0xFFFF00;
+			end;
+		}
+		if('INFI_BOSS) {
+			mapannounce instance_mapname("1@infi"),"当前区域还有MVP未击败。", bc_map, 0xFFFF00;
+			end;
+		}
+		'INFI_ROOM ++;
+		if('INFI_ROOM < 50) {
+			mapannounce instance_mapname("1@infi"),"当前区域已经清理完毕，可以前往下一区域了。", bc_map, 0xFFFF00;
+			enablenpc instance_npcname("infiwarp"+'INFI_ROOM);
+			donpcevent instance_npcname("#infimobcontrol")+"::OnSpawn";
+		} else {
+			mapannounce instance_mapname("1@infi"),"无限空间已经通关，现在可以离开这个区域了。", bc_map, 0xFFFF00;
+			enablenpc instance_npcname("#infiexit");
+		}
+		end;
+		
+	OnInstanceInit:
+		'INFI_ROOM = 0;
+		donpcevent instance_npcname("#infimobcontrol")+"::OnSpawn";
+		end;
+}
+
+1@infi,30,371,3	script	无限宝箱#infi1	10005,{
+
+	getmapxy(.@map$,.@x,.@y,1,instance_npcname(strnpcinfo(0)));
+	specialeffect 10;
+	hideonnpc instance_npcname(strnpcinfo(0));
+	makeitem 6905,rand(1,20),.@map$,.@x+rand(3)-1,.@y+rand(3)-1;
+	end;
+	
+	OnInstanceInit:
+		disablenpc instance_npcname(strnpcinfo(0));
+		end;
+}
+1@infi,112,371,3	duplicate(无限宝箱#infi1)	无限宝箱#infi2	10005
+1@infi,194,383,3	duplicate(无限宝箱#infi1)	无限宝箱#infi3	10005
+1@infi,280,383,3	duplicate(无限宝箱#infi1)	无限宝箱#infi4	10005
+1@infi,366,383,3	duplicate(无限宝箱#infi1)	无限宝箱#infi5	10005

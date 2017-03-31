@@ -1,0 +1,169 @@
+prontera.gat,0,0,0	script	OnNPCKillEvent	-1,{
+OnNPCKillEvent:
+if ( killedrid == 3960 ) 
+{ announce "玩家["+strcharinfo(0)+"]打开了位于首都某个角落的[宝物箱子]并获得了一定数量的[宝箱碎片]！",bc_all,0xb0ff27;
+announce "首都的[宝物箱子]每小时刷新一次,别忘记去找哦...!",bc_all,0xb0ff27;}
+
+if ( killedrid == 1038 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 俄塞里斯 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1039 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 巴风特 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1046 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 死灵 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1059 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 蜂后 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1086 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 黃金虫 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1087 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 兽人英雄 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1112 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 海盜之王 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1115 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 虎王 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1147 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 蚁后 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1150 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 月夜猫 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1157 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 法老王 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1159 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 皮里恩 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1190 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 兽人酋长 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1251 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 冰暴骑士 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1252 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 卡仑 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1272 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 黑暗之王 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1312 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 乌龟将军 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1373 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 死灵骑士 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1389 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 德古拉男爵 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1418 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 墨蛇君 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1492 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 元灵武士 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1502 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 魔王波利 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1511 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 古埃及王 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1583 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 塔奧群卡 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1623 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 RSX-0806 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1630 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 白素贞 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1646 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 暗●骑士领主 赛依连 」成为MVP！",bc_all,0xb0ff27; }
+
+if ( killedrid == 1647 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 暗●十字刺客 艾勒梅斯 」成为MVP！",bc_all,0xb0ff27; }
+
+if ( killedrid == 1648 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 暗●神工匠 哈沃得 」成为MVP！",bc_all,0xb0ff27; }
+
+if ( killedrid == 1649 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 暗●神官 玛嘉雷特 」成为MVP！",bc_all,0xb0ff27; }
+
+if ( killedrid == 1650 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 暗●神射手 迪文 」成为MVP！",bc_all,0xb0ff27; }
+
+if ( killedrid == 1651 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 暗●超魔导师 凯特莉娜 」成为MVP！",bc_all,0xb0ff27; }
+
+if ( killedrid == 1658 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 暗●剑士 赛尼亚 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1685 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 贝思波 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1688 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 嗒妮小姐 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1708 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 魔剑士 达纳托斯的记忆 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1719) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 迪塔勒泰晤勒斯 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1734 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 基尔-D-01 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1751 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 兰特克力斯 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1768 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 影魔 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1779 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 寒冰龙 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1785 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 阿特罗斯 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1832 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 伊夫利特 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1885 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 青冠龙 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1871 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 墮落大神官 希巴姆 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1873 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 地狱苍蝇 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1874 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 贝雷杰 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1916 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 魔王梦罗克 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1917 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 受伤的梦罗克 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1929 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 巨大的巴风特 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1956 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 夜胜魔 」成为MVP！",bc_all,0xb0ff27; } 
+
+if ( killedrid == 1990 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 硬石猛犸 」成为MVP！",bc_all,0xb0ff27; }  
+
+if ( killedrid == 1991 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 三角兽 」成为MVP！",bc_all,0xb0ff27; }  
+
+if ( killedrid == 2022 ) 
+{ announce "【 恭喜 】玩家「 " + strcharinfo(0) + " 」击杀了「 尼德霍格的影子 」成为MVP！",bc_all,0xb0ff27; }  
+
+} 

@@ -1,0 +1,784 @@
+
+-	script	登录触发	-1,{
+OnPCLoginEvent:
+if(UpClass >= 1 && BaseLevel >= 90){
+	if (atoi(gettimestr("%Y%m%d",50))==LoginToday){     //已签到判断
+		announce "您今天已经签过到了",bc_self,0xDCBCA5;
+		end;
+	}else{
+		mes "";
+		mes "当前游戏时间为: "+gettimestr("%Y年%m月%d日 %H时%M分%S秒",50);
+		mes "";
+		if (select("签到:取消")==2) close; 
+		mes "为签到留下点内容吧 可以在首都签到板查看";
+		input .@input$;
+		copyarray $Qd$[1],$Qd$[0],100;
+		if (LoginMonth==gettime(6)){LoginDay=LoginDay+1;}else{LoginMonth=gettime(6);LoginDay=1;}
+		.@input$="^000000[玩家] ^00c554"+strcharinfo(0) +"   ^0000ff<"+gettimestr("%d日 %H时%M分",50) +"> ^000000\r\n      心情: "+.@input$; 
+		$Qd$[1]=.@input$;
+		LoginToday=atoi(gettimestr("%Y%m%d",50));
+		mes "您当前本月得第"+LOginDay+"天签到";
+		//12211  12209  30639  12208  14534  
+		switch(gettime(5)){
+			case 1:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;//boss雷达
+			break;
+			case 2:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 3:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 4:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 5:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 6:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 7:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 8:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 9:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 10:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 11:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 12:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 13:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 14:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 15:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 16:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 17:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 18:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 19:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 20:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 21:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 22:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 23:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 24:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 25:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 26:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 27:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 28:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 29:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 30:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			}
+		close;
+	}
+}else{
+mes "对不起,你未达到1转90级,无法进行签到";
+close;
+}
+}
+
+prontera,142,133,6	script	签到板	857,{
+if(UpClass >= 1 && BaseLevel >= 90){
+	for (.@i=1;.@i<getarraysize($Qd$);.@i++){
+		mes $Qd$[.@i];
+	}
+	next;
+	if (select("签到:取消")==2) close; 
+	if (LoginToday==atoi(gettimestr("%Y%m%d",50))){
+	mes "您今天已经签到过了";
+	close;
+	}else{
+		mes "";
+		mes "当前游戏时间为: "+gettimestr("%Y年%m月%d日 %H时%M分%S秒",50);
+		mes "";
+		if (select("签到:取消")==2) close; 
+		mes "为签到留下点内容吧 可以在首都签到板查看";
+		input .@input$;
+		copyarray $Qd$[1],$Qd$[0],100;
+		if (LoginMonth==gettime(6)){LoginDay=LoginDay+1;}else{LoginMonth=gettime(6);LoginDay=1;}
+		.@input$="^000000[玩家] ^00c554"+strcharinfo(0) +"   ^0000ff<"+gettimestr("%d日 %H时%M分",50) +"> ^000000\r\n      心情: "+.@input$; 
+		$Qd$[1]=.@input$;
+		LoginToday=atoi(gettimestr("%Y%m%d",50));
+		mes "您当月有"+LoginDay+"天签到";
+		switch(gettime(5)){
+			case 1:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 2:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 3:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 4:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 5:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 6:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 7:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 8:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 9:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 10:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 11:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 12:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 13:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 14:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 15:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 16:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 17:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 18:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 19:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 20:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 21:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 22:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 23:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 24:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 25:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 26:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 27:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 28:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 29:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+			case 30:
+			getitem 30132,1;//副本通行证
+			getitem 30089,1;//作死证明
+			getitem 12209,1;//证明保证书
+			rentitem 7621,10800;//不死之证
+			//getitem 30129,1;//头饰转蛋
+			getitem 12211,1;//移动仓库使用卷
+			getitem 30128,1;//罪恶之羽
+			getitem 30130,1;//快速修炼证明
+			//getitem 30355,1;//红包
+			getitem 12214,1;
+			break;
+		}
+		close;
+	}
+}else{
+mes "对不起,你未达到1转90级,无法进行签到";
+close;
+}
+}
+

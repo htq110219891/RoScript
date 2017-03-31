@@ -1,0 +1,1365 @@
+//===== Hercules Script ====================================== 
+//= Morse Cave Instance 'Episode 14.3'  (jRO Servers)
+//===== By: ================================================== 
+//= pengc2010
+//===== Current Version: ===================================== 
+//= 1.1 (Chinese version)
+//===== Compatible With: ===================================== 
+//= Hercules
+//===== Additional Comments: ================================= 
+//= [jRO Playing Conversion]
+//= Translated to Chinese [pengc2010]
+//= 1.0 First Version [pengc2010]
+//= 1.1 Fixed some bugs [pengc2010]
+//= The script is not completed yet
+//============================================================
+
+1@rev	mapflag	src4instance
+
+moro_cav,61,69,3	script	梦罗克追击队员#a1	730,{/* 65381 */
+  if(questprogress(51720) != 2) {
+      mes "[梦罗克追击队员]";
+      mes "我是梦罗克追击队的成员，";
+      mes "我们正在试图寻找梦罗克的踪迹。";
+      mes "这里非常危险，请小心。";
+      close;
+  }
+  if(!questprogress(9317)) {
+      mes "[梦罗克追击队员]";
+      mes "这里是对梦罗克联军的最前线，";
+      mes "我一路追踪梦罗克的足迹至此。";
+      next;
+      mes "[梦罗克追击队员]";
+      mes "不枉我努力这么久，梦罗克可能的潜伏地点终于被我发现了。";
+      next;
+      mes "[梦罗克追击队员]";
+      mes "就是这处^ff0000赤之花^000000。";
+      next;
+      mes "[梦罗克追击队员]";
+      mes "但是，我只是一名追踪专家，并没有足够的战斗实力。";
+      mes "无法一个人攻入如此危险的地区。";
+      next;
+      mes "[梦罗克追击队员]";
+      mes "既然你们也到了这里，应该和我们有同样的目的，是为了阻止梦罗克复活而来的冒险者吧。";
+      next;
+      mes "[梦罗克追击队员]";
+      mes "怎么样，在联军援军到来之前，和我一起先探索一下前面的洞穴吧？";
+      next;
+      mes "[梦罗克追击队员]";
+      mes "不过，梦罗克实在太过强大了，最好先组成^ff0000一支队伍^000000，再去挑战。";
+      next;
+      mes "[梦罗克追击队员]";
+      mes "我可以领你们去赤之花通道，让你们队长来和我申请吧。";
+      setquest 9317;
+      close;
+	}
+	   .@party_id = getcharid(1);
+    .@md_name$ = "摩尔斯洞穴";
+    if(questprogress(9319, PLAYTIME) == 2) {
+        mes "[梦罗克追击队员]";
+        mes "现在应该可以再次进入洞穴了。";
+        erasequest 9319;
+        close;
+		} else if(questprogress(9319)) {
+        mes "[梦罗克追击队员]";
+        mes "我们需要重整旗鼓，晚一些时候再来吧。";
+        mes "副本CD时间 24小时。";
+        close;
+		}
+		mes "[梦罗克追击队员]";
+		mes "梦罗克太过强大，我们需要组成队伍对付他。";
+		if(getpartyleader(getcharid(1)) != strcharinfo(0)) {
+			mes "如果，想要使用赤之花通道，";
+			mes "请让你们队长过来找我。";
+			close;
+		}
+		mes "现在要进入摩尔斯洞穴么？";
+		next;
+		if(select("创建摩尔斯洞穴副本","算了") == 2) {
+			mes "[梦罗克追击队员]";
+			mes "没有问题，请准备好再来！";
+			close;
+		}
+    .@instance = instance_create(.@md_name$, .@party_id);
+    if (.@instance < 0) {
+        mes "[梦罗克追击队员]";
+        mes "副本创建失败，请晚一些时间再来。";
+        close;
+    }
+   	if (instance_attachmap("1@rev",.@instance) != "") {
+        instance_set_timeout 3600,300,.@instance;
+        instance_init(.@instance);
+        mes "[梦罗克追击队员]";
+        mes "好了，赤之花的通道开放，请在时间限制内进入。";
+        close;
+		}
+    else {
+        instance_destroy(.@instance);
+        mes "副本创建失败！";
+        close;
+		}
+OnInit:
+	waitingroom "摩尔斯洞穴副本",0; //65381
+	end;
+}
+
+moro_cav,57,69,3	script	赤之花#a1	844,{/* 65382 */
+	.@party_id = getcharid(1);
+	.@instime = questprogress(9319,PLAYTIME);
+  if(!questprogress(9317)) {
+      mes "[梦罗克追击队员]";
+      mes "这里是对梦罗克联军的最前线，";
+      mes "我一路追踪梦罗克的足迹至此。";
+      mes "请先过来，我把详细情况告诉你。";
+      close;
+  }
+	mes "‐赤色的花‐";
+	next;
+	if(.@instime) {
+		if(.@instime == 2) {
+			mes "-看起来又可以进入洞穴了-";
+			erasequest 9319;
+			close;
+		}
+		mes "-通道关闭中-";
+		close;
+	}
+	if(select("进入摩尔斯洞穴","离开") == 2) {
+		mes "‐离开了‐";
+		close;
+	}
+	if (!.@party_id) {
+		mes "‐需要先组成一支队伍。‐";
+		close;
+	}
+	if (has_instance("1@rev") == "") {
+		mes "‐还未创建副本，请等待队长创建副本‐";
+		close;
+	} 
+	mapannounce "moro_cav",getpartyname(getcharid(1))+"小队成员 "+strcharinfo(0)+" 进入副本摩尔斯洞穴。",bc_map,"0x00ffff"; //FW_NORMAL 12 0 0
+	setquest 9319; //state=1
+	if(!questprogress(9318))setquest 9318; //state=1
+	else {
+		erasequest 9318;
+		setquest 9318;
+	}
+  close2;
+	warp "1@rev",26,181;
+	end;
+
+	OnTimer30000:
+	initnpctimer;
+	specialeffect 239; //65382
+	end;
+OnInit:
+	initnpctimer;
+	waitingroom "摩尔斯洞穴入口",0; //65382
+	end;
+}
+
+//============================================================
+// Instance Start, Part1
+//============================================================
+
+
+1@rev,27,181,0	script	#RZ_Start	139,5,5,{
+		end;
+	OnTouch:
+		if(getpartyleader(getcharid(1)) != strcharinfo(0))
+      end;
+		disablenpc instance_npcname("#RZ_Start");
+		sleep2 2000;
+		announce "梦罗克 : 是谁？！敢来打扰我休息！",0x9,0x00ffff;
+		sleep2 2000;
+		announce "不知道从哪传来的声音，看来魔王梦罗克的确潜伏在这里。",0x9,0x00ffff;
+		sleep2 2000;
+		announce "？？？: 等等！",0x9,0x00ffff;
+		sleep2 2000;
+		enablenpc instance_npcname("#RZ_Start2");
+		end;
+}
+
+1@rev,27,181,0	script	#RZ_Start2	139,5,5,{
+		end;
+	OnTouch:
+		if(getpartyleader(getcharid(1)) != strcharinfo(0))
+      end;
+		mes "-后方传来了声音-";
+		mes "有谁过来了？";
+		next;
+		switch(select("伊格利特","？？？","希斯","看不清")) {
+				case 1:
+					'Follower$ = "伊格利特";
+					break;
+				case 2:
+					'Follower$ = "基德";
+					break;
+				case 3:
+					'Follower$ = "希斯";
+					break;
+				case 4:
+					'Follower$ = "伊格利特";
+					break;
+		}
+		if('Follower$ == ""){
+			mes "-看来是幻听-";
+			donpcevent instance_npcname("RZ_Mob#01")+"::OnEnable";
+		}
+		else {
+			mes "-同伴增加了-";
+			donpcevent instance_npcname('Follower$+"#01") + "::OnEnable";
+		}
+		setcell instance_mapname("1@rev"),35,178,35,185,cell_walkable,1;
+		disablenpc instance_npcname("#RZ_Start2");
+		close;
+		
+	OnInstanceInit:
+		setcell instance_mapname("1@rev"),35,178,35,185,cell_walkable,0;
+		disablenpc instance_npcname("#RZ_Start2");
+		end;
+}
+
+
+1@rev,25,183,5	script	基德#01	884,{/* 75062 (hide)*/
+		end;
+
+	OnEnable:
+		enablenpc instance_npcname("基德#01");
+		initnpctimer;
+		end;
+
+	OnTimer1000:
+		npctalk "终于赶上了么...！";
+		end;
+		
+	OnTimer4000:
+		npctalk "我会和你一起行动。";
+		donpcevent instance_npcname("RZ_Mob#01")+"::OnEnable";
+		end;
+
+	OnTimer7000:
+		stopnpctimer;
+		npctalk "走吧，找到梦罗克。";
+		end;
+
+	OnInstanceInit:
+		disablenpc instance_npcname("基德#01");
+		end;
+}
+
+1@rev,25,183,5	script	伊格利特#01	751,{/* 75061 */
+		end;
+
+	OnEnable:
+		enablenpc instance_npcname("伊格利特#01");
+		initnpctimer;
+		end;
+
+	OnTimer1000:
+		npctalk "终于赶上了，真是太好了！";
+		end;
+		
+	OnTimer4000:
+		npctalk "大哥...额，不对，司令官已经许可我与你一起行动了。";
+		donpcevent instance_npcname("RZ_Mob#01")+"::OnEnable";
+		end;
+
+	OnTimer7000:
+		stopnpctimer;
+		npctalk "出发吧，一定要找到梦罗克。";
+		end;
+
+	OnInstanceInit:
+		disablenpc instance_npcname("伊格利特#01");
+		end;
+}
+
+1@rev,25,183,5	script	希斯#01	623,{/* 75063 (hide)*/
+		end;
+		
+	OnEnable:
+		enablenpc instance_npcname("希斯#01");
+		initnpctimer;
+		end;
+
+	OnTimer1000:
+		npctalk "终于赶上了，真是太好了！";
+		end;
+		
+	OnTimer4000:
+		npctalk "快一点，我们没有什么时间了，让我与你一起同行。";
+		donpcevent instance_npcname("RZ_Mob#01")+"::OnEnable";
+		end;
+
+	OnTimer7000:
+		stopnpctimer;
+		npctalk "走吧，别犹豫了";
+		end;
+		
+	OnInstanceInit:
+		disablenpc instance_npcname("希斯#01");
+		end;
+}
+
+1@rev,1,1,0	script	RZ_Mob#01	844,{
+		end;
+	OnEnable:
+		enablenpc instance_npcname("RZ_Mob#011");
+		enablenpc instance_npcname("RZ_Mob#012");
+		enablenpc instance_npcname("RZ_Mob#013");
+		end;
+
+	OnMobSummon:
+		.@map$ = instance_mapname("1@rev");
+		.@label$ = instance_npcname("RZ_Mob#01")+"::OnMobDead";
+		monster .@map$, 'mobx, 180, "--ja--", 3001, 1, .@label$;
+		monster .@map$, 'mobx, 181, "--ja--", 3001, 1, .@label$;
+		monster .@map$, 'mobx, 182, "--ja--", 3001, 1, .@label$;
+		end;
+
+	OnMobDead:
+		if('mobx < 71)
+			end;
+		if(!mobcount(instance_mapname("1@rev"),instance_npcname("RZ_Mob#01")+"::OnMobDead")) {
+			donpcevent instance_npcname("#RZ_First03")+"::OnStart";
+			disablenpc instance_npcname("RZ_Mob#01");	
+		} 
+		end;
+
+}
+
+1@rev,36,182,0	script	RZ_Mob#011	139,1,4,{
+		end;
+	OnTouch_:
+		disablenpc instance_npcname("RZ_Mob#011");
+		'mobx = 38;
+		donpcevent instance_npcname("RZ_Mob#01")+"::OnMobSummon";
+		end;
+
+	OnInstanceInit:
+		disablenpc instance_npcname("RZ_Mob#011");
+		end;
+}
+
+1@rev,40,182,0	script	RZ_Mob#012	139,1,4,{
+		end;
+	OnTouch_:
+		disablenpc instance_npcname("RZ_Mob#012");
+		'mobx = 54;
+		donpcevent instance_npcname("RZ_Mob#01")+"::OnMobSummon";
+		end;
+
+	OnInstanceInit:
+		disablenpc instance_npcname("RZ_Mob#012");
+		end;
+}
+
+1@rev,56,182,0	script	RZ_Mob#013	139,1,4,{
+		end;
+	OnTouch_:
+		disablenpc instance_npcname("RZ_Mob#013");
+		'mobx = 71;
+		donpcevent instance_npcname("RZ_Mob#01")+"::OnMobSummon";
+		end;
+
+	OnInstanceInit:
+		disablenpc instance_npcname("RZ_Mob#013");
+		end;
+}
+
+1@rev,1,1,0	script	#RZ_First03	844,{
+		end;
+	OnStart:
+		enablenpc instance_npcname("#RZ_First03");
+		if('Follower$ != "") {
+				disablenpc instance_npcname('Follower$+"#01");
+				donpcevent instance_npcname('Follower$+"#02")+"::OnEnable";
+		}
+		donpcevent instance_npcname("死神安库#02")+"::OnEnable";
+		end;
+		
+	OnInstanceInit:
+		disablenpc instance_npcname("#RZ_First03");
+		end;
+}
+
+1@rev,60,184,5	script	伊格利特#02	751,{/* 75064 (hide)*/
+		end;
+	OnEnable:
+		enablenpc instance_npcname("伊格利特#02");
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("伊格利特#02");
+		end;
+}
+
+1@rev,60,184,5	script	基德#02	884,{/* 75065 (hide)*/
+		end;
+	OnEnable:
+		enablenpc instance_npcname("基德#02");
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("基德#02");
+		end;
+}
+
+1@rev,60,184,5	script	希斯#02	623,{/* 75066 (hide)*/
+		end;
+	OnEnable:
+		enablenpc instance_npcname("希斯#02");
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("希斯#02");
+		end;
+}
+
+1@rev,64,181,1	script	死神安库#02	3029,{/* 75067 (hide)*/
+		end;
+	OnEnable:
+		enablenpc instance_npcname("死神安库#02");
+		initnpctimer;
+		end;
+
+	OnTimer1000:
+		announce "死神安库 : 哈哈！又见面了！",0x9,0x00ffff;
+		end;
+
+	OnTimer4000:
+		announce ""+'Follower$+" : 梦罗克在哪？！",0x9,0x00ffff;
+		end;
+
+	OnTimer7000:
+		announce "死神安库 : 就这么想见梦罗克大人么？",0x9,0x00ffff;
+		end;
+		
+	OnTimer10000:
+		announce "死神安库 : 不知道吧，实际上这里是梦罗克的精神空间。",0x9,0x00ffff;
+		end;
+
+	OnTimer13000:
+		announce "死神安库 : 一切都在梦罗克大人的掌控之下！",0x9,0x00ffff;
+		end;
+
+	OnTimer16000:
+		announce ""+'Follower$+" : 你说什么？！",0x9,0x00ffff;
+		end;
+
+	OnTimer19000:
+		announce "死神安库 : 和你们计划的不太一样吧？哈哈！",0x9,0x00ffff;
+		end;
+
+	OnTimer22000:
+		announce "死神安库 : 放心，我会带你们去梦罗克所在的地方，哈哈！",0x9,0x00ffff;
+		end;
+	
+	OnTimer24000:
+		hideonnpc instance_npcname("死神安库#02");
+		end;
+
+	OnTimer27000:
+		if('Follower$ != ""){
+			disablenpc instance_npcname('Follower$+"#02");
+			enablenpc instance_npcname('Follower$+"#03");
+		}
+		enablenpc instance_npcname("#RZ_Second01");
+		mapwarp instance_mapname("1@rev"),instance_mapname("1@rev"),103,177;
+		end;
+
+	OnInstanceInit:
+		disablenpc instance_npcname("死神安库#02");
+		end;
+}
+
+//=================================================================
+// Part 2
+//=================================================================
+
+1@rev,103,177,0	script	#RZ_Second01	139,5,5,{/* 75075 (hide)*/
+		end;
+		
+	OnTouch_:
+		disablenpc instance_npcname("#RZ_Second01");
+		'talkid = getcharid(3);
+		unittalk 'talkid,"梦罗克？！";
+		donpcevent instance_npcname("#RZ_Second02") + "::OnStart";
+		end;
+
+	OnInstanceInit:
+		disablenpc instance_npcname("#RZ_Second01");
+		end;
+}
+
+1@rev,1,1,0	script	#RZ_Second02	844,{
+		end;
+		
+	OnStart:
+		enablenpc instance_npcname("#RZ_Second02");
+		initnpctimer;
+		end;
+		
+	OnTimer3000:
+		if('Follower$ != "")
+			donpcevent instance_npcname('Follower$+"#03")+"::OnTalk1";
+		else
+			unittalk 'talkid,"但是有点奇怪，怎么会这么轻易找到梦罗克？！";
+		end;
+		
+	OnTimer6000:
+		if('Follower$ != "")
+			donpcevent instance_npcname('Follower$+"#03")+"::OnTalk2";
+		else
+			unittalk 'talkid,"这是真的梦罗克么？";
+		end;
+	
+	OnTimer9000:
+		donpcevent instance_npcname("梦罗克??#RZ1")+"::OnTalk1";
+		end;
+
+	OnTimer12000:
+		donpcevent instance_npcname("梦罗克??#RZ1")+"::OnTalk2";
+		end;
+
+	OnTimer15000:
+		donpcevent instance_npcname("梦罗克??#RZ1")+"::OnTalk3";
+		end;
+
+	OnTimer18000:
+		donpcevent instance_npcname("梦罗克??#RZ1")+"::OnTalk4";
+		end;
+
+	OnTimer21000:
+		donpcevent instance_npcname("梦罗克??#RZ1")+"::OnTalk5";
+		end;
+	
+	OnTimer22000:
+		stopnpctimer;
+		hideonnpc instance_npcname("梦罗克??#RZ1");
+		monster instance_mapname("1@rev"),111,178,"--ja--",2998,1,instance_npcname("#RZ_Second02")+"::OnBossDead";
+		end;
+		
+	OnTimer26000:
+		hideoffnpc instance_npcname("梦罗克??#RZ1");
+		donpcevent instance_npcname("梦罗克??#RZ1")+"::OnTalk6";
+		end;
+		
+	OnTimer29000:
+		donpcevent instance_npcname("梦罗克??#RZ1")+"::OnTalk7";
+		end;
+		
+	OnTimer32000:
+		donpcevent instance_npcname("梦罗克??#RZ1")+"::OnTalk8";
+		end;
+		
+	OnTimer35000:
+		donpcevent instance_npcname("梦罗克??#RZ1")+"::OnTalk9";
+		end;
+		
+	OnTimer37000:
+		hideonnpc instance_npcname("梦罗克??#RZ1");
+		end;
+		
+	OnTimer38000:
+		disablenpc instance_npcname("梦罗克??#RZ1");
+		if('Follower$ != "")
+			donpcevent instance_npcname('Follower$+"#03")+"::OnTalk3";
+		else
+		unittalk 'talkid,"逃跑了？";
+		end;
+		
+	OnTimer40000:
+		if('Follower$ != "")
+			donpcevent instance_npcname('Follower$+"#03")+"::OnTalk4";
+		else
+		unittalk 'talkid,"先追上去！";
+		end;
+		
+	OnTimer41000:
+		if('Follower$ != "")
+			disablenpc instance_npcname('Follower$+"#03");
+		end;
+		
+	OnTimer46000:
+		if('Follower$ != "") {
+				announce ""+'Follower$+" : 啊啊啊！！这是什么？！",0x9,0x00ffff;
+				enablenpc instance_npcname('Follower$+"#04");
+				enablenpc instance_npcname("#RZ_Third01");
+			}
+		else
+			announce "??? : 救命啊！！",0x9,0x00ffff;
+		end;
+	OnTimer48000:
+		stopnpctimer;
+		disablenpc instance_npcname("#RZ_Second02");
+		mapwarp instance_mapname("1@rev"),instance_mapname("1@rev"),33,117;
+		end;
+		
+	OnBossDead:
+		initnpctimer;
+		setnpctimer 23000;
+		end;
+
+	OnInstanceInit:
+		disablenpc instance_npcname("#RZ_Second02");
+		end;
+}
+
+
+
+1@rev,102,180,5	script	伊格利特#03	751,{/* 75076 */
+		end;
+	OnTalk1:
+		npctalk "有些奇怪，之前这么谨慎的梦罗克会轻易让我们找到么？";
+		end;
+	OnTalk2:
+		npctalk "这是真的梦罗克么？";
+		end;
+	OnTalk3:
+		npctalk "啊？逃跑了！？";
+		end;
+	OnTalk4:
+		npctalk "快点追上去！我先行一步了！";
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("伊格利特#03");
+		end;
+}
+1@rev,102,180,5	script	基德#03	884,{/* 75077 (hide)*/		
+		end;
+	OnTalk1:
+		npctalk "这个感觉，有点奇怪...";
+		end;
+	OnTalk2:
+		npctalk "不像是真的梦罗克...";
+		end;
+	OnTalk3:
+		npctalk "啊？逃跑了！";
+		end;
+	OnTalk4:
+		npctalk "我先去追他！";
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("基德#03");
+		end;
+}
+1@rev,102,180,5	script	希斯#03	623,{/* 75078 (hide)*/
+		end;
+	OnTalk1:
+		npctalk "奇怪...梦罗克应该更为谨慎才对！";
+		end;
+	OnTalk2:
+		npctalk "这是真的梦罗克么？";
+		end;
+	OnTalk3:
+		npctalk "逃跑了！？";
+		end;
+	OnTalk4:
+		npctalk "你们也快点跟上来！！";
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("希斯#03");
+		end;
+}
+
+1@rev,111,178,3	script	梦罗克??#RZ1	1916,{/* 75079 */
+		end;
+	OnTalk1:
+		npctalk "人类竟然能找到这。";
+		end;
+	OnTalk2:
+		npctalk "你们真的认为自己有能力阻止我？";
+		end;
+	OnTalk3:
+		npctalk "就让你们感受一下，自己的鲁莽行为会造成什么后果吧。";
+		end;
+	OnTalk4:
+		npctalk "即便我的力量还未完全恢复，对付你们还是很简单的。";
+		end;
+	OnTalk5:
+    specialeffect 225;
+		npctalk "感受死亡的恐惧吧！！";
+		end;
+	OnTalk6:
+		npctalk "力量还没有完全恢复，我的状态也就只是这样了。";
+		end;
+	OnTalk7:
+		npctalk "唉，算了。";
+		end;
+	OnTalk8:
+		npctalk "人类，高兴吧，你们打倒了大魔王梦罗克啊。";
+		end;
+	OnTalk9:
+		npctalk "干脆就这样回去开庆功会吧，哈哈哈！";
+		end;
+}
+
+
+//=================================================================
+// Part 3
+//=================================================================
+
+
+1@rev,33,122,4	script	伊格利特#04	751,{/* 75080 */
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("伊格利特#04");
+		end;
+
+	OnEffect:
+		initnpctimer;
+		specialeffect 74;
+		end;
+	
+	OnTimer2000:
+		initnpctimer;
+		specialeffect 74;
+		end;
+	
+	OnDisable:
+		stopnpctimer;
+		disablenpc instance_npcname("伊格利特#04");
+		end;
+}
+
+1@rev,33,122,4	script	基德#04	884,{/* 75081 (hide)*/
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("基德#04");
+		end;
+		
+	OnEffect:
+		initnpctimer;
+		specialeffect 74;
+		end;
+	
+	OnTimer2000:
+		initnpctimer;
+		specialeffect 74;
+		end;
+	
+	OnDisable:
+		stopnpctimer;
+		disablenpc instance_npcname("基德#04");
+		end;
+}
+
+1@rev,33,122,4	script	希斯#04	623,{/* 75082 (hide)*/
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("希斯#04");
+		end;
+
+	OnEffect:
+		initnpctimer;
+		specialeffect 74;
+		end;
+	
+	OnTimer2000:
+		initnpctimer;
+		specialeffect 74;
+		end;
+	
+	OnDisable:
+		stopnpctimer;
+		disablenpc instance_npcname("希斯#04");
+		end;
+}
+
+1@rev,34,122,0	script	#RZ_Third01	139,5,5,{/* 75075 (hide)*/
+		end;
+		
+	OnTouch:
+		disablenpc instance_npcname("#RZ_Third01");
+		donpcevent instance_npcname("#RZ_Third02") + "::OnStart";
+		end;
+
+	OnInstanceInit:
+		disablenpc instance_npcname("#RZ_Third01");
+		end;
+}
+
+1@rev,1,1,0	script	#RZ_Third02	844,{
+		end;
+	OnStart:
+		initnpctimer;
+		if('Follower$ != "") {
+			specialeffect 89, AREA, instance_npcname('Follower$+"#04");
+			donpcevent instance_npcname('Follower$+"#04") + "::OnEffect";
+		}
+		end;
+		
+	OnTimer1000:
+		monster instance_mapname("1@rev"), 35, 122, "分离的灵魂", 3007, 1;
+		announce "死神安库 : 哈哈哈！真是愚蠢，这么快就落入陷阱了。享受一下灵魂与肉体分离的滋味吧！",0x9,0x00ffff;
+		end;
+		
+	OnTimer5000:
+		announce "死神安库 : 刚刚的梦罗克只不过是我制造的幻影而已，真正的梦罗克大人正在安心休养。",0x9,0x00ffff;
+		end;
+
+	OnTimer9000:
+		announce "死神安库 : 不过...你们人类对梦罗克大人很真是执著...不惜做到这一步一直追寻着...",0x9,0x00ffff;
+		end;
+		
+	OnTimer13000:
+		announce "死神安库 : 这样吧，让我来试试你们到底有没有觐见梦罗克大人的实力！",0x9,0x00ffff;
+		end;
+
+	OnTimer17000:
+		announce "死神安库 : 不要让我失望啊，哈哈！力量不足的话，就死在这里吧！",0x9,0x00ffff;
+		end;
+		
+	OnTimer21000:
+		if('Follower$ != "")
+				disablenpc instance_npcname('Follower$+"#04"); 
+		announce "死神安库 : 无法在此前进的弱者，没有见到梦罗克大人的资格！",0x9,0x00ffff;
+		end;
+	
+	OnTimer25000:
+		stopnpctimer;
+		donpcevent instance_npcname("RZ_Mob#03")+"::OnStart";
+		disablenpc instance_npcname("#RZ_Third02");
+		announce "死神安库 : 就让我见识见识你们的实力吧。",0x9,0x00ffff;
+		end;
+
+}
+
+1@rev,1,1,0	script	RZ_Mob#03	844,{
+		end;
+	OnStart:
+		'Mob03counter = 0;
+		donpcevent instance_npcname("RZ_Mob#03")+"::OnSummonMob"; 
+		end;
+		
+	OnSummonMob:
+		initnpctimer;
+		.@map$ = instance_mapname("1@rev");
+		.@label$ = instance_npcname("RZ_Mob#03")+"::OnMobDead";
+		'Mob03counter ++;
+		.@number = 1;
+		switch('Mob03counter) {
+				case 3:
+					announce "我的部下们，让他们体验一下恐惧和痛苦吧！",0x9,0x00ffff;
+					break;
+				case 4:
+					announce "还不够，更多痛苦，更多恐惧！",0x9,0x00ffff;
+					.@number = 2;
+					break;
+				case 6:
+					announce "哈哈！真不错，还能顽强抵抗。",0x9,0x00ffff;
+					break;
+				case 8:
+					announce "看来稍稍低估了你们的力量，哈哈，真有趣！",0x9,0x00ffff;
+					break;
+				case 9:
+					monster .@map$,32,111,"--ja--",3003,1,.@label$;
+					break;
+				case 10:
+					monster .@map$,35,128,"--ja--",3003,1,.@label$;
+					stopnpctimer;
+					break;
+				default:
+					break;
+		}
+		monster .@map$,34,111,"--ja--",3001,.@number,.@label$;
+		monster .@map$,42,120,"--ja--",3001,.@number,.@label$;
+		monster .@map$,33,128,"--ja--",3001,.@number,.@label$;
+		monster .@map$,25,119,"--ja--",3001,.@number,.@label$;
+		end;
+
+	OnTimer10000:
+		donpcevent instance_npcname("RZ_Mob#03")+"::OnSummonMob"; 
+		end;
+
+	OnMobDead:
+		if('Mob03counter < 10)
+			end;
+		if(!mobcount(instance_mapname("1@rev"),instance_npcname("RZ_Mob#03")+"::OnMobDead")) {
+			donpcevent instance_npcname("#RZ_Third03")+"::OnStart";
+			disablenpc instance_npcname("RZ_Mob#03");
+		}
+		end;
+
+}
+
+1@rev,1,1,0	script	#RZ_Third03	844,{
+		end;
+	OnStart:
+		initnpctimer;
+		end;
+		
+	OnTimer1000:
+		announce "死神安库 : 呵呵呵...表现得不错嘛...",0x9,0x00ffff;
+		end;
+		
+	OnTimer4000:
+		announce "死神安库 : 不过你们还能坚持多久呢？呵呵呵。",0x9,0x00ffff;
+		end;
+
+	OnTimer7000:
+		mapwarp instance_mapname("1@rev"),instance_mapname("1@rev"),31,50;
+		announce "死神安库 : 不要以为打败我的部下你们就解脱了，这个空间会根据梦罗克大人的意志改变！",0x9,0x00ffff;
+		end;
+		
+	OnTimer11000:
+		announce "死神安库 : 加油表现，让我再看看你们的实力到底有多强吧，哈哈哈！",0x9,0x00ffff;
+		end;
+
+	OnTimer15000:
+		announce "死神安库 : 你们的魂魄会成为帮助梦罗克大人恢复的能量...",0x9,0x00ffff;
+		end;
+		
+	OnTimer19000:
+		announce "死神安库 : 慢慢享受无尽的痛苦吧，在最后再让我来收割你们的灵魂！",0x9,0x00ffff;
+		end;
+
+	OnTimer23000:
+		announce "死神安库 : 成为梦罗克大人血与肉的一部分，这可是无上荣光的褒奖。哈哈哈！",0x9,0x00ffff;
+		end;
+
+	OnTimer27000:
+		announce "死神安库 : 上吧！我的部下们，撕裂他们的身体与灵魂，献给梦罗克大人！",0x9,0x00ffff;
+		end;
+		
+	OnTimer30000:
+		stopnpctimer;
+		donpcevent instance_npcname("RZ_Mob#032")+"::OnStart";
+		disablenpc instance_npcname("#RZ_Third03");
+		end;
+
+}
+
+1@rev,1,1,0	script	RZ_Mob#032	844,{
+		end;
+	OnStart:
+		'Mob03counter = 0;
+		donpcevent instance_npcname("RZ_Mob#032")+"::OnSummonMob"; 
+		end;
+		
+	OnSummonMob:
+		initnpctimer;
+		.@map$ = instance_mapname("1@rev");
+		.@label$ = instance_npcname("RZ_Mob#032")+"::OnMobDead";
+		'Mob03counter ++;
+		.@number = 1;
+		switch('Mob03counter) {
+				case 1:
+					announce "死神安库 : 为了梦罗克大人，拼尽你们的全力吧！",0x9,0x00ffff;
+					break;
+				case 2:
+					announce "死神安库 : 这感觉，实在是美妙！",0x9,0x00ffff;
+					break;
+				case 3:
+					announce "死神安库 : 为了梦罗克大人而献身，这是何等的荣光！",0x9,0x00ffff;
+					break;
+				case 4:
+					announce "死神安库 : 更多，更多的力量！！",0x9,0x00ffff;
+					monster .@map$,28,52,"--ja--",3005,1,.@label$;
+					break;
+				case 5:
+					announce "死神安库 : 不错，再多一些！！",0x9,0x00ffff;
+					monster .@map$,28,52,"--ja--",3005,1,.@label$;
+					break;
+				case 6:
+					announce "死神安库 : 你的痛苦和恐惧，都将成为梦罗克大人的力量...",0x9,0x00ffff;
+					.@number = 2;
+					monster .@map$,28,52,"--ja--",3005,1,.@label$;
+					monster .@map$,39,52,"--ja--",3005,1,.@label$;
+					monster .@map$,39,42,"--ja--",3005,1,.@label$;
+					break;
+				case 7:
+					announce "死神安库 : 看来稍稍低估了你们的力量，哈哈，真有趣！",0x9,0x00ffff;
+					monster .@map$,28,52,"--ja--",3005,1,.@label$;
+					monster .@map$,28,42,"--ja--",3005,1,.@label$;
+					stopnpctimer;
+					break;
+				default:
+					break;
+		}
+		monster .@map$,34,56,"--ja--",3001,1,.@label$;
+		monster .@map$,25,48,"--ja--",3001,1,.@label$;
+		monster .@map$,33,39,"--ja--",3001,1,.@label$;
+		monster .@map$,42,47,"--ja--",3001,1,.@label$;
+		monster .@map$,28,52,"--ja--",3003,.@number,.@label$;
+		monster .@map$,28,42,"--ja--",3003,1,.@label$;
+		end;
+
+	OnTimer10000:
+		donpcevent instance_npcname("RZ_Mob#032")+"::OnSummonMob"; 
+		end;
+
+	OnMobDead:
+		if('Mob03counter < 7)
+			end;
+		if(!mobcount(instance_mapname("1@rev"),instance_npcname("RZ_Mob#032")+"::OnMobDead")) {
+			donpcevent instance_npcname("#RZ_Third04")+"::OnStart";
+			disablenpc instance_npcname("RZ_Mob#032");
+		}
+		end;
+
+}
+
+1@rev,1,1,0	script	#RZ_Third04	844,{
+		end;
+	OnStart:
+		initnpctimer;
+		end;
+		
+	OnTimer1000:
+		announce "死神安库 : 哦？...居然坚持到了这个地步。不过，对生的渴望越执著，对死的恐惧也就越强烈...",0x9,0x00ffff;
+		end;
+		
+	OnTimer5000:
+		announce "死神安库 : 把你们的恐惧献给梦罗克大人的话，他肯定会喜欢的，这太美妙了！",0x9,0x00ffff;
+		end;
+
+	OnTimer9000:
+		enablenpc instance_npcname("分离的灵魂#01");
+		mapwarp instance_mapname("1@rev"),instance_mapname("1@rev"),104,48;
+		announce "死神安库 : 真是帮大忙了，有了各位，梦罗克大人就能更快的恢复全力了！",0x9,0x00ffff;
+		end;
+		
+	OnTimer13000:
+		announce "死神安库 : 我要在此为梦罗克大人献上你们的能量！",0x9,0x00ffff;
+		end;
+
+	OnTimer17000:
+		announce "死神安库 : 起来吧！邪灵魔导士，让他们见识一下真正的恐惧！",0x9,0x00ffff;
+		end;
+
+	OnTimer19000:
+		stopnpctimer;
+		disablenpc instance_npcname("分离的灵魂#01");
+		donpcevent instance_npcname("摩尔斯 魔导士") + "::OnStart";
+		disablenpc instance_npcname("#RZ_Third04");
+		end;
+}
+
+//====================================================================
+// Final part
+//====================================================================
+
+1@rev,112,48,4	script	摩尔斯 魔导士	2999,{
+		end;
+	OnStart:
+		enablenpc instance_npcname("摩尔斯 魔导士");
+		initnpctimer;
+		end;
+	
+	OnTimer1000:
+		npctalk "明白了，安库大人。";
+		end;
+	OnTimer4000:
+		npctalk "嘻嘻嘻...让我把你们的灵魂能量献给梦罗克魔王吧。";
+		end;
+	OnTimer8000:
+		npctalk "愚蠢的冒险者啊...你们即将命丧于此！";
+		end;
+	OnTimer12000:
+		stopnpctimer;
+		hideonnpc instance_npcname("摩尔斯 魔导士");
+		donpcevent instance_npcname("RZ_Boss#01")+"::OnStart";
+		end;
+		
+	OnDefeat:	
+		initnpctimer;
+		setnpctimer 20000;
+		end;
+
+	OnTimer21000:
+		hideoffnpc instance_npcname("摩尔斯 魔导士");
+		npctalk "力量真不错，这才配成为梦罗克魔王的祭品啊。";
+		end;
+		
+	OnTimer24000:
+		npctalk "不过，我并没有拿出全部的实力。";
+		end;
+
+	OnTimer27000:
+		npctalk "你只需要知道，取你们的小命对我来说易如反掌就行了。嘻嘻嘻...";
+		end;
+		
+	OnTimer32000:
+		if('Follower$ == "")
+			'Follower$ = "伊格利特";
+		enablenpc instance_npcname('Follower$+"#Boss");
+		donpcevent instance_npcname('Follower$+"#Boss")+"::OnTalk1";
+		end;
+		
+	OnTimer33000:
+		npctalk "什么！？";
+		end;
+
+	OnTimer35000:
+		npctalk "居然还活着么，真是烦人啊！";
+		end;
+
+	OnTimer38000:
+		npctalk "放心，梦罗克魔王正在好好休养中，哈哈哈哈！";
+		end;
+
+	OnTimer41000:
+		npctalk "接下来我会送你们去地狱的，不要着急。";
+		enablenpc 
+		end;
+		
+	OnTimer44000:
+		donpcevent instance_npcname('Follower$+"#Boss")+"::OnTalk2";
+		end;
+
+	OnTimer45000:
+		donpcevent instance_npcname('Follower$+"#Boss")+"::OnTalk3";
+		end;
+
+	OnTimer46000:
+		donpcevent instance_npcname('Follower$+"#Boss")+"::OnEffect";
+		npctalk "呃...";
+		end;
+
+	OnTimer49000:
+		donpcevent instance_npcname('Follower$+"#Boss")+"::OnTalk4";
+		hideonnpc instance_npcname('Follower$+"#Boss");
+		end;
+
+	OnTimer52000:
+		npctalk "呃...力量在流失，那个混帐！";
+		end;
+
+	OnTimer55000:
+		npctalk "先解决了你们，再去慢慢收拾那个家伙！";
+		end;
+		
+	OnTimer58000:
+		stopnpctimer;
+		donpcevent instance_npcname("摩尔斯 妖术师")+"::OnStart";
+		end;
+
+
+	OnInstanceInit:
+		disablenpc instance_npcname("摩尔斯 魔导士");
+		end;
+}
+
+1@rev,112,48,4	script	摩尔斯 妖术师	3000,{
+		end;
+	OnStart:
+		npctalk "见识一下我真正的姿态吧！！";
+		disablenpc instance_npcname("摩尔斯 魔导士");
+		enablenpc instance_npcname("摩尔斯 妖术师");
+		initnpctimer;
+		end;
+	
+	OnTimer3000:
+		stopnpctimer;
+		disablenpc instance_npcname("摩尔斯 妖术师");
+		donpcevent instance_npcname("RZ_Boss#02")+"::OnStart";
+		end;
+	
+	OnInstanceInit:
+		disablenpc instance_npcname("摩尔斯 妖术师");
+		end;
+}
+
+1@rev,1,1,0	script	RZ_Boss#01	844,{
+		end;
+	OnStart:
+		monster instance_mapname("1@rev"),112,48,"--ja--",2999,1,instance_npcname("RZ_Boss#01")+"::OnBossDead";
+		end;
+	OnBossDead:
+		donpcevent instance_npcname("摩尔斯 魔导士")+"::OnDefeat";
+		end;
+
+}
+
+1@rev,1,1,0	script	RZ_Boss#02	844,{
+		end;
+	OnStart:
+		initnpctimer;
+		setnpctimer 15000;
+		monster instance_mapname("1@rev"),112,48,"--ja--",3000,1,instance_npcname("RZ_Boss#02")+"::OnBossDead";
+		end;
+	OnTimer25000:
+		donpcevent instance_npcname("RZ_Boss#02") + "::OnSummon";
+		end;
+
+	OnSummon:
+		.@map$ = instance_mapname("1@rev");
+		if(mobcount(.@map$,"") > 50) {
+				initnpctimer;
+				end;
+		}
+		setarray .@summonid[0], 3001, 3001, 3001, 3001;
+		.@summonid[rand(3)] = 3002;
+		monster .@map$,103,48,"--ja--",.@summonid[0],1;
+		monster .@map$,111,56,"--ja--",.@summonid[1],1;
+		monster .@map$,112,39,"--ja--",.@summonid[2],1;
+		monster .@map$,120,47,"--ja--",.@summonid[3],1;
+		monster .@map$,106,42,"--ja--",3004,1;
+		monster .@map$,117,42,"--ja--",3005,1;
+		switch(rand(1,3)) {
+				case 1:
+						unittalk 'BossID,"你们将在这死去！";
+						monster .@map$,117,42,"--ja--",3003,1;
+						break;
+				case 2:
+						unittalk 'BossID,"你们的世界没有任何未来！";
+						monster .@map$,117,53,"--ja--",3003,1;
+						break;
+				case 3:
+						unittalk 'BossID,"梦罗克魔王将会创造一个新的世界！";
+						monster .@map$,117,53,"--ja--",3003,1;
+						break;
+		}
+		initnpctimer;
+		end;
+
+	OnBossDead:
+		stopnpctimer;
+		disablenpc instance_npcname("RZ_Boss#02");
+		donpcevent instance_npcname("死神安库#F") + "::OnStart";
+		end;
+}
+
+1@rev,112,48,4	script	死神安库#F	3029,{
+		end;
+	OnStart:
+		initnpctimer;
+		enablenpc instance_npcname("死神安库#F");
+		end;
+
+	OnTimer1000:
+		npctalk "这....居然在我回来之前就被打倒了。";
+		end;
+	
+	OnTimer5000:
+		npctalk "不过也无所谓了，你们在梦罗克大人的精神世界中战斗，已经为梦罗克大人贡献了不少能量。";
+		end;
+
+	OnTimer9000:
+		npctalk "托你们的福，梦罗克大人已经基本完全恢复了。所以，这里就饶你们一命吧。";
+		end;
+
+	OnTimer13000:
+		npctalk "以后再见时，就是你们的死期了。哈哈哈哈！";
+		end;
+	
+	OnTimer16000:
+		specialeffect 30;
+		hideonnpc instance_npcname("死神安库#F");
+		end;
+		
+	OnTimer17000:
+		specialeffect 90;
+		end;
+		
+	OnTimer20000:
+		stopnpctimer;
+		enablenpc instance_npcname("#RZ_Exit");
+		end;
+		
+	OnInstanceInit:
+		disablenpc instance_npcname("死神安库#F");
+		end;
+}
+
+1@rev,112,48,4	script	分离的灵魂#01	3007,{/* 75071 (hide)*/
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("分离的灵魂#01");
+		end;
+}
+
+1@rev,108,51,5	script	伊格利特#Boss	751,{/* 75098 (hide)*/
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("伊格利特#Boss");
+		end;
+	OnTalk1:
+		npctalk "梦罗克在哪里？";
+		end;
+	OnTalk2:
+		npctalk "别开玩笑了！！";
+		end;
+	OnTalk3:
+		npctalk "哈啊啊啊啊啊！";
+		specialeffect 104;
+		end;
+	OnEffect:
+		specialeffect 245,AREA,instance_npcname("摩尔斯 魔导士");
+		end;
+	OnTalk4:
+		npctalk "我去找梦罗克，接下来这边就交给你们了！！";
+		end;
+}
+
+1@rev,108,51,5	script	基德#Boss	884,{/* 75099 (hide)*/
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("基德#Boss");
+		end;
+	OnTalk1:
+		npctalk "梦罗克在哪里？";
+		end;
+	OnTalk2:
+		npctalk "哼！！";
+		end;
+	OnTalk3:
+		npctalk "哈啊啊啊啊啊！";
+		specialeffect 223;
+		end;
+	OnEffect:
+		specialeffect 630,AREA,instance_npcname("摩尔斯 魔导士");
+		end;
+	OnTalk4:
+		npctalk "接下就交给你们了！！";
+		end;
+}
+
+1@rev,108,51,5	script	希斯#Boss	623,{/* 75100 (hide)*/
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("希斯#Boss");
+		end;
+	OnTalk1:
+		npctalk "梦罗克在哪里？";
+		end;
+	OnTalk2:
+		npctalk "开什么玩笑？";
+		end;
+	OnTalk3:
+		npctalk "哈啊啊啊啊啊！";
+		specialeffect 225;
+		end;
+	OnEffect:
+		specialeffect 30,AREA,instance_npcname("摩尔斯 魔导士");
+		end;
+	OnTalk4:
+		npctalk "我先去追梦罗克！！！";
+		end;
+}
+
+
+1@rev,112,56,3	script	#RZ_Exit	723,{/* 75996 (hide)*/
+	mes "‐^ff0000离开摩尔斯洞穴并领取副本完成报酬么？^000000‐";
+	next;
+	if(select("先留在这","离开") == 1) {
+		mes "‐你留在了摩尔斯洞穴‐";
+		close;
+	}
+	mes "‐离开了摩尔斯洞穴‐";
+	close2;
+	getexp 1537172,1260000; //99999999
+	if(questprogress(9317) == 1)  completequest 9317;
+  if(!questprogress(51725)) {
+    setquest 51725;
+    completequest 51725;
+  }
+  if(questprogress(40020)) completequest 40020;
+	getitem 6684,1;
+	warp "moro_cav",59,63;
+	end;
+	
+	OnInstanceInit:
+		disablenpc instance_npcname("#RZ_Exit");
+		end;
+}
+

@@ -1,0 +1,27 @@
+new_1-1,56,109,4	script	新手引导员	862,{   
+	mes "[新手引导员]";
+	mes "哇！你是传说中的冒险家 [^FF0000"+strcharinfo(0)+"^000000] 吗？";
+	mes "在游戏开始之前";
+	mes "请遵守游戏规则，不要使用非法程序";
+	next;
+	switch (select("开始旅途")) {
+		case 1:
+			mes "[新手引导员]";
+			mes "希望你在游戏中玩的开心!";
+			next;
+			if (new_bee==1) {
+				save "prontera.gat",154,99;
+				warp "prontera.gat",154,99;
+				end;
+			}
+			mes "[新手引导员]";
+			set new_bee,1;
+			getitem 501,1;
+			getitem 501,1;
+			save "prontera.gat",154,99;
+			warp "prontera.gat",154,99;
+			end;
+		break;
+		
+}
+}

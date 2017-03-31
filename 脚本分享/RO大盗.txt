@@ -1,0 +1,129 @@
+
+//	2003,ROPIRATE_SKEL,被怨念附身的萝莉,RoSkeleton,25,1676,0,233,142,1,145,178,10,15,25,13,25,5,25,10,10,12,1,1,29,0x3885,200,1754,554,288,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+//
+//      再 去 mob_avail 新 增 以 下 文 字
+//	2003,1071//被怨念附身的萝莉
+//
+//	然后放置脚本完成
+//	
+//      =====================================================================
+//      =====================================================================
+
+-	script	ROPIRATESKEL	-1,{
+
+//----- RO大盗的随机出现城市时间设定 ----- 
+
+OnClock0023:
+OnClock0123:
+OnClock0223:
+OnClock0323:
+OnClock0423:
+OnClock0523:
+OnClock0623:
+OnClock0723:
+OnClock0823:
+OnClock0923:
+OnClock1023:
+OnClock1123:
+OnClock1223:
+OnClock1323:
+OnClock1423:
+OnClock1523:
+OnClock1623:
+OnClock1723:
+OnClock1823:
+OnClock1923:
+OnClock2023:
+OnClock2123:
+OnClock2223:
+OnClock2323:
+
+//----- RO大盗的随机出现城市数量设定 [0-13 有14个 ]-----
+set $@ditu,rand(0,11);			
+
+//----- RO大盗的随机出现城市设定 ----- (别打.gat)
+setarray $@romonapper$[0],"prontera","morocc","geffen","payon","alberta","aldebaran","xmas","comodo","yuno","amatsu","gonryun","niflheim";
+
+//----- RO大盗的随机出现城市名字设定 -----  (请对应上面次序)
+setarray $@romonmapname$[0],"普隆德拉","梦罗克","吉芬","斐扬","艾尔贝塔","艾尔帕兰","姜饼城","克魔岛","朱诺","樱花城","昆仑","尼芙菲姆";
+
+
+/*[这行别改]*/	monster ""+$@romonapper$[$@ditu]+"",0,0,"被怨念附身的萝莉",2003,1;
+/*[这行别改]*/	announce "[ 逮捕令 ] : [被怨念附身的萝莉] 在 [ "+$@romonmapname$[$@ditu]+" ] 出现",bc_all,"0xFF0000";
+/*[这行别改]*/	end;
+/*[这行别改]*/	}
+
+
+
+/*[这行别改]*/	-	script	ROPIRATESKELL	-1,{
+/*[这行别改]*/	OnNPCKillEvent:
+/*[这行别改]*/   	if ( killedrid == 2003 ) {
+
+
+//----------------------------------------------------------------[ RO大盗奖励的相关设定 , 请各伺服器依情况斟酌 ]---------------------------------------------------------------- 
+//----- RO大盗的奖励奖金设定 -----
+//----- 奖励金额最少能够取得多少 (预设 100万 Zeny) 
+	set $@RORewardZeny,3000000;
+
+//----- RO大盗的奖励奖金最多能够取得多少 (预设 500万 Zeny) 
+	set $@RORewardZenyMax,500000;
+
+//----- RO大盗的奖励商城点数设定 -----
+//----- 奖励金额最少能够取得多少 (预设 25 点) 
+	set $@RORewardCash,10;
+
+//----- RO大盗的奖励商城点数最多能够取得多少 (预设 50 点) 
+	set $@RORewardCashMax,300;
+
+//----- RO大盗的奖励奖品设定 -----
+//----- 奖励奖品能够取得的物品
+	setarray $@RORewardItem[1],30514,30045,30048,30051,30054,30006,7620,7619,30046,30052,30055,30112;
+
+//----- RO大盗的奖品能够取得的数量
+	setarray $@RORewardItemMax[1],5,2,1,1,1,50,2,2,1,1,1,2;
+
+//----- RO大盗的奖励奖品的总数量 (预设 2 个) -----
+//----- Ps:请对应 奖励奖品能够取得的物品总数 -----
+	set $@RORewardItemNumber,1;
+
+//----------------------------------------------------------------[ 以下别修改 ]----------------------------------------------------------------
+	set @a,rand(1,4);
+	if (@a==1) {
+	set @GetItem,rand(1,$@RORewardItemNumber);
+	getitem $@RORewardItem[@GetItem],$@RORewardItemMax[@GetItem];
+	mes "[ ^00BBFF系统提示^000000 ]";
+	mes "恭喜你杀死了[ ^00BBFF被怨念附身的萝莉^000000 ]!!";
+	mes "你获得了 ^0000FF["+getitemname($@RORewardItem[@GetItem])+"]^000000 数量 ^FF0000["+$@RORewardItemMax[@GetItem]+"]^000000 个";
+	announce "[ 英雄榜 ] : 恭喜玩家 [ "+strcharinfo(0)+" ] 杀死了 [ 被怨念附身的萝莉 ] 获得奖励奖品 ["+getitemname($@RORewardItem[@GetItem])+"] 数量 ["+$@RORewardItemMax[@GetItem]+"] 个。",bc_all,0xff4ba4;
+	close;
+	}
+	if (@a==2) {
+	set @GetZeny,rand($@RORewardZeny,$@RORewardZenyMax);
+	set zeny,zeny + @GetZeny;
+	mes "[ ^00BBFF系统提示^000000 ]";
+	mes "恭喜你杀死了[ ^00BBFF被怨念附身的萝莉^000000 ]!!";
+	mes "你获得了 ^FF0000["+@GetZeny+"]^000000 Zeny";
+	announce "[ 英雄榜 ] : 恭喜玩家 [ "+strcharinfo(0)+" ] 杀死了 [ 被怨念附身的萝莉 ] 获得奖励奖金 ["+@GetZeny+"] Zeny。",bc_all,0xff4ba4;
+	close;
+	}
+	if (@a==3) {
+	set @GetCash,rand($@RORewardCash,$@RORewardCashMax);
+	set #CASHPOINTS,#CASHPOINTS + @GetCash;
+	mes "[ ^00BBFF系统提示^000000 ]";
+	mes "恭喜你杀死了[ ^00BBFF被怨念附身的萝莉^000000 ]!!";
+	mes "你获得了 ^0000FF商城点数^000000 ^FF0000["+@GetCash+"]^000000 点";
+	announce "[ 英雄榜 ] : 恭喜玩家 [ "+strcharinfo(0)+" ] 杀死了 [ 被怨念附身的萝莉 ] 获得奖励商城点数 ["+@GetCash+"] 点。",bc_all,0xff4ba4;
+	close;
+	}
+	if (@a==4) {
+	atcommand "@die";
+	mes "[ ^00BBFF系统提示^000000 ]";
+	mes "很不幸";
+	mes "[ ^00BBFF被怨念附身的萝莉^000000 ]用尽了最后的一丝力量,";
+	mes "与你同归于尽了!!";
+	announce "[ 默哀 ] : [ "+strcharinfo(0)+" ] 与 [ 被怨念附身的萝莉 ]同归于尽了!!",bc_all,0xff4ba4;
+	close;
+	}
+	}
+	end;
+}

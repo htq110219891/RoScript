@@ -1,0 +1,49 @@
+// 自动公告 Add by FPE 2006-01-22 QQ:5454062
+prontera.gat,166,66,0	script	自动公告	-1,{
+OnMinute00:
+OnMinute05:
+OnMinute10:
+OnMinute15:
+OnMinute20:
+OnMinute25:
+OnMinute30:
+OnMinute35:
+OnMinute40:
+OnMinute45:
+OnMinute50:
+OnMinute55:
+	callfunc "auto_notices";
+	end;
+	mes replacestr(.@mes$,"\\n","\n");
+OnInit:
+//设置自动公告
+	set $@notices_i,0;
+	setarray $@notices$,
+
+	"〖系统公告〗所有资料请先留意论坛<游戏资料>板块",
+	"〖系统公告〗Base经验倍率200倍,JOB经验倍率100倍.",
+	"〖系统公告〗服务器开放43种发型,251种发型染色,553种服装染色服务,欢迎测试",
+	"〖系统公告〗服务器设置DEX突破140,即可达到无念",
+	"〖系统公告〗服务器开放离线挂店,指令AT,挂店前请退队,并打开露天商店",
+	"〖系统公告〗死亡惩罚Base经验5%,Job经验5%,rob1%",
+	"〖系统公告〗服务器开放掉落查询,指令whodrops,使用方法@whodrops 怪物名称或ID",
+	"〖系统公告〗副本队伍如果npc没有说上限,则为12人.",
+	"〖系统公告〗无法丢弃,无法交易的物品,全部都可以卖店.",
+	"〖系统公告〗CASH有很多物品都可以在游戏里制作.",
+	"〖系统公告〗CASH充值比例是1rmb:100cash点.",
+	"〖系统公告〗塔罗牌碎片是[宝箱鳄鱼]副本奖励的.",
+	"〖系统公告〗首都每小时都会刷新一个[宝物箱子]掉落宝箱碎片.",
+	"〖系统公告〗周一,周二,周四有周常活动可以参加.",
+	"〖系统公告〗服务器有个[星级]和[声望]两个经验系统.",
+	"〖系统公告〗服务器可以给装备的2号,3号,4号卡槽附魔.",
+	"〖系统公告〗节操点其实就是日常所说的挂机积分.",
+	end;
+}
+
+function	script	auto_notices	{
+	set $@temp_notice$,$@notices$[$@notices_i];
+	announce $@temp_notice$,0,0xBEB4FC;
+	if($@notices_i==getarraysize($@notices$)-1) set $@notices_i,0;
+	else set $@notices_i,$@notices_i+1;
+	end;
+}

@@ -1,0 +1,70 @@
+prontera,170,125,3	script	波利识别	909,{
+	mes "游戏说明:";
+	mes "在规定时间内,第一个找到 <波利> 并且击杀";
+	mes "即可获得奖励";
+	mes "游戏时间:每个小时的15分开始,请提前准备";
+	next;
+	if(UpClass >= 1){
+	if($@HuoDong$[5]=="[ 波利识别 ] 活动 "){
+		mes "[栗山未来]";
+		mes "欢迎光临!!,"+strcharinfo(0);
+		mes "当前波利识别已开启！";
+		if(select("进入活动场地:结束对话")==2){ close; }
+			warp "1@shibie",99,100;
+		end;
+	}else if ($@HuoDong$[5]!="[ 波利识别 ]"){
+		mes "[栗山未来]";
+		mes "欢迎光临!!,"+strcharinfo(0);
+		mes "当前波利识别 没有开启哦！";
+		close;
+	}else{
+		mes "[栗山未来]";
+		mes "欢迎光临!!,"+strcharinfo(0);
+		mes "当前波利识别已开启！";
+		mes "但已经是不可进入状态了";
+		close;
+	}
+end;
+OnXYJSStart:
+	areamonster "1@shibie",71,90,132,129,"箥利",1002,25,"波利识别::OnPT";
+	areamonster "1@shibie",71,90,132,129,"皮利",1002,25,"波利识别::OnPT";
+	areamonster "1@shibie",71,90,132,129,"啵利",1002,25,"波利识别::OnPT";
+	areamonster "1@shibie",71,90,132,129,"菠利",1002,25,"波利识别::OnPT";
+	areamonster "1@shibie",71,90,132,129,"波里",1002,25,"波利识别::OnPT";
+	areamonster "1@shibie",71,90,132,129,"薄利",1002,25,"波利识别::OnPT";
+	areamonster "1@shibie",71,90,132,129,"波力",1002,25,"波利识别::OnPT";
+	areamonster "1@shibie",71,90,132,129,"波利",1002,1,"波利识别::OnJP";
+	$@HuoDong$[5]="[ 波利识别 ]";
+	sleep 600000; //活动时间
+	killmonsterall "1@shibie";
+	if($@HuoDong$[5]=="[ 波利识别 ]"){announce "[ 波利识别 ] 活动已经结束 ",0;}
+	$@HuoDong$[5]="";
+	sleep 5000;
+	areawarp "1@shibie",0,0,300,300,"prontera",159,84;
+	end;
+OnJP:
+	getitem 30076,2;
+	getitem 30075,1;
+	getitem 30221,1;
+	Zeny=Zeny+1000000;
+	announce "玩家 " + strcharinfo(0) + " 在 [ 波利识别 ] 活动中胜出,获得波利硬币*2,波利果冻1个,活动硬币*1,rob*100w [ 波利识别 ] 活动已经结束 ",0;
+	$@HuoDong$[5]="";
+	killmonsterall "1@shibie";
+	sleep 5000;
+	areawarp "1@shibie",0,0,300,300,"prontera",160,94;
+	end;
+OnPT:
+	warp "prontera",160,94;
+	end;
+}else{
+	mes "对不起,您未达到1转,请努力";
+	close;
+	}
+}
+1@shibie	mapflag	noskill
+1@shibie	mapflag	nobranch
+1@shibie	mapflag	nosave
+1@shibie	mapflag	nomemo
+1@shibie	mapflag	noteleport
+1@shibie	mapflag	noloot
+

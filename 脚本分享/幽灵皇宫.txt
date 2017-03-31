@@ -1,0 +1,897 @@
+//===== Hercules Script ====================================== 
+//= Ghost Palace Tournament (jRO Servers)
+//===== By: ================================================== 
+//=  pengc2010
+//===== Current Version: ===================================== 
+//= 1.1 (Chinese version)
+//===== Compatible With: ===================================== 
+//= Hercules
+//===== Additional Comments: ================================= 
+//= [twRO Playing Conversion]
+//= 1.0 First Version [pengc2010]
+//= 1.1 [Custome] Add shards trade npc [pengc2010]
+//============================================================
+
+1@spa	mapflag	src4instance
+
+-	trader	灰土碎片兑换	-,{
+	OnInit:
+	tradertype(NST_CUSTOM);
+	sellitem 1438,100;
+	sellitem 1496,100;
+	sellitem 1669,100;
+	sellitem 1836,100;
+	sellitem 1933,100;
+	sellitem 1988,100;
+	sellitem 2023,100;
+	sellitem 13093,100;
+	sellitem 13441,100;
+	sellitem 16028,100;
+	sellitem 18119,100;
+	sellitem 21009,100;
+	sellitem 28000,100;
+	sellitem 28100,100;
+	sellitem 2187,50;
+	sellitem 15090,50;
+	sellitem 15091,50;
+	sellitem 18820,50;
+	sellitem 20721,50;
+	sellitem 22033,50;
+	end;
+
+OnCountFunds:
+	setcurrency(countitem(6672));
+	end;
+
+OnPayFunds:
+	dispbottom "总价格为"+@price+"枚灰土碎片。";
+	if( countitem(6672) < @price)
+    end;
+	delitem 6672,@price;
+	purchaseok();
+	end;
+}
+
+dali,48,133,3	script	灰土装备兑换#gpend	4_M_RUSKING,{
+	mes "[国王的灵魂]";
+	mes "你有^996600灰土碎片^000000吗？";
+	mes "我可以为你制作一些装备...";
+	next;
+	if(select("兑换灰土装备","离开") == 2)
+		close;
+	mes "-------------------";
+	mes "| ^ff00001P = 1枚灰土碎片^000000 |";
+	mes "--------------------";
+	openshop("灰土碎片兑换");
+	end;	
+}
+
+
+dali,43,129,5	script	灰土皇家禁卫军	4_M_SAKRAYROYAL,{
+	if(BaseLevel < 110) {
+		mes "[灰土皇家禁卫军]";
+		mes "我正在寻找能帮助我的冒险家！";
+		mes "我守护的皇宫，遭到了怪物的侵略！";
+		close;
+	}
+	if (questprogress(1261)) {
+		if (questprogress(1261, PLAYTIME) == 2) {
+			mes "- 现在可以再次进入幽灵皇宫了 -";
+			erasequest 1261;
+			if(questprogress(1260)) erasequest 1260;
+			close;
+		}
+		mes "- 幽灵皇宫副本正在CD中 -";
+		close;
+	}
+	if(questprogress(1260)) {
+		if (has_instance("1@spa") == "") {
+			mes "[灰土皇家禁卫军]";
+			mes "入口已经关闭了是吗？";
+			mes "下次请你尽快使用次元装置。";
+			erasequest 1260;
+			close;
+		}
+		mes "[灰土皇家禁卫军]";
+		mes "你先出发吧，^0000ff入口就在我身后。^000000";
+		mes "我随后就会赶到！";
+		close;
+	}
+	.@party_id = getcharid(1);
+	if (!.@party_id) {
+		mes "[灰土皇家禁卫军]";
+		mes "前面的挑战十分危险，先组成队伍再来吧。";
+		close;
+	}
+	if (getcharid(0) != getpartyleader(.@party_id,2)) {
+		mes "[灰土皇家禁卫军]";
+		mes "我正在寻找能帮助我的冒险家！";
+		mes "我想和领队谈谈，可以么？";
+		close;
+	}
+	mes "[灰土皇家禁卫军]";
+	mes "帮帮我吧！";
+	mes "我守护的皇宫，遭到了怪物的侵略！";
+	next;
+	mes "[灰土皇家禁卫军]";
+	mes "而在我奋战之时，";
+	mes "提亚拉公主不见了！";
+	mes "请你帮我找回公主。";
+	mes "我知道通往城堡的秘道。";
+	next;
+	mes "[灰土皇家禁卫军]";
+	mes "你可以帮助我么？";
+	mes "我真的是没有其他办法了...";
+	next;
+	if(select("没问题","现在不太方便")==2) {
+		mes "[灰土皇家禁卫军]";
+		mes "是么...";
+		mes "提亚拉公主...";
+		close;
+	}
+	.@instance = instance_create("幽灵皇宫", .@party_id);
+	if(.@instance < 0) {
+		mes "副本创建失败，请稍后再尝试。";
+		mes "提示：可以尝试重新组建队伍。";
+		close;
+	}
+	if(instance_attachmap("1@spa",.@instance) != "") {
+		instance_set_timeout 7200,300,.@instance;
+		instance_init(.@instance);
+		if(!questprogress(1260)) setquest 1260;
+		mes "[灰土皇家禁卫军]";
+		mes "谢谢你，我会为你开启通往皇宫的秘道。";
+		mes "你先出发吧，^0000ff入口就在我身后。^000000";
+		mes "我随后就会赶到！";
+		close;
+	} else {
+		instance_destroy(.@instance);
+		mes "副本创建失败！无法建立副本地图。";
+		close;
+	}
+}
+
+dali,40,134,0	script	次元装置#gp	PORTAL,{
+	if (questprogress(1261)) {
+		if (questprogress(1261, PLAYTIME) == 2) {
+			mes "- 现在可以再次进入幽灵皇宫了 -";
+			erasequest 1261;
+			if(questprogress(1260)) erasequest 1260;
+			close;
+		}
+		mes "- 幽灵皇宫副本正在CD中 -";
+		close;
+	}
+	if(getcharid(0) == getpartyleader(.@party_id,2) && !questprogress(1260)) {
+		mes "[灰土皇家禁卫军]";
+		mes "我正在寻找能帮助我的冒险家！";
+		mes "我想和你们的领队谈谈，可以么？";
+		close;
+	}
+	mes "[灰土皇家禁卫军]";
+	mes "准备好要进入";
+	mes "通往皇宫的秘道了么？";
+	next;
+	if(select("出发吧","还是算了") == 2) {
+		mes "[灰土皇家禁卫军]";
+		mes "是么...";
+		mes "准备好了请告诉我，我们时间不多了...";
+		close;
+	} 
+	if (has_instance("1@spa") == "") {
+		mes "- 队长尚未创建副本 -";
+		mes "- 或副本已取消 -";
+		close;
+	}
+	mapannounce "dali",getpartyname(getcharid(1))+"小队成员 "+strcharinfo(0)+" 进入副本幽灵皇宫。",bc_map,"0x00ff99"; //FW_NORMAL 12 0 0
+	if(!questprogress(1260)) setquest 1260;
+	setquest 1261;
+	warp "1@spa",198,188;
+	close;
+}
+
+
+//=====================================================================
+// Instance Start
+//=====================================================================
+
+1@spa,197,204,5	script	国王#gp1	4_M_RUSKING,{
+	.@party_id = getcharid(1);
+	if (getcharid(0) != getpartyleader(.@party_id,2)) {
+			mes "- 请等待队长触发剧情 -";
+			close;
+	}
+	mes "[国王]";
+	mes "你将被任命为提亚拉公主的直属卫士。";
+	mes "我相信你优秀的剑术还有你对皇室的忠诚。";
+	mes "好好证明自己吧！";
+	npctalk "你将被任命为提亚拉公主的直属卫士，我相信你优秀的剑术还有你对皇室的忠诚，好好证明自己吧。", instance_npcname("国王#gp1");
+	next;
+	mes "[灰土皇家禁卫军]";
+	mes "就算牺牲性命，我也会守护公主的！";
+	npctalk "就算牺牲性命，我也会守护公主的！",instance_npcname("灰土皇家禁卫军#gp1");
+	next;
+	mes "[国王]";
+	mes "最近邻国王子也来提亲了。";
+	mes "他说很快就会来看望公主，";
+	mes "这件事你也多准备准备。";
+	npctalk "最近邻国王子也来提亲了。他说很快就会来看望公主，这件事你也多准备准备。", instance_npcname("国王#gp1");
+	next;
+	mes "[灰土皇家禁卫军]";
+	mes "...遵命，陛下。";
+	npctalk "...遵命，陛下。",instance_npcname("灰土皇家禁卫军#gp1");
+	next;
+	mes "[国王]";
+	mes "怎么回事？！";
+	mes "城里怎么会有怪物！";
+	mes "快把它们消灭！";
+	npctalk "怎么回事？！城里怎么会有怪物！快把它们消灭！", instance_npcname("国王#gp1");
+	close2;
+	donpcevent instance_npcname("#gp1control") +"::OnStart";
+	end;
+}
+
+1@spa,198,201,1	script	灰土皇家禁卫军#gp1	4_M_SAKRAYROYAL,{
+	mes "[灰土皇家禁卫军]";
+	mes "陛下...";
+	close;
+}
+
+1@spa,1,1,1	script	#gp1control	HIDDEN_NPC,{
+		end;
+	OnStart:
+		hideonnpc instance_npcname("灰土皇家禁卫军#gp1");
+		hideonnpc instance_npcname("国王#gp1");
+		sleep 1000;
+	OnSummon:
+		sleep 2000;
+		.@mapname$ = instance_mapname("1@spa");
+		.@label$ = instance_npcname("#gp1control") + "::OnMyMobDead";
+		areamonster .@mapname$,182,190,214,214,"--ja--",2949,2,.@label$;
+		areamonster .@mapname$,182,190,214,214,"--ja--",2948,2,.@label$;
+		end;
+	
+	OnMyMobDead:
+		if(mobcount(instance_mapname("1@spa"),instance_npcname("#gp1control")+"::OnMyMobDead"))
+			end;
+		if('gp1 < 2) {
+			++ 'gp1;
+			donpcevent instance_npcname("#gp1control") + "::OnSummon";
+			end;
+		}
+		mapannounce instance_mapname("1@spa"), "宫殿2层通道已开放。", bc_map, "0XFFFF00";
+		enablenpc instance_npcname("#gp1warp");
+		disablenpc instance_npcname("#gp1control");
+		end;
+		
+	OnInstanceInit:
+		'gp1 = 0;
+		disablenpc instance_npcname("#gp1warp");
+		end;		
+}
+
+
+1@spa,197,217,0	warp	#gp1warp	1,1,1@spa,114,120
+
+
+
+1@spa,132,122,0	script	灰土皇家禁卫军#gp2	4_M_SAKRAYROYAL,{
+	.@party_id = getcharid(1);
+	if (getcharid(0) != getpartyleader(.@party_id,2)) {
+			mes "- 请等待队长触发剧情 -";
+			close;
+	}
+	cutin "npc-tiara",3;
+	mes "[灰土皇家禁卫军]";
+	mes "公主殿下，";
+	mes "国王已经邀请邻国王子前来谈论婚事。";
+	mes "请您最好准备。";
+	npctalk "公主殿下，国王已经邀请邻国王子前来谈论婚事。请您最好准备。", instance_npcname("灰土皇家禁卫军#gp2");
+	next;
+	mes "[提亚拉公主]";
+	mes "婚事...万一婚事谈成的话...会怎么样呢？";
+	npctalk "婚事...万一婚事谈成的话...会怎么样呢？",instance_npcname("提亚拉公主#gp2");
+	next;
+	mes "[灰土皇家禁卫军]";
+	mes "我能做的就只有...守护公主而已。";
+	npctalk "我能做的就只有...守护公主而已。", instance_npcname("灰土皇家禁卫军#gp2");
+	next;
+	mes "[提亚拉公主]";
+	mes "那...我能为你做的又有什么呢？";
+	npctalk "那...我能为你做的又有什么呢？",instance_npcname("提亚拉公主#gp2");
+	next;
+	mes "[灰土皇家禁卫军]";
+	mes "......";
+	mes "请成为受人民爱戴的邻国王妃，";
+	mes "这是为了陛下，";
+	mes "也是为了我...";
+	npctalk "......请成为受人民爱戴的邻国王妃，这是为了陛下，也是为了我...", instance_npcname("灰土皇家禁卫军#gp2");
+	next;
+	mes "[提亚拉公主]";
+	mes "我到陌生的地方，和陌生的人结婚，这真的是为了你好吗？";
+	npctalk "我到陌生的地方，和陌生的人结婚，这真的是为了你好吗？",instance_npcname("提亚拉公主#gp2");
+	next;
+	mes "[灰土皇家禁卫军]";
+	mes "我会每天都在公主身边的，";
+	mes "无论何时都会守护着你。";
+	mes "请安心的在我身边休息吧！";
+	npctalk "我会每天都在公主身边的，无论何时都会守护着你。请安心的在我身边休息吧！", instance_npcname("灰土皇家禁卫军#gp2");
+	next;
+	mes "[提亚拉公主]";
+	mes "我...这里怎么会有怪物？！";
+	npctalk "我...这里怎么会有怪物？！",instance_npcname("提亚拉公主#gp2");
+	next;
+	mes "[灰土皇家禁卫军]";
+	mes "公主，请退后！";
+	npctalk "公主，请退后！", instance_npcname("灰土皇家禁卫军#gp2");
+	close2;
+	cutin "npc-tiara",255;
+	donpcevent instance_npcname("#gp2control") +"::OnStart";
+	end;
+}
+
+1@spa,135,125,3	script	提亚拉公主#gp2	4_F_MAYSEL,{
+	cutin "npc-tiara",3;
+	mes "[提亚拉公主]";
+	mes "这样真的好吗...";
+	close2;
+	cutin "",255;
+	end;
+}
+
+1@spa,1,1,1	script	#gp2control	HIDDEN_NPC,{
+		end;
+	OnStart:
+		hideonnpc instance_npcname("灰土皇家禁卫军#gp2");
+		hideonnpc instance_npcname("提亚拉公主#gp2");
+		sleep 1000;
+	OnSummon:
+		sleep 2000;
+		.@mapname$ = instance_mapname("1@spa");
+		.@label$ = instance_npcname("#gp2control") + "::OnMyMobDead";
+		areamonster .@mapname$,143,96,94,143,"--ja--",2950,3,.@label$;
+		areamonster .@mapname$,143,96,94,143,"--ja--",2951,4,.@label$;
+		areamonster .@mapname$,143,96,94,143,"--ja--",2952,3,.@label$;
+		end;
+	
+	OnMyMobDead:
+		if(mobcount(instance_mapname("1@spa"),instance_npcname("#gp2control")+"::OnMyMobDead"))
+			end;
+		mapannounce instance_mapname("1@spa"), "宫殿3层通道已开放。", bc_map, "0XFFFF00";
+		enablenpc instance_npcname("#gp2warp");
+		disablenpc instance_npcname("#gp2control");
+		end;
+		
+	OnInstanceInit:
+		disablenpc instance_npcname("#gp2warp");
+		end;		
+}
+
+1@spa,117,137,0	warp	#gp2warp	1,1,1@spa,60,43
+
+
+1@spa,30,58,5	script	灰土皇家禁卫军#gp3	4_M_SAKRAY_TIED,{ 
+	end;
+}
+
+1@spa,32,54,1	script	国王#gp3	4_M_RUSKING,{
+	.@party_id = getcharid(1);
+	if (getcharid(0) != getpartyleader(.@party_id,2)) {
+			mes "- 请等待队长触发剧情 -";
+			close;
+	}
+	mes "[国王]";
+	mes "原来让怪物进来的就是你！";
+	mes "你想除掉我，好占有公主吗？";
+	npctalk "原来让怪物进来的就是你！你想除掉我，好占有公主吗？", instance_npcname("国王#gp3");
+	next;
+	mes "[灰土皇家禁卫军]";
+	mes "我是被陷害的！陛下，相信我！";
+	npctalk "我是被陷害的！陛下，相信我！",instance_npcname("灰土皇家禁卫军#gp3");
+	next;
+	mes "[国王]";
+	mes "闭嘴！枉我这么相信你。";
+	mes "你居然背叛我...";
+	mes "我会让你付出代价的！";
+	npctalk "闭嘴！枉我这么相信你。你居然背叛我...我会让你付出代价的！", instance_npcname("国王#gp3");
+	next;
+	mes "[国王]";
+	mes "你就在这无声无光的地方，";
+	mes "度过你的下半生吧！";
+	npctalk "你就在这无声无光的地方，度过你的下半生吧！",instance_npcname("国王#gp3");
+	close2;
+	donpcevent instance_npcname("#gp3control") +"::OnStart";
+	end;
+}
+
+1@spa,30,52,0	script	士兵#gp31	4_M_KY_SOLD,{ 
+	mes "[士兵]";
+	mes "我不相信...他会...";
+	close;
+}
+
+1@spa,28,52,0	script	骑士#gp3	4_M_KY_KNT,{ 
+	mes "[骑士]";
+	mes "你怎么会背叛我们！";
+	close;
+}
+
+1@spa,34,53,1	script	士兵#gp32	4_M_CRU_SOLD,{
+	mes "[士兵]";
+	mes "这...怎么可能...";
+	close;
+}
+
+1@spa,25,53,0	script	士兵#gp33	4_M_CRU_SOLD,{ 
+	mes "[士兵]";
+	mes "...";
+	close;
+}
+
+
+1@spa,1,1,1	script	#gp3control	HIDDEN_NPC,{
+		end;
+	OnStart:
+		hideonnpc instance_npcname("国王#gp3");
+		hideonnpc instance_npcname("士兵#gp31");
+		hideonnpc instance_npcname("士兵#gp32");
+		hideonnpc instance_npcname("士兵#gp33");
+		hideonnpc instance_npcname("骑士#gp3");
+		donpcevent instance_npcname("不详的声音#gp3") + "::OnStart";
+		end;
+
+	OnSummon:
+		initnpctimer;
+		.@mapname$ = instance_mapname("1@spa");
+		.@label$ = instance_npcname("#gp3control") + "::OnMyMobDead";
+		areamonster .@mapname$,61,63,24,24,"--ja--",2953,2 + 'gp3,.@label$;
+		'talkid[0] = $@mobid[0];
+		'talkid[1] = $@mobid[1];
+		areamonster .@mapname$,61,63,24,24,"--ja--",2954,3 + 'gp3,.@label$;
+		'talkid[2] = $@mobid[0];
+		areamonster .@mapname$,61,63,24,24,"--ja--",2955,2 + 'gp3,.@label$;
+		'talkid[3] = $@mobid[0];
+		end;
+
+	OnTimer2000:
+		stopnpctimer;
+		unittalk 'talkid[0], "忠心的皇家禁卫军";
+ 		unittalk 'talkid[1], "快跑！";
+		unittalk 'talkid[2], "遭人诬陷...";
+		unittalk 'talkid[3], "连你的公主也受到波及...";
+		end;
+
+	
+	OnMyMobDead:
+		if(mobcount(instance_mapname("1@spa"),instance_npcname("#gp3control")+"::OnMyMobDead"))
+			end;
+		if(!'gp3) {
+			mapannounce instance_mapname("1@spa"), "宫殿4层通道已开放。", bc_map, "0XFFFF00";
+			enablenpc instance_npcname("#gp3warp");
+			donpcevent instance_npcname("#gp4control") + "::OnSummon";
+			disablenpc instance_npcname("#gp1warp");
+		}
+		++ 'gp3;
+		if('gp3 < 5)
+			donpcevent instance_npcname("#gp3control") + "::OnSummon";
+		else {
+			stopnpctimer;
+			disablenpc instance_npcname("#gp3control");
+		}
+		end;
+		
+	OnInstanceInit:
+		disablenpc instance_npcname("#gp3warp");
+		'gp3 = 0;
+		end;		
+}
+
+1@spa,35,56,1	script	不详的声音#gp3	4_TRACE,{
+		end;
+	OnStart:
+		initnpctimer;
+		end;
+	OnTimer3000:
+		npctalk "忠心的皇家禁卫军遭受陷害！";
+		end;
+	OnTimer6000:
+		npctalk "甚至连你的公主，都因为这阴谋而陷入危险。";
+		end;
+	OnTimer9000:
+		npctalk "是谁！快现出原形！",instance_npcname("灰土皇家禁卫军#gp3");
+		end;
+	OnTimer12000:
+		npctalk "呵呵，能听到我的声音吗？真是开心！";
+		end;
+	OnTimer15000:
+		npctalk "...？",instance_npcname("灰土皇家禁卫军#gp3");
+		end;
+	OnTimer18000:
+		npctalk "你要不要和我签订契约？献出你的灵魂换取我的自由。而作为回报，你将得到无限的力量！";
+		end;
+	OnTimer21000:
+		npctalk "我...我...",instance_npcname("灰土皇家禁卫军#gp3");
+		end;
+	OnTimer24000:
+		npctalk "呵呵呵...考虑一下如何？";
+		end;
+	OnTimer27000:
+		stopnpctimer;
+		hideonnpc instance_npcname("不详的声音#gp3");
+		hideonnpc instance_npcname("灰土皇家禁卫军#gp3");
+		donpcevent instance_npcname("#gp3control") + "::OnSummon";
+		end;
+}
+
+1@spa,54,28,0	script	#gp3warp	WARPNPC,1,1,{
+	if(!'gp5)	{
+		warp "1@spa",218,186;
+	}
+	else {
+		if(questprogress(40024)) completequest 40024;
+		warp "dali",49,127;
+	}
+	end;
+}
+
+
+1@spa,1,1,1	script	#gp4control	HIDDEN_NPC,{
+		end;
+	OnStart:
+		end;
+
+	OnSummon:
+		.@mapname$ = instance_mapname("1@spa");
+		.@label$ = instance_npcname("#gp4control") + "::OnMyMobDead";
+		areamonster .@mapname$,182,217,214,188,"--ja--",2949,rand(2,3),.@label$;
+		areamonster .@mapname$,182,217,214,188,"--ja--",2956,rand(2,3),.@label$;
+		end;
+	
+	OnMyMobDead:
+		if(mobcount(instance_mapname("1@spa"),instance_npcname("#gp4control")+"::OnMyMobDead"))
+			end;
+		++ 'gp4;
+		if('gp4 > 3 )
+			donpcevent instance_npcname("#gp4control") + "::OnStory";
+		else
+			donpcevent instance_npcname("#gp4control") + "::OnSummon";
+		end;
+		
+	OnStory:
+		for(.@i = 1; .@i <= 4; ++.@i)
+				enablenpc instance_npcname("尸体#gp4"+.@i);
+		enablenpc instance_npcname("国王的尸体#gp4");
+		enablenpc instance_npcname("灰土皇家禁卫军#gp4");
+		enablenpc instance_npcname("塔拉塔诺斯#gp4");
+		enablenpc instance_npcname("邻国王子#gp4");
+		end;
+		
+	OnBoss:
+		for(.@i = 1; .@i <= 4; ++.@i)
+				hideonnpc instance_npcname("尸体#gp4"+.@i);
+		hideonnpc instance_npcname("国王的尸体#gp4");
+		hideonnpc instance_npcname("灰土皇家禁卫军#gp4");
+		hideonnpc instance_npcname("塔拉塔诺斯#gp4");
+		hideonnpc instance_npcname("邻国王子#gp4");
+		sleep 1000;
+		monster instance_mapname("1@spa"),197,218,"--ja--",2959,1,instance_npcname("#gp4control")+"::OnBossDead";
+		end;
+	
+	OnBossDead:
+		mapannounce instance_mapname("1@spa"), "宫殿5层通道已开放。", bc_map, "0XFFFF00";
+		enablenpc instance_npcname("#gp4warp");
+		donpcevent instance_npcname("#gp5control") + "::OnStart";
+		disablenpc instance_npcname("#gp4control");
+		end;
+			
+	OnInstanceInit:
+		disablenpc instance_npcname("#gp4warp");
+		for(.@i = 1; .@i <= 4; ++.@i)
+				disablenpc instance_npcname("尸体#gp4"+.@i);
+		disablenpc instance_npcname("国王的尸体#gp4");
+		disablenpc instance_npcname("灰土皇家禁卫军#gp4");
+		disablenpc instance_npcname("塔拉塔诺斯#gp4");
+		disablenpc instance_npcname("邻国王子#gp4");
+		'gp4 = 0;
+		end;		
+}
+
+1@spa,201,198,1	script	尸体#gp41	4_M_DIEMAN,{}
+1@spa,191,207,0	script	尸体#gp42	4_M_DIEMAN,{}
+1@spa,206,209,0	script	尸体#gp43	4_M_DIEMAN,{}
+1@spa,189,193,0	script	尸体#gp44	4_M_DIEMAN,{}
+1@spa,194,214,5	script	国王的尸体#gp4	4_M_TRISTAN,{}
+1@spa,197,218,0	script	塔拉塔诺斯#gp4	HIDDEN_WARP_NPC,{}
+
+1@spa,199,214,1	script	灰土皇家禁卫军#gp4	4_M_SAKRAYROYAL,{
+	.@party_id = getcharid(1);
+	if (getcharid(0) != getpartyleader(.@party_id,2)) {
+			mes "- 请等待队长触发剧情 -";
+			close;
+	}
+	mes "[灰土皇家禁卫军]";
+	mes "提亚拉公主在哪里！";
+	npctalk "提亚拉公主在哪里！",instance_npcname("灰土皇家禁卫军#gp4");
+	next;
+	mes "[邻国王子]";
+	mes "你来得有点迟哦！不错，带来了我正在寻找的东西，多谢你让我省了麻烦。";
+	npctalk "你来得有点迟哦！不错，带来了我正在寻找的东西，多谢你让我省了麻烦。",instance_npcname("邻国王子#gp4");
+	next;
+	mes "[邻国王子]";
+	mes "受诅咒的魔剑 塔拉塔诺斯，准备好迎接你新的主人了吗？";
+	npctalk "受诅咒的魔剑 塔拉塔诺斯，准备好迎接你新的主人了吗？",instance_npcname("邻国王子#gp4");
+	next;
+	cutin "tartanos",3;
+	mes "[塔拉塔诺斯]";
+	mes "你这家伙！竟敢瞧不起我！";
+	npctalk "你这家伙！竟敢瞧不起我！",instance_npcname("塔拉塔诺斯#gp4");
+	next;
+	mes "[邻国王子]";
+	mes "呃啊啊啊啊啊！";
+	npctalk "呃啊啊啊啊啊！",instance_npcname("邻国王子#gp4");
+	close2;
+	cutin "",255;
+	donpcevent instance_npcname("#gp4control") + "::OnBoss";
+	end;	
+}
+
+1@spa,197,218,5	script	邻国王子#gp4	4_M_KNIGHT_SILVER,{
+}
+
+1@spa,178,186,0	warp	#gp4warp	1,1,1@spa,30,57
+
+1@spa,1,1,1	script	#gp5control	HIDDEN_NPC,{
+		end;
+	OnStart:
+		stopnpctimer instance_npcname("#gp3control");
+		disablenpc instance_npcname("#gp3control");
+		killmonster instance_mapname("1@spa"), "All";
+		disablenpc instance_npcname("#gp3warp");
+		enablenpc instance_npcname("灰土皇家禁卫军#gp5");
+		enablenpc instance_npcname("提亚拉公主#gp5");
+		end;
+	
+	OnStart2:	
+		hideonnpc instance_npcname("灰土皇家禁卫军#gp5");
+		hideonnpc instance_npcname("提亚拉公主#gp5");
+		sleep 2000;
+	OnSummon:
+		initnpctimer;
+		.@mapname$ = instance_mapname("1@spa");
+		.@label$ = instance_npcname("#gp5control") + "::OnMyMobDead";
+		areamonster .@mapname$,61,63,24,24,"--ja--",2957,rand(1,2),.@label$;
+		'talkid[0] = $@mobid[0];
+		areamonster .@mapname$,61,63,24,24,"--ja--",2954,2,.@label$;
+		'talkid[1] = $@mobid[0];
+		'talkid[2] = $@mobid[1];
+		areamonster .@mapname$,61,63,24,24,"--ja--",2956,rand(1,2),.@label$;
+		'talkid[3] = $@mobid[0];
+		end;
+	
+	OnTimer2000:
+		stopnpctimer;
+		unittalk 'talkid[0],"振作点！你睁大眼睛仔细看看，我们怎么会是怪物？！";
+ 		unittalk 'talkid[1], "萨克莱杀了公主！";
+		unittalk 'talkid[2], "萨克莱...萨克莱竟然！";
+		unittalk 'talkid[3], "萨克莱杀了国王！他还想杀了我们！";
+		end;
+	
+	OnMyMobDead:
+		if(mobcount(instance_mapname("1@spa"),instance_npcname("#gp5control")+"::OnMyMobDead"))
+			end;
+		++ 'gp5;
+		if('gp5 > 2 )
+			donpcevent instance_npcname("#gp5control") + "::OnStory";
+		else
+			donpcevent instance_npcname("#gp5control") + "::OnSummon";
+		end;
+	
+	OnStory:
+		stopnpctimer;
+		'BossID = monster(instance_mapname("1@spa"),44,47,"--ja--",2961,1,instance_npcname("#gp4control")+"::OnBossDead");
+		setunitdata 'BossID,29,1;
+		unittalk 'BossID, "塔拉塔诺斯，若我无法成为你的主人，那么我就干脆将你毁灭！";
+		sleep 3000;
+		unittalk 'BossID,"...喔...这...怎么可能...";
+		sleep 1000;
+		enablenpc instance_npcname("萨克莱#gp5");
+		enablenpc instance_npcname("塔拉塔诺斯#gp5");
+		unitkill 'BossID;
+		end;
+	
+	OnEnd:
+		mapannounce instance_mapname("1@spa"), "提亚拉公主的声音: 那...我能为你做的又有什么呢？", bc_map, "0XFFFFFF";
+		sleep 3000;
+		mapannounce instance_mapname("1@spa"), "萨克莱的声音: 我会每天都在公主身边的，无论何时都会守护着你。请安心的在我身边休息吧！", bc_map, "0XFFFFFF";
+		sleep 3000;
+		mapannounce instance_mapname("1@spa"), "塔拉塔诺斯: 萨克莱，别忘了我们的血盟约。", bc_map, "0XFF0000";
+		sleep 3000;
+		mapannounce instance_mapname("1@spa"), "塔拉塔诺斯: 在找到令我满意的鲜血之前，你的灵魂都是我的，哈哈哈哈哈哈...", bc_map, "0XFF0000";
+		sleep 3000;
+		mapannounce instance_mapname("1@spa"), "萨克莱的声音: 在我的影子里安心的休息吧！", bc_map, "0XFFFFFF";
+		sleep 3000;
+		mapannounce instance_mapname("1@spa"), "萨克莱的声音: 在永远的黑暗之中！", bc_map, "0XFFFFFF";
+		sleep 3000;
+		mapannounce instance_mapname("1@spa"), "皇宫的出口已经开放，是时候离开了。", bc_map, "0XFFFF00";
+		enablenpc instance_npcname("国王#gpend");
+		enablenpc instance_npcname("#gp3warp");
+		end;
+	
+	OnInstanceInit:
+		disablenpc instance_npcname("灰土皇家禁卫军#gp5");
+		disablenpc instance_npcname("提亚拉公主#gp5");
+		disablenpc instance_npcname("塔拉塔诺斯#gp5");
+		disablenpc instance_npcname("萨克莱#gp5");
+		disablenpc instance_npcname("国王#gpend");
+		'gp5 = 0;
+		end;
+}
+
+1@spa,57,42,0	script	灰土皇家禁卫军#gp5	4_M_SAKRAYROYAL,{
+	.@party_id = getcharid(1);
+	if (getcharid(0) != getpartyleader(.@party_id,2)) {
+			mes "- 请等待队长触发剧情 -";
+			close;
+	}
+	mes "[提亚拉公主]";
+	mes "你...遵守了约定！";
+	npctalk "你...遵守了约定！",instance_npcname("提亚拉公主#gp5");
+	next;
+	mes "[灰土皇家禁卫军]";
+	mes "公主！";
+	npctalk "公主！", instance_npcname("灰土皇家禁卫军#gp5");
+	next;
+	cutin "npc-tiara",3;
+	mes "[提亚拉公主]";
+	mes "谢谢你，现在我可以安心地...在你身边...休息了...";
+	npctalk "谢谢你，现在我可以安心地...在你身边...休息了...",instance_npcname("提亚拉公主#gp5");
+	next;
+	mes "[灰土皇家禁卫军]";
+	mes "不可以...不可以！！";
+	npctalk "不可以...不可以！！", instance_npcname("灰土皇家禁卫军#gp5");
+	next;
+	mes "[提亚拉公主]";
+	mes "我们约定在可以幸福的地方，永远不分开！";
+	npctalk "我们约定在可以幸福的地方，永远不分开！",instance_npcname("提亚拉公主#gp5");
+	next;
+	mes "[提亚拉公主]";
+	mes "我爱你...";
+	npctalk "我爱你...",instance_npcname("提亚拉公主#gp5");
+	next;
+	cutin "b-tiara",3;
+	mes "[灰土皇家禁卫军]";
+	mes "啊啊啊啊啊啊啊啊啊！！！";
+	npctalk "啊啊啊啊啊啊啊啊啊！！！", instance_npcname("灰土皇家禁卫军#gp5");
+	close2;
+	cutin "", 255;
+	donpcevent instance_npcname("#gp5control") +"::OnStart2";
+	end;
+}
+
+1@spa,60,43,3	script	提亚拉公主#gp5	4_F_MAYSEL,{
+}
+
+1@spa,40,44,6	script	萨克莱#gp5	4_M_SAKRAY,{
+	.@party_id = getcharid(1);
+	if (getcharid(0) != getpartyleader(.@party_id,2)) {
+			mes "- 请等待队长触发剧情 -";
+			close;
+	}
+	mes "[灰土皇家禁卫军]";
+	mes "满意了吗？塔拉塔诺斯！！";
+	npctalk "满意了吗？塔拉塔诺斯！！", instance_npcname("萨克莱#gp5");
+	next;
+	mes "[^ff0000塔拉塔诺斯^000000]";
+	mes "^ff0000萨克莱，将那个人的鲜血献给我。^000000";
+	npctalk "萨克莱，将那个人的鲜血献给我。", instance_npcname("塔拉塔诺斯#gp5");
+	next;
+	mes "[萨克莱]";
+	mes "好，那也不错！";
+	mes "冒险者，看见了吗？";
+	npctalk "好，那也不错！冒险者，看见了吗？", instance_npcname("萨克莱#gp5");
+	next;
+	mes "["+strcharinfo(0)+"]";
+	mes "萨克莱，你有什么企图？";
+	mes "是想要我们的同情，还是陷阱？";
+	unittalk getcharid(3),"萨克莱，你有什么企图？是想要我们的同情，还是陷阱？";
+	next;
+	mes "[萨克莱]";
+	mes "都不是！";
+	mes "要消灭你们这种新手，根本不需要费这功夫。";
+	npctalk "都不是！要消灭你们这种新手，根本不需要费这功夫。", instance_npcname("萨克莱#gp5");
+	next;
+	mes "["+strcharinfo(0)+"]";
+	mes "那你是为了什么...";
+	unittalk getcharid(3),"那你是为了什么...";
+	next;
+	cutin "cry-b",3;
+	mes "[萨克莱]";
+	mes "我要通过你们，消除我残留的人性。";
+	npctalk "我要通过你们，消除我残留的人性。", instance_npcname("萨克莱#gp5");
+	next;
+	mes "[萨克莱]";
+	mes "结果令我非常满意。";
+	npctalk "结果令我非常满意。", instance_npcname("萨克莱#gp5");
+	next;
+	cutin "",255;
+	mes "[^ff0000塔拉塔诺斯^000000]";
+	mes "^ff0000快！我需要更多的血！^000000";
+	npctalk "快！我需要更多的血！", instance_npcname("塔拉塔诺斯#gp5");
+	next;
+	mes "[萨克莱]";
+	mes "冒险者，如果你是我，你会怎么做呢？";
+	npctalk "冒险者，如果你是我，你会怎么做呢？", instance_npcname("萨克莱#gp5");
+	next;
+	mes "[萨克莱]";
+	mes "你能从这样的诅咒中解脱么？";
+	npctalk "你能从这样的诅咒中解脱么？", instance_npcname("萨克莱#gp5");
+	next;
+	mes "["+strcharinfo(0)+"]";
+	mes "......";
+	unittalk getcharid(3),"......";
+	next;
+	mes "[萨克莱]";
+	mes "呵呵呵，你们就好好茁壮成长吧。";
+	npctalk "呵呵呵，你们就好好茁壮成长吧。", instance_npcname("萨克莱#gp5");
+	next;
+	mes "[萨克莱]";
+	mes "等到你们充分强大的那天，我会找到你们，将你们的鲜血献给塔拉塔诺斯。";
+	npctalk "等到你们充分强大的那天，我会找到你们，将你们的鲜血献给塔拉塔诺斯。", instance_npcname("萨克莱#gp5");
+	next;
+	mes "[萨克莱]";
+	mes "到时候再见吧";
+	npctalk "到时候再见吧", instance_npcname("萨克莱#gp5");
+	close2;
+	donpcevent instance_npcname("#gp5control") + "::OnEnd";
+	hideonnpc instance_npcname("萨克莱#gp5");
+	hideonnpc instance_npcname("塔拉塔诺斯#gp5");
+	end; 
+}
+1@spa,40,44,0	script	塔拉塔诺斯#gp5	HIDDEN_WARP_NPC,{}
+
+1@spa,48,29,1	script	国王#gpend	4_M_RUSKING,{
+	mes "[国王]";
+	mes "你是...从外面来的吗？";
+	mes "没想到会在这里，遇到活人...";
+	next;
+	mes "[国王]";
+	mes "你有^996600灰土碎片^000000吗？";
+	mes "你可以给我吗？";
+	mes "忠心的皇家禁卫军，他以前的回忆，";
+	mes "他爱过的所有人的回忆，";
+	mes "全都变成了碎片...";
+	next;
+	mes "[国王]";
+	mes "你可以给我^999999灰土碎片^000000吗？";
+	mes "我已经不存在于人世...";
+	mes "眼睛也无法看见什么...";
+	mes "作为我所犯罪过的代价，我的灵魂无法离开这座幽灵皇宫。";
+	next;
+	mes "[国王]";
+	mes "据说萨克莱正在收集这些碎片，";
+	mes "打算抛弃旧的回忆，完全泯灭自己的人性。";
+	next;
+	mes "[国王]";
+	mes "也许我们可以用^996600灰土碎片^000000制作出能够和魔剑塔拉塔诺斯相抗衡的装备...";
+	mes "这样的话...";
+	next;
+	mes "[国王]";
+	mes "拜托你一定要拯救诅咒的剑士 萨克莱的灵魂...";
+	next;
+	if(select("兑换灰土装备","离开") == 2)
+		close;
+	mes "-------------------";
+	mes "| ^ff00001P = 1枚灰土碎片^000000 |";
+	mes "--------------------";
+	openshop("灰土碎片兑换");
+	end;	
+}
+
+
+
+
+
+
+
+
+

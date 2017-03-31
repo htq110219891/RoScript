@@ -1,0 +1,896 @@
+//糖依依制作
+//10,4,6,2,8,7,5,9,1
+//-----------------1层-------------------------------------------------
+10@frihd,109,58,3	script	武神塔1层	512,{
+	mes "欢迎挑战武神塔";
+	mes "从现在起,您将独自面对你的敌人";
+	mes "请做好准备";
+	next;
+	switch(select("1.开始:2.关闭")){
+		case 1:
+		if($@fri == 0){
+			mes "请加油!";
+			$@fri+1;
+			close2;
+			goto WST1F;
+			end;
+		}else{
+			mes "对不起,你已经开始了";
+			close;
+			}
+		case 2:
+			close;
+		}
+WST1F:
+mapannounce instance_mapname("10@frihd"),"[提示信息]:请击杀你面前的魔物",bc_map,"0x00ff99";
+sleep2 1000;
+monster instance_mapname("10@frihd"),119,49,"虎王",1115,1,instance_npcname("武神塔1层")+"::OnMobKill";
+sleep2 3000;
+monster instance_mapname("10@frihd"),119,49,"月夜猫",1150,1,instance_npcname("武神塔1层")+"::OnMobKill";
+sleep2 3000;
+monster instance_mapname("10@frihd"),119,49,"皮里恩",1159,1,instance_npcname("武神塔1层")+"::OnMobKill";
+sleep2 3000;
+monster instance_mapname("10@frihd"),119,49,"蚁后",1147,1,instance_npcname("武神塔1层")+"::OnMobKill";
+end;
+OnMobKill:
+$@wstkill=$@wstkill+1;
+if ($@wstkill >= 4) goto 1fwin;
+end;
+OnInstanceInit:
+disablenpc instance_npcname("武神塔1层#1");
+disablenpc instance_npcname("武神塔4层#1");
+disablenpc instance_npcname("1级难度");
+disablenpc instance_npcname("6级难度");
+disablenpc instance_npcname("7级难度");
+end;
+1fwin:
+enablenpc instance_npcname("武神塔1层#1");
+end;
+}
+//------------------------2层---------------------------------------------
+10@frihd,130,48,6	script	武神塔1层#1	512,{
+	mes "我将会把你传送到第2层";
+	mes "请加油!";
+	next;
+	set wstpoint,1;
+	warp instance_mapname("4@frihd"),15,89;
+	goto WST2F;
+	close;
+WST2F:
+mapannounce instance_mapname("10@frihd"),"[提示信息]:请击杀[红色]的[等离子体]",bc_map,"0x00ff99";
+areamonster instance_mapname("4@frihd"),9,92,21,130,"等离子体",3838,11,instance_npcname("武神塔1层#1")+"::OnMob01";
+areamonster instance_mapname("4@frihd"),9,92,21,130,"等离子体",3836,5,instance_npcname("武神塔1层#1")+"::OnMob02";
+areamonster instance_mapname("4@frihd"),9,92,21,130,"等离子体",3837,5,instance_npcname("武神塔1层#1")+"::OnMob02";
+areamonster instance_mapname("4@frihd"),9,92,21,130,"等离子体",3839,5,instance_npcname("武神塔1层#1")+"::OnMob02";
+end;
+OnMob01:
+$@wst2kill=$@wst2kill+1;
+mapannounce instance_mapname("4@frihd"),"[提示信息]:已经清理" + $@wst2kill + "只",bc_map,"0x00ff99";
+if ($@wst2kill >= 10) goto 2fwin;
+end;
+OnMob02:
+$@wst2kill02=$@wst2kill02+1;
+if ($@wst2kill02 > 2) goto 2fdie;
+end;
+2fwin:
+mapannounce instance_mapname("4@frihd"),"[提示信息]:看来你的辨别能力还不错..该给你个奖励了",bc_map,"0x00ff99";
+sleep2 1000;
+killmonsterall instance_mapname("4@frihd");
+sleep2 2000;
+mapannounce instance_mapname("4@frihd"),"[提示信息]:加油吧...看好你哦..~",bc_map,"0x00ff99";
+monster instance_mapname("4@frihd"),16,133,"死灵",1046,1,instance_npcname("武神塔1层#1")+"::OnMobmvp";
+monster instance_mapname("4@frihd"),9,133,"黄金虫",1086,1,instance_npcname("武神塔1层#1")+"::OnMobmvp";
+monster instance_mapname("4@frihd"),21,133,"卡仑",1252,1,instance_npcname("武神塔1层#1")+"::OnMobmvp";
+end;
+OnMobmvp:
+$@wst2kill03=$@wst2kill03+1;
+if ($@wst2kill03 == 3) goto 2fwin01;
+end;
+2fdie:
+mapannounce instance_mapname("4@frihd"),"[提示信息]:好可惜..挑战失败了",bc_map,"0x00ff99";
+sleep2 1000;
+warp "prontera",0,0;
+end;
+2fwin01:
+mapannounce instance_mapname("4@frihd"),"[提示信息]:恭喜,您已过关,3秒后自动传入3层",bc_map,"0x00ff99";
+sleep2 3000;
+set wstpoint,2;
+warp instance_mapname("6@frihd"),34,36;//进入第3层
+end;
+}
+//------------------------3层----------------------------------------
+6@frihd,24,38,0	script	武神塔3层	48,{
+	mes "这个地图一共有4个祭坛,全部开启以后即可进入下一层";
+	next;
+	if($@fri == 1){
+	mes "那么...开始吧";
+	switch(select("1.开始:2.关闭")){
+		case 1:
+			$@fri+1;
+			close2;
+			goto 3fstat;
+		case 2:
+			close;
+			}
+		}else{
+			mes "未知错误..请上报";
+			close;
+			}
+3fstat:
+mapannounce instance_mapname("6@frihd"),"[提示信息]:请在1分钟内消灭4个魔物",bc_map,"0x00ff99";
+sleep2 1000;
+monster instance_mapname("6@frihd"),33,50,"看守祭坛的生灵",3840,1,instance_npcname("武神塔3层")+"::On3fpart1";
+monster instance_mapname("6@frihd"),36,48,"看守祭坛的生灵",3841,1,instance_npcname("武神塔3层")+"::On3fpart1";
+monster instance_mapname("6@frihd"),34,45,"看守祭坛的生灵",3842,1,instance_npcname("武神塔3层")+"::On3fpart1";
+monster instance_mapname("6@frihd"),31,47,"看守祭坛的生灵",3843,1,instance_npcname("武神塔3层")+"::On3fpart1";
+sleep 60000;
+if($@wst3kill != 4){
+mapannounce instance_mapname("6@frihd"),"[提示信息]:对不起,挑战失败",bc_map,"0x00ff99";
+warp "prontera",0,0;
+end;
+}
+end;
+On3fpart1:
+$@wst3kill=$@wst3kill+1;
+if ($@wst3kill == 4){
+mapannounce instance_mapname("6@frihd"),"[提示信息]:请击杀你面前的敌人",bc_map,"0x00ff99";
+sleep2 1000;
+monster instance_mapname("6@frihd"),36,49,"mvp1",1039,1,instance_npcname("武神塔3层")+"::On3fpart2";
+monster instance_mapname("6@frihd"),31,49,"mvp1",1038,1,instance_npcname("武神塔3层")+"::On3fpart2";
+end;
+}
+end;
+On3fpart2:
+$@wst3kill01=$@wst3kill01+1;
+if ($@wst3kill01 == 2){
+mapannounce instance_mapname("6@frihd"),"[提示信息]:恭喜,挑战成功,为您传送至下一地点",bc_map,"0x00ff99";
+sleep2 1000;
+warp instance_mapname("6@frihd"),112,37;
+sleep2 1000;
+mapannounce instance_mapname("6@frihd"),"[提示信息]:1.存活50秒;2.魔物不能死亡;",bc_map,"0x00ff99";
+sleep2 1000;
+mapannounce instance_mapname("6@frihd"),"[提示信息]:现在开始",bc_map,"0x00ff99";
+sleep2 1000;
+monster instance_mapname("6@frihd"),111,47,"复活的魔物",1511,1,instance_npcname("武神塔3层")+"::On3fpart3";
+sleep2 50000;
+killmonsterall instance_mapname("6@frihd");
+mapannounce instance_mapname("6@frihd"),"[提示信息]:现在为您传送下一地点",bc_map,"0x00ff99";
+sleep2 1000;
+warp instance_mapname("6@frihd"),33,108;
+sleep2 2000;
+mapannounce instance_mapname("6@frihd"),"[提示信息]:1.请找出正确的魔物并击杀2.请在30秒内击杀",bc_map,"0x00ff99";
+sleep2 2000;
+monster instance_mapname("6@frihd"),32,120,"基尔",3844,1,instance_npcname("武神塔3层")+"::On3fpart4";
+monster instance_mapname("6@frihd"),35,120,"基尔",3845,1,instance_npcname("武神塔3层")+"::On3fpart3";
+sleep2 30000;
+if($@wst3kill02 != 1){
+mapannounce instance_mapname("6@frihd"),"[提示信息]:对不起,您未成功击杀,挑战失败!",bc_map,"0x00ff99";
+sleep2 1000;
+warp "prontera",0,0;
+end;
+		}
+end;
+	}
+end;
+On3fpart3:
+mapannounce instance_mapname("6@frihd"),"[提示信息]:对不起,您击杀错误,挑战失败!",bc_map,"0x00ff99";
+sleep2 1000;
+warp "prontera",0,0;
+end;
+
+On3fpart4:
+$@wst3kill02=$@wst3kill02+1;
+killmonsterall instance_mapname("6@frihd");
+mapannounce instance_mapname("6@frihd"),"[提示信息]:请稍等,为您传送最后一个场地",bc_map,"0x00ff99";
+sleep2 1000;
+warp instance_mapname("6@frihd"),112,168;
+end;
+}
+
+6@frihd,103,169,0	script	武神塔3层#1	48,{
+	mes "这是3层最后一关了";
+	mes "请在30秒内击杀该mvp并且获得物品上交给我";
+	mes "否则你将会失败";
+	next;
+	mes "准备好了么?";
+	switch(select("1.开始:2.关闭")){
+		case 1:
+			close2;
+			goto 3f04;
+			end;
+		case 2:
+			close;
+			}
+3f04:
+sleep2 1000;
+monster instance_mapname("6@frihd"),111,177,"守护祭坛的魔物",1630,1,instance_npcname("武神塔3层#1")+"::On3fpart6";
+sleep2 30000;
+if($@wst3kill04 != 1){
+mapannounce instance_mapname("6@frihd"),"[提示信息]:对不起,挑战失败!",bc_map,"0x00ff99";
+sleep2 1000;
+warp "prontera",0,0;
+end;
+}
+end;
+
+//----------------------第4层--------------------------------------------
+On3fpart6:
+$@wst3kill04=$@wst3kill04+1;
+mapannounce instance_mapname("6@frihd"),"[提示信息]:恭喜,挑战成功,即将进入第4层",bc_map,"0x00ff99";
+sleep2 1000;
+set wstpoint,3;
+warp instance_mapname("2@frihd"),64,14;//进入第4层
+sleep2 1000;
+mapannounce instance_mapname("6@frihd"),"[提示信息]:请在60秒内通过本区域,并击杀可移动魔物",bc_map,"0x00ff99";
+//====固定魔物
+monster instance_mapname("2@frihd"),51,25,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),42,24,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),47,31,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),40,32,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),46,38,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),42,43,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),46,44,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),40,50,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),47,47,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),47,52,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),38,55,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),34,58,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),33,64,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),32,69,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),32,74,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),33,78,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),36,82,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),40,85,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),44,85,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),50,84,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),54,83,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),64,74,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),64,70,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),64,66,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),63,61,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),60,58,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),55,57,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),45,69,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),41,70,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),39,75,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),42,79,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),46,80,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),50,78,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),51,74,"守护宝藏的生灵",3846,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),40,40,"守护宝藏的生灵",1959,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),47,46,"守护宝藏的生灵",1959,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),36,57,"守护宝藏的生灵",1959,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),36,72,"守护宝藏的生灵",1959,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),49,69,"守护宝藏的生灵",1959,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+monster instance_mapname("2@frihd"),60,64,"守护宝藏的生灵",1959,1,instance_npcname("武神塔3层#1")+"::On3fpart7";
+//=====可移动魔物
+monster instance_mapname("2@frihd"),54,67,"守护宝藏的灵魂",3847,1,instance_npcname("武神塔3层#1")+"::On3fpart8";
+monster instance_mapname("2@frihd"),59,61,"守护宝藏的灵魂",3848,1,instance_npcname("武神塔3层#1")+"::On3fpart8";
+monster instance_mapname("2@frihd"),50,58,"守护宝藏的灵魂",3849,1,instance_npcname("武神塔3层#1")+"::On3fpart8";
+monster instance_mapname("2@frihd"),41,60,"守护宝藏的灵魂",3850,1,instance_npcname("武神塔3层#1")+"::On3fpart8";
+monster instance_mapname("2@frihd"),38,66,"守护宝藏的灵魂",3851,1,instance_npcname("武神塔3层#1")+"::On3fpart8";
+monster instance_mapname("2@frihd"),37,72,"守护宝藏的灵魂",3852,1,instance_npcname("武神塔3层#1")+"::On3fpart8";
+monster instance_mapname("2@frihd"),44,47,"守护宝藏的灵魂",3851,1,instance_npcname("武神塔3层#1")+"::On3fpart8";
+monster instance_mapname("2@frihd"),43,38,"守护宝藏的灵魂",3850,1,instance_npcname("武神塔3层#1")+"::On3fpart8";
+monster instance_mapname("2@frihd"),44,32,"守护宝藏的灵魂",3849,1,instance_npcname("武神塔3层#1")+"::On3fpart8";
+monster instance_mapname("2@frihd"),45,25,"守护宝藏的灵魂",3848,1,instance_npcname("武神塔3层#1")+"::On3fpart8";
+sleep2 120000;
+if($@wst4kill01 != 10){
+mapannounce instance_mapname("2@frihd"),"[提示信息]:对不起,您未完成任务,挑战失败",bc_map,"0x00ff99";
+warp "prontera",0,0;
+}
+end;
+On3fpart7:
+mapannounce instance_mapname("2@frihd"),"[提示信息]:对不起,您击杀了不可击杀魔物,挑战失败",bc_map,"0x00ff99";
+sleep 1000;
+warp "prontera",0,0;
+end;
+On3fpart8:
+$@wst4kill01=$@wst4kill01+1;
+if($@wst4kill01 == 10)goto 4fwin;
+end;
+
+4fwin:
+enablenpc instance_npcname("武神塔4层#1");
+end;
+}
+2@frihd,61,80,0	script	武神塔4层#1	48,{
+	mes "我现在就把你带离这个地方";
+	close2;
+	warp instance_mapname("8@frihd"),54,97;
+	set wstpoint,4;
+	end;
+}
+//---------------------第5层-------------------------------
+8@frihd,66,86,0	script	武神塔5层	48,{
+	set $@5f,rand(1,8);
+	mes "中间的8根柱子,每根都藏着一个难题";
+	mes "你要从我这里随机选1~8";
+	mes "祝你好运";
+	next;
+	mes "那么..现在开始";
+	mes "1-2-3-4-5-6-7-8";
+	mes "你随机所选择的数字是...";
+	next;
+	if($@fri == 2){
+	mes "你所选择的数字为^00FFFF"+$@5f+"^000000.";
+	$@fri+1;
+	close2;
+	goto 5ftz;
+	}else{
+	mes "对不起,未知错误,请上报";
+	close;
+	}
+5ftz:
+if($@5f == 1){
+enablenpc instance_npcname("1级难度");
+mapannounce instance_mapname("8@frihd"),"[提示信息]:一级难度!!",bc_map,"0x00ff99";
+			}
+if($@5f == 2){
+mapannounce instance_mapname("8@frihd"),"[提示信息]:二级难度!!",bc_map,"0x00ff99";
+goto 2level;
+end;
+			}
+if($@5f == 3){
+mapannounce instance_mapname("8@frihd"),"[提示信息]:三级难度!!",bc_map,"0x00ff99";
+goto 3level;
+end;
+			}
+if($@5f == 4){
+mapannounce instance_mapname("8@frihd"),"[提示信息]:四级难度!!",bc_map,"0x00ff99";
+goto 4level;
+end;
+			}
+if($@5f == 5){
+mapannounce instance_mapname("8@frihd"),"[提示信息]:五级难度!!",bc_map,"0x00ff99";
+goto 5level;
+end;
+			}
+if($@5f == 6){
+mapannounce instance_mapname("8@frihd"),"[提示信息]:六级难度!!",bc_map,"0x00ff99";
+goto 6level;
+end;
+			}
+if($@5f == 7){
+mapannounce instance_mapname("8@frihd"),"[提示信息]:七级难度!!",bc_map,"0x00ff99";
+enablenpc instance_npcname("7级难度");
+end;
+			}
+if($@5f == 8){
+mapannounce instance_mapname("8@frihd"),"[提示信息]:八级难度!!",bc_map,"0x00ff99";
+goto 8level;
+end;
+			}
+end;
+			
+2level:
+sleep2 1000;
+areamonster instance_mapname("8@frihd"),74,39,121,86,"进化的白素贞",3857,1,instance_npcname("武神塔5层")+"::OnMobdie01";
+areamonster instance_mapname("8@frihd"),74,39,121,86,"进化的白素贞",3858,7,instance_npcname("武神塔5层")+"::OnMobdie02";
+end;
+3level:
+sleep2 1000;
+monster instance_mapname("8@frihd"),111,72,"兽人酋长",1190,1,instance_npcname("武神塔5层")+"::OnMobdie03";
+sleep2 30000;
+if($@wst5kill01 != 1){
+mapannounce instance_mapname("8@frihd"),"[提示信息]:对不起,您未在时间内击杀!!",bc_map,"0x00ff99";
+sleep 1000;
+warp "prontera",0,0;
+end;
+}
+end;
+4level:
+sleep2 1000;
+monster instance_mapname("8@frihd"),115,61,"法老王",1157,1,instance_npcname("武神塔5层")+"::OnMobdie05";
+monster instance_mapname("8@frihd"),115,61,"冰暴骑士",1251,1,instance_npcname("武神塔5层")+"::OnMobdie05";
+end;
+5level:
+sleep2 1000;
+monster instance_mapname("8@frihd"),0,0,"炸弹波利",1904,80;
+sleep2 5000;
+monster instance_mapname("8@frihd"),0,0,"炸弹波利",1904,80;
+sleep2 5000;
+monster instance_mapname("8@frihd"),0,0,"炸弹波利",1904,80;
+sleep2 5000;
+monster instance_mapname("8@frihd"),0,0,"炸弹波利",1904,80;
+sleep2 5000;
+monster instance_mapname("8@frihd"),0,0,"炸弹波利",1904,80;
+sleep2 5000;
+monster instance_mapname("8@frihd"),0,0,"炸弹波利",1904,80;
+sleep2 5000;
+monster instance_mapname("8@frihd"),0,0,"炸弹波利",1904,80;
+sleep2 7000;
+if(getmapusers(instance_mapname("8@frihd")) == 1){
+set wstpoint,5;
+warp instance_mapname("7@frihd"),353,14;//进入第6层
+end;
+}
+end;
+6level:
+monster instance_mapname("8@frihd"),110,48,"黑暗之王",1272,1,instance_npcname("武神塔5层")+"::OnMobdie04";
+end;
+8level:
+monster instance_mapname("8@frihd"),98,44,"暗●神官 玛嘉雷特",1649,1,instance_npcname("武神塔5层")+"::OnMobdie03";
+mapannounce instance_mapname("8@frihd"),"[提示信息]:请在60秒内击杀,否则失败",bc_map,"0x00ff99";
+sleep2 60000;
+if($@wst5kill01 != 1){
+mapannounce instance_mapname("8@frihd"),"[提示信息]:抱歉,挑战失败",bc_map,"0x00ff99";
+sleep2 1000;
+warp "prontera",0,0;
+end;
+}
+end;
+
+OnMobdie01:
+set wstpoint,5;
+warp instance_mapname("7@frihd"),353,14;//进入第6层
+end;
+OnMobdie02:
+warp "prontera",0,0;
+end;
+OnMobdie03:
+$@wst5kill01=$@wst5kill01+1;
+if($@wst5kill01 == 1){
+set wstpoint,5;
+warp instance_mapname("7@frihd"),353,14;//进入第6层
+end;
+}
+end;
+OnMobdie04:
+enablenpc instance_npcname("6级难度");
+end;
+OnMobdie05:
+$@wst5kill02=$@wst5kill02+1;
+if($@wst5kill02 == 2){
+mapannounce instance_mapname("8@frihd"),"[提示信息]:挑战成功",bc_map,"0x00ff99";
+sleep2 1000;
+set wstpoint,5;
+warp instance_mapname("7@frihd"),353,14;//进入第6层
+end;
+	}
+end;
+}
+8@frihd,97,80,0	script	1级难度	48,{
+	mes "这里是1级困难度";
+	if(Zeny < 500000){
+		mes "你钱没带够啊...";
+		mes "抱歉,挑战失败";
+		close2;
+		warp "prontera",0,0;
+		end;
+		}else{
+		Zeny -= 500000;
+		mes "现在带您前往下一关";
+		set wstpoint,5;
+		close2;
+		warp instance_mapname("7@frihd"),353,14;//进入第6层
+		end;
+		}
+	}
+8@frihd,110,48,0	script	6级难度	48,{
+	mes "这里是6级困难度";
+	if(Zeny < 1000000){
+		mes "你钱没带够啊...";
+		mes "抱歉,挑战失败";
+		close2;
+		warp "prontera",0,0;
+		end;
+		}else{
+		Zeny -= 1000000;
+		mes "现在带您前往下一关";
+		set wstpoint,5;
+		close2;
+		warp instance_mapname("7@frihd"),353,14;//进入第6层
+		end;
+		}
+	}
+8@frihd,85,49,0	script	7级难度	48,{
+	mes "请上交[王者之证]";
+	if(countitem(501)<1){
+		mes "对不起,挑战失败";
+		close2;
+		warp "prontera",0,0;
+		end;
+		}else{
+		delitem 501,1;
+		mes "现在带您前往下一关";
+		set wstpoint,5;
+		close2;
+		warp instance_mapname("7@frihd"),353,14;//进入第6层
+		end;
+		}
+	}
+//--------------------第6层-----------------------------------------------------
+7@frihd,353,14,0	script	武神塔6层	48,{
+	mes "准备好了吗?";
+	next;
+if($@fri == 3){
+	switch(select("1.开始:2.关闭")){
+		case 1:
+			mes "那现在开启;";
+			$@fri+1;
+			close2;
+			goto 6fwushenta;
+			end;
+		case 2:
+			close;
+			}
+		}else{
+		mes "未知错误,请上报";
+		close;
+		}
+6fwushenta:
+mapannounce instance_mapname("7@frihd"),"[提示信息]:请击杀名字和魔物颜色完全匹配的魔物",bc_map,"0x00ff99";
+sleep2 1000;
+mapannounce instance_mapname("7@frihd"),"[提示信息]:否则失败",bc_map,"0x00ff99";
+sleep2 1000;
+mapannounce instance_mapname("7@frihd"),"[提示信息]:那么..现在开始",bc_map,"0x00ff99";
+areamonster instance_mapname("7@frihd"),355,16,386,45,"等离子体(蓝)",3853,1,instance_npcname("武神塔6层")+"::OnMobdie6f01";
+areamonster instance_mapname("7@frihd"),355,16,386,45,"等离子体(黄)",3854,1,instance_npcname("武神塔6层")+"::OnMobdie6f01";
+areamonster instance_mapname("7@frihd"),355,16,386,45,"等离子体(红)",3855,1,instance_npcname("武神塔6层")+"::OnMobdie6f01";
+areamonster instance_mapname("7@frihd"),355,16,386,45,"等离子体(绿)",3856,1,instance_npcname("武神塔6层")+"::OnMobdie6f01";
+areamonster instance_mapname("7@frihd"),355,16,386,45,"等离子体(蓝)",3838,3,instance_npcname("武神塔6层")+"::OnMobdie6f02";
+areamonster instance_mapname("7@frihd"),355,16,386,45,"等离子体(黄)",3837,3,instance_npcname("武神塔6层")+"::OnMobdie6f02";
+areamonster instance_mapname("7@frihd"),355,16,386,45,"等离子体(红)",3838,3,instance_npcname("武神塔6层")+"::OnMobdie6f02";
+areamonster instance_mapname("7@frihd"),355,16,386,45,"等离子体(绿)",3839,3,instance_npcname("武神塔6层")+"::OnMobdie6f02";
+areamonster instance_mapname("7@frihd"),355,16,386,45,"等离子体(蓝)",3856,3,instance_npcname("武神塔6层")+"::OnMobdie6f02";
+areamonster instance_mapname("7@frihd"),355,16,386,45,"等离子体(黄)",3836,3,instance_npcname("武神塔6层")+"::OnMobdie6f02";
+areamonster instance_mapname("7@frihd"),355,16,386,45,"等离子体(红)",3839,3,instance_npcname("武神塔6层")+"::OnMobdie6f02";
+areamonster instance_mapname("7@frihd"),355,16,386,45,"等离子体(绿)",3836,3,instance_npcname("武神塔6层")+"::OnMobdie6f02";
+areamonster instance_mapname("7@frihd"),355,16,386,45,"等离子体(蓝)",3837,3,instance_npcname("武神塔6层")+"::OnMobdie6f02";
+areamonster instance_mapname("7@frihd"),355,16,386,45,"等离子体(黄)",3838,3,instance_npcname("武神塔6层")+"::OnMobdie6f02";
+areamonster instance_mapname("7@frihd"),355,16,386,45,"等离子体(红)",3839,3,instance_npcname("武神塔6层")+"::OnMobdie6f02";
+areamonster instance_mapname("7@frihd"),355,16,386,45,"等离子体(绿)",3837,3,instance_npcname("武神塔6层")+"::OnMobdie6f02";
+end;
+OnMobdie6f01:
+$@wst6kill01=$@wst6kill01+1;
+mapannounce instance_mapname("7@frihd"),"[回响的声音]:已经清理" + $@wst6kill01 + "只",bc_map,"0x00ff99";
+if($@wst6kill01 == 4){
+killmonsterall instance_mapname("7@frihd");
+mapannounce instance_mapname("7@frihd"),"[提示信息]:即将出现mvp,请做好准备",bc_map,"0x00ff99";
+sleep2 1000;
+monster instance_mapname("7@frihd"),362,40,"mvp",4000,1,instance_npcname("武神塔6层")+"::OnMobdie6f03";
+monster instance_mapname("7@frihd"),376,26,"mvp",4000,1,instance_npcname("武神塔6层")+"::OnMobdie6f03";
+end;
+}
+end;
+OnMobdie6f03:
+$@wst6kill02=$@wst6kill02+1;
+if($@wst6kill01 == 2){
+mapannounce instance_mapname("7@frihd"),"[提示信息]:恭喜,挑战成功,即将进入下一层",bc_map,"0x00ff99";
+sleep2 1000;
+set wstpoint,6;
+warp instance_mapname("5@frihd"),10,172;//进入第7层
+sleep2 2000;
+areamonster instance_mapname("5@frihd"),10,168,48,175,"阻止你前进的脚步",3846,30;
+mapannounce instance_mapname("7@frihd"),"[提示信息]:请在30秒内跑到对面并跟npc对话",bc_map,"0x00ff99";
+sleep2 30000;
+if($@wst6kill03 != 1){
+mapannounce instance_mapname("7@frihd"),"[提示信息]:对不起,挑战失败",bc_map,"0x00ff99";
+sleep2 1000;
+warp "prontera",0,0;
+end;
+					}
+end;
+				}
+end;
+
+
+OnMobdie6f02:
+mapannounce instance_mapname("7@frihd"),"[提示信息]:对不起,挑战失败",bc_map,"0x00ff99";
+sleep2 1000;
+warp "prontera",0,0;
+end;
+}
+//----------------------第7层------------------------------------------
+5@frihd,56,172,0	script	武神塔7层	48,{
+	setarray .@content$[0], "我是无辜的", "我是故意的", "都是傻瓜";
+	set $@6fname$, .@content$[rand(getarraysize(.@content$))];
+	mes "请记住我说的话!!!";
+	mes "-"+$@6fname$+"-";
+	$@wst6kill03+1;
+	close2;
+	killmonsterall instance_mapname("5@frihd");
+	warp instance_mapname("5@frihd"),159,85;
+	sleep2 2000;
+	monster instance_mapname("5@frihd"),168,94,"迪塔勒泰晤勒斯",1719,1,instance_npcname("武神塔7层")+"::OnMobdie7f01";
+	end;
+
+OnMobdie7f01:
+mapannounce instance_mapname("5@frihd"),"[提示信息]:10秒后传送",bc_map,"0x00ff99";
+sleep2 10000;
+warp instance_mapname("5@frihd"),11,91;
+sleep2 1000;
+mapannounce instance_mapname("5@frihd"),"[提示信息]:请在30秒内跑到对面并跟npc对话结束,请尽量不要杀死魔物,否则会失败",bc_map,"0x00ff99";
+areamonster instance_mapname("5@frihd"),22,88,70,95,"阻止你前行的障碍",3846,30,instance_npcname("武神塔7层")+"::OnMobdie7f02";
+areamonster instance_mapname("5@frihd"),22,88,70,95,"阻止你前行的障碍",1959,5,instance_npcname("武神塔7层")+"::OnMobdie7f02";
+sleep2 30000;
+if($@wst7kill01 != 1){
+mapannounce instance_mapname("5@frihd"),"[提示信息]:对不起,挑战失败",bc_map,"0x00ff99";
+sleep2 1000;
+warp "prontera",0,0;
+end;
+}
+end;
+OnMobdie7f02:
+$@wst7kill03=$@wst7kill03+1;
+if($@wst7kill03 >= 4){
+mapannounce instance_mapname("7@frihd"),"[提示信息]:对不起,您击杀魔物过多,挑战失败",bc_map,"0x00ff99";
+warp "prontera",0,0;
+end;
+}
+end;
+}
+5@frihd,76,94,0	script	武神塔7层#1	48,{
+	mes "请输入刚才我对你说的话";
+	input @player$;
+	next;
+	mes "您输入的是";
+	mes "["+@player$+"]";
+	next;
+	if(@player$ == $@6fname$){
+	mes "您已过关,我现在带您去8层";
+	$@wst7kill01+1;
+	set wstpoint,7;
+	close2;
+	warp instance_mapname("5@frihd"),11,91; //进入8层
+	end;
+	}else{
+	mes "对不起,挑战失败";
+	close2;
+	warp "prontera",0,0;
+	end;
+	}
+}
+//-----------------------第8层---------------------------------------
+9@frihd,140,102,0	script	武神塔8层	48,{
+	mes "准备好了吗?";
+if($@fri==4){
+	switch(select("1.开始:2.关闭")){
+		case 1:
+			mes "现在开始";
+			$@fri+1;
+			close2;
+			goto wst8f;
+			end;
+		case 2:
+			close;
+			}
+		}else{
+		mes "未知错误,请上报";
+		close;
+		}
+wst8f:
+mapannounce instance_mapname("9@frihd"),"[提示信息]:1.存活30秒;2.mvp不能死亡;3无法使用恢复药",bc_map,"0x00ff99";
+sleep2 1000;
+monster instance_mapname("9@frihd"),140,102,"兰特克力斯",1751,1,instance_npcname("武神塔8层")+"::OnMobdie8f01";
+sleep2 30000;
+killmonsterall instance_mapname("9@frihd");
+sleep2 1000;
+mapannounce instance_mapname("9@frihd"),"[提示信息]:请在30秒内击杀mvp",bc_map,"0x00ff99";
+monster instance_mapname("9@frihd"),140,102,"影魔",1768,1,instance_npcname("武神塔8层")+"::OnMobdie8f02";
+areamonster instance_mapname("9@frihd"),122,86,155,119,"炸弹波利",3859,30,instance_npcname("武神塔6层")+"::OnMobdie7f03";
+sleep2 30000;
+if($@wst8kill01 != 1){
+mapannounce instance_mapname("9@frihd"),"[提示信息]:抱歉,挑战失败",bc_map,"0x00ff99";
+sleep2 1000;
+warp "prontera",0,0;
+end;
+}
+end;
+
+
+OnMobdie8f01:
+mapannounce instance_mapname("9@frihd"),"[提示信息]:抱歉,挑战失败",bc_map,"0x00ff99";
+sleep2 1000;
+warp "prontera",0,0;
+end;
+OnMobdie8f02:
+$@wst8kill01=$@wst8kill01+1;
+mapannounce instance_mapname("9@frihd"),"[提示信息]:挑战成功,1秒后传送",bc_map,"0x00ff99";
+sleep2 1000;
+set wstpoint,8;
+warp instance_mapname("5@frihd"),11,91; //进入9层
+end;
+OnMobdie7f03:
+sleep2 1000;
+areamonster instance_mapname("9@frihd"),122,86,155,119,"炸弹波利",3859,2,instance_npcname("武神塔6层")+"::OnMobdie7f03";
+end;
+}
+//-------------------------第9层----------------------------
+3@frihd,116,144,0	script	武神塔9层	48,{
+	mes "这里是武神塔9层,准备好了吗?";
+if($@fri==5){
+	switch(select("1.开始:2.关闭")){
+	case 1:
+		sc_start4 SC_L_LIFEPOTION,180000,-5,2,0,0;
+		close2;
+		goto wst9f;
+		end;
+	case 2;
+		close;
+		}
+	}else{
+		mes "未知错误,请上报";
+		close;
+	}
+wst9f:
+mapannounce instance_mapname("9@frihd"),"[提示信息]:魔物放出,请在120秒内杀死6只mvp",bc_map,"0x00ff99";
+sleep2 1000;
+monster instance_mapname("3@frihd"),97,106,"蜂后",1059,1,instance_npcname("武神塔9层")+"::OnMobdie9f01";
+monster instance_mapname("3@frihd"),136,98,"海盗之王",1112,1,instance_npcname("武神塔9层")+"::OnMobdie9f02";
+sleep2 120000;
+if($@wst9kill01 != 5){
+mapannounce instance_mapname("9@frihd"),"[提示信息]:挑战失败",bc_map,"0x00ff99";
+end;
+}
+end;
+
+OnMobdie9f01:
+$@wst9kill01=$@wst9kill01+1;
+monster instance_mapname("3@frihd"),138,120,"乌龟将军",1312,1,instance_npcname("武神塔9层")+"::OnMobdie9f03";
+if($@wst9kill01 == 5){
+monster instance_mapname("3@frihd"),117,119,"寒冰龙",1779,1,instance_npcname("武神塔9层")+"::OnMobdie9f06";
+end;
+}
+end;
+OnMobdie9f02:
+$@wst9kill01=$@wst9kill01+1;
+monster instance_mapname("3@frihd"),136,138,"卡仑",1252,1,instance_npcname("武神塔9层")+"::OnMobdie9f04";
+if($@wst9kill01 == 5){
+monster instance_mapname("3@frihd"),117,119,"寒冰龙",1779,1,instance_npcname("武神塔9层")+"::OnMobdie9f06";
+end;
+}
+end;
+OnMobdie9f03:
+$@wst9kill01=$@wst9kill01+1;
+monster instance_mapname("3@frihd"),99,139,"兽人英雄",1087,1,instance_npcname("武神塔9层")+"::OnMobdie9f05";
+if($@wst9kill01 == 5){
+monster instance_mapname("3@frihd"),117,119,"寒冰龙",1779,1,instance_npcname("武神塔9层")+"::OnMobdie9f06";
+end;
+}
+end;
+OnMobdie9f04:
+$@wst9kill01=$@wst9kill01+1;
+if($@wst9kill01 == 5){
+monster instance_mapname("3@frihd"),117,119,"寒冰龙",1779,1,instance_npcname("武神塔9层")+"::OnMobdie9f06";
+end;
+}
+end;
+OnMobdie9f05:
+$@wst9kill01=$@wst9kill01+1;
+if($@wst9kill01 == 5){
+monster instance_mapname("3@frihd"),117,119,"寒冰龙",1779,1,instance_npcname("武神塔9层")+"::OnMobdie9f06";
+end;
+}
+end;
+OnMobdie9f06:
+sleep2 1000;
+set wstpoint,9;
+warp instance_mapname("1@frihd"),11,91; //进入10层
+sleep2 1000;
+mapannounce instance_mapname("9@frihd"),"[提示信息]:请击杀该mvp",bc_map,"0x00ff99";
+sleep2 2000;
+monster instance_mapname("1@frihd"),103,96,"mvp",4000,1,instance_npcname("武神塔9层")+"::OnMobdie10f01";
+sleep2 120000;
+if($@wst10kill != 1){
+mapannounce instance_mapname("9@frihd"),"[提示信息]:挑战失败",bc_map,"0x00ff99";
+sleep2 1000;
+warp "prontera",0,0;
+end;
+}
+end;
+
+OnMobdie10f01:
+set wstpoint,10;
+$@wst10kill=$@wst10kill+1;
+announce "玩家"+strcharinfo(0)+"成功攻略武神塔10层",0,0xBEB4FC;
+end;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1@frihd	mapflag	noreturn
+1@frihd	mapflag	noteleport
+1@frihd	mapflag	nosave
+1@frihd	mapflag	nomemo
+1@frihd	mapflag	nodrop
+1@frihd	mapflag	noloot
+1@frihd	mapflag	monster_noteleport
+1@frihd	mapflag	nobranch
+		
+2@frihd	mapflag	noreturn
+2@frihd	mapflag	noteleport
+2@frihd	mapflag	nosave
+2@frihd	mapflag	nomemo
+2@frihd	mapflag	nodrop
+2@frihd	mapflag	noloot
+2@frihd	mapflag	monster_noteleport
+2@frihd	mapflag	nobranch
+		
+3@frihd	mapflag	noreturn
+3@frihd	mapflag	noteleport
+3@frihd	mapflag	nosave
+3@frihd	mapflag	nomemo
+3@frihd	mapflag	nodrop
+3@frihd	mapflag	noloot
+3@frihd	mapflag	monster_noteleport
+3@frihd	mapflag	nobranch
+		
+4@frihd	mapflag	noreturn
+4@frihd	mapflag	noteleport
+4@frihd	mapflag	nosave
+4@frihd	mapflag	nomemo
+4@frihd	mapflag	nodrop
+4@frihd	mapflag	noloot
+4@frihd	mapflag	monster_noteleport
+4@frihd	mapflag	nobranch
+		
+5@frihd	mapflag	noreturn
+5@frihd	mapflag	noteleport
+5@frihd	mapflag	nosave
+5@frihd	mapflag	nomemo
+5@frihd	mapflag	nodrop
+5@frihd	mapflag	noloot
+5@frihd	mapflag	monster_noteleport
+5@frihd	mapflag	nobranch
+		
+6@frihd	mapflag	noreturn
+6@frihd	mapflag	noteleport
+6@frihd	mapflag	nosave
+6@frihd	mapflag	nomemo
+6@frihd	mapflag	nodrop
+6@frihd	mapflag	noloot
+6@frihd	mapflag	monster_noteleport
+6@frihd	mapflag	nobranch
+		
+7@frihd	mapflag	noreturn
+7@frihd	mapflag	noteleport
+7@frihd	mapflag	nosave
+7@frihd	mapflag	nomemo
+7@frihd	mapflag	nodrop
+7@frihd	mapflag	noloot
+7@frihd	mapflag	monster_noteleport
+7@frihd	mapflag	nobranch
+		
+8@frihd	mapflag	noreturn
+8@frihd	mapflag	noteleport
+8@frihd	mapflag	nosave
+8@frihd	mapflag	nomemo
+8@frihd	mapflag	nodrop
+8@frihd	mapflag	noloot
+8@frihd	mapflag	monster_noteleport
+8@frihd	mapflag	nobranch
+8@frihd	mapflag	noitemconsumption
+
+9@frihd	mapflag	noreturn
+9@frihd	mapflag	noteleport
+9@frihd	mapflag	nosave
+9@frihd	mapflag	nomemo
+9@frihd	mapflag	nodrop
+9@frihd	mapflag	noloot
+9@frihd	mapflag	monster_noteleport
+9@frihd	mapflag	nobranch
+9@frihd	mapflag	noitemconsumption
+
+10@frihd	mapflag	noreturn
+10@frihd	mapflag	noteleport
+10@frihd	mapflag	nosave
+10@frihd	mapflag	nomemo
+10@frihd	mapflag	nodrop
+10@frihd	mapflag	noloot
+10@frihd	mapflag	monster_noteleport
+10@frihd	mapflag	nobranch

@@ -1,0 +1,111 @@
+prontera,165,95,3	script	赌博	703,{
+
+	.@npc1num = rand(0,15);
+	.@npc2num = rand(0,15);
+	.@npc3num = rand(0,15);
+	.@num1dubo = rand(0,15);
+	.@num2dubo = rand(0,15);
+	.@num3dubo = rand(0,15);
+	mes "您目前获胜"+@p+"次";
+	mes "您目前平手"+@b+"次";
+	mes "您目前失败"+@l+"次";
+	next;
+	mes "来,熊孩子,要不要跟我玩玩?";
+	mes "规则是:";
+	mes "在0~15这16种数字里";
+	mes "随机3次";
+	mes "当最终数字比npc大时";
+	mes "玩家获得原本金钱*2倍";
+	mes "当npc数字和玩家相等时";
+	mes "玩家获得10倍";
+	mes "当玩家数字比npc的小";
+	mes "钱就没了....";
+	
+	next;
+
+	
+	switch(select("恩,试一把:取消"))
+	{
+		case 1:
+			mes "请输入你的金额,最小50w,最高1000w";
+			input .@numdubo;
+			next;
+			
+			
+			if(.@numdubo >= 500000 && .@numdubo<=10000000  && Zeny >=.@numdubo)
+			{
+				
+				setarray .@numset[0],.@npc1num,.@npc2num,.@npc3num;
+				setarray .@p_numset[0],.@num1dubo,.@num2dubo,.@num3dubo;
+				
+				while(getarraysize(.@numset)) 
+				{
+					.@si = rand(0,getarraysize(.@numset)-1);
+					set .@output$,.@output$+""+.@numset[.@si];
+					deletearray .@numset[.@si],1;
+				}
+				while(getarraysize(.@p_numset)) 
+				{
+					.@si = rand(0,getarraysize(.@p_numset)-1);
+					set .@p_output$,.@p_output$+""+.@p_numset[.@si];
+					deletearray .@p_numset[.@si],1;
+				}
+				.@fn = atoi(.@output$);
+				.@p_fn = atoi(.@p_output$);
+				
+	
+				Zeny -= (.@numdubo) ;
+				mes "第一组数为:";
+				mes "玩家:"+.@num1dubo+".";
+				mes "npc :"+.@npc1num+".";
+				next;
+				mes "第二组数为:";
+				mes "玩家:"+.@num2dubo+".";
+				mes "npc :"+.@npc2num+".";
+				next;
+				mes "第三组数为:";
+				mes "玩家:"+.@num3dubo+".";
+				mes "npc :"+.@npc3num+".";
+			
+				next;
+				mes "结果:";
+				mes "玩家从:"+.@num1dubo+"."+.@num2dubo+"."+.@num3dubo+".";
+				mes "随机排序为:"+.@p_fn+".";
+				mes "npc从:"+.@npc1num+"."+.@npc2num+"."+.@npc3num+".";
+				mes "随机排序为:"+.@fn+".";
+				next;
+				if(.@p_fn > .@fn ){
+				set @p,@p+1;
+				mes "恭喜 你赢了";
+				mes "返还押金";
+				Zeny += (.@numdubo);
+				next;
+				set Zeny , Zeny  + (.@numdubo * 2 ) ; 
+				close;
+				}else if(.@p_fn == .@fn ){
+				set @b,@b+1;
+				mes "恭喜 平局";
+				Zeny += (.@numdubo);
+				mes "返还押金";
+				set Zeny , Zeny  + (.@numdubo * 10) ; 
+				close;
+				}else if(.@p_fn < .@fn ){
+				set @l,@l+1;
+				mes "你输了";
+				close;
+				}
+
+			}else{
+			mes "最小50w,最大1000w,身上的钱也要足够";
+			mes "自己检查吧..";
+			close;
+			}
+	}
+	
+				
+	close ;
+	end ;
+				
+				
+	
+}

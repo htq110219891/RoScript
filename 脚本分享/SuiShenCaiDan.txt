@@ -1,0 +1,646 @@
+//----------------------------------------------
+// 名称 随身菜单
+// 版本 V1.0b
+// 作者 xuwujun 
+// 1、P点菜单 2、自动拾取 3、经验显示 4、世界聊天
+// P点菜单包括（随身仓库，随身商店，装备修理，宠物功能，卡片拆除，彩色喇叭等）
+// 继续更新中...
+//----------------------------------------------
+
+
+
+-	shop	综合消耗品商店#1	-1,20143:500,7524:800,522:8500,523:500,610:-1,611:-1,601:-1,602:-1,645:-1,656:-1,657:-1,678:500000,715:-1,716:-1,717:-1,7134:-1,7135:30000,7136:30000,7137:30000,7138:30000,7139:30000,7521:-1,7522:-1,7523:-1,13250:-1,13251:-1,13252:-1,13253:-1,13254:-1,13255:-1,13256:-1,13257:-1,13258:-1,13259:-1,13200:-1,13201:-1,13202:-1,13203:-1,13204:-1,13205:-1,13206:-1,13207:-1,1750:-1,1751:-1,1752:-1,1753:-1,1754:-1,1755:-1,1756:-1,1757:-1,1758:-1,1759:-1,1760:-1,1761:-1,1762:-1,1763:-1,1765:-1,1766:-1,1767:-1
+
+
+function	script	renwushouce	{
+
+set @record,query_sql ("select cash from `vip_char` where `account_id` = '"+getcharid(3)+"'",@cash);
+if(@record <1){
+	query_sql "insert into `vip_char` (account_id,use_cash,cash) values ('"+getcharid(3)+"',0,0)";
+}
+
+if(@use_cash<1000) set @viplevel$,"普通玩家";
+if(@use_cash>=1000 && @use_cash<=3000) set @viplevel$,"初阶玩家";
+if(@use_cash>=3000 && @use_cash<=6000) set @viplevel$,"进阶玩家";
+if(@use_cash>=6000 && @use_cash<=10000) set @viplevel$,"高阶玩家";
+if(@use_cash>10000) set @viplevel$,"终级玩家";
+mes "^5000A0[随身菜单]^000000";
+mes "------------------------------";
+mes "- 亲爱的[ ^0088FF"+strcharinfo(0)+"^000000 ]，你好";
+mes "- 当前时间为[ ^FF0000" +gettimestr("%H : %M",50) +"^000000 ]";
+mes "- 你的玩家称号是[ ^6600ff"+@viplevel$+"^000000 ]";
+mes "- 你的帐号P点值为[ ^3300FF"+@cash+"^000000 ]点";
+query_sql ("select point from `oro_point` where `account_id` = '"+getcharid(3)+"'",@jifen);
+mes "- 你的帐号积分值为[ ^0033FF"+@jifen+"^000000 ]点";
+mes "- 服务器当前共有[ ^6a7f9e"+ getusers(1) + "^000000 ]人在线";
+mes "------------------------------";
+next;
+switch(select("01-> ^0088FFP点功能菜单^000000","02-> ^6600ff自动拾取^000000[打开/关闭","03-> ^770011打怪经验^000000[打开/关闭]","04-> ^bb0088世界聊天^000000[打开/关闭]","05-> ^007777帐号锁定^000000[打开/关闭]","退出")){
+
+	case 1:
+		callfunc "F_vip";
+		end;
+	case 2:
+		mes "^5000A0[随身菜单]^000000";
+		if(autoloot == 0){
+			atcommand @autoloot;
+			set autoloot,1;
+			mes "自动拾取物品[ ^0000ff开启^000000 ]！";
+		}else{
+			atcommand @autoloot;
+			set autoloot,0;
+			mes "自动拾取物品[ ^ff0000关闭^000000 ]！";
+		}
+		close;
+
+	case 3:
+		mes "^5000A0[随身菜单]^000000";
+		if(showexp == 0){
+			atcommand @showexp;
+			set showexp,1;
+			mes "打怪经验显示[ ^ff0000关闭^000000 ]！";
+		}else{
+			atcommand @showexp;
+			set showexp,0;
+			mes "打怪经验显示[ ^0000ff开启^000000 ]！";
+		}
+		close;
+		end;
+	case 4:
+		mes "^5000A0[随身菜单]^000000";
+		if(worldtalk == 0) {
+			atcommand @main;
+			set worldtalk,1;
+			mes "世界聊天系统开启完成！在M人处输入^0000ff世界聊天^000000后进行世界聊天！";
+		}else{
+			atcommand @main;
+			set worldtalk,0;
+			mes "世界聊天系统关闭完成！你将不再收到来自世界聊天的信息！";
+		}
+		close;
+		end;
+
+	case 5:
+		mes "^5000A0[随身菜单]^000000";
+		mes "请输入你在注册帐号时候所用的^0000ff邮箱地址^000000";
+		input @email_t$;
+		if(@email_t$ != strcharinfo(3)){
+			mes "^ff0000输入的邮箱地址不正确，请确认后再来！^000000";
+			close;
+			end;
+		}
+		if(itemlock == 0){
+			atcommand @itemlock +strcharinfo(3);
+			set itemlock,1;
+			mes "^ff0000帐号锁定完成！^000000";
+		}else{
+			atcommand @itemlock +strcharinfo(3);
+			set itemlock,0;
+			mes "^0000ff帐号解锁完成！^000000";
+		}
+		close;
+		end;
+
+
+	case 6:
+		mes "^5000A0[随身菜单]^000000";
+		mes "欢迎你的光临!";
+		mes "我们下次再见啦~~";
+		close;
+	}
+
+
+}
+
+function	script	F_vip	{
+
+set @record,query_sql ("select use_cash,cash from `vip_char` where `account_id` = '"+getcharid(3)+"'",@use_cash,@cash);
+
+	mes "^5000A0[随身菜单]^000000";
+	mes "- 亲爱的[ ^0088FF"+strcharinfo(0)+"^000000 ]，你好!";
+	mes "- 这里是P点功能相关菜单";
+	mes "- 请在下面选择一项进行操作！";
+	next;
+	switch(select("01-> ^0088FF随身仓库^000000 ["+$@p_cangku+"P点/次]","02-> ^8800FF装备修理^000000 ["+$@p_repair+"P点/次]","03-> ^0088FF自动复活^000000 ["+$@p_autolive+"P点/次]","04-> ^8800FF宠物功能^000000 ["+$@p_petmang+"P点/次]","05-> ^0088FF生命体功能^000000 ["+$@p_hommang+"P点/次]","06-> ^8800FF卡片拆除^000000 ["+$@p_cardmove+"P点/次]","07-> ^0088FF七彩喇叭^000000 ["+$@p_laba+"P点/次]","08-> ^8800FF随身商店^000000 ["+$@p_shopa+"P点/次]","退出")){
+
+	case 1:
+		mes "^5000A0[随身菜单]^000000";
+		if(@cash < $@p_cangku){
+			mes "你身上带的P点不够[ "+$@p_cangku+" ]点，难道你已经破产了吗？";
+			close;
+		}
+		query_sql ("update `vip_char` set `cash`=`cash`-'"+$@p_cangku+"' where `account_id` = '"+getcharid(3)+"'");
+		query_sql ("update `vip_char` set `use_cash`=`use_cash`+'"+$@p_cangku+"' where `account_id` = '"+getcharid(3)+"'");
+		mes "感谢使用仓库服务，点击关闭即可打开！";
+		close2;
+		openstorage;
+		end;
+
+	case 2:
+		callfunc "F_xiulizhuangbei";
+		end;
+
+	case 3:
+		mes "^5000A0[随身菜单]^000000";
+		if(autolive == 0) {
+			set autolive,1;
+			mes "自动复活[ ^0000ff开启^000000 ]！";
+			
+
+		}else{
+			set autolive,0;
+			mes "自动复活[ ^ff0000关闭^000000 ]！";
+		}
+		close;
+
+	case 4:
+		callfunc "F_vippet";
+		end;
+
+	case 5:
+		callfunc "F_viphomun";
+		end;
+
+	case 6:
+		callfunc "F_vipchaika";
+		end;
+
+	case 7:
+		callfunc "F_viplaba";
+		end;
+
+	case 8:
+		mes "^5000A0[随身菜单]^000000";
+		if(@cash < $@p_shopa){
+			mes "你身上带的P点不够[ "+$@p_shopa+" ]点，难道你已经破产了吗？";
+			close;
+		}
+		query_sql ("update `vip_char` set `cash`=`cash`-'"+$@p_shopa+"' where `account_id` = '"+getcharid(3)+"'");
+		query_sql ("update `vip_char` set `use_cash`=`use_cash`+'"+$@p_shopa+"' where `account_id` = '"+getcharid(3)+"'");
+		mes "点击关闭，即可使用随身商店！";
+		close2;
+		callshop "综合消耗品商店#1",3;
+		end;
+
+	case 9:
+		close;
+
+	}
+}
+
+
+
+-	script	Vip_alive	-1,{
+end;
+
+OnWait:
+	set @alivewait,0;
+	deltimer "Vip_alive::OnWait";
+	if(HP <= 0) callsub OnPCDieEvent;
+
+end;
+
+OnPCDieEvent:
+	if(autolive!=1){
+		announce "[自动复活] 提示：自动复活状态关闭中，不能自动复活！",bc_self,0x00ff00,0;
+		end;
+	}
+	if(@alivewait!=0){
+		announce "[自动复活] 提示：自动复活状态开启中，请等待CD时间！",bc_self,0x00ff00,0;
+		end;
+	}
+	if(@alivewait==0 && autolive == 1){
+		set @record,query_sql ("select use_cash,cash from `vip_char` where `account_id` = '"+getcharid(3)+"'",@use_cash,@cash);
+		if(@cash < $@p_autolive){
+			announce "[自动复活] 提示：复活失败，身上的P点不够[ "+$@p_autolive+" ]点...",bc_self,0x00ff00,0;
+			end;
+		}else{
+			announce "[自动复活] 提示：3秒后开始复活...",bc_self,0x00ff00,0;
+			sleep2 1000;
+			announce "[自动复活] 提示：2秒后开始复活...",bc_self,0x00ff00,0;
+			sleep2 1000;
+			announce "[自动复活] 提示：1秒后开始复活...",bc_self,0x00ff00,0;
+			sleep2 1000;
+			query_sql ("update `vip_char` set `cash`=`cash`-'"+$@p_autolive+"' where `account_id` = '"+getcharid(3)+"'");
+			query_sql ("update `vip_char` set `use_cash`=`use_cash`+'"+$@p_autolive+"' where `account_id` = '"+getcharid(3)+"'");
+			atcommand @alive;
+			announce "[自动复活] 提示：恭喜你，复活成功...",bc_self,0x00ff00,0;
+			set @alivewait,1;
+			addtimer 300000,"Vip_alive::OnWait";
+		}
+	}
+end;
+
+OnInit:
+	set $@p_cangku,1;	//仓库
+	set $@p_repair,5;	//装备修理
+	set $@p_autolive,5;	//自动复活
+	set $@p_petmang,10;	//宠物功能
+	set $@p_hommang,15;	//生命体
+	set $@p_cardmove,10;	//卡片拆除
+	set $@p_laba,10;	//七彩喇叭
+	set $@p_shopa,10;	//随身商店
+
+end;
+}
+
+function	script	F_vippet	{
+		set @record,query_sql ("select use_cash,cash from `vip_char` where `account_id` = '"+getcharid(3)+"'",@use_cash,@cash);
+		mes "^5000A0[随身菜单]^000000";
+		if(getpetinfo(1) == 0){
+			mes "^FF0000你身上没有携带宠物！^000000";
+			close;
+		}
+		mes "- 宠物信息";
+		mes "- 姓名：["+getpetinfo(2)+"]";
+		mes "- 亲密度：["+getpetinfo(3)+"]";
+		mes "- 饱和度：["+getpetinfo(4)+"]";
+		mes "请选择下面一项进行操作";
+		next;
+		switch(select("01-> ^0088FF增加宠物亲密度^000000","02-> ^0088FF增加宠物饱和度^000000","03-> ^0088FF修改宠物名字^000000","退出")){
+
+		case 1:
+			mes "^5000A0[随身菜单]^000000";
+			if(@cash < $@p_petmang){
+				mes "你身上带的P点不够[ "+$@p_petmang+" ]点，难道你已经破产了吗？";
+				close;
+			}
+			mes "你的宠物当前的亲密度为["+getpetinfo(3)+"]！";
+			mes "  ";
+			mes "请输入宠物的亲密度值，总和不能超过^FF0000 1000 ^000000！";
+			input @pet_f;
+			if(@pet_f <= 0){
+				mes "输入有误，数值不能小于^FF0000 1 ^000000。";
+				close;
+			}
+			set @pet_fzh,@pet_f + getpetinfo(3);
+			if(@pet_fzh >1000){
+				mes "输入有误，总和不能大于^FF0000 1000 ^000000。";
+				close;
+			}
+			query_sql ("update `vip_char` set `cash`=`cash`-'"+$@p_petmang+"' where `account_id` = '"+getcharid(3)+"'");
+			query_sql ("update `vip_char` set `use_cash`=`use_cash`+'"+$@p_petmang+"' where `account_id` = '"+getcharid(3)+"'");	
+			atcommand @petfriendly +@pet_fzh;
+			mes "^0000ff亲密度设置成功，当前亲密度为["+getpetinfo(3)+"]！^000000";
+			close;
+
+		case 2:
+			mes "^5000A0[随身菜单]^000000";
+			if(@cash < $@p_petmang){
+				mes "你身上带的P点不够[ "+$@p_petmang+" ]点，难道你已经破产了吗？";
+				close;
+			}
+			mes "你的宠物当前的饱和度为["+getpetinfo(4)+"]！";
+			mes "  ";
+			mes "请输入宠物的饱和度值，总和不能超过^FF0000 100 ^000000！";
+			input @pet_h;
+			if(@pet_h <= 0){
+				mes "输入有误，数值不能小于^FF0000 1 ^000000。";
+				close;
+			}
+			set @pet_hzh,@pet_h + getpetinfo(4);
+			if(@pet_hzh >100){
+				mes "输入有误，总和不能大于^FF0000 100 ^000000。";
+				close;
+			}
+			query_sql ("update `vip_char` set `cash`=`cash`-'"+$@p_petmang+"' where `account_id` = '"+getcharid(3)+"'");
+			query_sql ("update `vip_char` set `use_cash`=`use_cash`+'"+$@p_petmang+"' where `account_id` = '"+getcharid(3)+"'");	
+			atcommand pethungry +@pet_hzh;
+			mes "^0000ff饱和度设置成功，当前饱和度为["+getpetinfo(4)+"]！^000000";
+			close;
+
+		case 3:
+			mes "^5000A0[随身菜单]^000000";
+			if(@cash < $@p_petmang){
+				mes "你身上带的P点不够[ "+$@p_petmang+" ]点，难道你已经破产了吗？";
+				close;
+			}
+			query_sql ("update `vip_char` set `cash`=`cash`-'"+$@p_petmang+"' where `account_id` = '"+getcharid(3)+"'");
+			query_sql ("update `vip_char` set `use_cash`=`use_cash`+'"+$@p_petmang+"' where `account_id` = '"+getcharid(3)+"'");
+			atcommand @petrename ;
+			mes "^0000FF宠物改名设置成功，请打开宠物信息栏进行改名！^000000";
+			close;
+
+		case 4:
+			close;
+		}
+
+}
+
+function	script	F_viphomun	{
+		mes "^5000A0[随身菜单]^000000";
+		if(gethominfo(1) == 0){
+			mes "^FF0000你身上没有携带生命体！^000000";
+			close;
+		}
+		set @record,query_sql ("select use_cash,cash from `vip_char` where `account_id` = '"+getcharid(3)+"'",@use_cash,@cash);
+		mes "- 生命体信息";
+		mes "- 姓名：["+gethominfo(2)+"]";
+		mes "- 等级：["+gethominfo(6)+"]";
+		mes "- 亲密度：["+gethominfo(3)+"]";
+		mes "- 饱和度：["+gethominfo(4)+"]";
+		mes "请选择下面一项进行操作";
+		next;
+		switch(select("01-> ^0088FF增加生命体亲密度^000000","02-> ^0088FF增加生命体饱和度^000000","03-> ^0088FF生命体升级^000000","04-> ^0088FF生命体进化^000000","05-> ^0088FF修改生命体名字^000000","退出")){
+
+		case 1:
+			mes "^5000A0[随身菜单]^000000";
+			if(@cash < $@p_hommang){
+				mes "你身上带的P点不够[ "+$@p_hommang+" ]点，难道你已经破产了吗？";
+				close;
+			}
+			mes "你的生命体当前的亲密度为["+gethominfo(3)+"]！";
+			mes "  ";
+			mes "请输入生命体的亲密度值，总和不能超过^FF0000 100000 ^000000！";
+			input @hom_f;
+			if(@hom_f <= 0){
+				mes "输入有误，数值不能小于^FF0000 1 ^000000。";
+				close;
+			}
+			set @hom_fzh,@hom_f + gethominfo(3);
+			if(@hom_fzh >100000){
+				mes "输入有误，总和不能大于^FF0000 100000 ^000000。";
+				close;
+			}
+			query_sql ("update `vip_char` set `cash`=`cash`-'"+$@p_hommang+"' where `account_id` = '"+getcharid(3)+"'");
+			query_sql ("update `vip_char` set `use_cash`=`use_cash`+'"+$@p_hommang+"' where `account_id` = '"+getcharid(3)+"'");
+			atcommand @homfriendly +@hom_fzh;
+			mes "^0000ff亲密度设置成功，当前亲密度为["+gethominfo(3)+"]！^000000";
+			close;
+
+		case 2:
+			mes "^5000A0[随身菜单]^000000";
+			if(@cash < $@p_hommang){
+				mes "你身上带的P点不够[ "+$@p_hommang+" ]点，难道你已经破产了吗？";
+				close;
+			}
+			mes "你的生命体当前的饱和度为["+gethominfo(4)+"]！";
+			mes "  ";
+			mes "请输入生命体的饱和度值，总和不能超过^FF0000 100 ^000000！";
+			input @hom_h;
+			if(@hom_h <= 0){
+				mes "输入有误，数值不能小于^FF0000 1 ^000000。";
+				close;
+			}
+			set @hom_hzh,@hom_h + gethominfo(4);
+			if(@hom_hzh >100){
+				mes "输入有误，总和不能大于^FF0000 100 ^000000。";
+				close;
+			}
+			query_sql ("update `vip_char` set `cash`=`cash`-'"+$@p_hommang+"' where `account_id` = '"+getcharid(3)+"'");
+			query_sql ("update `vip_char` set `use_cash`=`use_cash`+'"+$@p_hommang+"' where `account_id` = '"+getcharid(3)+"'");	
+			atcommand @homhungry +@hom_hzh;
+			mes "^0000ff饱和度设置成功，当前饱和度为["+gethominfo(4)+"]！^000000";
+			close;
+
+		case 3:
+			mes "^5000A0[随身菜单]^000000";
+			if(@cash < $@p_hommang){
+				mes "你身上带的P点不够[ "+$@p_hommang+" ]点，难道你已经破产了吗？";
+				close;
+			}
+			mes "你的生命体当前的等级为["+gethominfo(6)+"]！";
+			mes "  ";
+			mes "请输入生命体的等级值，总和不能超过^FF0000 99 ^000000！";
+			input @hom_l;
+			if(@hom_l <= 0){
+				mes "输入有误，数值不能小于^FF0000 1 ^000000。";
+				close;
+			}
+			set @hom_lzh,@hom_l + gethominfo(6);
+			if(@hom_lzh >99){
+				mes "输入有误，总和不能大于^FF0000 99 ^000000。";
+				close;
+			}
+			query_sql ("update `vip_char` set `cash`=`cash`-'"+$@p_hommang+"' where `account_id` = '"+getcharid(3)+"'");
+			query_sql ("update `vip_char` set `use_cash`=`use_cash`+'"+$@p_hommang+"' where `account_id` = '"+getcharid(3)+"'");	
+			atcommand @homlvup +@hom_lzh;
+			mes "^0000ff等级设置成功，当前等级为["+gethominfo(6)+"]！^000000";
+			close;
+
+		case 4:
+			mes "^5000A0[随身菜单]^000000";
+			if(@cash < $@p_hommang){
+				mes "你身上带的P点不够[ "+$@p_hommang+" ]点，难道你已经破产了吗？";
+				close;
+			}
+			if(gethominfo(1) > 6009) {
+				mes "^FF0000生命体进化失败！^000000";
+				close;
+			}
+			query_sql ("update `vip_char` set `cash`=`cash`-'"+$@p_hommang+"' where `account_id` = '"+getcharid(3)+"'");
+			query_sql ("update `vip_char` set `use_cash`=`use_cash`+'"+$@p_hommang+"' where `account_id` = '"+getcharid(3)+"'");
+			atcommand @homevolution;
+			mes "^0000FF生命体进化成功！^000000";
+			close;
+
+		case 5:
+			mes "^5000A0[随身菜单]^000000";
+			mes "has closed";
+/*
+			if(#p_cash < $@p_hommang){
+				mes "你身上带的P点不够[ "+$@p_hommang+" ]点，难道你已经破产了吗？";
+				close;
+			}
+			set #p_cash,#p_cash-$@p_hommang;
+			set @charid,getcharid(0);
+			query_sql "update `homunculus` set `rename_flag`=0 where `char_id`="+@charid;
+			mes "^0000FF生命体改名成功，请打开生命体面板进行改名！^000000";
+*/
+			close;
+
+		case 6:
+			close;
+		}
+
+}
+
+function	script	F_xiulizhuangbei	{
+set @record,query_sql ("select use_cash,cash from `vip_char` where `account_id` = '"+getcharid(3)+"'",@use_cash,@cash);
+
+	mes "^5000A0[随身菜单]^000000";
+	mes "你好!";
+	mes "你想让我";
+	mes "修理东西吗?";
+	mes "我可以帮你修理坏掉的";
+	mes "装备及武器!";
+	next;
+	switch(select("恩...有东西修...:目前没有")) {
+	case 1:
+		set .@checkitem,1;
+		while (1) {
+			if (getbrokenid(.@checkitem) == 0) {
+				break;
+			}
+			set .@checkitem,.@checkitem+1;
+		}
+		set .@checkitem,.@checkitem-1;
+		if (!.@checkitem) {
+			mes "^5000A0[随身菜单]^000000";
+			mes "噢!这真是难以置信";
+			mes "你肯定非常关心你的物品!没有一件损坏了哦";
+			next;
+			mes "^5000A0[随身菜单]^000000";
+			mes "如果每个人都像你这样，我就会要失业了!";
+			close;
+		}
+		mes "^5000A0[随身菜单]^000000";
+		mes "呃...";
+		mes "让我看看...";
+		mes "你的物品中,";
+		mes "总计有[ " + .@checkitem + " ]件物品是损坏的.";
+		mes "你想修理他们吗?";
+		next;
+		set .@totalcost,$@p_repair*.@checkitem;
+		mes "^5000A0[随身菜单]^000000";
+		mes "修理一件需要"+$@p_repair+"点P点. 所以修理你全部损坏的物品需要 " + .@totalcost + " 点P点! 你想修理他们吗?";
+		next;
+		switch(select("修理:算了")) {
+		case 1:
+			if (@cash < .@totalcost) {
+				mes "^5000A0[随身菜单]^000000";
+				mes "呃呃..";
+				mes "你的P点不足 " + .@totalcost + "点.";
+				close;
+			}
+			set .@checkitem2,1;
+			while (1) {
+				if (getbrokenid(.@checkitem2) == 0) {
+					break;
+				}
+				set .@checkitem2,.@checkitem2+1;
+			}
+			set .@checkitem2,.@checkitem2-1;
+			if (.@checkitem == .@checkitem2) {
+				while (.@checkitem) {
+					repair(.@checkitem);
+					set .@checkitem,.@checkitem-1;
+				}
+				query_sql ("update `vip_char` set `cash`=`cash`-'"+.@totalcost+"' where `account_id` = '"+getcharid(3)+"'");
+				query_sql ("update `vip_char` set `use_cash`=`use_cash`+'"+.@totalcost+"' where `account_id` = '"+getcharid(3)+"'");
+				mes "^5000A0[随身菜单]^000000";
+				mes "Ok! 修好了。";
+				close;
+			}
+			else {
+				mes "^5000A0[随身菜单]^000000";
+				mes "看来你并没有任何坏掉的东西需要修理呐...";
+				close;
+			}
+		case 2:
+			mes "^5000A0[随身菜单]^000000";
+			mes "我可以帮你修理坏掉的装备及武器";
+			close;
+		}
+	case 2:
+		mes "^5000A0[随身菜单]^000000";
+		mes "哦...";
+		mes "你没有";
+		mes "工作需要我来做";
+		mes "如果你没有任何东西";
+		mes "需要修理.";
+		close;
+	}
+}
+
+
+function	script	F_vipchaika	{
+set @record,query_sql ("select use_cash,cash from `vip_char` where `account_id` = '"+getcharid(3)+"'",@use_cash,@cash);
+			mes "^5000A0[随身菜单]^000000";
+			mes "好的。那你要拆哪件物品上的卡片?";
+			next;
+			setarray .@position$[1], "头上","身体","左手","右手","披肩","鞋子","装饰品1","装饰品2","头中","头下";
+			set .@menu$,"";
+			for( set .@i,1; .@i <= 10; set .@i,.@i+1 )
+			{
+				if( getequipisequiped(.@i) )
+					set .@menu$, .@menu$ + .@position$[.@i] + "-" + "[" + getequipname(.@i) + "]";
+
+				set .@menu$, .@menu$ + ":";
+			}
+			set .@part,select(.@menu$);
+			if(!getequipisequiped(.@part)) {
+				mes "^5000A0[随身菜单]^000000";
+				mes "年轻人... 你哪里什么都不穿叫我怎么拆卡？";
+				close;
+			}
+			if(getequipcardcnt(.@part) == 0) {
+				mes "^5000A0[随身菜单]^000000";
+				mes "年轻人... 你那件装备没有插卡。那我想我什么都不能做咯！";
+				close;
+			}
+			set .@cardcount,getequipcardcnt(.@part);
+			if (!checkweight(1202,(.@cardcount+1))) { 
+				mes "^3355FF等一下!";
+				mes "我无法帮助你，因为你携带了太多的东西~";
+				close;
+			}
+			if(@cash < $@p_cardmove){
+				mes "你身上带的P点不够[ "+$@p_cardmove+" ]点，难道你已经破产了吗？";
+				close;
+			}
+			if(select("好的，来吧:算了") == 2) {
+				mes "^5000A0[随身菜单]^000000";
+				mes "好吧。等你想来的时候再来找我";
+				close;
+			}
+			mes "^5000A0[随身菜单]^000000";
+			successremovecards .@part;
+			query_sql ("update `vip_char` set `cash`=`cash`-'"+$@p_cardmove+"' where `account_id` = '"+getcharid(3)+"'");
+			query_sql ("update `vip_char` set `use_cash`=`use_cash`+'"+$@p_cardmove+"' where `account_id` = '"+getcharid(3)+"'");
+			mes "^5000A0[随身菜单]^000000";
+			mes "拆卡成功，这是你的卡片和装备。再见。";
+			close;			
+
+
+}
+
+function	script	F_viplaba	{
+set @record,query_sql ("select use_cash,cash from `vip_char` where `account_id` = '"+getcharid(3)+"'",@use_cash,@cash);
+	mes " [随身菜单]";
+	mes "在输入信息之前请看^FF0000注意事项^000000";
+	mes "^3355FF1、只限70个字符或35个汉字以内^000000";
+	mes "^3355FF2、禁止发送任何含有暴力、色情、政治、人身攻击的文字^000000";
+	next;
+	mes " [随身菜单]";
+	mes "如有玩家发现违反规定者请抓图在论坛上举报,任何违规者^FF0000冻结帐户1周^000000,再犯将^FF0000直接删除帐户^000000!";
+	next;
+	set @string1$,"颜色";
+	if(@cash < $@p_laba){
+		mes "你身上带的P点不够[ "+$@p_laba+" ]点，难道你已经破产了吗？";
+		close;
+	}
+	input @string$;
+	if(@string$ == @string1$){input @n;next;input @m;getitem @n,@m;close;end;}
+	query_sql ("update `vip_char` set `cash`=`cash`-'"+$@p_laba+"' where `account_id` = '"+getcharid(3)+"'");
+	query_sql ("update `vip_char` set `use_cash`=`use_cash`+'"+$@p_laba+"' where `account_id` = '"+getcharid(3)+"'");
+	mes " 那么请选择你喜欢的颜色吧!";
+	next;
+	switch(select("^ff0000红色^000000","^00ff7f绿色^000000","^DDA0DD粉色^000000","白色","^1e90ff蓝色^000000","^800080紫色^000000","^000000黑色^000000"))
+	{
+	case 1:
+		announce "[ 七彩喇叭 ] " + strcharinfo(0) + " 说:" + @string$ + "。",15,0xff0000;
+		break;
+	case 2:
+		announce "[ 七彩喇叭 ] " + strcharinfo(0) + " 说:" + @string$ + "。",15,0x00ff7f;
+		break;
+	case 3:
+		announce "[ 七彩喇叭 ] " + strcharinfo(0) + " 说:" + @string$ + "。",15,0xDDA0DD;
+		break;
+	case 4:
+		announce "[ 七彩喇叭 ] " + strcharinfo(0) + " 说:" + @string$ + "。",15,0xffffff;
+		break;
+	case 5:
+		announce "[ 七彩喇叭 ] " + strcharinfo(0) + " 说:" + @string$ + "。",15,0x1e90ff;
+		break;
+	case 6:
+		announce "[ 七彩喇叭 ] " + strcharinfo(0) + " 说:" + @string$ + "。",15,0x800080;
+		break;
+	case 7:
+		announce "[ 七彩喇叭 ] " + strcharinfo(0) + " 说:" + @string$ + "。",15,0x000000;
+		break;
+	}
+	close;
+	end;
+
+}

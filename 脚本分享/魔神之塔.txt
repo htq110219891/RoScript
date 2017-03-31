@@ -1,0 +1,2250 @@
+/***************************************************************************
+**	jRO official dialog, provided by http://www25.atpages.jp/honeyberry/	**
+**	Translated, and created based on Hercules															**
+**	by pengc2010																													**
+***************************************************************************/
+
+
+1@tnm1	mapflag	src4instance
+1@tnm2	mapflag	src4instance
+1@tnm3	mapflag	src4instance
+
+dali,64,129,0	warp	#dali_to_dali02	1,1,dali02,66,101	//58439
+dali02,66,97,0	warp	#dali02_to_dali	1,1,dali,64,125		//59130
+
+dali,68,129,3	script	指路牌#dali	837,{
+	mes "[讯息]";
+	mes "前方";
+  mes "次元的裂痕 时间的通道02(dali02)";
+	mes "　";
+	mes "时间的通道02";
+	mes "^ff0000魔神之塔^000000允许进入。";
+	close;
+}
+
+dali02,70,98,3	script	指路牌#dali02	837,{
+	mes "[讯息]";
+	mes "需要在魔神之塔的入口处";
+	mes "标示位置信息吗？";
+	mes "　";
+	mes "位置信息可以在画面右上方的迷你地图上";
+	mes "得到确认。";
+	next;
+	switch(select("显示位置信息","取消位置信息")) {
+	case 1:
+		mes "[讯息]";
+		mes "位置信息已在地图上显示。";
+		viewpoint 1, 141, 120, 1, 0x00FF00;
+		close;
+	case 2:
+		mes "[讯息]";
+		mes "位置信息已经取消。";
+		viewpoint 2, 1, 1, 1, 0xFFFFFF;
+		close;
+	}
+}
+
+dali02,51,112,5	script	陷入混乱的盗贼#cr	939,{
+	mes "[陷入混乱的盗贼]";
+	mes "自从偷了那家伙的钱之后";
+	mes "不知不觉得";
+	mes "就来到了这个地方。";
+	mes "这里一个劲的都是怪事。";
+	next;
+	mes "[陷入混乱的盗贼]";
+	mes "时间呀还是空间都是离奇的混乱";
+	mes "唔……如果现在";
+	mes "能够集中精神在工作上的话";
+	mes "可能会回的去的吧……？";
+	close;
+}
+
+dali02,68,117,5	script	拉夫莱导游#cr	516,{
+	mes "[拉夫莱导游]";
+	mes "怎么，又来到这里了。";
+	mes "完全看不到又出口的样子……";
+	mes "真是的……";
+	mes "被困在这里出不去了。";
+	close;
+}
+
+dali02,65,119,5	script	拉夫莱游客#cr#	516,{
+	mes "[拉夫莱游客]";
+	mes "这里难道是鼎鼎大名的普隆德拉？";
+	mes "不愧是大城市！　好黑暗啊！";
+	close;
+}
+
+dali02,69,122,5	script	拉夫莱旅人#cr#	516,{
+	mes "[拉夫莱旅人]";
+	mes "能够听到时刻转动之音的黑暗之地！";
+	mes "这里绝对就是克魔岛！";
+	close;
+}
+
+dali02,65,115,5	script	喜欢冒险的拉夫莱#cr#	516,{
+	mes "[喜欢冒险的拉夫莱]";
+	mes "大伙，拿起武器！";
+	mes "我们正是达纳托斯塔的";
+	mes "勇士之一！";
+	close;
+}
+
+dali02,45,96,6	script	大陆导游#ep	707,{
+	mes "[大陆导游]";
+	mes "从这里开始就限制向前移动了。";
+	mes "这里是十分危险的区域，";
+	mes "请勿随意冒险进入。";
+	next;
+	switch(select("进入时间裂缝","询问这是去哪里","询问发生了什么事","结束对话")) {
+	case 1:
+		mes "[大陆导游]";
+		mes "想要进入时间的裂痕吗？";
+		mes "系统稳定性检测中，";
+		mes "请稍等片刻。";
+		next;
+		mes "[大陆导游]";
+		mes "系统检测完毕。";
+		mes "祝君一路平安。";
+		close2;
+		warp "moc_fild22",36,196;
+		end;
+	case 2:
+		mes "[大陆导游]";
+		mes "自从魔王倒下的那一刻开始，与繁杂的时间之流";
+		mes "紧密相连的这个区域，";
+		mes "如果能够控制住这里关键的部分，";
+		mes "回到过去这一事也能做的到。";
+		next;
+		mes "[大陆导游]";
+		mes "根据学者们的研究来看，";
+		mes "从这个次元开始，";
+		mes "甚至能够回到以前梦罗克活动";
+		mes "所在的过去。";
+		next;
+		mes "[大陆导游]";
+		mes "不过我并没有亲自进入确认过。";
+		mes "如果想要了解的更多，";
+		mes "请直接进入调查即可。";
+		close;
+	case 3:
+		mes "[大陆导游]";
+		mes "你不了解梦罗克以前引发的灾难吗？";
+		next;
+		mes "[大陆导游]";
+		mes "很久以前，沙漠都市梦罗克地底下";
+		mes "封印着魔王梦罗克";
+		mes "不过在不久之前梦罗克被人复活了。";
+		next;
+		mes "[大陆导游]";
+		mes "但是通过三国同盟，";
+		mes "妖精族，巨人族";
+		mes "联合军的活跃表现，";
+		mes "击退了魔王梦罗克。";
+		next;
+		mes "[大陆导游]";
+		mes "不过，梦罗克都市周边的街道和区域";
+		mes "还留存着以前留在梦罗克身边的部下。";
+		mes "所以在着周边活动的情况下，";
+		mes "请确保自身安全。";
+		close;
+	case 4:
+		mes "[大陆导游]";
+		mes "祝你旅途愉快000000000000 。";
+		close;
+	}
+}
+
+/*
+dali02,134,119,5	script	历史学家赛菲特#tnm01	729,{
+	mes "[历史学家赛菲特]";
+	mes "你好啊。";
+	mes "先前我从塔中找到了";
+	mes "强化武器的方法了！";
+	mes "　";
+	mes "‐能够精炼^ff00003回^000000‐";
+	next;
+	switch(select("精炼武器","对话","结束对话")) {
+	case 1:
+		break;
+	case 2:
+		mes "[历史学家赛菲特]";
+		mes "之前入手的魔神之塔的武器，";
+		mes "能够在这通过精炼大幅提升潜在能力！";
+		mes "太棒了～～！";
+		next;
+		mes "[历史学家赛菲特]";
+		mes "把潜在能力引发出来了的话";
+		mes "像梦罗克什么的都能秒杀！";
+		next;
+		mes "[历史学家赛菲特]";
+		mes "如果入手了塔内的武器的话";
+		mes "请务必交给我精炼！";
+		mes "能够激发出武器内在力量的话";
+		mes "我兴趣十足！";
+		next;
+		mes "‐^ff0000魔神之塔的最上层";
+		mes "　区域完成3次后";
+		mes "　能够在这里开启精炼。";
+		mes "　通过1000次后，能够开启贮存^000000‐";
+		close;    
+	case 3:
+		mes "[历史学家赛菲特]";
+		mes "如果入手了魔神之塔的武器";
+		mes "请务必到我这来！";
+		close;
+	}
+	mes "[历史学家赛菲特]";
+	mes "是要精炼吗！";
+	mes "我明白了！";
+	mes "需要精炼什么？";
+	next;
+	switch(select("^nItemID^2115","^nItemID^1626")) {
+	case 1:
+		set .@i,3;
+		break;
+	case 2:
+		set .@i,4;
+		break;
+	}
+	if(getequipisequiped(.@i)==0) {
+	}
+	{
+		mes "[历史学家赛菲特]";
+		mes "诶。你的武器似乎";
+		mes "并非是在";
+		mes "魔神之塔入手的吧。";
+		mes "我能够精炼的";
+		mes "也只有从魔神之塔入手的武器！";
+		mes "请再认真确认下。";
+		close;
+	}
+	{
+		mes "‐^ff0000无法精炼。";
+		mes "　只有在魔神之塔最上层";
+		mes "　区域清理过3次之后";
+		mes "　这里才能够开启精炼^000000‐";
+		close;
+	}
+	{	// 精力值达到了3
+		mes "[历史学家赛菲特]";
+		mes "噢噢噢！　这件武器";
+		mes "还能够进行安全精炼！";
+		mes "如果有需要的话";
+		mes "^ff0000+5精炼度^000000能一次性完成";
+		mes "觉得如何呢？";
+		next;
+		switch(select("精炼一回","统一精炼","取消")) {
+		case 3:
+			mes "[历史学家赛菲特]";
+			mes "怎么样！";
+			mes "了解～。";
+			close;
+		}
+	}
+	{
+		mes "[历史学家赛菲特]";
+		mes "噢噢噢！　这件武器已经通过";
+		mes "相当多次的精炼了。";
+		mes "从现在开始精炼";
+		mes "就有可能使武器损坏。";
+		mes "已经损坏武器就会消失";
+		mes "即便如何仍就要继续吗？";
+		next;
+		if(select("是的","不用了") == 2) {
+			// 未調査
+			mes "[历史学家赛菲特]";
+			mes "是吗！";
+			mes "我明白了～。";
+			close;
+		}
+	}
+	mes "[历史学家赛菲特]";
+	mes "那么~就！";
+	mes "锵！ 锵！ 锵!!";
+	if(getequippercentrefinery(.@i) > rand(100)) {
+		successrefitem .@i;
+		next;
+		emotion 21, "历史学家赛菲特#tnm01";
+		mes "[历史学家赛菲特]";
+		mes "啊，完成了！";
+		mes "看来效果不错哦！";
+		close;
+	}
+	else {
+		failedrefitem .@i;
+		next;
+		emotion 23, "历史学家赛菲特#tnm01";
+		mes "[历史学家赛菲特]";
+		mes "呵呵呵……";
+		mes "失败了呢。";
+		mes "　";
+		mes "真，对不起啊……。";
+		mes "下次一定努力！";
+		close;
+	}
+OnInit:
+	waitingroom "魔神武器【精炼】",0;
+	end;
+}
+*/
+
+dali02,141,120,3	script	魔神之塔 次元装置#tnm	10007,{
+	if(BaseLevel < 150) {
+		mes "[魔学者艾迪]";
+		mes "不好意思啊，";
+		mes "这里对你来说太危险了，先练到150级再来吧。";
+		close;
+	}
+	if(questprogress(7577)) {
+		if(questprogress(7577,PLAYTIME) == 2) {
+			mes "‐能够再次进行调查了‐";
+			erasequest 7577;
+			close;
+		}
+		mes "[魔学者艾迪]";
+		mes "不好意思啊，";
+		mes "不能马上再次调查。";
+		mes "距离上次调查的时间至少需要到等待";
+		mes "^ff000023时间^000000。";
+		close;
+	}
+	mes "[魔学者艾迪]";
+	mes "这个就是次元装置。";
+	mes "是否要出发呢？";
+	next;
+	if(select("进入","放弃") == 2) {
+		mes "[魔学者艾迪]";
+		mes "好的。";
+		mes "那么，悉听尊便。";
+		close;
+	}
+	.@party_id = getcharid(1);
+	if (!.@party_id) {
+		mes "[魔学者艾迪]";
+		mes "需要调查魔神之塔的话";
+		mes "请建立你的队伍。";
+		mes "组队才能进入。";
+		close;
+	}
+	if (has_instance("1@tnm1") == "" || has_instance("1@tnm2") == "" || has_instance("1@tnm3") == "") {
+		mes "^ff0000尚未创建副本！^000000";
+		close;
+	}
+	mes "^0000ff即将传送进入魔神之塔。^000000";
+	close2;
+	setquest 7577; //state=1
+	mapannounce "dali02",strcharinfo(0)+", 小队成员 "+getpartyname(getcharid(1))+" 进入副本 魔神之塔",bc_map,"0x00ff99";
+	warp "1@tnm1",50,104;
+	end;
+}
+
+dali02,137,121,3	script	魔学者艾迪#tnm02	620,{
+	if(BaseLevel < 150) {
+		mes "[魔学者艾迪]";
+		mes "不好意思啊，";
+		mes "这里对你来说太危险了，先练到150级再来吧。";
+		close;
+	}
+	if(questprogress(7577)) {
+			if(questprogress(7577,PLAYTIME) == 2) {
+				// 未調査
+				mes "‐能够再次进行调查了‐";
+				erasequest 7577;
+				close;
+			}
+			mes "[魔学者艾迪]";
+			mes "调查志愿者吗？";
+			mes "诶,不好意思，";
+			mes "现在不能进行调查了。";
+			mes "距离上次调查的时间至少经过";
+			mes "^ff000023时间^000000才能进入。";
+			close;
+	}
+	mes "[魔学者艾迪]";
+	mes "这里的次元装置";
+	mes "是与魔神之塔相连的。";
+	mes "我们主要是为了研究";
+	mes "魔神之塔中各种魔物，";
+	mes "才委托志愿者们调查的。";
+	next;
+	mes "[魔学者艾迪]";
+	mes "如果你们要进入副本的话，";
+	mes "我可以让次元装置运转起来。";
+	next;
+	if(select("前去调查","放弃") == 2) {
+		mes "[魔学者艾迪]";
+		mes "是吗。";
+		mes "那么，悉听尊便。";
+		close;
+	}
+	.@party_id = getcharid(1);
+	if (!.@party_id) {
+			mes "[魔学者艾迪]";
+			mes "请先组成一支队伍。";
+			close;
+	}
+	if (getcharid(0) != getpartyleader(.@party_id,2)) {
+		mes "[魔学者艾迪]";
+		mes "让你们的领队来接受委托吧。";
+		close;
+	}
+	.@instance = instance_create("魔神之塔", .@party_id);
+	if(.@instance < 0) {
+		mes "副本创建失败，请稍后再尝试。";
+		mes "提示：可以尝试重新组建队伍。";
+		close;
+	}
+	if(instance_attachmap("1@tnm1",.@instance) != "" && instance_attachmap("1@tnm2",.@instance) != "" && instance_attachmap("1@tnm3",.@instance) != "")
+	{
+		instance_set_timeout 7200,300,.@instance;
+		instance_init(.@instance);
+		mes "[魔学者艾迪]";
+		mes "看来次元装置已经启动了。";
+		mes "请点击次元装置进入魔神之塔。";
+		close;
+	} 
+	else {
+		instance_destroy(.@instance);
+		mes "副本创建失败！无法建立副本地图。";
+		close;
+	}
+
+OnInit:
+	waitingroom "魔神之塔",0; //59117
+	end;
+}
+
+
+//===============================================================================
+// INSTANCE START
+//===============================================================================
+
+
+1@tnm1,57,112,5	script	副队长海姆#heim0	691,{
+	.@party_id = getcharid(1);
+	if (getcharid(0) != getpartyleader(.@party_id,2)) {
+			mes "请等待队长推进剧情。";
+			close;
+	}
+	stopnpctimer;
+	mes "[副队长海姆]";
+	mes "现在战况进展如何了？";
+	npctalk "现在战况进展如何了？";
+	next;
+	mes "[侦察兵]";
+	mes "下层突破后我们就能直达最上层了，那里有大量的魔族存在。";
+	npctalk "下层突破后我们就能直达最上层了，那里有大量的魔族存在。",instance_npcname("侦察兵#tnm01");
+	next;
+	mes "[侦察兵]";
+	mes "但是...仅仅只靠这些人是无法突破的。";
+	emotion 19,0, instance_npcname("侦察兵#tnm01");
+	npctalk "但是……仅仅只靠这些人是无法突破的。",instance_npcname("侦察兵#tnm01");
+	next;
+	mes "[副队长海姆]";
+	mes "现在存余的战力还有多少？";
+	mes "援军到底何时能到！";
+	npctalk "现在存余的战力还有多少？　援军到底何时能到！";
+	emotion 9; //60431
+	next;
+	mes "[辅助官]";
+	mes "……以现在的人数已经不能叫做战力了。";
+	emotion 9,0, instance_npcname("辅助官#tnm02"); //60434
+	npctalk "……以现在的人数已经不能叫做战力了。",instance_npcname("辅助官#tnm02");
+	next;
+	mes "[辅助官]";
+	mes "唯一的希望就是，期望上层的魔物们千万不要攻下来。";
+	npctalk "唯一的希望就是，期望上层的魔物们千万不要攻下来。",instance_npcname("辅助官#tnm02");
+	next;
+	mes "[副队长海姆]";
+	mes "难道我们就在这……";
+	mes "这怎么可能，";
+	mes "我们再也无法前进……这种事。";
+	npctalk "难道我们就在这……这怎么可能，我们再也无法前进……这种事。";
+	next;
+	mes "[副队长海姆]";
+	mes "不对，为什么魔物们没有动静了？";
+	npctalk "不对，为什么魔物们没有动静了？";
+	next;
+	mes "[侦察兵]";
+	mes "上层到底";
+	mes "发生了什么事……。";
+	npctalk "上层到底发生了什么事……。",instance_npcname("侦察兵#tnm01");
+	close2;
+	donpcevent instance_npcname("副队长海姆#heim")+"::OnStart";
+	end;
+OnInstanceInit:
+	'TNM1_QUE = 0;
+OnTimer3000:
+	initnpctimer;
+	emotion 9;
+	end;
+}
+
+1@tnm1,56,110,3	script	副队长海姆#heim	691,{
+	if('TNM1_QUE == 0) {
+		stopnpctimer;
+		mes "[副队长海姆]";
+		mes "难道是援军？";
+		mes "为什么会直接来到这里！";
+		npctalk "难道是援军？　为什么会直接来到这里！";
+		next;
+		donpcevent instance_npcname("医疗兵菲玛#feima")+"::OnEnable";
+		mes "[医疗兵菲玛]";
+		mes "哇哦！";
+		mes "副队长，救命啊!!";
+		mes "光靠我一个人的话已经忙不过来了！";
+		npctalk "哇哦！副队长，救命啊!!光靠我一个人的话已经忙不过来了！",instance_npcname("医疗兵菲玛#feima");
+		next;
+		mes "[副队长海姆]";
+		mes "……你也听到了对吗？";
+		npctalk "……你也听到了对吗？";
+		next;
+		mes "[副队长海姆]";
+		mes "救治伤员的任务就拜托了。";
+		mes "从菲玛那取来医疗箱，";
+		mes "用这个来医治。";
+		npctalk "救治伤员的任务就拜托了。从菲玛那取来医疗箱，用这个来医治。";
+		next;
+		mes "[医疗兵菲玛]";
+		mes "有没有人到这里，";
+		mes "搭下手啊？";
+		mes "请~递给我医疗箱！";
+		npctalk "有没有人到这里，搭下手啊？请~递给我医疗箱！",instance_npcname("医疗兵菲玛#feima");
+		'TNM1_QUE = 1;
+		close;
+	}
+	else if('TNM1_QUE < 8) {
+		mes "[副队长海姆]";
+		mes "请优先对伤员进行应急处理。";
+		mes "快去协助医疗兵去。";
+		close;
+	}
+	else {
+		mes "[副队长海姆]";
+		mes "万幸，没有死者。";
+		mes "这里再也不能出现";
+		mes "更多的伤员了。";
+		close;
+	}
+OnStart:
+	initnpctimer;
+	npctalk "是谁站在那边？";
+	hideonnpc instance_npcname("副队长海姆#heim0");
+	hideoffnpc instance_npcname("副队长海姆#heim");
+	end;
+OnTimer3000:
+	initnpctimer;
+	emotion 9;
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("副队长海姆#heim");
+	end;
+}
+
+1@tnm1,61,113,3	script	侦察兵#tnm01	997,{
+	mes "[侦察兵]";
+	mes "援军吗？";
+	mes "现在的情况如此糟糕，你们能来真是得救了！";
+	mes "多谢你能来这帮忙。";
+	close;
+}
+
+1@tnm1,61,110,3	script	辅助官#tnm02	998,{
+	mes "[辅助官]";
+	mes "数百年前的灾难又要再次发生了么？";
+	mes "为何魔族会如此迅速的出现……。";
+	close;
+}
+
+1@tnm1,47,109,3	script	医疗兵菲玛#feima	696,{
+	if('TNM1_QUE == 1) {
+		mes "[医疗兵菲玛]";
+		mes "您是过来帮忙的吗？";
+		mes "真是帮到大忙了～。";
+		mes "请用治疗箱来给各位伤员进行治疗。";
+		next;
+		if(select("协助治疗","放弃治疗") == 2) {
+			close;
+		}
+		mes "[医疗兵菲玛]";
+		mes "请善加利用";
+		mes "我们的医疗箱，";
+		mes "如果你这边准备充分了";
+		mes "请通知我们一声～。";
+		'TNM1_QUE = 2;
+		close;
+	}
+	else if('TNM1_QUE >= 2 && 'TNM1_QUE < 8) {
+		if(countitem(7641)) {
+			mes "[医疗兵菲玛]";
+			mes "不好意思，我们的补给";
+			mes "只允许";
+			mes "每次配发一个医疗箱～。";
+			mes "能不能在使用完毕后";
+			mes "再过来领取呢？";
+			close;
+		}
+		mes "[医疗兵菲玛]";
+		mes "用这个医疗箱，";
+		mes "来给各位伤员进行治疗。";
+		mes "这并不会很复杂。";
+		mes "只要按照说明上写的";
+		mes "治疗方法来做就没问题了！";
+		next;
+		mes "[医疗兵菲玛]";
+		mes "我们的补给只允许";
+		mes "每次配发一个医疗箱～。";
+		mes "所以请在使用完毕后";
+		mes "再过来领取。";
+		getitem 7641, 1;
+		close;
+	}
+	else {
+		mes "[医疗兵菲玛]";
+		mes "唔……。";
+		mes "这样就暂且";
+		mes "差不多能松口气了。";
+		mes "啊，剩余的医疗箱";
+		mes "就由我这边回收了吧～！";
+		next;
+		mes "[医疗兵菲玛]";
+		mes "你能够来帮忙";
+		mes "真是无比感激了！";
+		mes "多谢啦～！";
+		mes "您有没有哪里受伤了吗，";
+		mes "请多多注意自己的身体～！";
+		emotion 14;
+		.@i = countitem(7641);
+		if(.@i)
+			delitem 7641,.@i;
+		close;
+	}
+	
+OnCount:
+	.@left = 7;
+	for(.@i = 0; .@i <= 6; ++.@i) {
+		if('TNM_HEAL[.@i])
+			.@left -= 1;
+	}
+	if(.@left) {
+		mapannounce instance_mapname("1@tnm1"),"医疗兵菲玛 : 伤员还有" +.@left+ "人!!", 0x9, 0x00ff00, 0x190, 12, 0, 0;
+	}
+	else {
+		'TNM1_QUE = 8;
+		mapannounce instance_mapname("1@tnm1"),"医疗兵菲玛 : 伤员们已经全部处理完毕了！", 0x9, 0xff0000;
+		donpcevent instance_npcname("露西尔#tnm01")+"::OnStart";
+	}
+	end;
+
+OnInstanceInit:
+	disablenpc instance_npcname("医疗兵菲玛#feima");
+	for(.@i = 1; .@i <= 7; ++.@i) {
+		disablenpc instance_npcname("伤员#"+.@i);
+		disablenpc instance_npcname("伤员#"+.@i+"_1");
+	}
+	setarray 'TNM_HEAL[0],0,0,0,0,0,0,0;
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("医疗兵菲玛#feima");
+	for(.@i = 1; .@i <= 7; ++.@i) {
+		enablenpc instance_npcname("伤员#"+.@i);
+	}
+	end;
+
+}
+
+
+1@tnm1,39,114,3	script	伤员#1_1	688,{
+	mes "[伤员]";
+	mes "真是帮到我了。";
+	mes "非常感谢。";
+	close;
+}
+
+1@tnm1,30,120,3	script	伤员#2_1	690,{
+	mes "[伤员]";
+	mes "呜呜……。";
+	mes "治个伤遇到这种医生";
+	mes "别让我再看见你了……。";
+	close;
+}
+
+1@tnm1,25,117,5	script	伤员#3_1	693,{
+	mes "[伤员]";
+	mes "谢谢你的帮助……。";
+	mes "我和战友们都没事了……。";
+	close;
+}
+
+1@tnm1,19,118,4	script	伤员#4_1	695,{
+	mes "[伤员]";
+	mes "我自己都认为快不行了呢……";
+	mes "多谢你的帮忙……。";
+	close;
+}
+
+1@tnm1,19,110,4	script	伤员#5_1	698,{
+	mes "[伤员]";
+	mes "我，在这次战争结束了后";
+	mes "一定要回到故乡向我的青梅竹马求婚……。";
+	mes "我一定会幸福的……。";
+	close;
+}
+
+1@tnm1,24,104,7	script	伤员#6_1	10001,{
+	mes "[伤员]";
+	mes "多亏了你我感觉比之前好多了……";
+	mes "要下床运动的似乎还太早。";
+	mes "不过，能活下来已经足够幸运了……。";
+	close;
+}
+
+1@tnm1,31,110,3	script	伤员#7_1	690,{
+	mes "[伤员]";
+	mes "谢谢谢谢！";
+	mes "你可是我的救命恩人啊。";
+	close;
+}
+
+
+1@tnm1,39,114,3	script	伤员#1	687,3,3,{
+	if(!countitem(7641)) {
+		mes "‐要给伤员治疗的话";
+		mes "　需要一个医疗箱‐";
+		close;
+	}
+	mes "‐似乎快不行了。";
+	mes "　快使用医疗箱";
+	mes "　对他进行紧急治疗？‐";
+	next;
+	if(select("马上治疗","看看情况") == 2) {
+		mes "‐似乎已经看到了";
+		mes "　一些伤员出现了‐";
+		close;
+	}
+	mes "‐就按照医疗书上的说明方法";
+	mes "　进行治疗吧……";
+	delitem 7641, 1;
+	specialeffect 72;
+	progressbar "0xFFFF00",2;
+	specialeffect 6;
+	disablenpc instance_npcname(strnpcinfo(0));
+	enablenpc instance_npcname(strnpcinfo(0)+"_1");
+	specialeffect 16, AREA, instance_npcname(strnpcinfo(0)+"_1");
+	specialeffect 6, AREA, instance_npcname(strnpcinfo(0)+"_1");
+	'TNM_HEAL[atoi(strnpcinfo(2))-1] = 1;
+	donpcevent instance_npcname("医疗兵菲玛#feima")+"::OnCount";
+	mes "　治疗成功啦‐";
+	close;
+OnTouch_:
+	switch(atoi(strnpcinfo(2))) {
+		case 1: npctalk "……呜呜呜……。"; break;
+		case 2: npctalk "呃……。"; break;
+		case 3: npctalk "……咳咳咳……呜呜呜……。"; break;
+		case 4: npctalk "……咳咳咳……。"; break;
+		case 5: npctalk "……我不要……死。"; break;
+		case 6: npctalk "……呜呜呜呜……。"; break;
+		case 7: npctalk "呜呜……。"; break;
+	}
+	end;
+}
+
+
+1@tnm1,30,120,3	duplicate(伤员#1)	伤员#2	689,3,3
+1@tnm1,25,117,5	duplicate(伤员#1)	伤员#3	692,3,3
+1@tnm1,19,118,4	duplicate(伤员#1)	伤员#4	694,3,3
+1@tnm1,19,110,4	duplicate(伤员#1)	伤员#5	697,3,3
+1@tnm1,24,104,7	duplicate(伤员#1)	伤员#6	699,3,3
+1@tnm1,31,110,3	duplicate(伤员#1)	伤员#7	689,3,3
+
+
+1@tnm1,46,105,5	script	露西尔#tnm01	667,{
+	switch('TNM1_QUE) {
+	case 8:
+		.@party_id = getcharid(1);
+		if (getcharid(0) != getpartyleader(.@party_id,2)) {
+				mes "请等待队长推进剧情。";
+				close;
+		}
+		stopnpctimer;
+		cutin "tnm_lucile01.bmp", 0;
+		mes "[露西尔]";
+		mes "我是刺客公会的露西尔。";
+		mes "因为之前的任务离这有些距离，来晚了点。";
+		npctalk "我是刺客公会的露西尔。因为之前的任务离这有些距离，来晚了点。";
+		next;
+		cutin "tnm_loki.bmp", 2;
+		mes "[达纳托斯]";
+		mes "达纳托斯……。";
+		npctalk "达纳托斯……。",instance_npcname("达纳托斯#tnm01");
+		next;
+		cutin "tnm_loki.bmp", 255;
+		mes "[副队长海姆]";
+		mes "来自刺客公会的增援吗！";
+		mes "总算到了！！";
+		npctalk "来自刺客公会的增援吗！总算到了！！",instance_npcname("副队长海姆#heim");
+		next;
+		cutin "tnm_lucile01.bmp", 0;
+		mes "[露西尔]";
+		mes "从样子看来，";
+		mes "实力并不怎么样嘛。";
+		npctalk "从样子看来，实力并不怎么样嘛。";
+		next;
+		mes "[露西尔]";
+		mes "那个以勇猛著称的普隆德拉骑士团在哪里？";
+		npctalk "那个以勇猛著称的普隆德拉骑士团在哪里？";
+		next;
+		cutin "tnm_lucile01.bmp", 255;
+		mes "[副队长海姆]";
+		mes "你这家伙……";
+		mes "是想来找茬的吧？";
+		npctalk "你这家伙……是想来找茬的吧？",instance_npcname("副队长海姆#heim");
+		next;
+		cutin "tnm_lucile01.bmp", 0;
+		mes "[露西尔]";
+		mes "怎么会，你误解我了。";
+		mes "说起来上面那层空间，";
+		mes "是不是发生了什么？";
+		npctalk "怎么会，你误解我了。说起来上面那层空间，是不是发生了什么？";
+		next;
+		cutin "tnm_lucile01.bmp", 255;
+		emotion 0, 0,instance_npcname("副队长海姆#heim"); //60432
+		mes "[副队长海姆]";
+		mes "你怎么会知道……";
+		mes "我们确实是在阻止魔族们的入侵，";
+		mes "但似乎总感到有什么地方不对劲。";
+		npctalk "你怎么会知道……我们确实是在阻止魔族们的入侵，但似乎总感到有什么地方不对劲。",instance_npcname("副队长海姆#heim");
+		next;
+		cutin "tnm_lucile01.bmp", 0;
+		emotion 5, "露西尔#tnm01"; //60451
+		mes "[露西尔]";
+		mes "……是这样吗？";
+		mes "看来猎物就在最上层，";
+		mes "我们该怎么做呢？";
+		npctalk "……是这样吗？看来猎物就在最上层，我们该怎么做呢？";
+		next;
+		cutin "tnm_loki.bmp", 2;
+		mes "[达纳托斯]";
+		mes "是么……";
+		mes "那我先上吧。";
+		npctalk "是么……那我先上吧。",instance_npcname("达纳托斯#tnm01");
+		next;
+		cutin "tnm_lucile01.bmp", 0;
+		mes "[露西尔]";
+		mes "啊拉，还是那样，";
+		mes "动作真是快。";
+		npctalk "啊拉，还是那样，动作真是快。";
+		hideonnpc instance_npcname("达纳托斯#tnm01");
+		next;
+		cutin "tnm_lucile01.bmp", 255;
+		mes "[副队长海姆]";
+		mes "到……到底打算做什么！";
+		mes "就凭你们这点人还想要冲进去，";
+		mes "简直与送死无异！";
+		npctalk "到……到底打算做什么！就凭你们这点人还想要冲进去，简直与送死无异！",instance_npcname("副队长海姆#heim");
+		next;
+		cutin "tnm_lucile01.bmp", 0;
+		mes "[露西尔]";
+		mes "人数太少么……";
+		mes "这里还能行动的士兵们，";
+		mes "不是还能帮上忙的么？";
+		npctalk "人数太少么……这里还能行动的士兵们，不是还能帮上忙的么？";
+		next;
+		mes "[露西尔]";
+		mes "那么掩护就拜托你们了。";
+		mes "迪尤！";
+		mes "后方就交给你了。";
+		npctalk "那么掩护就拜托你们了。迪尤！后方就交给你了。";
+		next;
+		cutin "tnm_lucile01.bmp", 255;
+		mes "[刺客 迪尤]";
+		mes "放心交给我吧。";
+		'TNM1_QUE = 9;
+		donpcevent instance_npcname("刺客 迪尤#tnm01") + "::OnStart";
+		next;
+		mes "[副队长海姆]";
+		mes "他们到底在想什么……。";
+		mes "不过，看起来他们任务很紧急，";
+		mes "你还是去帮助他们吧。";
+		npctalk "他们到底在想什么……。不过，看起来他们任务很紧急，你还是去帮助他们吧。",instance_npcname("副队长海姆#heim");
+		hideonnpc instance_npcname("露西尔#tnm01");
+		hideonnpc instance_npcname("刺客 西佑#tnm01");
+		hideonnpc instance_npcname("刺客 胧#tnm01");
+		next;
+		mes "[副队长海姆]";
+		mes "对抗魔族是我们的共同目的。";
+		mes "希望你能成为我们的中坚力量，拜托了。";
+		npctalk "希望你能成为我们的中坚力量，拜托了。",instance_npcname("副队长海姆#heim");
+		close;
+	}
+	end;
+	
+OnStart:
+	initnpctimer;
+	enablenpc instance_npcname("露西尔#tnm01");
+	enablenpc instance_npcname("达纳托斯#tnm01");
+	enablenpc instance_npcname("刺客 西佑#tnm01");
+	enablenpc instance_npcname("刺客 胧#tnm01");
+	end;
+OnTimer3000:
+	initnpctimer;
+	emotion 9;
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("露西尔#tnm01");
+	disablenpc instance_npcname("达纳托斯#tnm01");
+	disablenpc instance_npcname("刺客 西佑#tnm01");
+	disablenpc instance_npcname("刺客 胧#tnm01");
+	end;
+}
+
+1@tnm1,52,104,3	script	达纳托斯#tnm01	494,{
+	cutin "tnm_loki.bmp", 2;
+	mes "[达纳托斯]";
+	mes "……。";
+	close2;
+	cutin "tnm_loki.bmp", 255;
+	end;
+}
+
+1@tnm1,42,104,5	script	刺客 西佑#tnm01	10002,{
+	mes "[刺客 西佑]";
+	mes "我与露西尔姐姐一同行动。";
+	close;
+}
+
+1@tnm1,44,101,5	script	刺客 胧#tnm01	884,{
+	mes "[刺客 胧]";
+	mes "我们在执行任务。请安静。";
+	close;
+}
+
+1@tnm1,70,108,3	script	刺客 迪尤#tnm01	884,{
+	mes "[刺客 迪尤]";
+	mes "我会带你们通往上层。";
+	next;
+	if(select("前进","停止") == 2) {
+		mes "[刺客 迪尤]";
+		mes "接下来，与魔神一战的可能性非常大，";
+		mes "请做好充分的准备。";
+		mes "明白了吗？";
+		close;
+	}
+	mes "[刺客 迪尤]";
+	mes "那么，祝武运昌隆。";
+	close2;
+	'TNM1_QUE = 10;
+//	setquest 114815;
+//	compquest 114815;
+	@TNMEXP = 0;
+	warp "1@tnm1",91,23;
+	stopnpctimer;
+	end;
+	
+OnStart:
+	enablenpc instance_npcname("刺客 迪尤#tnm01");
+OnTimer3000:
+	initnpctimer;
+	emotion 9;
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("刺客 迪尤#tnm01");
+	disablenpc instance_npcname("#newwarp_jp");
+	end;
+}
+
+1@tnm1,91,23,0	script	#tnm1stepmob	139,3,3,{
+OnTouch_:
+	initnpctimer;
+	disablenpc instance_npcname("#tnm1stepmob");
+	mapannounce instance_mapname("1@tnm1"),"诱惑的魔神之影 : 人类啊……。让你们品尝一下我们死去同胞们的痛苦吧！", 0x9, 0x00ff00;
+	end;
+OnTimer3000:
+	mapannounce instance_mapname("1@tnm1"),"刺客 西佑 : 姐姐！危险！", 0x9, 0x00ff00;
+	end;
+OnTimer5000:
+	mapannounce instance_mapname("1@tnm1"),"露西尔 : 诶……？咦呀呀呀哎呀！", 0x9, 0x00ff00;
+	end;
+OnTimer7000:
+	mapannounce instance_mapname("1@tnm1"),"诱惑的魔神之影 : 似乎还有人类在这……。跟这些家伙一样，拿去血祭吧……!!", 0x9, 0x00ff00;
+	.@map$ = instance_mapname("1@tnm1");
+	.@label$ = instance_npcname("#tnm1stepmob") + "::OnKilled";
+	monster .@map$,99,24,"诱惑的魔神之影",2939,1,.@label$;
+	monster .@map$,113,21,"猜忌的魔神之影",2940,1,.@label$;
+	monster .@map$,113,26,"绝望的魔神之影",2941,1,.@label$;
+	monster .@map$,122,27,"诱惑的魔神之影",2939,1,.@label$;
+	monster .@map$,124,26,"猜忌的魔神之影",2940,1,.@label$;
+	monster .@map$,126,27,"猜忌的魔神之影",2940,1,.@label$;
+	monster .@map$,129,25,"绝望的魔神之影",2941,1,.@label$;
+	monster .@map$,136,25,"诱惑的魔神之影",2939,1,.@label$;
+	monster .@map$,136,26,"猜忌的魔神之影",2940,1,.@label$;
+	monster .@map$,137,25,"绝望的魔神之影",2941,1,.@label$;
+	enablenpc instance_npcname("#newwarp_jp");
+	stopnpctimer;
+	end;
+OnKilled:
+	// dummy
+	end;
+}
+1@tnm1,158,24,0	warp	#newwarp_jp	2,2,1@tnm1,124,86	//60457 from_pos=(157, 24)
+1@tnm1,138,96,3	script	露西尔#tnm02	667,{
+	if (getcharid(0) != getpartyleader(getcharid(1),2)) {
+			mes "- 请等待队长触发剧情。 -";
+			close;
+	}
+	switch('TNM1_QUE) {
+	case 10:
+		cutin "tnm_lucile02.bmp", 2;
+		mes "[露西尔]";
+		mes "唔，魔族们在不经意间重伤了我。";
+		mes "……现在暂时无法动弹了。";
+		npctalk "唔，魔族们在不经意间重伤了我。……现在暂时无法动弹了。";
+		next;
+		mes "[露西尔]";
+		mes "伤势非常严重，这样下去的话，";
+		mes "我就是连说话都做不到了。";
+		npctalk "伤势非常严重，这样下去的话，我就是连说话都做不到了。";
+		next;
+		mes "[露西尔]";
+		mes "……真的不好意思，";
+		mes "能不能助我一臂之力？";
+		npctalk "……真的不好意思，能不能助我一臂之力？";
+		next;
+		mes "[露西尔]";
+		mes "我的身体有些特殊，";
+		mes "只要一小会，";
+		mes "身体就能够自行修复……";
+		npctalk "我的身体有些特殊，只要一小会，身体就能够自行修复……";
+		next;
+		mes "[露西尔]";
+		mes "但在这期间，";
+		mes "我会处于像无机物一样完全无法动弹的状态，";
+		mes "只要周围有敌人，就能够杀死我。";
+		npctalk "但在这期间，我会处于像无机物一样完全无法动弹的状态，只要周围有敌人，就能够杀死我。";
+		next;
+		mes "[露西尔]";
+		mes "所以说，只需要一点时间，";
+		mes "请在我身边守护我……。";
+		npctalk "所以说，只需要一点时间，请在我身边守护我……。";
+		next;
+		cutin "tnm_lucile03.bmp", 2;
+		mes "[露西尔]";
+		mes "多谢……了……。";
+		mes "　";
+		mes "‐^ff0000再次与露西尔对话";
+		mes "　可以观察露西尔的恢复情况^000000‐";
+		npctalk "多谢……了……。";
+		close2;
+		cutin "tnm_lucile03.bmp", 255;
+		'TNM1_QUE = 11;
+		donpcevent instance_npcname("刺客 西佑#hui02") + "::OnStart";
+		end;
+	case 11:
+		mes "‐观察下露西尔的样子。";
+		mes "　她虽然保持着人的形态，";
+		mes "　但简直像断电的机械玩偶一样";
+		mes "　完全无法动弹。";
+		mes "　";
+		mes "　^ff0000要试着唤醒露西尔吗？^000000‐";
+		cutin "tnm_lucile03.bmp", 2;
+		next;
+		if(select("唤醒","离开") == 2){
+			mes "‐你离开了这里‐";
+			close2;
+			cutin "tnm_lucile03.bmp", 255;
+			end;
+		}
+		cutin "tnm_lucile03.bmp", 255;
+		mes "‐尝试唤醒露西尔。";
+		mes "　她的身体，有些颤动";
+		mes "　似乎有些声音传了出来……";
+		close2;
+		specialeffect 202, AREA, instance_npcname("露西尔#tnm02"); //60458
+		progressbar "0xFFFF00",30;
+		mes "　^ff0000系统重新起动。^000000";
+		mes "　和复生的露西尔对话‐";
+		'TNM1_QUE = 12;
+		killmonster instance_mapname("1@tnm1"),instance_npcname("刺客 西佑#hui02")+"::OnKilled";
+		close;
+	case 12:
+		cutin "tnm_lucile02.bmp", 2;
+		mes "[露西尔]";
+		mes "呼……";
+		mes "比预料的时间提早了许多嘛。";
+		mes "被吓住了吧？";
+		mes "我和普通的人类身体不同每次";
+		mes "不得不像这样进行修理。";
+		npctalk "呼……比预料的时间提早了许多嘛。被吓住了吧？　我和普通的人类身体不同每次不得不像这样一样进行修理。";
+		next;
+		mes "[露西尔]";
+		mes "因为是上天赐予的身体，";
+		mes "也只能接受这个事实啦。";
+		mes "话说……";
+		mes "中央的门你看的见吗？";
+		npctalk "因为是上天赐予的身体，也只能接受这个事实啦。话说……中央的门你看的见吗？";
+		cutin "tnm_lucile01.bmp", 2;
+		next;
+		mes "[露西尔]";
+		mes "如果不乘早过去的话，";
+		mes "这个世界就要危险了。";
+		npctalk "如果不乘早的话，这个世界就要危险了。";
+		close2;
+		cutin "tnm_lucile02.bmp", 255;
+		'TNM1_QUE = 13;
+		initnpctimer;
+		npctalk "那么我就在这先行告辞了。如果想要拯救世界的话，就跟我一起来吧。";
+		hideonnpc instance_npcname("露西尔#tnm02");
+		end;
+	}
+OnTimer1000:
+	stopnpctimer;
+	npctalk "姐……姐……。",instance_npcname("刺客 西佑#hui02");
+	end;
+}
+
+1@tnm1,135,99,5	script	刺客 西佑#hui02	10002,{
+	if('TNM1_QUE < 13) {
+		mes "[刺客 西佑]";
+		mes "我真的担心姐姐……。";
+		mes "^ff0000虽说身体能力近似于机械^000000的样子，";
+		mes "但如果有个万一的话，";
+		mes "就会造成极大的伤害。";
+		close;
+	}
+	mes "[刺客 西佑]";
+	mes "达纳托斯大人就在上层！";
+	mes "我们也跟上露西尔姐姐吧。";
+	next;
+	mes "[刺客 西佑]";
+	mes "如果愿意协助的话";
+	mes "就由我来领路。";
+	next;
+	if(select("前进","停止") == 2) {
+		mes "[刺客 西佑]";
+		mes "……这样啊。";
+		close;
+	}
+	mes "[刺客 西佑]";
+	mes "这边走。";
+	mes "请多加注意。";
+	close2;
+	warp "1@tnm2",90,86;
+	end;
+	
+OnStart:
+	enablenpc instance_npcname("刺客 西佑#hui02");
+	.@map$ = instance_mapname("1@tnm1");
+	.@label$ = instance_npcname("刺客 西佑#hui02") + "::OnKilled";
+	areamonster .@map$,132,96,149,110,"诱惑的魔神之影",2939,5,.@label$;
+	areamonster .@map$,132,96,149,110,"猜忌的魔神之影",2940,7,.@label$;
+	areamonster .@map$,132,96,149,110,"绝望的魔神之影",2941,4,.@label$;
+	npctalk "姐姐，请多加注意！魔族正在集结中！";
+	end;
+	
+OnKilled:
+	.@count = mobcount(instance_mapname("1@tnm1"),instance_npcname("刺客 西佑#hui02")+"::OnKilled");
+	if(.@count <= 0) {
+		npctalk "魔物们的气息消失了！这附近的魔物看来全部被打倒了！";
+	}
+	end;
+
+OnInstanceInit:
+	disablenpc instance_npcname("刺客 西佑#hui02");
+	end;
+}
+
+
+//===============================================================================
+// Morroc vs. Thanatos
+//===============================================================================
+1@tnm2,0,0,0	script	#tnm2flamecross	CLEAR_NPC,{
+OnStart:
+	sleep 10000;
+OnTimer20000:
+	initnpctimer;
+	npctalk "哈哈哈！肆意燃烧吧灼热的火焰！",instance_npcname("魔王梦罗克#tnm01");
+	mapannounce instance_mapname("1@tnm2"),"魔王梦罗克 : 哈哈哈！肆意燃烧吧灼热的火焰！", 0x1, 0xff0000, 0x190, 12, 0, 0;
+	for(.@i = 0; .@i < 18; ++.@i) {
+		sleep 200;
+		if(!'TNM_FLAMECROSS)
+			break;
+		unitskillusepos 'TNM_FLAMECROSS,711,1,141,146+.@i*3,1;
+		unitskillusepos 'TNM_FLAMECROSS,711,1,140+.@i*3,144+.@i,1;
+		unitskillusepos 'TNM_FLAMECROSS,711,1,145+.@i*2,131-.@i*2,1;
+		unitskillusepos 'TNM_FLAMECROSS,711,1,133-.@i*2,133-.@i*2,1;
+		unitskillusepos 'TNM_FLAMECROSS,711,1,139-.@i*3,145+.@i,1;
+	}
+	end;
+	
+OnEnd:
+	stopnpctimer;
+	mobremove 'TNM_FLAMECROSS;
+	'TNM_FLAMECROSS = 0;
+	end;
+}
+
+
+1@tnm2,0,0,0	script	#tnm2topmob	CLEAR_NPC,{
+OnStart:
+	initnpctimer;
+	'TNM_STONEMOVE = 0;
+	end;
+OnTimer2000:
+	.@map$ = instance_mapname("1@tnm2");
+	.@label$ = instance_npcname("#tnm2topmob")+"::OnStone";
+	.@label2$ = instance_npcname("#tnm2topmob")+"::OnSummon";
+	setarray .@x[0],192, 205, 141, 68, 90;
+	setarray .@y[0],86, 161, 213, 167, 86;
+	mapannounce instance_mapname("1@tnm2"),"露西尔 : 塔的5角将会出现魔神石，阻止它们靠近梦罗克，截断梦罗克的能量来源！", 0x1, 0x00ff00, 0x190, 18, 0, 0;
+	'TNM_FLAMECROSS = monster(.@map$,.@x[.@i],.@y[.@i],"",2960,1,.@label$+(.@i+1));
+	setunitdata 'TNM_FLAMECROSS,29,1;
+	unitskilluseid 'TNM_FLAMECROSS, 353, 1;
+	donpcevent instance_npcname("#tnm2flamecross")+"::OnStart";
+	for(.@i = 0; .@i < 5; ++.@i) {
+		'TNM_STONE[.@i] = monster(.@map$,.@x[.@i],.@y[.@i],"魔神石",2938,1,.@label$+(.@i+1));
+		areamonster .@map$,.@x[.@i]-2,.@y[.@i]-2, .@x[.@i]+2,.@y[.@i]+2,"--ja--",2939,1,.@label2$+(.@i+1);
+		setunitdata $@mobid[0],9,0x400085;
+		areamonster .@map$,.@x[.@i]-2,.@y[.@i]-2, .@x[.@i]+2,.@y[.@i]+2,"--ja--",2940,1,.@label2$+(.@i+1);
+		setunitdata $@mobid[0],9,0x400085;
+		areamonster .@map$,.@x[.@i]-2,.@y[.@i]-2, .@x[.@i]+2,.@y[.@i]+2,"--ja--",2941,1,.@label2$+(.@i+1);
+		setunitdata $@mobid[0],9,0x400085;
+	}
+	end;
+OnTimer6000:
+	setnpctimer 10000;
+	mapannounce instance_mapname("1@tnm2"),"露西尔 : 在梦罗克恢复到完全体之前打倒他！", 0x1, 0x00ff00, 0x190, 18, 0, 0;
+	end;
+OnTimer30000:
+	setnpctimer 10000;
+	++ 'TNM_STONEMOVE;
+  .@map$ = instance_mapname("1@tnm2");
+	mapannounce .@map$,"露西尔 : 魔神石开始第"+'TNM_STONEMOVE+"次移动了。", 0x1, 0x00ff00, 0x190, 12, 0, 0;
+	switch('TNM_STONEMOVE) {
+		case 1:
+			setarray .@x[0],186, 199, 141, 74, 94;
+			setarray .@y[0],91, 163, 207, 165, 91;
+			break;
+		case 2:
+			setarray .@x[0],178, 188, 141, 87, 99;
+			setarray .@y[0],100, 160, 196, 162, 98;
+			break;
+		case 3:
+			setarray .@x[0],159, 166, 141, 107, 114;
+			setarray .@y[0],117, 152, 175, 156, 114;
+			break;
+		case 4:
+			setarray .@x[0],147, 152, 141, 122, 125;
+			setarray .@y[0],128, 146, 155, 150, 126;
+			break;
+		case 5:
+			setarray .@x[0],140, 141, 140, 130, 131;
+			setarray .@y[0],135, 143, 144, 143, 135;
+			break;
+
+	}
+	for(.@i = 0; .@i < 5; ++.@i) {
+		if(!'TNM_STONE[.@i])
+			continue;
+		.@label$ = instance_npcname("#tnm2topmob")+"::OnSummon"+(.@i+1);
+		killmonster .@map$,.@label$;
+		unitwarp 'TNM_STONE[.@i],.@map$,.@x[.@i],.@y[.@i];
+		areamonster .@map$,.@x[.@i]-2,.@y[.@i]-2, .@x[.@i]+2,.@y[.@i]+2,"--ja--",2939,1,.@label$;
+		setunitdata $@mobid[0],9,0x400085;
+		areamonster .@map$,.@x[.@i]-2,.@y[.@i]-2, .@x[.@i]+2,.@y[.@i]+2,"--ja--",2940,1,.@label$;
+		setunitdata $@mobid[0],9,0x400085;
+		areamonster .@map$,.@x[.@i]-2,.@y[.@i]-2, .@x[.@i]+2,.@y[.@i]+2,"--ja--",2941,1,.@label$;
+		setunitdata $@mobid[0],9,0x400085;
+	}
+	if('TNM_STONEMOVE >= 5)
+		donpcevent instance_npcname("#tnm2topmob")+"::OnPushBack";
+	end;
+
+OnPushBack:
+  .@map$ = instance_mapname("1@tnm2");
+	.@label$ = instance_npcname("#tnm2topmob")+"::OnSummon"+(.@i+1);
+	sleep 2000;
+	mapannounce .@map$,"达纳托斯 : 怎么会让魔神石过来？！算了，我先帮你们一把。", 0x1, 0x00ff00, 0x190, 12, 0, 0;
+	sleep 2000;
+	specialeffect 894,AREA,instance_npcname("达纳托斯#tnm02");
+	setnpctimer 10000;
+	'TNM_STONEMOVE = 0;
+	setarray .@x[0],192, 205, 141, 68, 90;
+	setarray .@y[0],86, 161, 213, 167, 86;
+	for(.@i = 0; .@i < 5; ++.@i) {
+		if(!'TNM_STONE[.@i])
+			continue;
+		.@label$ = instance_npcname("#tnm2topmob")+"::OnSummon"+(.@i+1);
+		killmonster .@map$,.@label$;
+		unitwarp 'TNM_STONE[.@i],.@map$,.@x[.@i],.@y[.@i];
+		setunitdata 'TNM_STONE[.@i],2,10; //MaxHP = 10;
+		areamonster .@map$,.@x[.@i]-2,.@y[.@i]-2, .@x[.@i]+2,.@y[.@i]+2,"--ja--",2939,1,.@label$;
+		setunitdata $@mobid[0],9,0x400085;
+		areamonster .@map$,.@x[.@i]-2,.@y[.@i]-2, .@x[.@i]+2,.@y[.@i]+2,"--ja--",2940,1,.@label$;
+		setunitdata $@mobid[0],9,0x400085;
+		areamonster .@map$,.@x[.@i]-2,.@y[.@i]-2, .@x[.@i]+2,.@y[.@i]+2,"--ja--",2941,1,.@label$;
+		setunitdata $@mobid[0],9,0x400085;
+	}
+	end;
+
+OnStone1:
+	'TNM_STONE[0] = 0;
+	killmonster instance_mapname("1@tnm2"),instance_npcname("#tnm2topmob") + "::OnSummon1";
+	donpcevent instance_npcname("#tnm2topmob") + "::OnStoneKilled";
+	end;
+OnStone2:
+	'TNM_STONE[1] = 0;
+	killmonster instance_mapname("1@tnm2"),instance_npcname("#tnm2topmob") + "::OnSummon2";
+	donpcevent instance_npcname("#tnm2topmob") + "::OnStoneKilled";
+	end;
+OnStone3:
+	'TNM_STONE[2] = 0;
+	killmonster instance_mapname("1@tnm2"),instance_npcname("#tnm2topmob") + "::OnSummon3";
+	donpcevent instance_npcname("#tnm2topmob") + "::OnStoneKilled";
+	end;
+OnStone4:
+	'TNM_STONE[3] = 0;
+	killmonster instance_mapname("1@tnm2"),instance_npcname("#tnm2topmob") + "::OnSummon4";
+	donpcevent instance_npcname("#tnm2topmob") + "::OnStoneKilled";
+	end;
+OnStone5:
+	'TNM_STONE[4] = 0;
+	killmonster instance_mapname("1@tnm2"),instance_npcname("#tnm2topmob") + "::OnSummon5";
+	donpcevent instance_npcname("#tnm2topmob") + "::OnStoneKilled";
+	end;
+OnSummon1:
+OnSummon2:
+OnSummon3:
+OnSummon4:
+OnSummon5:
+	end;
+
+OnStoneKilled:
+	.@count = 0;
+	for(.@i = 0; .@i < 5; ++.@i) {
+			if('TNM_STONE[.@i])
+				.@count ++;
+	}
+	if(.@count <= 0) {
+		stopnpctimer;
+		mapannounce instance_mapname("1@tnm2"),"露西尔 : 看样子魔神石已经全部破坏掉了！巨大的魔力似乎正在消散!!", 0x9, 0x00ff00;
+		mapwarp instance_mapname("1@tnm2"),instance_mapname("1@tnm2"),139,133;
+		donpcevent instance_npcname("魔王梦罗克#tnm01")+"::OnStart";
+		donpcevent instance_npcname("#tnm2flamecross")+"::OnEnd";
+	} else {
+		mapannounce instance_mapname("1@tnm2"),"露西尔 : 不错，就保持这个步调！还剩"+.@count+"个魔神石。", 0x1, 0x00ff00, 0x190, 12, 0, 0;
+	}
+	end;
+}
+
+1@tnm2,144,137,3	script	露西尔#tnm03	667,{
+	if('TNM1_QUE == 13) {
+		cutin "tnm_lucile01.bmp", 2;
+		mes "[露西尔]";
+		mes "来的时机不错！";
+		npctalk "来的这时机不错！";
+		next;
+		mes "[露西尔]";
+		mes "果然是梦罗克，";
+		mes "只有我们来阻止它了，";
+		mes "你有……信心没？";
+		npctalk "果然是梦罗克，只有我们来阻止它了，你有……信心没？";
+		next;
+		cutin "tnm_lucile01.bmp", 255;
+		mes "[魔王梦罗克]";
+		mes "愚蠢的人类啊……!!";
+		mes "就这样还想阻止";
+		mes "本魔王的步伐吗!!";
+		npctalk "愚蠢的人类啊……!!就这样还想阻止本魔王的步伐吗!!",instance_npcname("魔王梦罗克#tnm01");
+		next;
+		mes "[魔王梦罗克]";
+		mes "出现吧！我的影子们！";
+		mes "为这些胆敢违背黑暗之力";
+		mes "的愚蠢生物们刻上绝望的烙印吧！";
+		npctalk "出现吧！我的影子们！为这些胆敢违背黑暗之力的愚蠢生物们刻上绝望的烙印吧！",instance_npcname("魔王梦罗克#tnm01");
+		next;
+		mes "[达纳托斯]";
+		mes "哼！想要向自己的部下求救了么。";
+		npctalk "哼！想要向自己的部下求救了么。",instance_npcname("达纳托斯#tnm02");
+		next;
+		cutin "tnm_lucile01.bmp", 2;
+		mes "[露西尔]";
+		mes "达纳托斯阁下，";
+		mes "看来它并不是虚张声势呢。";
+		npctalk "达纳托斯阁下，看来它并不是虚张声势呢？";
+		next;
+		cutin "tnm_lucile01.bmp", 255;
+		mes "[魔王梦罗克]";
+		mes "好好尝尝破灭的滋味吧。";
+		mes "陷入无边的恐惧吧！";
+		npctalk "好好尝尝破灭的滋味吧。陷入无边的恐惧吧！",instance_npcname("魔王梦罗克#tnm01");
+		next;
+		mes "[达纳托斯]";
+		mes "闭嘴！";
+		mes "闲话是不是该适可而止了！";
+		mes "我不会让你踏出这里一步的！";
+		npctalk "闭嘴！闲话是不是该适可而止了！我不会让你踏出这里一步的！",instance_npcname("达纳托斯#tnm02");
+		next;
+		mes "[达纳托斯]";
+		mes "露西尔！后方就拜托你了！";
+		mes "这家伙就由我来封印！";
+		npctalk "露西尔！后方就拜托你了！这家伙就由我来封印！",instance_npcname("达纳托斯#tnm02");
+		next;
+		cutin "tnm_lucile01.bmp", 2;
+		mes "[露西尔]";
+		mes "了解。";
+		npctalk "了解。";
+		next;
+		mes "[露西尔]";
+		mes "好，大家。";
+		mes "我们职责已经相当明确了。";
+		mes "死守住这里，";
+		mes "不要让魔石接近梦罗克。";
+		npctalk "好，大家。我们职责已经相当明确了。死守住这里，不要让魔石接近梦罗克。";
+		'TNM1_QUE = 14;
+//		setquest 7573;
+		hideonnpc instance_npcname("露西尔#tnm03");
+		donpcevent instance_npcname("#tnm2topmob")+"::OnStart";
+		close2;
+		cutin "tnm_lucile01.bmp", 255;
+		end;
+	}
+}
+
+1@tnm2,145,144,3	script	宝箱#tnmtop	10005,{
+	setarray .@gain[0],1671,13094,16027,21010,28001;
+	getmapxy(.@map$,.@x,.@y,1,instance_npcname(strnpcinfo(0)));
+	specialeffect 10;
+	hideonnpc instance_npcname(strnpcinfo(0));
+	makeitem .@gain[rand(5)],1,.@map$,.@x+rand(3)-1,.@y+rand(3)-1;
+	makeitem .@gain[rand(5)],1,.@map$,.@x+rand(3)-1,.@y+rand(3)-1;
+	end;
+	
+	OnInstanceInit:
+		disablenpc instance_npcname(strnpcinfo(0));
+		end;
+}
+
+1@tnm2,144,137,3	script	露西尔#tnm04	667,{/* 60463 (hide)*/
+		if(!@TNMEXP) {
+//		delquest 7573;
+			mes "‐正当与露西尔对话之际";
+			mes "　身体内不断涌出着不可思议的力量。";
+			specialeffect2 35;
+//		setquest 114805;
+//		compquest 114805;
+			specialeffect2 58;
+			getexp 500000,0;
+			getexp 500000,0;
+			getexp 0,500000;
+			@TNMEXP =1;
+			next;
+		}
+		mes "[露西尔]";
+		mes "想要破坏封印结界的魔神之力仍旧";
+		mes "与达纳托斯阁下进行着激烈的冲突。";
+		mes "要取得完全的胜利看来绝非易事。";
+		cutin "tnm_lucile01.bmp", 2;
+		next;
+		mes "[露西尔]";
+		mes "刚才的冲击把梦罗克击飞到南边了，";
+		mes "要追上去吗？";
+		next;
+		switch(select("追击","中止","稍等")) {
+		case 1:
+			mes "[露西尔]";
+			mes "虽然没有真正伤害到魔神，";
+			mes "但看起来似乎能够进行封印了……。";
+			mes "祝武运昌隆……。";
+			next;
+			mes "‐为了追击梦罗克，向南边前进。";
+			mes "突然，次元空间开始出现错乱‐";
+			specialeffect2 432; //self
+			specialeffect2 174; //self
+			specialeffect2 899; //self
+			close2;
+			cutin "tnm_lucile01.bmp", 255;
+			warp "1@tnm3",21,171;
+			end;
+		case 2:
+			mes "[露西尔]";
+			mes "真要在这里放弃么？";
+			cutin "tnm_lucile02.bmp", 2;
+			next;
+			if(select("是的","不是") == 2) {
+				mes "[露西尔]";
+				mes "知道了。";
+				mes "做好觉悟之后再找我吧。";
+				close2;
+				cutin "tnm_lucile01.bmp", 255;
+				end;
+			}
+			mes "[露西尔]";
+			mes "这样啊……。";
+			mes "看来这就是你的极限了吧。";
+			close2;
+			cutin "tnm_lucile01.bmp", 255;
+			warp "dali02",134,112;
+			end;
+		case 3:
+			mes "[露西尔]";
+			mes "知道了。";
+			mes "做好觉悟之后再找我吧。";
+			close2;
+			cutin "tnm_lucile01.bmp", 255;
+			end;
+		}
+
+OnInstanceInit:
+	disablenpc instance_npcname("露西尔#tnm04");
+	end;
+}
+
+1@tnm2,136,139,5	script	魔王梦罗克#tnm01	1916,{/* 60464 */
+	end;
+OnStart:
+	'TNM1_QUE = 15;
+	initnpctimer;
+	end;
+OnTimer3000:
+	npctalk "这……这怎么可能！你到底是……你到底是什么人！！";
+	end;
+OnTimer6000:
+	npctalk "呵呵！这就是你的终点了！",instance_npcname("达纳托斯#tnm02");
+	end;
+OnTimer7000:
+	specialeffect 90;
+	end;
+OnTimer10000:
+	stopnpctimer;
+	enablenpc instance_npcname("宝箱#tnmtop");
+	enablenpc instance_npcname("露西尔#tnm04");
+	npctalk "这是……封印成功……了……？",instance_npcname("露西尔#tnm04");
+	disablenpc instance_npcname("达纳托斯#tnm02");
+	disablenpc instance_npcname("魔王梦罗克#tnm01");
+	end;
+}
+
+1@tnm2,142,139,3	script	达纳托斯#tnm02	10009,{/* 60465 */
+	if('TNM1_QUE == 13) {
+		emotion 6, "达纳托斯#tnm02"; //60465
+		end;
+	}
+	if('TNM1_QUE == 14) {
+		npctalk "对不起……现在没有空闲与你废话。";
+		end;
+	}
+	end;
+}
+
+
+//=====================================================================================
+// Part 3
+//=====================================================================================
+1@tnm3,21,171,0	script	#tnm3event01	139,1,1,{
+	OnTouch_:
+	disablenpc instance_npcname("#tnm3event01");
+	.@map$ = instance_mapname("1@tnm3");
+	.@label$ = instance_npcname("女孩#tnm01")+"::OnMobKilled";
+	mapannounce .@map$,"女孩的惊叫 : 呀啊啊啊！救命啊！到处都是恶魔！", 0x1, 0x00ff00, 0x190, 12, 0, 0;
+	areamonster .@map$,21,185,47,159,"--ja--",2939,4,.@label$;
+	areamonster .@map$,21,185,47,159,"--ja--",2940,4,.@label$;
+	areamonster .@map$,21,185,47,159,"--ja--",2941,4,.@label$;
+	end;
+}
+
+1@tnm3,43,175,3	script	女孩#tnm01	941,{/* 84728 */
+	if('TNM1_QUE < 16) {
+		mes "[领主的女儿]";
+		mes "为什么魔族会出现在城里，";
+		mes "请你救救我！！";
+		close;
+	} else if ('TNM1_QUE == 16) {
+		if (getcharid(0) != getpartyleader(getcharid(1),2)) {
+			mes "[领主的女儿]";
+			mes "呜呜呜呜...";
+			mes "- 让队长来安慰她吧。 -";
+			close;
+		}
+		mes "[领主的女儿]";
+		mes "城堡里突然到处都是恶魔……。";
+		mes "守备兵叔叔们也都……。";
+		npctalk "城堡里突然到处都是恶魔……。守备兵叔叔们也都……。";
+		next;
+		unittalk getcharid(3),"这里到底是哪？";
+		select("这里到底是哪？");
+		mes "[领主的女儿]";
+		mes "这里是梦罗克啊。";
+		mes "这座城堡就是梦罗克城堡……。";
+		npctalk "这里是梦罗克啊。这座城堡就是梦罗克城堡……。";
+		next;
+		mes "- 梦罗克城堡？ -";
+		unittalk getcharid(3),"梦罗克城堡？";
+		next;
+		mes "[领主的女儿]";
+		mes "是的哦，";
+		mes "我的爸爸就是梦罗克的领主。";
+		npctalk "是的哦，我的爸爸就是梦罗克的领主。";
+		next;
+		mes "- 看来由于时空裂缝的扰动，";
+		mes "现在已经不是露西尔所处的时代了。 -";
+		unittalk getcharid(3),"- 看来由于时空裂缝的扰动，现在已经不是露西尔所处的时代了。 -";
+		next;
+		mes "[领主的女儿]";
+		mes "对了，我之前好像听到地下室那边传来奇怪的声音……。";
+		npctalk "对了，我之前好像听到地下室那边传来奇怪的声音……。";
+		next;
+		mes "[领主的女儿]";
+		mes "有一位穿着黑色衣服的大哥哥进入了地下室，但再也没有出来。";
+		mes "这里到底发生了什么事……。";
+		npctalk "有一位穿着黑色衣服的大哥哥进入了地下室，但再也没有出来。这里到底发生了什么事……。";
+		next;
+		mes "[领主的女儿]";
+		mes "爸爸……。";
+		mes "爸爸不会有事吧？";
+		npctalk "爸爸……。爸爸不会有事吧？";
+		next;
+		mes "[领主的女儿]";
+		mes "书柜后面有密门，可以进入城堡地下。";
+		mes "请带上我和你们同行，拜托了！";
+		npctalk "书柜后面有密门，可以进入城堡地下。请带上我和你们同行，拜托了！";
+		close2;
+		'TNM1_QUE = 17;
+		specialeffect 35, AREA, instance_npcname("#tnm3gate01");
+		enablenpc instance_npcname("#tnm3gate01");
+		end;
+	} else 	{
+		mes "[領主の娘]";
+		mes "书柜后面有密门，可以进入城堡地下。";
+		mes "请带上我和你们同行，拜托了！";
+		mes "爸爸……你没事吧……。";
+		npctalk "书柜后面有密门，可以进入城堡地下。请带上我和你们同行，拜托了！";
+		close;
+	}
+OnMobKilled:
+	.@map$ = instance_mapname("1@tnm3");
+	.@label$ = instance_npcname("女孩#tnm01")+"::OnMobKilled";
+	if(mobcount(.@map$,.@label$))
+		end;
+	'TNM1_QUE = 16;
+	npctalk "谢谢你……不过为什么……会有这么多恶魔……";
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("#tnm3gate01");
+	end;
+}
+
+
+1@tnm3,50,176,0	warp	#tnm3gate01	1,1,1@tnm3,85,178
+
+
+1@tnm3,85,178,0	script	#tnm3event02ect	139,1,1,{
+OnTouch_:
+	disablenpc instance_npcname("#tnm3event02ect");
+	donpcevent instance_npcname("领主的女儿#tnm02") + "::OnStart";
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("领主的女儿#tnm02");
+	hideonnpc instance_npcname("领主的女儿#tnm03");
+	disablenpc instance_npcname("#tnm3gate02");
+	end;
+}
+
+1@tnm3,89,179,4	script	领主的女儿#tnm02	941,{
+	npctalk "看那边，又有魔族出现了！城里到处都是恶魔了！";
+	end;
+	
+OnStart:
+	hideoffnpc instance_npcname("领主的女儿#tnm02");
+	npctalk "看那边，又有魔族出现了！城里到处都是恶魔了！";
+	.@map$ = instance_mapname("1@tnm3");
+	.@label$ = instance_npcname("领主的女儿#tnm02")+"::OnMobKilled";
+	monster .@map$,102,168,"--ja--",2939,1,.@label$;
+	monster .@map$,102,178,"--ja--",2940,1,.@label$;
+	monster .@map$,104,172,"--ja--",2940,1,.@label$;
+	monster .@map$,104,174,"--ja--",2940,1,.@label$;
+	monster .@map$,104,178,"--ja--",2940,1,.@label$;
+	monster .@map$,108,173,"--ja--",2940,1,.@label$;
+	monster .@map$,110,173,"--ja--",2941,1,.@label$;
+	monster .@map$,111,169,"--ja--",2941,1,.@label$;
+	monster .@map$,114,169,"--ja--",2941,1,.@label$;
+	monster .@map$,116,169,"--ja--",2941,1,.@label$;
+	monster .@map$,126,167,"--ja--",2941,1,.@label$;
+	monster .@map$,127,169,"--ja--",2941,1,.@label$;
+	monster .@map$,110,170,"--ja--",2939,1,.@label$;
+	monster .@map$,91,169,"--ja--",2939,1,.@label$;
+	end;
+	
+OnMobKilled:
+	.@map$ = instance_mapname("1@tnm3");
+	.@label$ = instance_npcname("领主的女儿#tnm02")+"::OnMobKilled";
+	if(mobcount(.@map$,.@label$))
+		end;
+	mapannounce .@map$,"领主的女儿 : 这里！走廊的尽头有通往地下室的暗道！", 0x1, 0x00ff00, 0x190, 12, 0, 0;
+	hideonnpc instance_npcname("领主的女儿#tnm02");
+	hideoffnpc instance_npcname("领主的女儿#tnm03");
+	enablenpc instance_npcname("#tnm3gate02");
+	end;		
+}
+
+
+1@tnm3,128,164,3	script	领主的女儿#tnm03	941,{
+	mes "[领主的女儿]";
+	mes "从这开始我就无法提供详细的信息了。";
+	mes "前往阶梯的更深处……。";
+	mes "好像有比这里还多的魔族。";
+	mes "爸爸一定很危险！";
+	mes "请无论如何也要将爸爸救出来……。";
+	close;
+}
+
+1@tnm3,134,156,0	warp	#tnm3gate02	2,2,1@tnm3,169,165
+
+
+1@tnm3,169,165,3	script	#tnm3mob0trg	HIDDEN_WARP_NPC,1,1,{
+	OnTouch_:
+		disablenpc instance_npcname("#tnm3mob0trg");
+		initnpctimer instance_npcname("绝望的魔神之影#tnm3");
+		end;
+}
+
+1@tnm3,179,172,3	script	绝望的魔神之影#tnm3	2941,7,7,{
+	end;
+	OnTimer2000:
+		npctalk "真是，不知死活就闯入这座城堡……。";
+		end;
+	OnTimer6000:
+		npctalk "看起来真不知道这会有什么后果啊，绝不会让你们妨碍到神圣的仪式。";
+		end;
+	OnTimer9000:
+		npctalk "出现吧！我的同胞们啊！";
+		end;
+	OnTimer10000:
+		stopnpctimer;
+		hideonnpc instance_npcname("绝望的魔神之影#tnm3");
+		.@map$ = instance_mapname("1@tnm3");
+		.@label$ = instance_npcname("绝望的魔神之影#tnm3")+"::OnMobKilled";
+		areamonster .@map$,177,170,181,174,"--ja--",2941,4,.@label$;
+		//SPAWN MONSTERS
+		end;
+	
+	OnMobKilled:
+		.@map$ = instance_mapname("1@tnm3");
+		.@label$ = instance_npcname("绝望的魔神之影#tnm3")+"::OnMobKilled";
+		if(!mobcount(.@map$,.@label$))
+			end;
+		enablenpc instance_npcname("#tnm3gate03");
+		specialeffect 35, AREA, instance_npcname("#tnm3gate03");
+		end;
+	
+	OnInstanceInit:
+		disablenpc instance_npcname("#tnm3gate03");
+		end;
+}
+
+1@tnm3,183,177,0	warp	#tnm3gate03	2,2,1@tnm3,97,6
+
+1@tnm3,97,6,3	script	#tnm3mob1trg	HIDDEN_WARP_NPC,1,1,{
+	OnTouch_:
+		disablenpc instance_npcname("#tnm3mob1trg");
+		initnpctimer instance_npcname("诱惑的魔神之影#tnm3");
+		donpcevent instance_npcname("#tnm3trap")+"::OnStart";
+		end;
+}
+
+1@tnm3,97,18,3	script	诱惑的魔神之影#tnm3	2939,{
+	end;
+	OnTimer2000:
+		npctalk "你们就是这骚动的原因么？";
+		end;
+	OnTimer5000:
+		npctalk "算了，无所谓了。反正你们马上就会死在这。";
+		end;
+	OnTimer9000:
+		npctalk "我会将你们的血献给刚复苏的魔神！";
+		end;
+	OnTimer10000:
+		stopnpctimer;
+		hideonnpc instance_npcname("诱惑的魔神之影#tnm3");
+		.@map$ = instance_mapname("1@tnm3");
+		//SPAWN MONSTERS
+		monster .@map$,77,18,"--ja--",2940,1;
+		monster .@map$,112,18,"--ja--",2939,1;
+		monster .@map$,112,20,"--ja--",2940,1;
+		monster .@map$,112,22,"--ja--",2941,1;
+		monster .@map$,113,23,"--ja--",2939,1;
+		monster .@map$,114,13,"--ja--",2941,1;
+		monster .@map$,115,11,"--ja--",2940,1;
+		monster .@map$,119,20,"--ja--",2940,1;
+		monster .@map$,113,20,"--ja--",2940,1;
+		monster .@map$,107,19,"--ja--",2939,1;
+		monster .@map$,82,18,"--ja--",2939,1;
+		monster .@map$,78,14,"--ja--",2941,1;
+		monster .@map$,71,18,"--ja--",2941,1;
+		monster .@map$,69,16,"--ja--",2939,1;
+		monster .@map$,67,19,"--ja--",2940,1;
+		monster .@map$,63,42,"--ja--",2940,1;
+		monster .@map$,63,43,"--ja--",2939,1;
+		monster .@map$,60,46,"--ja--",2940,1;
+		monster .@map$,60,49,"--ja--",2940,1;
+		monster .@map$,62,50,"--ja--",2939,1;
+		monster .@map$,56,50,"--ja--",2941,1;
+		monster .@map$,75,67,"--ja--",2941,1;
+		monster .@map$,78,71,"--ja--",2940,1;
+		monster .@map$,77,71,"--ja--",2940,1;
+		monster .@map$,78,72,"--ja--",2939,1;
+		monster .@map$,60,73,"--ja--",2940,1;
+		monster .@map$,57,73,"--ja--",2941,1;
+		monster .@map$,62,73,"--ja--",2941,1;
+		monster .@map$,79,73,"--ja--",2939,1;
+		monster .@map$,64,74,"--ja--",2940,1;
+		monster .@map$,60,75,"--ja--",2939,1;
+		monster .@map$,60,77,"--ja--",2939,1;
+		monster .@map$,80,67,"--ja--",2941,1;
+		end;
+}
+
+
+1@tnm3,93,52,4	script	梦罗克的领主#moclord01	106,{/* 84738 */
+	if (getcharid(0) != getpartyleader(getcharid(1),2)) {
+			mes "- 请等待队长推进剧情。 -";
+			close;
+	}
+	mes "[梦罗克的领主]";
+	mes "钻进城堡的老鼠原来是一名刺客吗？";
+	mes "……似乎还有其他同伴啊。";
+	mes "就这么想要自寻死路么？";
+	npctalk "钻进城堡的老鼠原来是一名刺客吗？……似乎还有其他同伴啊。就这么想要自寻死路么？";
+	next;
+	mes "[洛奇]";
+	mes "是想要复活那个那个传说中的已经随着时间流逝而腐坏的魔神吗？";
+	npctalk "是想要复活那个那个传说中的已经随着时间流逝而腐坏的魔神吗？",instance_npcname("洛奇#tnmloki01");
+	cutin "ep14_roki01.bmp", 2;
+	next;
+	mes "[洛奇]";
+	mes "终于找到幕后的野心家了，";
+	mes "看来这次没有白来。";
+	npctalk "终于找到幕后的野心家了，看来这次没有白来。",instance_npcname("洛奇#tnmloki01");
+	next;
+	mes "[梦罗克的领主]";
+	mes "什么意思……？";
+	mes "隶属于刺客公会的你们，";
+	mes "居然会对拯救世界感兴趣？";
+	mes "你们的目的到底是什么？";
+	npctalk "什么意思……？隶属于刺客公会的你们，居然会对拯救世界感兴趣？你们的目的到底是什么？";
+	cutin "ep14_roki01.bmp", 255;
+	next;
+	mes "[梦罗克的领主]";
+	mes "为了维护世界力量的均衡，";
+	mes "魔神的复活是必须的！";
+	mes "在这个腐朽的世界里，";
+	mes "我们已经沦为了众神的玩具！";
+	npctalk "为了维护世界力量的均衡，魔神的复活是必须的！在这个腐朽的世界里，我们已经沦为了众神的玩具！";
+	next;
+	mes "[梦罗克的领主]";
+	mes "神明们……";
+	mes "他们如何看待我们，";
+	mes "你知道吗？";
+	npctalk "神明们……他们如何看待我们，你知道吗？";
+	next;
+	mes "[梦罗克的领主]";
+	mes "这帮家伙……以光，秩序，正义为名，";
+	mes "将人类……不，这个世界的所有……。";
+	npctalk "这帮家伙……以光，秩序，正义为名，将人类……不，这个世界的所有……。";
+	next;
+	mes "[洛奇]";
+	mes "闭嘴！";
+	npctalk "闭嘴",instance_npcname("洛奇#tnmloki01");
+	cutin "ep14_roki01.bmp", 2;
+	next;
+	mes "[洛奇]";
+	mes "和神无关，";
+	mes "和魔族也无关……";
+	mes "你现在要为自己的野心付出代价。";
+	npctalk "和神无关，和魔族也无关……你现在要为自己的野心付出代价。",instance_npcname("洛奇#tnmloki01");
+	next;
+	mes "[洛奇]";
+	mes "这就是我这次的任务。";
+	npctalk "这就是我这次的任务。",instance_npcname("洛奇#tnmloki01");
+	next;
+	mes "[梦罗克的领主]";
+	mes "是么……这么无聊的任务吗？";
+	mes "有本事就完成给我看吧。";
+	npctalk "是么……这么无聊的任务吗？有本事就完成给我看吧。";
+	cutin "ep14_roki01.bmp", 255;
+	next;
+	mes "[洛奇]";
+	mes "当然!!";
+	cutin "ep14_roki01.bmp", 2;
+	npctalk "当然!!",instance_npcname("洛奇#tnmloki01");
+	specialeffect 55, AREA, instance_npcname("洛奇#tnmloki01");
+	next;
+	mes "[洛奇]";
+	mes "心灵冲击!!";
+	npctalk "心灵冲击!!",instance_npcname("洛奇#tnmloki01");
+	next;
+	mes "[领主的女儿]";
+	mes "请不要这样！";
+	mes "不要杀死我的爸爸!!";
+	cutin "ep14_roki01.bmp", 255;
+	hideoffnpc instance_npcname("领主的女儿#tnm04");
+	specialeffect 135, AREA, instance_npcname("领主的女儿#tnm04");
+	npctalk "请不要这样！不要杀死我的爸爸!!",instance_npcname("领主的女儿#tnm04");
+	next;
+	mes "[洛奇]";
+	mes "什……!?";
+	npctalk "什……!?",instance_npcname("洛奇#tnmloki01");
+	cutin "ep14_roki01.bmp", 2;
+	next;
+	mes "[梦罗克的领主]";
+	mes "这真是这真是哈哈哈哈……";
+	mes "打歪了吧，刺客先生。";
+	npctalk "这真是这真是哈哈哈哈……打歪了吧，刺客先生。";
+	cutin "ep14_roki01.bmp", 255;
+	next;
+	mes "[领主的女儿]";
+	mes "有什么……有什么……";
+	mes "误会吧……。";
+	npctalk "有什么……有什么……误会吧……。",instance_npcname("领主的女儿#tnm04");
+	next;
+	mes "[领主的女儿]";
+	mes "爸爸……原本是……";
+	mes "不可能……做出这种事情的，";
+	mes "的……人……的……。";
+	npctalk "爸爸……原本是……不可能……做出这种事情的，的……人……的……。",instance_npcname("领主的女儿#tnm04");
+	next;
+	mes "[洛奇]";
+	mes "为什么要保护他!?";
+	mes "人类这种生物，有时的行动真的让人难以理解。";
+	mes "这就是所谓的人心吧？";
+	npctalk "为什么要保护他!?人类这种生物，有时的行动真的让人难以理解。这就是所谓的人心吧？",instance_npcname("洛奇#tnmloki01");
+	cutin "ep14_roki01.bmp", 2;
+	next;
+	mes "[梦罗克的领主]";
+	mes "不能理解么……看起来确实如此。";
+	mes "这就是所谓的牺牲吧。";
+	npctalk "不能理解么……看起来确实如此。这就是所谓的牺牲吧。";
+	cutin "ep14_roki01.bmp", 255;
+	next;
+	mes "[梦罗克的领主]";
+	mes "但是啊小姑娘！";
+	mes "这种事情简直毫无意义的啊～！";
+	mes "哇哈哈哈哈!!";
+	npctalk "但是啊小姑娘！这种事情简直毫无意义的啊～！哇哈哈哈哈!!";
+	next;
+	mes "[梦罗克的领主]";
+	mes "愚蠢的人类啊!!";
+	mes "就在这腐朽吧!!";
+	mes "别再妨碍魔神的复活!!";
+	mes "嘎啊啊啊啊啊啊!!";
+	npctalk "愚蠢的人类啊!!就在这腐朽吧!!别再妨碍魔神的复活!!嘎啊啊啊啊啊啊!!";
+	specialeffect 225;
+	next;
+	mes "[洛奇]";
+	mes "……不好意思，我拒绝。";
+	npctalk "……不好意思，我拒绝。",instance_npcname("洛奇#tnmloki01");
+	cutin "ep14_roki01.bmp", 2;
+	close2;
+	cutin "ep14_roki01.bmp", 255;
+	hideonnpc instance_npcname("梦罗克的领主#moclord01");
+	hideonnpc instance_npcname("领主的女儿#tnm04");
+	hideonnpc instance_npcname("洛奇#tnmloki01");
+	hideoffnpc instance_npcname("洛奇#tnmloki02");
+	donpcevent instance_npcname("#tnmfinal") + "::OnStart";
+	end;
+}
+
+1@tnm3,98,47,3	script	洛奇#tnmloki01	512,{}
+1@tnm3,95,50,4	script	领主的女儿#tnm04	941,{
+	end;
+  OnInstanceInit:
+		hideonnpc instance_npcname("领主的女儿#tnm04");
+		end;
+}
+
+1@tnm3,98,47,3	script	洛奇#tnmloki02	512,{
+	mes "[洛奇]";
+	mes "……";
+	mes "你们什么时候来的？";
+	mes "算了，无所谓。";
+	mes "领主已经不再是人类了。";
+	mes "打倒这家伙就是我的任务。";
+	mes "过来帮我！";
+	cutin "ep14_roki01.bmp", 2;
+	if (getcharid(0) != getpartyleader(getcharid(1),2)) {
+			next;
+			mes "[讯息]";
+			mes "- 只有队长才能与洛奇缔结契约。 -";
+			close;
+	}
+	.@merid = getmercinfo(0);
+	if(.@merid) {
+		next;
+		mes "[讯息]";
+		mes "^0000FF请解散当前的雇佣兵。^000000";
+		close;
+	}
+	mercenary_create 2937,900000;
+	hideonnpc instance_npcname("洛奇#tnmloki02");
+	//setquest 114800; //state=1
+	//delquest 114800;
+	enablenpc instance_npcname("洛奇的思念#tnm3");
+	close2;
+	cutin "",255;
+	end;
+	
+	OnInstanceInit:
+		hideonnpc instance_npcname("洛奇#tnmloki02");
+		end;
+}
+
+1@tnm3,98,47,3	script	洛奇的思念#tnm3	10043,{
+	mes "[讯息]";
+	mes "右键点击洛奇的幻象，";
+	mes "选择「显示状态」。";
+	mes "在「技能」中选择「心灵冲击」，";
+	mes "可以切断魔神的巨影与梦罗克之间的联系，";
+	mes "从而对其造成真正的伤害。";
+	next;
+	if (getcharid(0) != getpartyleader(getcharid(1),2)) {
+		mes "[讯息]";
+		mes "当洛奇的幻象消失时，";
+		mes "可以由队长重新与洛奇签订契约。";
+		close;
+	}
+	.@merid = getmercinfo(0);
+	if(.@merid) {
+		if(.@merid!=293) {
+			mes "[讯息]";
+			mes "请解散当前的雇佣兵。";
+			close;
+		}
+		mes "[讯息]";
+		mes "当洛奇的幻象消失时，";
+		mes "可以由队长重新与洛奇签订契约。";
+		close;
+	}
+	else {
+			mes "[讯息]";
+			mes "需要重新召唤洛奇的幻影么？";
+			next;
+			if(select("召唤","取消")==2)
+				close;
+			close2;
+			mercenary_create 2937,1800000;
+			end;
+	}
+	
+	OnInstanceInit:
+		disablenpc instance_npcname("洛奇的思念#tnm3");
+		end;
+}
+
+1@tnm3,0,0,0	script	#tnmfinal	CLEAR_NPC,{
+		end;
+	OnStart:
+		initnpctimer;
+		'BossID = monster(instance_mapname("1@tnm3"),98,74,"魔神的巨影",2942,1,instance_npcname("#tnmfinal")+"::OnBossDead");
+		donpcevent instance_npcname("#tnmskill")+"::OnStart";
+		mapannounce instance_mapname("1@tnm3"),"魔神的巨影 : 蝼蚁一般的人类！", 0x1, 0x00ff00, 0x190, 12, 0, 0;
+		end;
+		
+	OnTimer3000:
+		mapannounce instance_mapname("1@tnm3"),"魔神的巨影 : 你们就是魔神复活的第一批祭品！", 0x1, 0x00ff00, 0x190, 12, 0, 0;
+		end;
+	
+	OnTimer6000:
+		mapannounce instance_mapname("1@tnm3"),"洛奇 : 这个家伙，好像有梦罗克的魔力加护，现在是不死之身！", 0x1, 0x00ff00, 0x190, 18, 0, 0;
+		end;
+
+	OnTimer9000:
+		mapannounce instance_mapname("1@tnm3"),"洛奇 : 我可以用[心灵冲击]切断它们之间的联系。", 0x1, 0x00ff00, 0x190, 18, 0, 0;
+		end;
+
+	OnTimer12000:
+		stopnpctimer;
+		mapannounce instance_mapname("1@tnm3"),"使用洛奇的技能[心灵冲击]，可以暂时解除魔神巨影的无敌状态。", 0x1, 0x00ffff, 0x190, 18, 0, 0;
+		end;
+		
+	OnBossDead:
+		mapannounce instance_mapname("1@tnm3"),"魔神的巨影 : 都到了这一步……怎么可能……这个……力量……难道你……", 0x1, 0xff0000, 0x190, 12, 0, 0;
+		disablenpc instance_npcname("洛奇的思念#tnm3");
+		enablenpc instance_npcname("洛奇#tnmloki03");
+		enablenpc instance_npcname("宝箱#tnmboss");
+		donpcevent instance_npcname("#tnm3trap")+"::OnEnd";
+		donpcevent instance_npcname("#tnmskill")+"::OnEnd";
+		end;
+
+}
+
+1@tnm3,0,0,0	script	#tnmskill	CLEAR_NPC,{
+		end;
+	OnStart:
+		initnpctimer;
+		'TNM_SKILL = monster(instance_mapname("1@tnm3"),1,1,"",2960,1);
+		setunitdata 'TNM_SKILL, 29, 1;
+		unitskilluseid 'TNM_SKILL, 353, 1;
+		end;
+
+	OnTimer15000:
+		initnpctimer;
+		getunitdata 'BossID,.@bossdata;
+		.@x = .@bossdata[6];
+		.@y = .@bossdata[7];
+		switch(rand(2)) {
+			case 0:
+				setarray .@spiralx[0], 0,  4,  0, -6, -6, 0, 9, 10,   0, -13, -15, -14, -9;
+				setarray .@spiraly[0], 4, -1, -6, -3,  4, 9, 3, -5, -12,  -7,   0,   9, 16;
+				unittalk 'BossID,"噢哈哈哈哈！";
+				for(.@i = 1; .@i <= getarraysize(.@spiralx); ++.@i) {
+					sleep 200;
+					if('TNM_SKILL)
+						unitskillusepos 'TNM_SKILL,711,1,.@x+.@spiralx[.@i-1],.@y+.@spiraly[.@i-1],1;
+				}
+				break;
+			case 1:
+				unittalk 'BossID,"怎么样？地狱之炎的滋味。";
+				for(.@i = 1; .@i <= 5; ++.@i) {
+					sleep 500;
+					if('TNM_SKILL)
+						unitskillusepos 'TNM_SKILL,711,1,.@x+.@i*3,.@y+.@i*3,1;
+						unitskillusepos 'TNM_SKILL,711,1,.@x-.@i*3,.@y+.@i*3,1;
+						unitskillusepos 'TNM_SKILL,711,1,.@x-.@i*3,.@y-.@i*3,1;
+						unitskillusepos 'TNM_SKILL,711,1,.@x+.@i*3,.@y-.@i*3,1;
+				}
+				break;
+		}
+		end;
+		
+	OnEnd:
+		mobremove 'TNM_SKILL;
+		stopnpctimer;
+	OnInstanceInit:
+		'TNM_SKILL = 0;
+		end;		
+}
+
+1@tnm3,0,0,0	script	#tnm3trap	CLEAR_NPC,{
+		end;
+	OnStart:
+		'TNM_TRAP = monster(instance_mapname("1@tnm3"),1,1,"",2960,1);
+		setunitdata 'TNM_TRAP, 29, 1;
+		unitskilluseid 'TNM_TRAP, 353, 1;
+		for(.@i = 1; .@i <= 10; ++.@i)
+			enablenpc instance_npcname("#tnm3trap"+.@i);
+		end;
+		
+	OnEnd:
+		mobremove 'TNM_TRAP;
+	OnInstanceInit:
+		'TNM_TRAP = 0;
+		for(.@i = 1; .@i <= 10; ++.@i) {
+			stopnpctimer instance_npcname("#tnm3trap"+.@i);
+			disablenpc instance_npcname("#tnm3trap"+.@i);
+		}
+		end;
+}
+
+1@tnm3,54,42,0	script	#tnm3trap1	HIDDEN_WARP_NPC,5,5,{
+	OnTouch_:
+		disablenpc instance_npcname(strnpcinfo(0));
+		getmapxy(.@map$,.@x,.@y,1);
+		if('TNM_TRAP)
+			unitskillusepos 'TNM_TRAP, 92, 5, .@x, .@y, 1;
+		initnpctimer;
+		end;
+	
+	OnTimer45000:
+		enablenpc instance_npcname(strnpcinfo(0));
+		stopnpctimer;
+		end;
+}
+1@tnm3,92,47,3	script	宝箱#tnmboss	10005,{
+	setarray .@gain[0], 8503,8503,8503,8522,8523,15108,21008,28903;
+	setarray .@rate[0],10000,5000,1000,5000, 500, 1000, 1000,  500;
+	getmapxy(.@map$,.@x,.@y,1,instance_npcname(strnpcinfo(0)));
+	specialeffect 10;
+	hideonnpc instance_npcname(strnpcinfo(0));
+	for(.@i = 0; .@i < getarraysize(.@gain); ++.@i) {
+		if(rand(10000) < .@rate[.@i])
+			makeitem .@gain[.@i],1,.@map$,.@x+rand(3)-1,.@y+rand(3)-1;
+	}
+	end;
+	
+	OnInstanceInit:
+		disablenpc instance_npcname(strnpcinfo(0));
+		end;
+}
+
+
+1@tnm3,98,47,3	script	洛奇#tnmloki03	512,{
+	if(@TNMEXP < 2) {
+		mes "‐在于洛奇对话的同时";
+		mes "　身体内不断涌出着不可思议的力量。";
+		specialeffect2 35;
+		//setquest 114810;
+		//compquest 114810;
+		specialeffect2 58;
+		@TNMEXP = 2;
+		getexp 500000,0;
+		getexp 500000,0;
+		getexp 0,500000;
+		next;
+	}
+	mes "[洛奇]";
+	mes "……哼，真是简单。";
+	mes "魔神的复活仪式以失败告终。";
+	mes "问题应该解决了。";
+	cutin "ep14_roki01.bmp", 2;
+	next;
+	mes "[洛奇]";
+	mes "但是……已经死去的领主的女儿。";
+	mes "为什么能做出这种事？";
+	mes "我无法理解这种行为。";
+	next;
+	mes "‐向陷入沉思的洛奇";
+	mes "　询问回去的方法‐";
+	cutin "ep14_roki01.bmp", 255;
+	next;
+	mes "[洛奇]";
+	mes "原来是这样啊。";
+	mes "你们并不属于时代吧。";
+	mes "我可以帮助你们回去，怎么样？";
+	cutin "ep14_roki01.bmp", 2;
+	next;
+	if(select("从这出去","再呆一会") == 2) {
+		mes "[洛奇]";
+		mes "这里其实不应该是你们久居的地方。";
+		close2;
+		cutin "ep14_roki01.bmp", 255;
+		end;
+	}
+	mes "[洛奇]";
+	mes "好，期待我们能够再会。";
+	next;
+	mes "[洛奇]";
+	mes "趁着我的力量还尚存一些，";
+	mes "这就送你们离开。";
+	//setquest 114800;
+	//compquest 114800;
+	close2;
+	cutin "ep14_roki01.bmp", 255;
+	if(questprogress(40025)) completequest 40025;
+	warp "dali02",134,112;
+	end;
+	
+	OnInstanceInit:
+		disablenpc instance_npcname("洛奇#tnmloki03");
+		end;
+}
+
+1@tnm3,63,46,0	duplicate(#tnm3trap1)	#tnm3trap2	HIDDEN_WARP_NPC,5,5
+1@tnm3,59,66,0	duplicate(#tnm3trap1)	#tnm3trap3	HIDDEN_WARP_NPC,5,5
+1@tnm3,72,84,0	duplicate(#tnm3trap1)	#tnm3trap4	HIDDEN_WARP_NPC,5,5
+1@tnm3,90,74,0	duplicate(#tnm3trap1)	#tnm3trap5	HIDDEN_WARP_NPC,5,5
+1@tnm3,125,80,0	duplicate(#tnm3trap1)	#tnm3trap6	HIDDEN_WARP_NPC,5,5
+1@tnm3,138,71,0	duplicate(#tnm3trap1)	#tnm3trap7	HIDDEN_WARP_NPC,5,5
+1@tnm3,134,58,0	duplicate(#tnm3trap1)	#tnm3trap8	HIDDEN_WARP_NPC,5,5
+1@tnm3,138,46,0	duplicate(#tnm3trap1)	#tnm3trap9	HIDDEN_WARP_NPC,5,5
+1@tnm3,142,38,0	duplicate(#tnm3trap1)	#tnm3trap10	HIDDEN_WARP_NPC,5,5

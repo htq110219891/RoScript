@@ -1,0 +1,45 @@
+prontera,167,125,5,	script	头饰制作A	445,{
+	cleararray .materials[0],0,100;
+	mes "[头饰制作]";
+	mes "请选择要制作的头饰";
+	switch(select("头饰A","头饰B","头饰C")){
+		case 1:
+			set .headId,503;	//头饰ID
+			set .spendZeny,10000;	//花费的Zeny
+			setarray .materials[0],501,10,502,10;	//材料Id,数量
+		break;
+		case 2:
+			set .headId,504;	//头饰ID
+			set .spendZeny,10000;	//花费的Zeny
+			setarray .materials[0],501,10,502,10,503,10;	//材料1Id,数量1,材料2 id ,数量2			
+		break;
+		case 3:
+			//和A一样，尝试自己写
+		break;
+	}
+	mes "制作"+getitemname(.headId)+"需要下列材料";
+	mes "Zeny："+.spendZeny;
+	for(set @i,0;@i<getarraysize(.materials);@i=@i+2){
+		mes "["+getitemname(.materials[@i])+"]"+.materials[@i+1]+"个";
+	}
+	next;
+	mes "[头饰制作]";
+	set @insufficient,0;
+	for(set @i,0;@i<getarraysize(.materials);@i=@i+2){
+		if(countitem(.materials[@i])<.materials[@i+1]){
+			set @insufficient,1;
+		}
+	}
+	if(@insufficient==1){	
+		mes "所需材料不足";					//无法制作
+		close;
+	}else{									//满足条件
+		mes "制作完成";	
+		for(set @i,0;@i<getarraysize(.materials);@i=@i+2){
+			delitem .materials[@i],.materials[@i+1];	
+		}
+		set Zeny,Zeny-.spendZeny;				//减少玩家 Zeny
+		getitem .headId,1;						//获得头饰
+		close;
+	}
+}
