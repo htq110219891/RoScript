@@ -1,0 +1,2 @@
+﻿{ItemID},{ItemName},{ItemName2},6,{Weight},{Location},0,{Group},,,,,,,,,,,,{ {Bounds} },{},{}
+{ItemID2},{ItemName},{ItemName2},6,{Weight},{Location},0,{Group},,,,,,,,,,,,{ {Bounds} },{},{}

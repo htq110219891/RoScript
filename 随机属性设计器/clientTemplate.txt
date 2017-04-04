@@ -1,0 +1,32 @@
+﻿[{ItemID}] = {
+	unidentifiedDisplayName = "{ItemName}",
+	unidentifiedResourceName = "{ResourceName}",
+	unidentifiedDescriptionName = {
+		"{Description}",
+		"^ffffff_^000000",
+	},
+	identifiedDisplayName = "{ItemName}",
+	identifiedResourceName = "{ResourceName}",
+	identifiedDescriptionName = {
+		"{Description}",
+		"^ffffff_^000000",
+	},
+	slotCount = 0,
+	ClassNum = 0
+},
+[{ItemID2}] = {
+	unidentifiedDisplayName = "{ItemName}",
+	unidentifiedResourceName = "{ResourceName2}",
+	unidentifiedDescriptionName = {
+		"{Description}",
+		"^ffffff_^000000",
+	},
+	identifiedDisplayName = "{ItemName}",
+	identifiedResourceName = "{ResourceName2}",
+	identifiedDescriptionName = {
+		"{Description}",
+		"^ffffff_^000000",
+	},
+	slotCount = 0,
+	ClassNum = 0
+},
