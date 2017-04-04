@@ -264,7 +264,7 @@ Critical|1|10|10000|0|侩狼焊林_踌|侩狼焊林_全||Critical + {Value}/{Max
 风魔飞镖乱华|8|25|10000|68|侩狼焊林_踌|侩狼焊林_全||风魔飞镖乱华伤害 + {Value}/{MaxValue}|bonus2 bSkillAtk,3009,{Value}; 
 漆黑之爪|8|25|10000|68|侩狼焊林_踌|侩狼焊林_全||漆黑之爪伤害 + {Value}/{MaxValue}|bonus2 bSkillAtk,5001,{Value}; 
 连击|1|5|10000|4|侩狼焊林_踌|侩狼焊林_全||{Value}/{MaxValue} %几率 在3秒内触发二次攻击|autobonus "{bonus bDoubleAddRate,100;}",{Value}*10,3000,BF_WEAPON,"{ specialeffect2 EF_HASTEUP; }"; 
-暴击抗性|20|50|10000|8|侩狼焊林_踌|侩狼焊林_全||暴击抗性 + {Value}/{MaxValue} %|autobonus "{bonus bDoubleAddRate,100;}",{Value}*10,3000,BF_WEAPON,"{ specialeffect2 EF_HASTEUP; }"; 
+暴击抗性|20|50|10000|24|侩狼焊林_踌|侩狼焊林_全||暴击抗性 + {Value}/{MaxValue} %|autobonus "{bonus bDoubleAddRate,100;}",{Value}*10,3000,BF_WEAPON,"{ specialeffect2 EF_HASTEUP; }"; 
 忽视无形系物理防御|0|0|10000|4|侩狼焊林_踌|侩狼焊林_全||忽视无形系物理防御|bonus bIgnoreDefRace,0;
 忽视动物系物理防御|0|0|10000|4|侩狼焊林_踌|侩狼焊林_全||忽视动物系物理防御|bonus bIgnoreDefRace,2;
 忽视不死系物理防御|0|0|10000|4|侩狼焊林_踌|侩狼焊林_全||忽视不死系物理防御|bonus bIgnoreDefRace,1;
@@ -334,3 +334,6 @@ Critical|1|10|10000|0|侩狼焊林_踌|侩狼焊林_全||Critical + {Value}/{Max
 狂战士|0|0|10000|4|侩狼焊林_踌|侩狼焊林_全||狂击技能击退敌人1格|bonus2 bAddSkillBlow,5,1;
 低价买进精通|1|3|10000|4|侩狼焊林_踌|侩狼焊林_全||低价买进技能等级 + {Value}/{MaxValue}|skill "MC_DISCOUNT", getskilllv( "MC_DISCOUNT" ) + {Value};
 偷窃精通|10|50|10000|4|侩狼焊林_踌|侩狼焊林_全||偷窃成功率 + {Value}/{MaxValue}%|bonus bAddStealRate, {Value}*100;
+治疗精通|5|50|10000|64|侩狼焊林_踌|侩狼焊林_全||治疗技能效果 + {Value}/{MaxValue}%|bonus bHealPower,{Value};
+被疗精通|5|50|10000|2|侩狼焊林_踌|侩狼焊林_全||被治疗技能效果 + {Value}/{MaxValue}%|bonus bHealPower2,{Value};
+飞毛腿|5|50|10000|32|侩狼焊林_踌|侩狼焊林_全||被攻击时 {Value}/{MaxValue}% 几率在1秒内提升移动速度|autobonus "{ sc_start SC_SPEEDUP1,{Value}*10,1000; }",10,1000,Default,"{ specialeffect2 EF_FIRESPLASHHIT; }";
