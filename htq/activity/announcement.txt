@@ -176,7 +176,7 @@ prontera.gat,139,98,5	script	公告	858,{
 				mes "活动时间："+$npc_activity_time$[@op-1];
 				mes "活动内容："+$npc_activity_content$[@op-1];
 				if($npc_activity_url$[@op-1]!="0"){
-					mes "活动链接：<URL>点我打开并放大查看<INFO>"+$npc_activity_url$[@op-1]+"</INFO></URL>";
+					mes "活动链接：<URL>点我打开并放大查看<INFO>"+$npc_activity_url$[@op-1]+",1024,768,1</INFO></URL>";
 				}
 				close;
 			break;
