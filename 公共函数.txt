@@ -1,0 +1,319 @@
+function	script	GetStrTime	{
+	switch(getarg(1,0)%3)
+	{
+		case 0: return (atoi(getarg(0))/31536000)+"年"+(atoi(getarg(0))%31536000/86400)+"天"+(atoi(getarg(0))%86400/3600)+"时"+(atoi(getarg(0))%3600/60)+"分"+(atoi(getarg(0))%60)+"秒";
+		case 1: return (atoi(getarg(0))>=31536000?(atoi(getarg(0))/31536000)+"年":"")+(atoi(getarg(0))>=86400?(atoi(getarg(0))%31536000/86400)+"天":"")+(atoi(getarg(0))>=3600?(atoi(getarg(0))%86400/3600)+"时":"")+(atoi(getarg(0))>=60?(atoi(getarg(0))%3600/60)+"分":"")+(atoi(getarg(0))%60)+"秒";
+		case 2: return ((atoi(getarg(0))/31536000)?(atoi(getarg(0))/31536000)+"年":"")+((atoi(getarg(0))%31536000/86400)?(atoi(getarg(0))%31536000/86400)+"天":"")+((atoi(getarg(0))%86400/3600)?(atoi(getarg(0))%86400/3600)+"时":"")+((atoi(getarg(0))%3600/60)?(atoi(getarg(0))%3600/60)+"分":"")+((atoi(getarg(0))%60) || atoi(getarg(0))<60?(atoi(getarg(0))%60)+"秒":"");
+	}
+}
+
+// usage : 
+// .@new_array_size = callsub( OnExplodeArray,<old string variable>,<new array variable>,<save '0'>,<explode char> );
+function	script	ExplodeArray	{
+	.@type = getarg(2);
+	explode( getarg(0),getarg(0),getarg(3) );
+	.@size = getarraysize( getarg(0) );
+	if ( !.@size )
+		return 0;
+
+	while( .@i < .@size ) {
+		if( !.@type ) {
+			.@value = atoi( getelementofarray( getarg(0),.@i ) );
+			if( .@value ) {
+				set getelementofarray( getarg(1),.@new_size ),.@value;
+				.@new_size++;
+			}
+		}
+		else {
+			set getelementofarray( getarg(1),.@new_size ),getelementofarray( getarg(0),.@i );
+			.@new_size++;
+		}
+		.@i++;
+	}
+ 
+	return .@new_size;
+}
+
+function	script	RollValue	{
+
+	.@argString$ = getarg(0);
+	.@argStringMd5 = md5(.@argString$);
+	.@argArrayString$ = "$@SystemRollArray_" + .@argStringMd5;	
+	if(getarraysize(getd(.@argArrayString$)) == 0) {
+		callfunc("ExplodeArray", .@argString$, .@argArrayTmp, 1, "|");
+		for(.@i = 0; .@i < getarraysize(.@argArrayTmp); .@i++) {
+			set getelementofarray(getd(.@argArrayString$),.@i),.@argArrayTmp[.@i];
+		}
+	}
+	
+	.@argArraySize = getarraysize(getd(.@argArrayString$));
+	.@total = 0;
+
+	for ( .@i = 0; .@i < .@argArraySize; .@i = .@i + 2) {
+		.@total = .@total + getelementofarray(getd(.@argArrayString$),.@i + 1);
+	}
+
+	.@curr = rand(.@total);
+	.@next = 0;
+
+	for ( .@i = 0; .@i < .@argArraySize; .@i = .@i + 2) {
+		.@next = .@next + getelementofarray(getd(.@argArrayString$),.@i + 1);
+		if( .@curr <= .@next) {
+			return getelementofarray(getd(.@argArrayString$),.@i);
+		}
+	}
+
+	debugmes "随机函数出错";
+}
+
+function	script	GetRGB	{
+	function ten_sixteen;
+
+	for (set @arg,0;@arg<3;set @arg,@arg+1) {
+		if (getarg(@arg)>15) {
+			set @arg_1,getarg(@arg)/16;
+			set @arg_2,getarg(@arg)%16;
+		} else if (getarg(@arg)>=256){
+			return -1;
+			break;
+		} else {
+			set @arg_1,0;
+			set @arg_2,getarg(@arg);
+		}
+		switch(@arg) {
+		case 0:
+			set @rgb_0$,ten_sixteen(@arg_1)+ten_sixteen(@arg_2);
+			break;
+		case 1:
+			set @rgb_1$,ten_sixteen(@arg_1)+ten_sixteen(@arg_2);
+			break;
+		case 2:
+			set @rgb_2$,ten_sixteen(@arg_1)+ten_sixteen(@arg_2);
+			break;
+		}	
+	}
+	return @rgb_0$+@rgb_1$+@rgb_2$;
+
+	function ten_sixteen {
+		if (getarg(0)==10) return "A";
+		else if (getarg(0)==11) return "B";
+		else if (getarg(0)==12) return "C";
+		else if (getarg(0)==13) return "D";
+		else if (getarg(0)==14) return "E";
+		else if (getarg(0)==15) return "F";
+		else return ""+getarg(0);
+	}
+}
+
+// usage : 
+// .@mob_game_id = callfunc( "CreateNPC",<full name> );
+function	script	CreateNPC	{
+	// ========= 初始化 ==============
+	if($@npc_head_initialized == 0) {
+		freeloop(1);
+		for( .@i = 0; .@i < 100000; .@i++ ) {
+			if(getiteminfo(.@i, 2) == 4) {
+				.@loc = getiteminfo(.@i, 5);
+				if(.@loc == 256) 
+					$@npc_head_top_index[getarraysize($@npc_head_top_index)] = .@i;
+			 	else if(.@loc == 512)
+					$@npc_head_middle_index[getarraysize($@npc_head_middle_index)] = .@i;
+				else if(.@loc == 1)
+					$@npc_head_bottom_index[getarraysize($@npc_head_bottom_index)] = .@i;
+			}
+		}
+
+		freeloop(0);
+		$@npc_head_initialized = 1;
+	}
+	// ============================
+
+
+	function get_npc_class;
+	function get_npc_mob_id;
+
+	.@unique_string$ = md5(getarg(0));
+	.@unique_string_length = getstrlen(.@unique_string$);
+	for( .@i = 0; .@i < .@unique_string_length; .@i = .@i + 2 ) {
+		.@unique_data$ = charat(.@unique_string$, .@i) + charat(.@unique_string$, .@i + 1);
+		.@unique_hex = axtoi(.@unique_data$);
+		.@npc_data[.@i / 2] = .@unique_hex;
+	}
+	
+	.@npc_mob_class = get_npc_class(.@npc_data[2] % 75);
+	.@npc_mob_id = get_npc_mob_id(.@npc_mob_class);
+
+	.@npc_game_id = getnpcid(0, getarg(0));
+	getunitdata .@npc_game_id, .@npc_temp_data;
+
+	monster mapid2name(.@npc_temp_data[UNPC_MAPID]), .@npc_temp_data[UNPC_X], .@npc_temp_data[UNPC_Y], getunitname(.@npc_game_id), .@npc_mob_id, 1, getarg(0) + "::OnNpcDead";
+	.@npc_mob_game_id = $@mobid[0];
+	
+	setunitdata .@npc_mob_game_id,UMOB_LOOKDIR,.@npc_temp_data[UNPC_LOOKDIR];
+	setunitdata .@npc_mob_game_id, UMOB_LEVEL, .@npc_data[0];
+	setunitdata .@npc_mob_game_id, UMOB_SEX, .@npc_data[1] < (255 / 2) ? 1 : 2;
+	setunitdata .@npc_mob_game_id, UMOB_HAIRSTYLE, max(1, .@npc_data[2] % getbattleflag("max_hair_style"));
+	setunitdata .@npc_mob_game_id, UMOB_HAIRCOLOR, .@npc_data[3] % getbattleflag("max_hair_color");
+	setunitdata .@npc_mob_game_id, UMOB_HEADBOTTOM, $@npc_head_bottom_index[.@npc_data[4] % getarraysize($@npc_head_bottom_index)];
+	setunitdata .@npc_mob_game_id, UMOB_HEADMIDDLE, $@npc_head_middle_index[.@npc_data[5] % getarraysize($@npc_head_middle_index)];
+	setunitdata .@npc_mob_game_id, UMOB_HEADTOP, $@npc_head_top_index[.@npc_data[6] % getarraysize($@npc_head_top_index)];
+	setunitdata .@npc_mob_game_id, UMOB_HAIRCOLOR, .@npc_data[7] % getbattleflag("max_cloth_color");
+	//setunitdata .@npc_mob_game_id, UMOB_SHIELD, .@npc_data[8]
+	//setunitdata .@npc_mob_game_id, UMOB_WEAPON, .@npc_data[9];
+	setunitdata .@npc_mob_game_id, UMOB_STR, .@npc_data[10];
+	setunitdata .@npc_mob_game_id, UMOB_AGI, .@npc_data[11];
+	setunitdata .@npc_mob_game_id, UMOB_VIT, .@npc_data[12];
+	setunitdata .@npc_mob_game_id, UMOB_INT, .@npc_data[13];
+	setunitdata .@npc_mob_game_id, UMOB_DEX, .@npc_data[14];
+	setunitdata .@npc_mob_game_id, UMOB_LUK, .@npc_data[15];
+
+	return .@npc_mob_game_id;
+	
+	function	get_npc_mob_id	{
+		switch(getarg(0)) {
+			case 0: return 3920;
+			case 1: return 3921;
+			case 2: return 3922;
+			case 3: return 3923;
+			case 4: return 3924;
+			case 5: return 3925;
+			case 6: return 3926;
+			case 7: return 3927;
+			case 8: return 3928;
+			case 9: return 3929;
+			case 10: return 3930;
+			case 11: return 3931;
+			case 12: return 3932;
+			case 14: return 3933;
+			case 15: return 3934;
+			case 16: return 3935;
+			case 17: return 3936;
+			case 18: return 3937;
+			case 19: return 3938;
+			case 20: return 3939;
+			case 4054: return 3940;
+			case 4055: return 3941;
+			case 4056: return 3942;
+			case 4057: return 3943;
+			case 4058: return 3944;
+			case 4059: return 3945;
+			case 4066: return 3946;
+			case 4067: return 3947;
+			case 4068: return 3948;
+			case 4069: return 3949;
+			case 4070: return 3950;
+			case 4071: return 3951;
+			case 4072: return 3952;
+			case 4001: return 3953;
+			case 4002: return 3954;
+			case 4003: return 3955;
+			case 4004: return 3956;
+			case 4005: return 3957;
+			case 4006: return 3958;
+			case 4007: return 3959;
+			case 4008: return 3960;
+			case 4009: return 3961;
+			case 4010: return 3962;
+			case 4011: return 3963;
+			case 4012: return 3964;
+			case 4013: return 3965;
+			case 4015: return 3966;
+			case 4016: return 3967;
+			case 4017: return 3968;
+			case 4018: return 3969;
+			case 4019: return 3970;
+			case 4020: return 3971;
+			case 4021: return 3972;
+			case 4060: return 3973;
+			case 4061: return 3974;
+			case 4062: return 3975;
+			case 4063: return 3976;
+			case 4064: return 3977;
+			case 4065: return 3978;
+			case 4073: return 3979;
+			case 4074: return 3980;
+			case 4075: return 3981;
+			case 4076: return 3982;
+			case 4077: return 3983;
+			case 4078: return 3984;
+			case 4079: return 3985;
+			case 23: return 3986;
+			case 24: return 3987;
+			case 25: return 3988;
+			case 4046: return 3989;
+			case 4047: return 3990;
+			case 4049: return 3991;
+			case 4211: return 3992;
+			case 4212: return 3993;
+			case 4215: return 3994;
+		}
+	}
+
+	function 	get_npc_class	{
+		switch(getarg(0)) {
+			default:
+				return getarg(0);
+			case 13: return 14;
+			case 14: return 15;
+			case 15: return 16;
+			case 17: return 18;
+			case 18: return 19;
+			case 19: return 20;
+			case 20: return 4054;
+			case 21: return 4055;
+			case 22: return 4056;
+			case 23: return 4057;
+			case 24: return 4058;
+			case 25: return 4059;
+			case 26: return 4066;
+			case 27: return 4067;
+			case 28: return 4068;
+			case 29: return 4069;
+			case 30: return 4070;
+			case 31: return 4071;
+			case 32: return 4072;
+			case 33: return 4001;
+			case 34: return 4002;
+			case 35: return 4003;
+			case 36: return 4004;
+			case 37: return 4005;
+			case 38: return 4006;
+			case 39: return 4007;
+			case 40: return 4008;
+			case 41: return 4009;
+			case 42: return 4010;
+			case 43: return 4011;
+			case 44: return 4012;
+			case 45: return 4013;
+			case 46: return 4015;
+			case 47: return 4016;
+			case 48: return 4017;
+			case 49: return 4018;
+			case 50: return 4019;
+			case 51: return 4020;
+			case 52: return 4021;
+			case 53: return 4060;
+			case 54: return 4061;
+			case 55: return 4062;
+			case 56: return 4063;
+			case 57: return 4064;
+			case 58: return 4065;
+			case 59: return 4073;
+			case 60: return 4074;
+			case 61: return 4075;
+			case 62: return 4076;
+			case 63: return 4077;
+			case 64: return 4078;
+			case 65: return 4079;
+			case 66: return 23;
+			case 67: return 24;
+			case 68: return 25;
+			case 69: return 4046;
+			case 70: return 4047;
+			case 71: return 4049;
+			case 72: return 4211;
+			case 73: return 4212;
+			case 74: return 4215;
+		}	
+	}
+}

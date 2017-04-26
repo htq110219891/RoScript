@@ -1,0 +1,535 @@
+// ====================================================================================================
+-	script	Library_Identified_Main	-1,{
+	OnIdentifiedItem:
+		.@item_id = getinventoryinfo(@identify_idx, 0);
+		setarray .@rand_value_option[0],0,0,0,0;
+		if ( getiteminfo(.@item_id, 2) == 4 || getiteminfo(.@item_id, 2) == 5) {
+
+			.@identify_identify = getinventoryinfo(@identify_idx, 4);
+			.@identify_refine = getinventoryinfo(@identify_idx, 3);
+			.@identify_attribute = getinventoryinfo(@identify_idx, 5);
+			.@identify_card1 = getinventoryinfo(@identify_idx, 6);
+			.@identify_card2 = getinventoryinfo(@identify_idx, 7);
+			.@identify_card3 = getinventoryinfo(@identify_idx, 8);
+			.@identify_card4 = getinventoryinfo(@identify_idx, 9);
+
+			// 得到装备可获取词缀分组类型
+			switch(getiteminfo(.@item_id, 5)) {
+				case 256:
+				case 512:
+				case 1:
+				case 768:
+				case 257:
+				case 769:
+				case 513:
+					.@library_identified_index = 0;
+					break;
+				case 16:
+					.@library_identified_index = 1;
+					break;
+				case 2:
+				case 34:
+					.@library_identified_index = 2;
+					break;
+				case 32:
+					.@library_identified_index = 3;
+					break;
+				case 4:
+					.@library_identified_index = 4;
+					break;
+				case 64:
+					.@library_identified_index = 5;
+					break;
+				case 8:
+				case 128:
+					.@library_identified_index = 6;
+					break;
+			}
+
+			// 根据隐藏精练值和用户变量增幅值生成几率
+			.@rand_value_added = .@identify_refine * (7000 / 20) + @Library_Identified_Added;
+
+			freeloop(1);
+			
+			.@rand_value_index = 0;
+			for( .@i = 0; .@i < (4 - getitemslots(.@item_id)); .@i++ ) {
+				if( rand(10000) < 3000 + .@rand_value_added ) {
+					while(searcharray(.@rand_value_option_group, getiteminfo( .@option_id = callfunc("RollValue", .library_identified_string$[.@library_identified_index]), 7)) >= 0) {
+						if ( getarraysize ( .@rand_value_option_group ) >= .library_identified_group[.@library_identified_index] ) {
+							goto OnGetItem;
+						}
+					}
+
+					.@rand_value_option[.@rand_value_index] = .@option_id;
+					.@rand_value_option_group[.@rand_value_index] = getiteminfo(.@option_id, 7);
+					.@rand_value_index++;
+				}
+			}
+
+			freeloop(0);
+		} 
+		
+	OnGetItem:
+		@Library_Identified_Added = 0;
+		delinventory @identify_idx,1;
+		getitem2 .@item_id,1,1,0,0,.@rand_value_option[3],.@rand_value_option[2],.@rand_value_option[1],.@rand_value_option[0];
+		end;
+
+	OnInit:
+	
+		freeloop(1);
+		
+		.@current_group_id = -1;
+		for ( .@i = 41001; .@i <= 50160; .@i = .@i + 2 ) {
+			.@item_loc = getiteminfo(.@i, 8);
+			.@item_group = getiteminfo(.@i, 7);
+			.@increase_group = .@current_group_id != .@item_group;
+
+			for ( .@x = 0; .@x <= 6; .@x++ ) {
+				.@pow = pow(2, .@x);
+				if( (.@item_loc & .@pow) == .@pow) {
+					.library_identified_string$[.@x] = .library_identified_string$[.@x] + (.@i + "|" + getiteminfo(.@i, 0) + "|");
+
+					if ( .@increase_group )
+						.library_identified_group[.@x]++;		
+				}
+			}
+
+			.@current_group_id = .@item_group;
+		}
+
+		freeloop(0);
+}
+//================================================//
+-	shop	Item_Furnace_Shop	-1,501:-1
+-	script	Item_Furnace_Main	-1,{
+	OnBegin:
+		// 打开贩售商店
+		callshop "Item_Furnace_Shop",2;
+		npcshopattach "Item_Furnace_Shop";
+		end;
+
+	OnSellItem:
+		.@sold_nameid_size = getarraysize( @sold_nameid );
+		.@sold_total_count = 0;
+		.@sold_other_item = 0;
+		// 读取分解道具等级
+		for(.@i = 0; .@i < .@sold_nameid_size; .@i++) {
+			.@sold_nameid = @sold_nameid[.@i];
+			if ( getiteminfo(.@sold_nameid, 2) == 4 || 
+				getiteminfo(.@sold_nameid,2) == 5 || 
+				.@sold_nameid == .library_furnace_lv0Itemid ||
+				.@sold_nameid == .library_furnace_lv1Itemid ||
+				.@sold_nameid == .library_furnace_lv2Itemid ||
+				.@sold_nameid == .library_furnace_lv3Itemid ||
+				.@sold_nameid == .library_furnace_lv4Itemid) {
+
+				.@lv = 0;
+				if(@sold_card1[.@i] >= .library_furnace_startid && @sold_card1[.@i] <= .library_furnace_endid) {
+					.@lv = .@lv + 1;
+				}
+
+				if(@sold_card2[.@i] >= .library_furnace_startid && @sold_card2[.@i] <= .library_furnace_endid) {
+					.@lv = .@lv + 1;
+				}
+
+				if(@sold_card3[.@i] >= .library_furnace_startid && @sold_card3[.@i] <= .library_furnace_endid) {
+					.@lv = .@lv + 1;
+				}
+
+				if(@sold_card4[.@i] >= .library_furnace_startid && @sold_card4[.@i] <= .library_furnace_endid) {
+					.@lv = .@lv + 1;
+				}
+
+				if(.@lv > 0) {
+
+					// 获取信息
+					switch(.@lv) {
+						case 0: .@get_itemid = .library_furnace_lv0Itemid; break;
+						case 1: .@get_itemid = .library_furnace_lv1Itemid; break;
+						case 2: .@get_itemid = .library_furnace_lv2Itemid; break;
+						case 3: .@get_itemid = .library_furnace_lv3Itemid; break;
+						case 4: .@get_itemid = .library_furnace_lv4Itemid; break;
+					}
+
+				
+					.@sold_amount = @sold_quantity[.@i];
+					.@sold_identify = @sold_identify[.@i];
+					.@sold_refine = @sold_refine[.@i];
+					.@sold_attribute = @sold_attribute[.@i];
+					.@sold_card1 = @sold_card1[.@i];
+					.@sold_card2 = @sold_card2[.@i];
+					.@sold_card3 = @sold_card3[.@i];
+					.@sold_card4 = @sold_card4[.@i];
+					.@sold_amount_ratio = 1;
+					/*
+					if ( .@sold_nameid == .library_furnace_lv0Itemid ) {
+						.@get_itemid = .library_furnace_lv1Itemid;
+						.@sold_amount_ratio = 20;
+						.@sold_amount = .@sold_amount - (.@sold_amount % .@sold_amount_ratio);
+					
+					}
+					else if ( .@sold_nameid == .library_furnace_lv1Itemid ) {
+						.@get_itemid = .library_furnace_lv2Itemid;
+						.@sold_amount_ratio = 30;
+						.@sold_amount = .@sold_amount - (.@sold_amount % .@sold_amount_ratio);
+					}
+					else if ( .@sold_nameid == .library_furnace_lv2Itemid ) {
+						.@get_itemid = .library_furnace_lv3Itemid;
+						.@sold_amount_ratio = 40;
+						.@sold_amount = .@sold_amount - (.@sold_amount % .@sold_amount_ratio);
+					}
+					else if ( .@sold_nameid == .library_furnace_lv3Itemid ) {
+						.@get_itemid = .library_furnace_lv4Itemid;
+						.@sold_amount_ratio = 50;
+						.@sold_amount = .@sold_amount - (.@sold_amount % .@sold_amount_ratio);
+					}
+			 		else if ( .@sold_nameid == .library_furnace_lv4Itemid ) {
+						dispbottom  "紫色晶石尚未开放熔炼",0xFF0000;
+						.@sold_amount = 0;
+					}
+					*/
+					if(countitem(.@get_itemid) + .@sold_amount  > .get_item_limitamount) {
+						dispbottom  getitemname(.@get_itemid) + "的携带/存放上限为" + .get_item_limitamount + "个",0xFF0000;
+					}
+					else {
+						// 移除道具
+						.@sold_type = getiteminfo(@sold_nameid, 2) ;
+						if(.@sold_type != 4 && .@sold_type != 5 && .@sold_type != 12) {
+							delitem .@sold_nameid,.@sold_amount;
+						}
+						else {
+				 			delitem2 .@sold_nameid,.@sold_amount,.@sold_identify,.@sold_refine,.@sold_attribute,.@sold_card1,.@sold_card2,.@sold_card3,.@sold_card4;
+						}
+
+						// 添加分解道具
+						getitem .@get_itemid,.@sold_amount / .@sold_amount_ratio; 
+
+						// 添加总销售数量
+						.@sold_total_count = .@sold_total_count + .@sold_amount;
+					}
+				}
+				else {
+					.@sold_other_item = 1;
+				}
+			} 
+			else {
+				.@sold_other_item = 1;
+			}
+		}
+
+		// 移除道具
+		if(.@sold_total_count > 0) delitem .library_furnace_needitemid,1;
+
+		// 如果移除了其他道具则提示信息
+	 	if(.@sold_other_item == 1) dispbottom  "只有带词缀的装备物品可熔炼",0xFF0000;
+		
+		// 移除数组
+		deletearray @sold_quantity, getarraysize(@sold_quantity);
+		deletearray @sold_nameid, getarraysize(@sold_nameid);
+		end;
+
+	OnInit:
+
+		npcshopitem "Item_Furnace_Shop",0,0;
+
+		.library_furnace_startid = 41001;
+		.library_furnace_endid = 50160;
+		.library_furnace_lv0Itemid = 40006;
+		.library_furnace_lv1Itemid = 40005;
+		.library_furnace_lv2Itemid = 40004;
+		.library_furnace_lv3Itemid = 40003;
+		.library_furnace_lv4Itemid = 40002;
+		.library_furnace_needitemid = 40007;
+		.get_item_limitamount = 30000;
+
+		end;
+}
+
+//================================================//
+-	shop	Library_Intensify_Shop	-1,501:-1
+new_1-4,105,141,4	shop	Library_Intensify_ShopInstance	716,501:-1
+new_1-4,105,142,4	script	Library_Intensify_Destroy	716,{
+	OnInstanceDestroy:
+		//.@npc_gid = getnpcid(0, instance_npcname("Library_Intensify_ShopInstance", instance_id()) );
+		//unitwarp .@npc_gid, instance_mapname("new_1-4", instance_id()), 105,141;
+		end;
+}
+-	script	Library_Intensify_Main	-1,{
+	OnBegin:
+		@sold_nameid = 0;
+		@sold_amount = 0;
+		@sold_identify = 0;
+		@sold_refine = 0;
+		@sold_attribute = 0;
+		@sold_card1 = 0;
+		@sold_card2 = 0;
+		@sold_card3 = 0;
+		@sold_card4 = 0;
+
+		// 打开贩售商店
+		mes "选择一个存在词缀的道具进行魔改";
+		callshop "Library_Intensify_Shop",2;
+		npcshopattach "Library_Intensify_Shop";
+		end;
+
+	OnPCLogoutEvent:
+		if( @library_intensify_shop_id > 0 )  {
+			instance_destroy(@library_intensify_shop_id);
+		}
+		end;
+
+	OnBuyItem:
+		
+		// 两种模式，一种是选择需要更改的附魔词条，一种是选择替换的附魔词条
+		if ( @library_intensify_mode == 0 )  {
+			// 获得选择索引
+			.@index = 0;
+			for ( .@i = getarraysize(@shop_index) - 1; .@i > 0; .@i--) {
+				if(@shop_index[.@i] == @bought_nameid) {
+					.@index = .@i;
+					break;
+				}
+			}
+
+			// 根据索引从玩家身上获得数据
+			@library_intensify_replace_itemid = @library_intensify_index[.@index];
+
+			// 获取商店名
+			@shop_name$ = instance_npcname("Library_Intensify_ShopInstance", @library_intensify_shop_id);
+
+			// 清空商店
+			npcshopitem @shop_name$,0,0;
+			cleararray @shop_index[0],0,getarraysize(@shop_index);
+			
+			// 得到装备可获取词缀分组类型
+			switch(getiteminfo(@sold_nameid, 5)) {
+				case 256:
+				case 512:
+				case 513:
+				case 1:
+				case 768:
+				case 257:
+				case 769:
+					.@library_intensify_index = 0;
+					break;
+				case 16:
+					.@library_intensify_index = 1;
+					break;
+				case 2:
+				case 34:
+					.@library_intensify_index = 2;
+					break;
+				case 32:
+					.@library_intensify_index = 3;
+					break;
+				case 4:
+					.@library_intensify_index = 4;
+					break;
+				case 64:
+					.@library_intensify_index = 5;
+					break;
+				case 8:
+				case 128:
+					.@library_intensify_index = 6;
+					break;
+			}
+
+			// 从词缀库Roll N条新属性
+			freeloop(1);
+			
+			.@rand_value_index = 0;
+			for ( .@i = 0; .@i < .library_intensify_rollnum; .@i++ ) {
+				
+				while(searcharray(.@rand_value_option_group, getiteminfo( .@option_id = callfunc("RollValue", .library_intensify_string$[.@library_identified_index]), 7)) >= 0) {
+					if ( getarraysize ( .@rand_value_option_group ) >= .library_intensify_group[.@library_intensify_index] ) {
+						goto OnGetItem;
+					}
+				}
+				
+				.@rand_value_option[.@rand_value_index] = .@option_id;
+				.@rand_value_option_group[.@rand_value_index] = getiteminfo(.@option_id, 7);
+				.@rand_value_index++;
+				
+				// 向商店添加新物品
+				npcshopadditem @shop_name$, .@option_id, 0;
+			}
+			
+		OnGetItem:
+			freeloop(0);
+
+			// 设置参数
+			@library_intensify_mode = 1;
+
+			// 向用户移除道具
+			delitem .library_intensify_needitemid,1;
+			
+			// 设置提示
+			mes "购买该道具可替换选择词缀，取消则保留当前词缀";
+			sleep2 1;
+
+			// 打开购买商店
+			callshop @shop_name$,1;
+			npcshopattach @shop_name$;
+		} 
+		else {
+
+			// 移除道具
+			delitem2 @sold_nameid,@sold_amount,@sold_identify,@sold_refine,@sold_attribute,@sold_card1,@sold_card2,@sold_card3,@sold_card4;
+			
+			// 查找替换位置
+			for( .@i = 4; .@i > 0; .@i-- ) {
+				if ( getd("@sold_card" + .@i) == @library_intensify_replace_itemid) {
+					setd "@sold_card" + .@i, @bought_nameid;
+					break;
+				}
+			}
+
+			// 添加新的道具
+			getitem2 @sold_nameid,@sold_amount,@sold_identify,@sold_refine,@sold_attribute,@sold_card1,@sold_card2,@sold_card3,@sold_card4;
+
+			// 销毁实例
+		 	instance_destroy(@library_intensify_shop_id);
+
+			// 设置参数
+			//@library_intensify_shop_id = 0;
+		}
+
+		end;
+
+	OnSellItem:
+		.@sold_nameid_size = getarraysize( @sold_nameid );
+		if( .@sold_nameid_size > 0 ) { 
+			// 获得信息
+			@sold_nameid = @sold_nameid[0];
+			@sold_amount = @sold_quantity[0];
+			@sold_identify = @sold_identify[0];
+			@sold_refine = @sold_refine[0];
+			@sold_attribute = @sold_attribute[0];
+			@sold_card1 = @sold_card1[0];
+			@sold_card2 = @sold_card2[0];
+			@sold_card3 = @sold_card3[0];
+			@sold_card4 = @sold_card4[0];
+
+			// 判断道具是否存在附魔
+			.@is_exist_evolution = (@sold_card1 >= .library_intensify_startid && @sold_card1 <= .library_intensify_endid) ||
+					(@sold_card2 >= .library_intensify_startid && @sold_card2 <= .library_intensify_endid) ||
+					(@sold_card3 >= .library_intensify_startid && @sold_card3 <= .library_intensify_endid) ||
+					(@sold_card4 >= .library_intensify_startid && @sold_card4 <= .library_intensify_endid);
+
+			// 如果不存在则提示返回
+			if ( !.@is_exist_evolution ) {
+				mes "该道具不可魔改";
+				next;
+				goto OnBegin;
+			}
+
+			// 判断是否存在已更新词缀
+			.@is_updated = (@sold_card1 >= .library_intensify_startid && @sold_card1 <= .library_intensify_endid && (@sold_card1 - .library_intensify_startid) % 2 == 1) ||
+					(@sold_card2 >= .library_intensify_startid && @sold_card2 <= .library_intensify_endid && (@sold_card2 - .library_intensify_startid) % 2 == 1) ||
+					(@sold_card3 >= .library_intensify_startid && @sold_card3 <= .library_intensify_endid && (@sold_card3 - .library_intensify_startid) % 2 == 1) ||
+					(@sold_card4 >= .library_intensify_startid && @sold_card4 <= .library_intensify_endid && (@sold_card4 - .library_intensify_startid) % 2 == 1);
+
+			// 设置可更新词缀
+			.@j = 0;
+			cleararray .@replace_array,0,getarraysize(.@replace_array);
+			for(.@i = 0; .@i < 4 - getitemslots(@itemID); .@i++) {
+				.@card_id = getd("@sold_card" + (.@i + 1));
+				if( .@card_id >= .library_intensify_startid && .@card_id <= .library_intensify_endid )  {
+					if ( !.@is_updated || (.@card_id - .library_intensify_startid) % 2 == 1 ) {
+						.@replace_array[.@j++] = .@card_id;
+					}
+				}
+			}
+
+			// 获取当前npc
+			getmapxy .@npc_map$,.@x,.@y,UNITTYPE_NPC,@shop_name$;
+
+			// 创建实例
+			if ( @library_intensify_shop_id == 0 && .@npc_map$ == "") {
+				// 创建副本
+				@library_intensify_shop_id = instance_create ("私人空间", IM_NONE);
+
+				// 隐藏npc
+				hideonnpc instance_npcname("Library_Intensify_ShopInstance", @library_intensify_shop_id);
+			}
+
+			// 获取商店名
+			@shop_name$ = instance_npcname("Library_Intensify_ShopInstance", @library_intensify_shop_id);
+
+			// 清空商店
+			npcshopitem @shop_name$,0,0;
+			cleararray @shop_index[0],0,getarraysize(@shop_index);
+			
+			// 向商店添加附魔物品
+			for ( .@i = 0; .@i < getarraysize(.@replace_array); .@i++ ) {
+				// 获得替换编号
+				.@replace_id = .@replace_array[.@i];
+
+				// 向商店添加新物品
+				npcshopadditem @shop_name$, .@replace_id, 0;
+				
+				// 记录商店选择索引
+				@shop_index[.@i] = .@replace_id;
+
+				// 记录玩家数据索引
+				@library_intensify_index[.@i] = .@replace_id;
+			}
+			
+			// 设置参数
+			@library_intensify_mode = 0;
+
+			// 设置提示
+			mes "选择一项需要魔改的词缀";
+			sleep2 1;
+
+			// npc gid
+			@npc_gid = getnpcid(0, @shop_name$ );
+			
+			// 获得玩家x,y
+			getmapxy .@mapl$, .@xl, .@yl, UNITTYPE_PC;
+
+			// 传送传送到当前地图
+			unitwarp @npc_gid, .@mapl$, .@xl, .@yl;
+
+			// 打开购买商店
+			callshop @shop_name$,1;
+			npcshopattach @shop_name$;
+		}
+
+		end;
+
+	OnInit:
+		.library_intensify_needitemid = 40008;
+		.library_intensify_startid = 40001;
+		.library_intensify_endid = 50160;
+		.library_intensify_rollnum = 3;
+		npcshopitem "Library_Intensify_Shop",0,0;
+
+		// 设置随机词缀库
+		freeloop(1);
+		
+		.@current_group_id = -1;
+		for ( .@i = .library_intensify_startid; .@i <= .library_intensify_endid; .@i = .@i + 2 ) {
+			.@item_id = .@i + 1;
+			.@item_loc = getiteminfo(.@item_id, 8);
+			.@item_group = getiteminfo(.@item_id, 7);
+			.@increase_group = .@current_group_id != .@item_group;
+
+			for ( .@x = 0; .@x <= 6; .@x++ ) {
+				.@pow = pow(2, .@x);
+				if( (.@item_loc & .@pow) == .@pow) {
+					.library_intensify_string$[.@x] = .library_intensify_string$[.@x] + (.@item_id + "|" + getiteminfo(.@item_id, 0) + "|");
+
+					if ( .@increase_group )
+						.library_intensify_group[.@x]++;		
+				}
+			}
+
+			.@current_group_id = .@item_group;
+		}
+
+		freeloop(0);
+
+		end;
+}
